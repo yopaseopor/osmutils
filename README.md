@@ -39,7 +39,7 @@ You can see it [here](https://yopaseopor.github.io/osmpoismap)
 
 ## English
 
-We started from OSMPoisMap: https://github.com/yopaseopor/osmpoismap
+We started from OSMPoisMap: [https://github.com/yopaseopor/osmpoismap](https://github.com/yopaseopor/osmpoismap)
 
 **Legend:**
 
@@ -219,12 +219,13 @@ Let's add Bulgarian (bg) next:
 
 Looking for a name, this is something else now.
 OSMUtils is born
+```
 
 ---
 
 ## Català
 
-Partim d'OSMPoisMap: https://github.com/yopaseopor/osmpoismap
+Partim d'OSMPoisMap: [https://github.com/yopaseopor/osmpoismap](https://github.com/yopaseopor/osmpoismap)
 
 **Llegenda:**
 
@@ -404,12 +405,13 @@ Afegim búlgar (bg) a continuació:
 
 Li busco nom, això ja és una altra cosa.
 Neix OSMUtils
+```
 
 ---
 
 ## Español
 
-Partimos de OSMPoisMap: https://github.com/yopaseopor/osmpoismap
+Partimos de OSMPoisMap: [https://github.com/yopaseopor/osmpoismap](https://github.com/yopaseopor/osmpoismap)
 
 **Leyenda:**
 
@@ -520,73 +522,5 @@ Cascada Base?
 - Con Copilot tiro de ChatGPT 4.1 , le pido que me duplique el código de Maptiler que ya funciona, pero que lo cambie a Shortbread. Parecería que lo hace bien pero lo coloca al principio, fuera de toda lógica y el mapa deja de funcionar.
 + Pillo ese fragmento de código generado, lo implemento yo en el config.js, y modifico el style colorful.json para que coincida con lo que yo he puesto. Funciona. A medias (se queda pillado lo que has elegido para las dos opciones hasta que se actualiza)
 + Replico el código de colorful y le pido que las motorway se vuelvan azules, 
-*+- Trabajo a mano , no me fío de vs code, refino lo mismo para túneles, puentes y links. Llego hasta tertiary pero después en Maputnik veo que es un auténtico desastre lleno de duplicados.
-+-Al final replico hasta donde puedo el código generado, controlando que aparezcan todos los elementos pero no consigo los iconos.
-+ Me concentro en manualmente poco a poco separando las marcas por archivos, traduciéndolos
--Me canso, dejo de traducirlos, así podré tenerlos agrupados
-+ Le pido a SWE de Windsurf que se dedique a pillarme todos los strings por traducir y que me genere un archivo traducible. Después le diré que además me lo traduzca a los idiomas posibles que el sistema sea capaz.
-+ Después de un par de dificultades lo consigue y le pido qué idiomas habla. Me sugiere estos:
-
-English (AI-IA) - base file
-Spanish (AI-IA) - already done
-French (AI-IA)
-German (AI-IA)
-Italian (AI-IA)
-Portuguese (AI-IA)
-Dutch (AI-IA)
-Russian (AI-IA)
-Chinese (AI-IA)
-Japanese (AI-IA)
-Korean (AI-IA)
-Arabic (AI-IA)
-Hindi (AI-IA)
-Catalan (AI-IA) - already done
-
-Comenzaré con francés (fr.js):
-
-+ Segunda oleada
-
-Nuevos archivos de idioma creados:
-
-Asturiano (ast.js)
-Aragonés (an.js)
-Euskera (eu.js)
-Gallego (gl.js)
-
-+ Polaco (pl), Ucraniano (uk) e Hindi (hi)
-
-+ Nuevos archivos de idioma añadidos:
-Sueco (sv.js)
-Noruego (no.js)
-Danés (da.js)
-Finlandés (fi.js)
-
-+ Bengalí (bn) - La 7ª lengua más hablada del mundo con más de 230 millones de hablantes
- Vietnamita (vi) - La 16ª lengua más hablada con unos 85 millones de hablantes
-
-2025/06/30
-
-Empecemos con rumano (ro):
-Añadamos checo (cs) a continuación:
-Añadamos húngaro (hu) a continuación:
-Añadamos griego (el) a continuación:
-Añadamos búlgaro (bg) a continuación:
-
-+ Y entonces lo consiguió: mostrar solo las traducciones
-- Desaparecieron de la lista los normals y se cambiaba de lugar
-+ Se mantiene el lugar correcto
-+ Se consigue mostrar solo traducciones y recuperar normales
-- A la que se cambia de idioma dejan de funcionar los overlays
-+ Se instaura un botón para cambiar de idioma
-- Solo actualiza la página con el idioma deseado, no reelige las opciones.
-
-* Cambiamos a Visual Studio Code para probar Qodo (Codium Linux). No va. Continuo con Copilot Chat GPT 4.1
-
-+ Consigue un spinner pequeñito en la barra de búsqueda. Me parece bien.
-+ Edita el spinner y lo convierte en grande y ocupa toda la web. Conseguido. No es idéntico al que hay pero así ve la chapucilla. Está bien.
-+ Me peleo en local y con un poco de su ayuda los botones para organizarlos en una línea alrededor solo, tanto en normal como en móvil
-- Intento que traduzca el ruteador (fail)
-
-Le busco nombre, esto ya es otra cosa.
-Nace OSMUtils
+*+- Trabajo a mano , no me fío de vs code, refino lo mismo para túneles, puentes y links. Llego hasta tertiary pero después en Maputnik veo que es un autèntic desastre ple
 
