@@ -35,13 +35,15 @@ You can see it [here](https://yopaseopor.github.io/osmpoismap)
 
 ---
 
-# OSMUtils Creation Process / Procés de creació d'OSMUtils
+# OSMUtils Creation Process / Procés de creació d'OSMUtils / Proceso de creación de OSMUtils
 
 ## English
 
 We started from OSMPoisMap: https://github.com/yopaseopor/osmpoismap
 
 **Legend:**
+
+```
 + Positive
 - Negative
 * Model change, observations...
@@ -225,6 +227,8 @@ OSMUtils is born
 Partim d'OSMPoisMap: https://github.com/yopaseopor/osmpoismap
 
 **Llegenda:**
+
+```
 + Positiu
 - Negatiu
 * Canvi de model, observacions...
@@ -400,4 +404,189 @@ Afegim búlgar (bg) a continuació:
 
 Li busco nom, això ja és una altra cosa.
 Neix OSMUtils
+
+---
+
+## Español
+
+Partimos de OSMPoisMap: https://github.com/yopaseopor/osmpoismap
+
+**Leyenda:**
+
+```
++ Positivo
+- Negativo
+* Cambio de modelo, observaciones...
+
++ Noche clara y tranquila, la luna da luz...
++ Leí algo sobre el vibe coding
++ Me bajé Cursor (Jueves 10)
++ Lo probé, le pedí un buscador nominatim (llevaba 10 días intentándolo) y me lo consiguió esa misma noche
++ Lo refiné, le pedí un visor de imágenes de Panoramax, me lo dio
++ Fui más allá, le pedí un ruteador, me lo dio
++ Visor de Mapillary bien integrado con API, me lo dio (cada vez dando más vueltas, pero cada vez llegando más lejos)
+- APIs, estilo discutible.
+
++ Cambio de código, nos ponemos serios. Se acaba la prueba de Cursor. Empiezo Windsurf.
++ Objetivo: parsear NSI (15.000 marcas) y meterlas en el mapa. Hace script (así lo podré hacer yo cuando me dé la gana)
++ Límites de API, información de cuántas procesa, cuántas le quedan, botón emergencia.
++ Buscador para esos overlays futuros mega config. Mola
++ Mismo comportamiento para layers
++ Opacidad para layers
++ Combinación para layers
++ Selector más de uno para layers
++ Ordenación para layers
++ Conversión script para parsear localmente y no tener que pedir API github NSI. Prueba con uno y continuar.
++ Uso de selector más de uno para overlays
++ Icono en buscador para overlays (varios scripts para calcular medidas iconos)
++ Versión para móviles
+
+- Página descuadrada
+- Intento de traducir (mal)
+- Intento de separar (mal)
+
+- Errores en el desarrollo, cada vez más lejos
+- Nunca repite el mismo código
+- Lo complica todo, imposible meterle mano a lo ya creado. Compartimentos estancos.
+- Falla como escopeta feria
+- Programar con un niño TEA (todo exacto, malentendidos y la culpa siempre es tuya)
+- Es de pago
+- No guarda una coherencia de estilo, primero lo hace de una manera, después de otra.
+- Los puntos de retorno en Cursor bien, en Windsurf no sirven para volver al principio del principio (así que si se estropea...se estropea)
+- Partes muy pequeñas, si lo desmontas todo y ya no va. Es como si le hubieras metido o cola de pintor o tornillos especiales al LEGO y después intentaras desmontarlo.
+- Toca lo que no debe, le pides interfaz móvil y toquetea toda la web.
+- No es constante, unas veces es brillante, otras deja mucho que desear, cosas sin lógica y nada matemáticas
+- Día perdido, te pierdes volviendo atrás.
+- Bloqueo liga
+- Te reconoce con toda la jeta que se ha dejado media faena por hacer, te lo razona, y ahora te promete que te lo arregla. Es igual de chungo que un humano porque tienes que buscar la manera de que llegue a la conclusión que se necesita para que haga lo que le has pedido.
+- Total desconfianza hacia lo que realiza (dos acciones juntas suelen traer consecuencias complicadas, pero hay veces que te plantea acciones que hasta el final no son útiles)
+- Revisar aspectos ya ganados para no perderlos (lo toquetea todo, cuando no es necesario ni debe)
+- Hay veces que se encasquilla en una idea, y no consigue su objetivo y remueve comentarios o cambia código pero sin resultados ni plan de trabajo lógicos para tener éxito.
+
++ Cuando me explica lo que hace y yo lo entiendo e incluso puedo adaptarlo (tamaño botones, posiciones absolutas, etc.) el resultado es clavado a lo que deseo.
+
+* Se acaba la prueba de ChatGPT con ChatGPT 4.1
+* Pasamos a Deepseek 0324
+
++ Conseguimos hacer una chapucilla con una segunda barra de desplazamiento para que no falte información
+- Intento de separar config entre Info, Layers y Overlays. Fallido. (no iba nada)
+Cascada Base?
+
++ Vuelvo a Cursor con otra cuenta y todos los modelos.
+- Selector de idioma. Elimina los iconos y cuesta recuperarlos.
+- Selector de idioma. Ahora con el ruteador falla.
+- Selector de idioma aparece en una esquina
++- Desaparece selector de idioma pero aparecen overlays externos y traducibles
++- No aparece selector de idioma pero se separan los overlays en diversos archivos.
++ Reaparece el selector de idioma arriba de todo ocupando un espacio más prominente, mejor
++ Un overlay de los separados funciona (sin traducir)
++ Se consigue que más o menos se vean los overlays externos y traducibles (aunque sin traducir), pero no funcionan.
+
+* Final de segunda prueba con Cursor
+*- Conexión de Cursor a local, no permite la edición de archivos.
+
+* Volvemos a Windsurf. con Chat GPT 4.1
+
+- No se acaba de aclarar en lo que le pido
++ Sus respuestas parecen muy verificables y funcionales
+- Sus resultados no acompañan sus respuestas. No prueba lo que dice internamente, hasta que lo enchufa dentro del código.
+- Windsurf necesita más refinamiento de entrada.
++ Se consigue que los externos salgan en el buscador de overlays
+- Las traducciones no se aplican. Da varias vueltas de campana destrozando el buscador.
++ Consigue aplicar las traducciones al buscador de overlays
+- No la consigue aplicar al selector clásico
+
+*+- Un mes más tarde (se reactivan las consultas premium, uso una mezcla de todos ellos (lo que me permite el programa) . Peleándome con Cursor se consigue que los subapartados salgan traducidos y sin traducir (se pierden los generales, pero el mapa es mucho más variado y de rebote se recuperan las URL para compartir en todos los idiomas disponibles)
+- No consigue quitar los duplicados, se cepilla el sistema multilenguaje
++ Intentamos implementación mapa vectorial.
+- Tras varios intentos se acaban créditos. Volvemos a Windsurf.
+
+- App deja de funcionar aunque respuesta parece correcta. Usamos modelo propio de ellos SWE-1
++ Vector tiles!! (pírricas, y con el estilo dentro del mismo config, no style.json pero funcionando)
++ Se consigue también extraer a archivo de configuración externo para los vector tiles. (js)
++- Después de dos días se consigue mostrar letras...tantas y desconfiguradas que el mapa no es usable...pero ya hay letras.
+- Divago con actualizar Openlayers a su última versión
+- Divago con intentar configurar un OpenFreeMap para Openlayers
++ Consigo tres layers diferentes de Vector, creo que uno realmente desde Style.json
+- No acaban de funcionar bien los zoom
+
+* Sigo ejecutando manualmente el parseamiento de marcas.
++- Gemini 2.5 a través de Windsurf consigue aplicar el estilo, pero sin texto y sin más allá de zoom 15
++ Gemini consigue que salga el texto desactualizando el mapbox de 0.9 a 0.6
+- Gemini se lía y borra la configuración en config y no va
++ Manualmente entiendo que los tile llegan sólo hasta 14 y sustituyo por la URL donde me llegan a 22. Funciona. 
+*- Cambiando de Windsurf a Visual Studio Code con Github Copilot y centrado en ChatGPT 4.1 . La intención sería usar ollama o lmstudio pero no lo acabo de conseguir.
+
+- Con Copilot tiro de ChatGPT 4.1 , le pido que me duplique el código de Maptiler que ya funciona, pero que lo cambie a Shortbread. Parecería que lo hace bien pero lo coloca al principio, fuera de toda lógica y el mapa deja de funcionar.
++ Pillo ese fragmento de código generado, lo implemento yo en el config.js, y modifico el style colorful.json para que coincida con lo que yo he puesto. Funciona. A medias (se queda pillado lo que has elegido para las dos opciones hasta que se actualiza)
++ Replico el código de colorful y le pido que las motorway se vuelvan azules, 
+*+- Trabajo a mano , no me fío de vs code, refino lo mismo para túneles, puentes y links. Llego hasta tertiary pero después en Maputnik veo que es un auténtico desastre lleno de duplicados.
++-Al final replico hasta donde puedo el código generado, controlando que aparezcan todos los elementos pero no consigo los iconos.
++ Me concentro en manualmente poco a poco separando las marcas por archivos, traduciéndolos
+-Me canso, dejo de traducirlos, así podré tenerlos agrupados
++ Le pido a SWE de Windsurf que se dedique a pillarme todos los strings por traducir y que me genere un archivo traducible. Después le diré que además me lo traduzca a los idiomas posibles que el sistema sea capaz.
++ Después de un par de dificultades lo consigue y le pido qué idiomas habla. Me sugiere estos:
+
+English (AI-IA) - base file
+Spanish (AI-IA) - already done
+French (AI-IA)
+German (AI-IA)
+Italian (AI-IA)
+Portuguese (AI-IA)
+Dutch (AI-IA)
+Russian (AI-IA)
+Chinese (AI-IA)
+Japanese (AI-IA)
+Korean (AI-IA)
+Arabic (AI-IA)
+Hindi (AI-IA)
+Catalan (AI-IA) - already done
+
+Comenzaré con francés (fr.js):
+
++ Segunda oleada
+
+Nuevos archivos de idioma creados:
+
+Asturiano (ast.js)
+Aragonés (an.js)
+Euskera (eu.js)
+Gallego (gl.js)
+
++ Polaco (pl), Ucraniano (uk) e Hindi (hi)
+
++ Nuevos archivos de idioma añadidos:
+Sueco (sv.js)
+Noruego (no.js)
+Danés (da.js)
+Finlandés (fi.js)
+
++ Bengalí (bn) - La 7ª lengua más hablada del mundo con más de 230 millones de hablantes
+ Vietnamita (vi) - La 16ª lengua más hablada con unos 85 millones de hablantes
+
+2025/06/30
+
+Empecemos con rumano (ro):
+Añadamos checo (cs) a continuación:
+Añadamos húngaro (hu) a continuación:
+Añadamos griego (el) a continuación:
+Añadamos búlgaro (bg) a continuación:
+
++ Y entonces lo consiguió: mostrar solo las traducciones
+- Desaparecieron de la lista los normals y se cambiaba de lugar
++ Se mantiene el lugar correcto
++ Se consigue mostrar solo traducciones y recuperar normales
+- A la que se cambia de idioma dejan de funcionar los overlays
++ Se instaura un botón para cambiar de idioma
+- Solo actualiza la página con el idioma deseado, no reelige las opciones.
+
+* Cambiamos a Visual Studio Code para probar Qodo (Codium Linux). No va. Continuo con Copilot Chat GPT 4.1
+
++ Consigue un spinner pequeñito en la barra de búsqueda. Me parece bien.
++ Edita el spinner y lo convierte en grande y ocupa toda la web. Conseguido. No es idéntico al que hay pero así ve la chapucilla. Está bien.
++ Me peleo en local y con un poco de su ayuda los botones para organizarlos en una línea alrededor solo, tanto en normal como en móvil
+- Intento que traduzca el ruteador (fail)
+
+Le busco nombre, esto ya es otra cosa.
+Nace OSMUtils
 
