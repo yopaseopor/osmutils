@@ -741,7 +741,23 @@ $(function () {
 		projection: 'EPSG:4326'
 	}));
 	map.addControl(new ol.control.ScaleLine({units: config.initialConfig.units}));
-	map.addControl(new ol.control.ZoomSlider());
+    // Overlay summary control (positioned next to scale bar)
+    var overlaySummaryDiv = $('<div>').addClass('ol-control ol-unselectable overlay-summary-control').css({
+        // Positioning handled by CSS
+    });
+    var overlaySummaryControl = new ol.control.Control({
+        element: overlaySummaryDiv[0]
+    });
+    map.addControl(overlaySummaryControl);
+    // Expose global setter
+    window.setOverlaySummary = function(text) {
+        if (text) {
+            overlaySummaryDiv.text(text).show();
+        } else {
+            overlaySummaryDiv.hide();
+        }
+    };
+    map.addControl(new ol.control.ZoomSlider());
 	
 
 
