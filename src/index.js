@@ -803,6 +803,7 @@ $(function () {
 				});
 				if (window.renderOverlayList) window.renderOverlayList([], '');
 				$('#overlay-search').val('');
+                    if (window.updateOverlaySummary) window.updateOverlaySummary();
 			})
 		);
 		return container[0];
