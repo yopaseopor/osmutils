@@ -1134,9 +1134,7 @@ window.addEventListener('overlaysFullyLoaded', function() {
 });
 $(function() { 
     setTimeout(updateOverlaySummary, 1000);
-    window.setOverlaySummary('Test summary: overlays loaded'); // DEBUG: force show summary
 });
-
 function linearColorInterpolation(colorFrom, colorTo, weight) {
 	var p = weight < 0 ? 0 : (weight > 1 ? 1 : weight),
 		w = p * 2 - 1,
