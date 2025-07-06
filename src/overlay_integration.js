@@ -38,7 +38,8 @@ function createOlLayer(overlay) {
                     });
                     console.log('Added ' + features.length + ' features for ' + overlay.title);
                     vectorSource.addFeatures(features);
-                    // Removed per-overlay summary update. Global summary logic in index.js will handle updates
+                    // Dispatch event to trigger global summary update
+                    window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
                 })
                 .catch(error => {
                     setOverlaySpinner(false);

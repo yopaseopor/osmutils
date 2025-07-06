@@ -1143,3 +1143,4 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		rgb = [Math.round(colorTo[0] * w1 + colorFrom[0] * w2), Math.round(colorTo[1] * w1 + colorFrom[1] * w2), Math.round(colorTo[2] * w1 + colorFrom[2] * w2)];
 	return rgb;
 }
+window.addEventListener('overlayFeaturesLoaded', updateOverlaySummary);
