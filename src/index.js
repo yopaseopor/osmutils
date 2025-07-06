@@ -1126,8 +1126,12 @@ function updateOverlaySummary() {
 
 // Trigger summary update on relevant events
 window.addEventListener('overlayToggled', updateOverlaySummary);
-window.addEventListener('overlaysReady', updateOverlaySummary);
-window.addEventListener('overlaysFullyLoaded', updateOverlaySummary);
+window.addEventListener('overlaysReady', function() {
+    setTimeout(updateOverlaySummary, 1500);
+});
+window.addEventListener('overlaysFullyLoaded', function() {
+    setTimeout(updateOverlaySummary, 1500);
+});
 $(function() { 
     setTimeout(updateOverlaySummary, 1000);
     window.setOverlaySummary('Test summary: overlays loaded'); // DEBUG: force show summary
