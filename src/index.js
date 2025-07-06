@@ -1099,6 +1099,37 @@ window.addEventListener('overlayToggled', function(e) {
     }
 });
 
+// New summary update function
+function updateOverlaySummary() {
+    var total = 0;
+    var overlaysActive = 0;
+    (window.config.layers || []).forEach(function(layerGroup) {
+        if (layerGroup.get && layerGroup.get('type') === 'overlay') {
+            layerGroup.getLayers().getArray().forEach(function(layer) {
+                if (layer.getVisible() && layer.getSource && typeof layer.getSource === 'function') {
+                    var source = layer.getSource();
+                    if (source && typeof source.getFeatures === 'function') {
+                        var count = source.getFeatures().length;
+                        if (count > 0) overlaysActive++;
+                        total += count;
+                    }
+                }
+            });
+        }
+    });
+    if (overlaysActive > 0) {
+        window.setOverlaySummary(overlaysActive + ' overlay' + (overlaysActive > 1 ? 's' : '') + ', ' + total + ' feature' + (total !== 1 ? 's' : ''));
+    } else {
+        window.setOverlaySummary('');
+    }
+}
+
+// Trigger summary update on relevant events
+window.addEventListener('overlayToggled', updateOverlaySummary);
+window.addEventListener('overlaysReady', updateOverlaySummary);
+window.addEventListener('overlaysFullyLoaded', updateOverlaySummary);
+$(function() { setTimeout(updateOverlaySummary, 1000); });
+
 function linearColorInterpolation(colorFrom, colorTo, weight) {
 	var p = weight < 0 ? 0 : (weight > 1 ? 1 : weight),
 		w = p * 2 - 1,
