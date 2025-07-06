@@ -38,6 +38,10 @@ function createOlLayer(overlay) {
                     });
                     console.log('Added ' + features.length + ' features for ' + overlay.title);
                     vectorSource.addFeatures(features);
+                    // Show summary message for this overlay
+                    if (window.setOverlaySummary) {
+                        window.setOverlaySummary('"' + overlay.title + '": ' + features.length + ' feature' + (features.length !== 1 ? 's' : ''));
+                    }
                 })
                 .catch(error => {
                     setOverlaySpinner(false);
