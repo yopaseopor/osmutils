@@ -3,5 +3,7 @@
 // export const allLayers = { myLayer };
 
 import { myCustomLayer } from './myCustomLayer.js';
+import { osmBrightLayer } from './osmBrightLayer.js';
+import { stamenTonerLayer } from './stamenTonerLayer.js';
 
-export const allLayers = { myCustomLayer };
+export const allLayers = { myCustomLayer, osmBrightLayer, stamenTonerLayer };
