@@ -219,6 +219,11 @@ Let's add Bulgarian (bg) next:
 
 Looking for a name, this is something else now.
 OSMUtils is born
+
+2025/07/07
+
++Added a summary of the active features you can see on the map.
+
 ```
 
 ---

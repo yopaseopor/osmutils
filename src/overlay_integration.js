@@ -2,6 +2,9 @@
 import { allOverlays } from './overlays/index.js';
 import { getCurrentLanguage } from './i18n/index.js';
 
+// Import external layers
+import { allLayers } from './layers/index.js';
+
 // Function to convert overlay to OpenLayers layer
 function createOlLayer(overlay) {
     // Spinner element
@@ -179,8 +182,33 @@ function integrateOverlays() {
     }
 }
 
+// Function to integrate external layers
+function integrateExternalLayers() {
+    if (!window.config || !window.config.layers) return;
+    // Flatten all layers from all external sources
+    const allExternalLayers = Object.values(allLayers)
+        .filter(Array.isArray)
+        .flat();
+    // Add each external layer if not already present (by title)
+    const existingTitles = new Set(window.config.layers.map(l => l.get && l.get('title')));
+    allExternalLayers.forEach(layer => {
+        if (layer && layer.get && !existingTitles.has(layer.get('title'))) {
+            window.config.layers.push(layer);
+        }
+    });
+}
+
+// Integrate overlays and external layers
+function integrateAll() {
+    integrateExternalLayers();
+    integrateOverlays();
+}
+
 // Make integrateOverlays available globally
 window.integrateOverlays = integrateOverlays;
+
+// Make integrateAll available globally
+window.integrateAll = integrateAll;
 
 // Initialize when the module loads
 console.log('Overlay integration module loaded');
@@ -188,12 +216,12 @@ console.log('Overlay integration module loaded');
 // Listen for config to be available
 if (window.config) {
     console.log('Config already available, integrating overlays...');
-    integrateOverlays();
+    integrateAll();
 } else {
     console.log('Waiting for config to be available...');
     window.addEventListener('configLoaded', () => {
         console.log('Config loaded, integrating overlays...');
-        integrateOverlays();
+        integrateAll();
     });
 }
 
