@@ -30,7 +30,7 @@ export const myCustomLayer = [
             params: {
                 'LAYERS': 'ortofoto_color_provisional',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
+                'FORMAT': 'image/jpeg',
                 'TRANSPARENT': false'
             },
             serverType: 'mapserver'
