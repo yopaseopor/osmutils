@@ -74,7 +74,7 @@ window.toggleExternalLayer = function(layerTitle, visible) {
  * Render the external layers UI
  */
 window.renderExternalLayerList = function() {
-    const container = document.getElementById('external-layers-container');
+    const container = document.getElementById('layers-content');
     if (!container) return;
     
     const { groups } = getAllExternalLayers();
@@ -94,7 +94,7 @@ window.renderExternalLayerList = function() {
                                    name="${groupName}" 
                                    value="${layer.title}"
                                    ${layer.visible ? 'checked' : ''}
-                                   onchange="window.toggleExternalLayer('${layer.title}', this.checked)">
+                                   onchange="window.toggleExternalLayer('${layer.title.replace(/'/g, "\\'")}', this.checked)">
                             ${layer.title}
                         </label>
                     `).join('')}
@@ -108,30 +108,66 @@ window.renderExternalLayerList = function() {
 };
 
 export function integrateExternalLayers() {
-    const { groups, layers } = getAllExternalLayers();
-    
-    // Make available globally
-    window.externalLayerGroups = groups;
-    window.externalLayers = layers;
-    
-    // Add layers to the map
-    Object.values(layers).forEach(layerInfo => {
-        if (!window.map.getLayers().getArray().includes(layerInfo._olLayer)) {
-            window.map.addLayer(layerInfo._olLayer);
+    // Wait for the map to be available
+    const checkMap = setInterval(() => {
+        if (window.map) {
+            clearInterval(checkMap);
+            
+            const { groups, layers } = getAllExternalLayers();
+            
+            // Make available globally
+            window.externalLayerGroups = groups;
+            window.externalLayers = layers;
+            
+            // Add layers to the map
+            Object.values(layers).forEach(layerInfo => {
+                if (layerInfo._olLayer && !window.map.getLayers().getArray().includes(layerInfo._olLayer)) {
+                    window.map.addLayer(layerInfo._olLayer);
+                    layerInfo._olLayer.setVisible(false); // Start with all layers hidden
+                }
+            });
+            
+            // Make sure at least one layer is visible
+            if (layers.length > 0 && !layers.some(l => l.visible)) {
+                const firstLayer = layers[0];
+                if (firstLayer && firstLayer._olLayer) {
+                    firstLayer._olLayer.setVisible(true);
+                    firstLayer.visible = true;
+                }
+            }
+            
+            // Render the UI
+            if (window.renderExternalLayerList) {
+                window.renderExternalLayerList();
+            }
+            
+            // Setup layer switcher
+            if (window.ol && window.ol.control && window.ol.control.LayerSwitcher) {
+                window.setupLayerSwitcher(window.map);
+            }
+            
+            // Dispatch event for other components
+            window.dispatchEvent(new CustomEvent('externalLayersReady', {
+                detail: { groups, layers }
+            }));
+            
+            console.log('External layers integrated:', groups);
         }
-    });
-    
-    // Render the UI
-    if (window.renderExternalLayerList) {
-        window.renderExternalLayerList();
+    }, 100);
+}
+
+// Toggle layers panel visibility
+function toggleLayersPanel() {
+    const panel = document.getElementById('external-layers-container');
+    if (panel.style.display === 'none' || !panel.style.display) {
+        panel.style.display = 'block';
+        // Re-render layers when panel is opened
+        if (window.renderExternalLayerList) {
+            window.renderExternalLayerList();
+        }
+    } else {
+        panel.style.display = 'none';
     }
-    
-    // Dispatch event for other components
-    window.dispatchEvent(new CustomEvent('externalLayersReady', {
-        detail: { groups, layers }
-    }));
-    
-    console.log('External layers integrated:', groups);
 }
 
 // Initialize the layer switcher
@@ -159,6 +195,12 @@ window.setupLayerSwitcher = function(map) {
     const panel = document.querySelector('.ol-control.layer-switcher');
     if (panel) {
         panel.classList.add('custom-layer-switcher');
+    }
+    
+    // Add click handler for the toggle button
+    const toggleBtn = document.getElementById('toggle-layers');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', toggleLayersPanel);
     }
 };
 
