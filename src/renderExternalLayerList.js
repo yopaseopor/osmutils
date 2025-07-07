@@ -1,4 +1,4 @@
-// Renders collapsible groups for external layers with checkboxes to toggle visibility
+// Renders external layers grouped by file, with group title at the top and all layer options listed below (not collapsible)
 window.renderExternalLayerList = function(externalLayerGroups) {
     const container = document.getElementById('external-layer-list');
     if (!container) {
@@ -7,14 +7,12 @@ window.renderExternalLayerList = function(externalLayerGroups) {
     }
     container.innerHTML = '';
     Object.entries(externalLayerGroups).forEach(([groupTitle, layers]) => {
-        // Create collapsible group
-        const details = document.createElement('details');
-        details.className = 'layer-group';
-        details.open = true; // Start expanded, can be set to false if you want collapsed by default
-        const summary = document.createElement('summary');
-        summary.textContent = groupTitle;
-        details.appendChild(summary);
-        // List all layers in this group
+        // Group title at the top
+        const groupHeader = document.createElement('div');
+        groupHeader.className = 'layer-group-title';
+        groupHeader.textContent = groupTitle;
+        container.appendChild(groupHeader);
+        // List all layers in this group (not collapsible)
         const optionsDiv = document.createElement('div');
         optionsDiv.className = 'layer-options';
         layers.forEach(layerObj => {
@@ -32,7 +30,6 @@ window.renderExternalLayerList = function(externalLayerGroups) {
             div.appendChild(label);
             optionsDiv.appendChild(div);
         });
-        details.appendChild(optionsDiv);
-        container.appendChild(details);
+        container.appendChild(optionsDiv);
     });
 };
