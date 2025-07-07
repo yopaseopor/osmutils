@@ -196,6 +196,8 @@ function integrateExternalLayers() {
             window.config.layers.push(layer);
         }
     });
+    // Debug: Log all layer titles after integration
+    console.log('All layers after external integration:', window.config.layers.map(l => l.get && l.get('title')));
 }
 
 // Integrate overlays and external layers
