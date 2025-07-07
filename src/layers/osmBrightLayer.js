@@ -28,8 +28,8 @@ export const osmBrightLayer = [
             params: {
                 'LAYERS': 'ortofoto_color_provisional',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
