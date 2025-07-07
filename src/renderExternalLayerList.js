@@ -14,6 +14,8 @@ window.renderExternalLayerList = function(externalLayerGroups) {
         summary.textContent = groupTitle;
         details.appendChild(summary);
         // List all layers in this group
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'layer-options';
         layers.forEach(layerObj => {
             const div = document.createElement('div');
             div.className = 'layer-option';
@@ -27,8 +29,9 @@ window.renderExternalLayerList = function(externalLayerGroups) {
             label.textContent = layerObj.title || '(untitled)';
             div.appendChild(checkbox);
             div.appendChild(label);
-            details.appendChild(div);
+            optionsDiv.appendChild(div);
         });
+        details.appendChild(optionsDiv);
         container.appendChild(details);
     });
 };
