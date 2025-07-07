@@ -21,10 +21,18 @@ export const osmBrightLayer = [
     })(),
     // OSM Bright (XYZ)
     new ol.layer.Tile({
-        title: 'OSM Bright',
-        visible: false,
-        source: new ol.source.OSM({
-            url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-        })
+        title: 'ICGC - Ortofoto de Catalunya Provisional',
+        source: new ol.source.TileWMS({
+            attributions: 'Institut Cartogràfic i Geològic de Catalunya',
+            url: 'http://geoserveis.icgc.cat/servei/catalunya/orto-territorial/wms',
+            params: {
+                'LAYERS': 'ortofoto_color_provisional',
+                'VERSION': '1.3.0',
+                'FORMAT': 'image/jpeg','
+                'TRANSPARENT': false'
+            },
+            serverType: 'mapserver'
+        }),
+        visible: false
     })
 ];
