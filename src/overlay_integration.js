@@ -182,21 +182,28 @@ function integrateOverlays() {
     }
 }
 
-// Function to integrate external layers
+// Function to integrate external layers grouped by file
 function integrateExternalLayers() {
     if (!window.config || !window.config.layers) return;
-    // Flatten all layers from all external sources
-    const allExternalLayers = Object.values(allLayers)
-        .filter(Array.isArray)
-        .flat();
-    // Add each external layer (allow duplicates for now)
-    allExternalLayers.forEach(layer => {
-        if (layer && layer.get) {
-            window.config.layers.push(layer);
-        }
+    // Group layers by their source file (key in allLayers)
+    const groupedLayers = Object.entries(allLayers)
+        .filter(([key, value]) => Array.isArray(value))
+        .map(([key, layers]) => ({ key, layers }));
+
+    // For each group, create an OpenLayers Group layer with a title
+    groupedLayers.forEach(({ key, layers }) => {
+        // Use the filename (key) as the group title, or customize as needed
+        const groupTitle = key;
+        const group = new ol.layer.Group({
+            title: groupTitle,
+            type: 'base', // or 'external', as appropriate
+            layers: new ol.Collection(layers),
+            visible: false
+        });
+        window.config.layers.push(group);
     });
-    // Debug: Log all layer titles after integration
-    console.log('All layers after external integration:', window.config.layers.map(l => l.get && l.get('title')));
+    // Debug: Log all group titles after integration
+    console.log('All external layer groups after integration:', groupedLayers.map(g => g.key));
 }
 
 // Integrate overlays and external layers
