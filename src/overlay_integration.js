@@ -5,6 +5,9 @@ import { getCurrentLanguage } from './i18n/index.js';
 // Import external layers
 import { allLayers } from './layers/index.js';
 
+// Import external layer integration logic
+import { integrateExternalLayers } from './layer_integration.js';
+
 // Function to convert overlay to OpenLayers layer
 function createOlLayer(overlay) {
     // Spinner element
@@ -182,22 +185,6 @@ function integrateOverlays() {
     }
 }
 
-// Function to integrate external layers
-function integrateExternalLayers() {
-    if (!window.config || !window.config.layers) return;
-    // Flatten all layers from all external sources
-    const allExternalLayers = Object.values(allLayers)
-        .filter(Array.isArray)
-        .flat();
-    // Add each external layer (allow duplicates for now)
-    allExternalLayers.forEach(layer => {
-        if (layer && layer.get) {
-            window.config.layers.push(layer);
-        }
-    });
-    // Debug: Log all layer titles after integration
-    console.log('All layers after external integration:', window.config.layers.map(l => l.get && l.get('title')));
-}
 
 // Integrate overlays and external layers
 function integrateAll() {
