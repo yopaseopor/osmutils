@@ -1,4 +1,4 @@
-// Renders collapsible groups for external layers in a container with id 'external-layer-list'
+// Renders collapsible groups for external layers with checkboxes to toggle visibility
 window.renderExternalLayerList = function(externalLayerGroups) {
     const container = document.getElementById('external-layer-list');
     if (!container) {
@@ -17,8 +17,16 @@ window.renderExternalLayerList = function(externalLayerGroups) {
         layers.forEach(layerObj => {
             const div = document.createElement('div');
             div.className = 'layer-option';
-            div.textContent = layerObj.title || '(untitled)';
-            // Optionally, add a checkbox or button to select/activate the layer
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = layerObj._olLayer.getVisible();
+            checkbox.addEventListener('change', function() {
+                layerObj._olLayer.setVisible(this.checked);
+            });
+            const label = document.createElement('label');
+            label.textContent = layerObj.title || '(untitled)';
+            div.appendChild(checkbox);
+            div.appendChild(label);
             details.appendChild(div);
         });
         container.appendChild(details);
