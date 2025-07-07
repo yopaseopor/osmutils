@@ -4,6 +4,7 @@ export const osmBrightLayer = [
     (function() {
         const colorfulLayer = new ol.layer.VectorTile({
             title: 'Versatiles colorful',
+            type: 'base',
             visible: true,
             opacity: 1.0,
             source: new ol.source.VectorTile({
@@ -22,6 +23,7 @@ export const osmBrightLayer = [
     // OSM Bright (XYZ)
     new ol.layer.Tile({
         title: 'OSM Bright',
+        type: 'base',
         visible: false,
         source: new ol.source.OSM({
             url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'

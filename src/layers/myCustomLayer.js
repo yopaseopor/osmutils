@@ -3,6 +3,7 @@ export const myCustomLayer = [
     // MapTiler Openmaptiles
     new ol.layer.VectorTile({
         title: 'MapTiler Openmaptiles',
+        type: 'base',
         visible: false,
         opacity: 1.0,
         source: new ol.source.VectorTile({
@@ -25,6 +26,7 @@ export const myCustomLayer = [
     // OSM Tile layer
     new ol.layer.Tile({
         title: 'Custom OSM Layer',
+        type: 'base',
         visible: false,
         source: new ol.source.OSM(),
     })
