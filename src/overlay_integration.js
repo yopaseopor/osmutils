@@ -192,6 +192,7 @@ function integrateExternalLayers() {
 
     // For each group, create an OpenLayers Group layer with a title
     const externalLayerGroups = {};
+    let externalLayersFlat = [];
     groupedLayers.forEach(({ key, layers }) => {
         // Use the filename (key) as the group title, or customize as needed
         const groupTitle = key;
@@ -202,21 +203,31 @@ function integrateExternalLayers() {
             visible: false
         });
         window.config.layers.push(group);
-        // Store for UI: array of { title, _olLayer, ... }
+        // Store for UI: array of { title, _olLayer, group }
         externalLayerGroups[groupTitle] = layers.map(layer => ({
             title: layer.get && layer.get('title'),
-            _olLayer: layer
+            _olLayer: layer,
+            group: groupTitle
         }));
+        // Add to flat array for UI
+        externalLayersFlat = externalLayersFlat.concat(
+            layers.map(layer => ({
+                title: layer.get && layer.get('title'),
+                _olLayer: layer,
+                group: groupTitle
+            }))
+        );
     });
     // Make available globally for UI
     window.externalLayerGroups = externalLayerGroups;
+    window.externalLayers = externalLayersFlat;
     // Dispatch event for UI update
     window.dispatchEvent(new CustomEvent('externalLayersReady', {
-        detail: { groups: externalLayerGroups }
+        detail: { groups: externalLayerGroups, layers: externalLayersFlat }
     }));
     // Optionally trigger UI update if function exists
     if (window.renderExternalLayerList) {
-        window.renderExternalLayerList(externalLayerGroups);
+        window.renderExternalLayerList(externalLayerGroups, externalLayersFlat);
     }
     // Debug: Log all group titles after integration
     console.log('All external layer groups after integration:', groupedLayers.map(g => g.key));
