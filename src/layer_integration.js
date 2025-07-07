@@ -51,3 +51,32 @@ export function integrateExternalLayers() {
     // Debug: Log all group titles after integration
     console.log('All external layer groups after integration:', groupedLayers.map(g => g.key));
 }
+
+// Add this after your map is created to enable ol-layerswitcher with nested group support
+window.setupLayerSwitcher = function(map) {
+    if (!window.ol || !window.ol.control || !window.ol.control.LayerSwitcher) {
+        console.warn('ol-layerswitcher is not loaded. Please include the CDN in your HTML.');
+        return;
+    }
+    const layerSwitcher = new window.ol.control.LayerSwitcher({
+        activationMode: 'click',
+        startActive: true,
+        tipLabel: 'Layers',
+        groupSelectStyle: 'children' // Show all child layers as selectable
+    });
+    map.addControl(layerSwitcher);
+};
+
+// Automatically setup LayerSwitcher after map is created if ol-layerswitcher is available
+(function() {
+    // Wait for the map to be available on window (assume window.map is your map variable)
+    function trySetupLayerSwitcher() {
+        if (window.map && window.ol && window.ol.control && window.ol.control.LayerSwitcher) {
+            window.setupLayerSwitcher(window.map);
+        } else if (!window.map) {
+            // Try again in 500ms if map is not ready
+            setTimeout(trySetupLayerSwitcher, 500);
+        }
+    }
+    trySetupLayerSwitcher();
+})();
