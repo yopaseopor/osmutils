@@ -226,6 +226,12 @@ OSMUtils is born
 +Try to make the layers external in separated files, to target the OSM LABS LAYER INDEX
 +-It shows external layers by individual, but not the title
 +-It shows the title of the group of layers but not the layers itself although they are active.
+*Github Copilot end of credits. Return to Windsurf and SWE
+
+2025/07/08
+
+
+
 
 ```
 

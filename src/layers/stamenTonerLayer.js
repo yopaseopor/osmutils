@@ -3,7 +3,6 @@ export const stamenTonerLayer = [
     // Stamen Toner
     new ol.layer.Tile({
         title: 'Stamen Toner',
-        type: 'base',
         visible: false,
         source: new ol.source.XYZ({
             url: 'https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
@@ -14,7 +13,6 @@ export const stamenTonerLayer = [
     (function() {
         const neutrinoLayer = new ol.layer.VectorTile({
             title: 'OSM Shortbread Neutrino',
-            type: 'base',
             visible: false,
             opacity: 1.0,
             source: new ol.source.VectorTile({
