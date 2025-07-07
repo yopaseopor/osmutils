@@ -597,6 +597,11 @@ $(function () {
 		view: view
 	});
 
+	// Dispatch mapInitialized event
+	window.dispatchEvent(new CustomEvent('mapInitialized', {
+		detail: { map: map }
+	}));
+
 	// Initialize Nominatim search
 	initNominatimSearch(map);
 

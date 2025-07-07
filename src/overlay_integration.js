@@ -2,8 +2,8 @@
 import { allOverlays } from './overlays/index.js';
 import { getCurrentLanguage } from './i18n/index.js';
 
-// Import external layers
-import { allLayers } from './layers/index.js';
+// Global variable to store the map instance
+let map;
 
 // Function to convert overlay to OpenLayers layer
 function createOlLayer(overlay) {
@@ -94,7 +94,10 @@ function createOverlayGroup(title, layers) {
 
 // Function to integrate overlays
 function integrateOverlays() {
-    if (!window.config || !window.config.layers) return;
+    if (!window.config || !window.config.layers || !map) {
+        console.warn('Map not ready for overlays integration');
+        return;
+    }
     
     console.log('Integrating overlays...');
     
@@ -182,28 +185,16 @@ function integrateOverlays() {
     }
 }
 
-// Function to integrate external layers
-function integrateExternalLayers() {
-    if (!window.config || !window.config.layers) return;
-    // Flatten all layers from all external sources
-    const allExternalLayers = Object.values(allLayers)
-        .filter(Array.isArray)
-        .flat();
-    // Add each external layer (allow duplicates for now)
-    allExternalLayers.forEach(layer => {
-        if (layer && layer.get) {
-            window.config.layers.push(layer);
-        }
-    });
-    // Debug: Log all layer titles after integration
-    console.log('All layers after external integration:', window.config.layers.map(l => l.get && l.get('title')));
-}
-
-// Integrate overlays and external layers
+// Integrate overlays
 function integrateAll() {
-    integrateExternalLayers();
     integrateOverlays();
 }
+
+// Listen for map initialization
+window.addEventListener('mapInitialized', function(e) {
+    map = e.detail.map;
+    integrateOverlays();
+});
 
 // Make integrateOverlays available globally
 window.integrateOverlays = integrateOverlays;

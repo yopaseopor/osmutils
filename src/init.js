@@ -1,7 +1,8 @@
 import { setLanguage, getCurrentLanguage } from './i18n/index.js';
 import config from './config.js';
 import { overlayConfig } from './config_overlay.js';
-import './overlay_integration.js';
+import { integrateExternalLayers } from './layer_integration.js';
+import { integrateOverlays } from './overlay_integration.js';
 
 // Initialize configuration
 window.config = config;
@@ -23,5 +24,6 @@ window.dispatchEvent(new CustomEvent('overlaySearchUpdate', {
 
 // Initialize map when document is ready
 $(document).ready(function() {
-    // Map initialization will be handled by index.js
+    // The mapInitialized event is handled by the respective integration modules
+    // which will initialize layers and overlays in the correct order
 }); 
