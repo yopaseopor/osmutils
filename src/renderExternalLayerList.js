@@ -10,6 +10,7 @@ window.renderExternalLayerList = function(externalLayerGroups) {
         // Create collapsible group
         const details = document.createElement('details');
         details.className = 'layer-group';
+        details.open = true; // Start expanded, can be set to false if you want collapsed by default
         const summary = document.createElement('summary');
         summary.textContent = groupTitle;
         details.appendChild(summary);
