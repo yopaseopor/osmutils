@@ -189,10 +189,9 @@ function integrateExternalLayers() {
     const allExternalLayers = Object.values(allLayers)
         .filter(Array.isArray)
         .flat();
-    // Add each external layer if not already present (by title)
-    const existingTitles = new Set(window.config.layers.map(l => l.get && l.get('title')));
+    // Add each external layer (allow duplicates for now)
     allExternalLayers.forEach(layer => {
-        if (layer && layer.get && !existingTitles.has(layer.get('title'))) {
+        if (layer && layer.get) {
             window.config.layers.push(layer);
         }
     });
