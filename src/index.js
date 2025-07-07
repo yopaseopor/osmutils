@@ -7,15 +7,28 @@ $(function () {
     // 1. Flatten base layers into window.layers
     window.layers = [];
     if (config && Array.isArray(config.layers)) {
-        window.layers = config.layers.filter(function(layerGroup) {
-            return layerGroup.get && layerGroup.get('type') !== 'overlay';
-        }).map(function(layerGroup) {
-            return {
-                title: layerGroup.get('title') || '',
-                group: layerGroup.get('group') || '',
-                id: layerGroup.get('id') || '',
-                _olLayerGroup: layerGroup
-            };
+        config.layers.forEach(function(layerOrGroup) {
+            if (layerOrGroup instanceof ol.layer.Group) {
+                // If it's a group, add all sublayers
+                layerOrGroup.getLayers().forEach(function(subLayer) {
+                    if (subLayer.get && subLayer.get('type') !== 'overlay') {
+                        window.layers.push({
+                            title: subLayer.get('title') || '',
+                            group: layerOrGroup.get('title') || '',
+                            id: subLayer.get('id') || '',
+                            _olLayerGroup: subLayer
+                        });
+                    }
+                });
+            } else if (layerOrGroup.get && layerOrGroup.get('type') !== 'overlay') {
+                // If it's a single layer, add directly
+                window.layers.push({
+                    title: layerOrGroup.get('title') || '',
+                    group: layerOrGroup.get('group') || '',
+                    id: layerOrGroup.get('id') || '',
+                    _olLayerGroup: layerOrGroup
+                });
+            }
         });
     }
     // 2. Define window.renderLayerList
