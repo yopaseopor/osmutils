@@ -42,52 +42,10 @@ a:hover {
 	height: 100%;
 }
 
-.map {
-    border: 1px solid;
-    height: 80%;
-    width: 100%;
-}
-
-/* Layer list styles */
-.layer-list-item {
-    padding: 8px 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-}
-
-.layer-list-item:hover {
-    background-color: #f5f5f5;
-}
-
-.layer-list-item.active {
-    background-color: #e3f2fd;
-}
-
-.layer-checkbox {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.layer-label {
-    flex-grow: 1;
-}
-
-.layer-group {
-    margin-bottom: 15px;
-}
-
-.layer-group-title {
-    font-weight: bold;
-    padding: 8px 10px;
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-}
-
-.layer-group-contents {
-    padding-left: 15px;
+.map{
+	border: 1px solid;
+	height: 80%;
+	width: 100%;
 }
 
 .menu {
@@ -944,6 +902,130 @@ CLEAR ACTIVE OVERLAY BUTTON
     color: rgba(0,60,136,.7);
     text-decoration: none;
     margin-left: 5px;
+}
+
+/* External Layers Control */
+#external-layers-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+    max-width: 300px;
+    font-size: 13px;
+}
+
+.external-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.layer-group {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.layer-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.layer-group h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.layer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.layer-option {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.layer-option:hover {
+    background-color: #f0f0f0;
+}
+
+.layer-option input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Layer switcher customization */
+.custom-layer-switcher {
+    top: 10px;
+    left: 10px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.custom-layer-switcher .panel {
+    background: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: none;
+    margin: 0;
+    padding: 8px;
+}
+
+.custom-layer-switcher .panel > li {
+    padding: 4px 0;
+}
+
+.custom-layer-switcher .group {
+    margin-bottom: 10px;
+}
+
+.custom-layer-switcher .group > label {
+    font-weight: bold;
+    color: #333;
+    padding: 4px 0;
+    display: block;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 4px;
+}
+
+.custom-layer-switcher input[type="radio"] {
+    margin-right: 6px;
+}
+
+/* Toggle button for the layer control */
+#toggle-layers {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+#toggle-layers:hover {
+    background: #f5f5f5;
 }
 
 .mapillary-viewer .credits a:hover {

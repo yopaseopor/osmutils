@@ -46,73 +46,28 @@ $(function () {
             }
             return;
         }
-
-        // Group layers by their group name
-        var groupedLayers = {};
-        filtered.forEach(function(layer) {
-            var groupName = layer.group || 'Other';
-            if (!groupedLayers[groupName]) {
-                groupedLayers[groupName] = [];
+        var activeLayer = null;
+        $.each(config.layers, function(indexLayer, layerGroup) {
+            if (layerGroup.get && layerGroup.get('type') !== 'overlay' && layerGroup.getVisible && layerGroup.getVisible()) {
+                activeLayer = layerGroup;
             }
-            groupedLayers[groupName].push(layer);
         });
+        filtered.forEach(function(layer, idx) {
+            var isActive = activeLayer && ((layer.id && activeLayer.get('id') === layer.id) || (activeLayer.get('title') === layer.title && activeLayer.get('group') === layer.group));
+            var $item = $('<div>').addClass('layer-list-item').text((layer.group ? layer.group + ': ' : '') + layer.title);
+            if (isActive) $item.addClass('active').attr('tabindex', 0);
+            $item.css({cursor:'pointer'}).on('click', function() {
+                window.activateLayer(layer);
 
-        // Render each group
-        Object.keys(groupedLayers).forEach(function(groupName) {
-            var $group = $('<div>').addClass('layer-group');
-            var $groupTitle = $('<div>').addClass('layer-group-title').text(groupName);
-            var $groupContents = $('<div>').addClass('layer-group-contents');
-            
-            // Toggle group contents on title click
-            $groupTitle.on('click', function() {
-                $groupContents.slideToggle();
+                
             });
-
-            // Add all layers in this group
-            groupedLayers[groupName].forEach(function(layer) {
-                var isVisible = layer._olLayerGroup.getVisible();
-                var layerTitle = layer.title || '';
-                
-                var $item = $('<div>').addClass('layer-list-item');
-                var $checkbox = $('<input>').attr({
-                    type: 'checkbox',
-                    class: 'layer-checkbox',
-                    checked: isVisible
-                });
-                
-                var $label = $('<span>').addClass('layer-label').text(layerTitle);
-                
-                $item.append($checkbox, $label);
-                
-                // Toggle layer visibility on checkbox change
-                $checkbox.on('change', function() {
-                    var isChecked = $(this).is(':checked');
-                    layer._olLayerGroup.setVisible(isChecked);
-                    
-                    // If this layer is being turned on, turn off other layers in the same group
-                    if (isChecked) {
-                        groupedLayers[groupName].forEach(function(otherLayer) {
-                            if (otherLayer !== layer && otherLayer._olLayerGroup) {
-                                otherLayer._olLayerGroup.setVisible(false);
-                            }
-                        });
-                        // Update checkboxes
-                        $groupContents.find('.layer-checkbox').not(this).prop('checked', false);
-                    }
-                });
-                
-                // Toggle layer on item click (for better touch support)
-                $item.on('click', function(e) {
-                    if (e.target !== $checkbox[0]) {
-                        $checkbox.prop('checked', !$checkbox.prop('checked')).trigger('change');
-                    }
-                });
-                
-                $groupContents.append($item);
-            });
-            
-            $group.append($groupTitle, $groupContents);
-            $list.append($group);
+            $list.append($item);
+            if (isActive) {
+                setTimeout(function(){
+                    $item[0].scrollIntoView({block:'nearest'});
+                    $item.focus();
+                }, 10);
+            }
         });
     };
 

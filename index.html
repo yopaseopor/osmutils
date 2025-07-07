@@ -25,6 +25,13 @@
 	<div class="flex-row">
 	<!--@@ Modificar comentario de Javascript -->
 		<div id="map" class="map">Loading... You need Javascript...Cargando necesitas Javascript...Carregant...necessites Javascript</div>
+        <!-- External Layers Control -->
+        <div id="external-layers-container" style="display: none;">
+            <button id="toggle-layers" onclick="document.getElementById('external-layers-container').style.display='none'">
+                <i class="fa fa-times"></i> Close Layers
+            </button>
+            <div id="layers-content"></div>
+        </div>
 		<div id="menu" class="menu">
 			<!-- Language Selector -->
 			<div id="language-selector-container" class="language-selector-wrapper"></div>
