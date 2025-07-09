@@ -9,39 +9,43 @@
 
     function renderDropdown(results) {
         dropdown.innerHTML = '';
-        // Check for active base layer
-        var hasActiveLayer = false;
-        var activeLayer = null;
+        // Get all active layers
+        const activeLayers = [];
         $.each(window.layers, function(indexLayer, layerObj) {
-            if (layerObj._olLayerGroup && layerObj._olLayerGroup.getVisible && layerObj._olLayerGroup.getVisible()) {
-                hasActiveLayer = true;
-                activeLayer = layerObj;
-            } else if (layerObj.getVisible && layerObj.getVisible()) {
-                hasActiveLayer = true;
-                activeLayer = layerObj;
+            const isVisible = (layerObj._olLayerGroup && layerObj._olLayerGroup.getVisible && layerObj._olLayerGroup.getVisible()) ||
+                            (layerObj.getVisible && layerObj.getVisible());
+            if (isVisible) {
+                activeLayers.push(layerObj);
             }
         });
-        // Add a 'Clear Active Layer' button if a layer is active
-        if (hasActiveLayer) {
-            var clearBtn = document.createElement('div');
-            clearBtn.textContent = '✖ Clear Active Layer';
+
+        // Add a 'Clear Active Layers' button if any layers are active
+        if (activeLayers.length > 0) {
+            const clearBtn = document.createElement('div');
+            clearBtn.textContent = `✖ Clear All Active Layers (${activeLayers.length})`;
             clearBtn.style.cursor = 'pointer';
             clearBtn.style.padding = '6px 10px';
             clearBtn.style.background = '#ffeaea';
             clearBtn.style.color = '#b00';
             clearBtn.style.fontWeight = 'bold';
+            clearBtn.style.marginBottom = '5px';
             clearBtn.id = 'clear-active-layer-btn';
             clearBtn.tabIndex = 0;
             clearBtn.addEventListener('mousedown', function(e) {
                 e.preventDefault();
-                if (activeLayer && activeLayer._olLayerGroup && activeLayer._olLayerGroup.setVisible) {
-                    activeLayer._olLayerGroup.setVisible(false);
-                } else if (activeLayer && activeLayer.setVisible) {
-                    activeLayer.setVisible(false);
-                }
-                if (window.renderLayerList) window.renderLayerList([], '');
-                dropdown.style.display = 'none';
-                searchInput.value = '';
+                e.stopPropagation();
+                // Hide all active layers
+                activeLayers.forEach(layer => {
+                    if (layer._olLayerGroup && layer._olLayerGroup.setVisible) {
+                        layer._olLayerGroup.setVisible(false);
+                    } else if (layer.setVisible) {
+                        layer.setVisible(false);
+                    }
+                });
+                if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
+                renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
+                    (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
+                searchInput.focus();
             });
             dropdown.appendChild(clearBtn);
         }
@@ -82,12 +86,16 @@
             activateBtn.style.marginLeft = '10px';
             activateBtn.style.cursor = 'pointer';
             
-            // Set initial active state
+            // Set initial active state with better visual feedback
             const isActive = (layer._olLayerGroup && layer._olLayerGroup.getVisible && layer._olLayerGroup.getVisible()) || 
                             (layer.getVisible && layer.getVisible());
             if (isActive) {
+                opt.style.borderLeft = '3px solid #4CAF50';
+                opt.style.paddingLeft = '9px';
+                opt.style.marginLeft = '-3px';
                 activateBtn.style.fontWeight = 'bold';
-                activateBtn.style.backgroundColor = '#e0e0e0';
+                activateBtn.style.backgroundColor = '#4CAF50';
+                activateBtn.style.color = 'white';
             }
             
             activateBtn.addEventListener('mousedown', function(e) {
@@ -104,13 +112,21 @@
                     layer.setVisible(newState);
                 }
                 
-                // Update button appearance
+                // Update button and row appearance
                 if (newState) {
+                    opt.style.borderLeft = '3px solid #4CAF50';
+                    opt.style.paddingLeft = '9px';
+                    opt.style.marginLeft = '-3px';
                     activateBtn.style.fontWeight = 'bold';
-                    activateBtn.style.backgroundColor = '#e0e0e0';
+                    activateBtn.style.backgroundColor = '#4CAF50';
+                    activateBtn.style.color = 'white';
                 } else {
+                    opt.style.borderLeft = '';
+                    opt.style.paddingLeft = '';
+                    opt.style.marginLeft = '';
                     activateBtn.style.fontWeight = '';
                     activateBtn.style.backgroundColor = '';
+                    activateBtn.style.color = '';
                 }
                 
                 if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
