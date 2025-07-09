@@ -1,0 +1,110 @@
+2025-07-08 02:03:04,539 - INFO - Parsing src/layers/imagery.xml...
+2025-07-08 02:03:04,686 - INFO - Root element: {http://josm.openstreetmap.de/maps-1.0}imagery
+2025-07-08 02:03:04,686 - INFO - Root attributes: {}
+2025-07-08 02:03:04,694 - INFO - Found 1501 entries in total
+2025-07-08 02:03:04,700 - INFO - Found 729 TMS entries
+2025-07-08 02:03:04,701 - INFO - 
+TMS Entry 1:
+2025-07-08 02:03:04,701 - INFO -   name: imagico.de: Cotonou
+2025-07-08 02:03:04,701 - INFO -   id: osmim-imagicode-S2A_R022_N06_20151221T103009
+2025-07-08 02:03:04,701 - INFO -   type: tms
+2025-07-08 02:03:04,702 - INFO -   url: https://imagico.de/map/osmim_tiles.php?layer=S2A_R022_N06_20151221T103009&z={zoom}&x={x}&y={-y}
+2025-07-08 02:03:04,702 - INFO -   category: historicphoto
+2025-07-08 02:03:04,702 - INFO -   attribution-text: imagico.de OSM images for mapping
+2025-07-08 02:03:04,702 - INFO -   attribution-url: https://imagico.de/maps/#osmim
+2025-07-08 02:03:04,702 - INFO -   date: 2015-12-21
+2025-07-08 02:03:04,703 - INFO -   icon: https://osmlab.github.io/editor-layer-index/sources/misc/osmim-imagicode.png
+2025-07-08 02:03:04,703 - INFO -   country-code: BJ
+2025-07-08 02:03:04,703 - INFO -   permission-ref: https://imagico.de/map/osmim_tiles.php
+2025-07-08 02:03:04,703 - INFO -   description: Patchy and partly cloudy coverage in usual sources, somewhat outdated (true color)
+2025-07-08 02:03:04,703 - INFO -   max-zoom: 14
+2025-07-08 02:03:04,704 - INFO -   bounds: None
+2025-07-08 02:03:04,704 - INFO - 
+TMS Entry 2:
+2025-07-08 02:03:04,704 - INFO -   name: imagico.de: Fogo, Cape Verde
+2025-07-08 02:03:04,704 - INFO -   id: osmim-imagicode-LC82100502015347LGN00
+2025-07-08 02:03:04,704 - INFO -   type: tms
+2025-07-08 02:03:04,704 - INFO -   url: https://imagico.de/map/osmim_tiles.php?layer=LC82100502015347LGN00&z={zoom}&x={x}&y={-y}
+2025-07-08 02:03:04,705 - INFO -   category: historicphoto
+2025-07-08 02:03:04,705 - INFO -   attribution-text: imagico.de OSM images for mapping
+2025-07-08 02:03:04,705 - INFO -   attribution-url: https://imagico.de/maps/#osmim
+2025-07-08 02:03:04,705 - INFO -   date: 2015-12-13
+2025-07-08 02:03:04,705 - INFO -   icon: https://osmlab.github.io/editor-layer-index/sources/misc/osmim-imagicode.png
+2025-07-08 02:03:04,705 - INFO -   country-code: CV
+2025-07-08 02:03:04,705 - INFO -   permission-ref: https://imagico.de/map/osmim_tiles.php
+2025-07-08 02:03:04,706 - INFO -   description: Image from after the 2014/2015 eruption, somewhat outdated (true color)
+2025-07-08 02:03:04,706 - INFO -   max-zoom: 14
+2025-07-08 02:03:04,706 - INFO -   bounds: None
+2025-07-08 02:03:04,706 - INFO - 
+TMS Entry 3:
+2025-07-08 02:03:04,707 - INFO -   name: imagico.de: Mount Kenya 2016
+2025-07-08 02:03:04,707 - INFO -   id: osmim-imagicode-S2A_R092_S02_20160613T075613
+2025-07-08 02:03:04,707 - INFO -   type: tms
+2025-07-08 02:03:04,707 - INFO -   url: https://imagico.de/map/osmim_tiles.php?layer=S2A_R092_S02_20160613T075613&z={zoom}&x={x}&y={-y}
+2025-07-08 02:03:04,707 - INFO -   category: photo
+2025-07-08 02:03:04,707 - INFO -   attribution-text: imagico.de OSM images for mapping
+2025-07-08 02:03:04,708 - INFO -   attribution-url: https://imagico.de/maps/#osmim
+2025-07-08 02:03:04,708 - INFO -   date: 2016-06-13
+2025-07-08 02:03:04,708 - INFO -   icon: https://osmlab.github.io/editor-layer-index/sources/misc/osmim-imagicode.png
+2025-07-08 02:03:04,708 - INFO -   country-code: KE
+2025-07-08 02:03:04,708 - INFO -   permission-ref: https://imagico.de/map/osmim_tiles.php
+2025-07-08 02:03:04,708 - INFO -   description: Up-to-date image for glacier mapping (true color)
+2025-07-08 02:03:04,709 - INFO -   max-zoom: 14
+2025-07-08 02:03:04,709 - INFO -   bounds: None
+2025-07-08 02:03:04,709 - INFO - 
+TMS Entry 4:
+2025-07-08 02:03:04,709 - INFO -   name: imagico.de: Mount Kilimanjaro 2016
+2025-07-08 02:03:04,709 - INFO -   id: osmim-imagicode-S2A_R092_S05_20160802T075556
+2025-07-08 02:03:04,709 - INFO -   type: tms
+2025-07-08 02:03:04,709 - INFO -   url: https://imagico.de/map/osmim_tiles.php?layer=S2A_R092_S05_20160802T075556&z={zoom}&x={x}&y={-y}
+2025-07-08 02:03:04,710 - INFO -   category: photo
+2025-07-08 02:03:04,710 - INFO -   attribution-text: imagico.de OSM images for mapping
+2025-07-08 02:03:04,710 - INFO -   attribution-url: https://imagico.de/maps/#osmim
+2025-07-08 02:03:04,710 - INFO -   date: 2016-08-02
+2025-07-08 02:03:04,710 - INFO -   icon: https://osmlab.github.io/editor-layer-index/sources/misc/osmim-imagicode.png
+2025-07-08 02:03:04,710 - INFO -   country-code: TZ
+2025-07-08 02:03:04,710 - INFO -   permission-ref: https://imagico.de/map/osmim_tiles.php
+2025-07-08 02:03:04,710 - INFO -   description: Up-to-date image for glacier mapping (true color)
+2025-07-08 02:03:04,711 - INFO -   max-zoom: 14
+2025-07-08 02:03:04,711 - INFO -   bounds: None
+2025-07-08 02:03:04,711 - INFO - 
+TMS Entry 5:
+2025-07-08 02:03:04,711 - INFO -   name: imagico.de: Rwenzori Mountains
+2025-07-08 02:03:04,711 - INFO -   id: osmim-imagicode-LC81730602015040LGN00
+2025-07-08 02:03:04,711 - INFO -   type: tms
+2025-07-08 02:03:04,711 - INFO -   url: https://imagico.de/map/osmim_tiles.php?layer=LC81730602015040LGN00&z={zoom}&x={x}&y={-y}
+2025-07-08 02:03:04,711 - INFO -   category: photo
+2025-07-08 02:03:04,711 - INFO -   attribution-text: imagico.de OSM images for mapping
+2025-07-08 02:03:04,712 - INFO -   attribution-url: https://imagico.de/maps/#osmim
+2025-07-08 02:03:04,712 - INFO -   date: 2015-02-09
+2025-07-08 02:03:04,712 - INFO -   icon: https://osmlab.github.io/editor-layer-index/sources/misc/osmim-imagicode.png
+2025-07-08 02:03:04,712 - INFO -   country-code: UG
+2025-07-08 02:03:04,712 - INFO -   permission-ref: https://imagico.de/map/osmim_tiles.php
+2025-07-08 02:03:04,712 - INFO -   description: Image of most of the remaining Rwenzori Mountains glaciers (somewhat outdated) (false color IR)
+2025-07-08 02:03:04,712 - INFO -   max-zoom: 13
+2025-07-08 02:03:04,712 - INFO -   bounds: None
+2025-07-08 02:03:04,712 - INFO - 
+Testing direct element finding:
+2025-07-08 02:03:04,712 - INFO - 
+Testing entry 1:
+2025-07-08 02:03:04,715 - INFO - Method 1 - Name: None
+2025-07-08 02:03:04,715 - INFO - Method 1 - URL: None
+2025-07-08 02:03:04,715 - INFO - Method 1 - Type: None
+2025-07-08 02:03:04,715 - INFO - 
+All children:
+2025-07-08 02:03:04,715 - INFO -   name: imagico.de: Cotonou
+2025-07-08 02:03:04,716 - INFO -   id: osmim-imagicode-S2A_R022_N06_20151221T103009
+2025-07-08 02:03:04,716 - INFO -   type: tms
+2025-07-08 02:03:04,716 - INFO -   url: https://imagico.de/map/osmim_tiles.php?layer=S2A_R022_N06_20151221T103009&z={zoom}&x={x}&y={-y}
+2025-07-08 02:03:04,716 - INFO -   category: historicphoto
+2025-07-08 02:03:04,716 - INFO -   attribution-text: imagico.de OSM images for mapping
+2025-07-08 02:03:04,716 - INFO -   attribution-url: https://imagico.de/maps/#osmim
+2025-07-08 02:03:04,716 - INFO -   date: 2015-12-21
+2025-07-08 02:03:04,716 - INFO -   icon: https://osmlab.github.io/editor-layer-index/sources/misc/osmim-imagicode.png
+2025-07-08 02:03:04,716 - INFO -   country-code: BJ
+2025-07-08 02:03:04,716 - INFO -   permission-ref: https://imagico.de/map/osmim_tiles.php
+2025-07-08 02:03:04,717 - INFO -   description: Patchy and partly cloudy coverage in usual sources, somewhat outdated (true color)
+2025-07-08 02:03:04,717 - INFO -   max-zoom: 14
+2025-07-08 02:03:04,717 - INFO -   bounds: None
+2025-07-08 02:03:04,717 - INFO - 
+Debugging completed successfully!

@@ -230,7 +230,8 @@ OSMUtils is born
 
 2025/07/08
 
-
++Windsurf made a python script to parser osmlabs imagery.xml. During 15 minutes it tries itself to parser the WMS layers. Finally it gets the data (not included in the app).
++Other day Windsurf and SWE makes the same with TMS layers.
 
 
 ```
