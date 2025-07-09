@@ -75,11 +75,39 @@
             });
             opt.appendChild(slider);
 
+            // Activation button
+            const activateBtn = document.createElement('button');
+            activateBtn.textContent = 'A';
+            activateBtn.title = 'Activate layer';
+            activateBtn.style.marginLeft = '10px';
+            activateBtn.style.cursor = 'pointer';
+            activateBtn.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Hide all layers first
+                window.layers.forEach(l => {
+                    if (l._olLayerGroup && l._olLayerGroup.setVisible) {
+                        l._olLayerGroup.setVisible(false);
+                    } else if (l.setVisible) {
+                        l.setVisible(false);
+                    }
+                });
+                // Show the selected layer
+                if (layer._olLayerGroup && layer._olLayerGroup.setVisible) {
+                    layer._olLayerGroup.setVisible(true);
+                } else if (layer.setVisible) {
+                    layer.setVisible(true);
+                }
+                if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
+                renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
+            });
+            opt.appendChild(activateBtn);
+
             // Layer orderer buttons
             const upBtn = document.createElement('button');
             upBtn.textContent = '↑';
             upBtn.title = 'Move layer up';
-            upBtn.style.marginLeft = '10px';
+            upBtn.style.marginLeft = '2px';
             upBtn.style.cursor = 'pointer';
             upBtn.addEventListener('mousedown', function(e) {
                 e.preventDefault();
