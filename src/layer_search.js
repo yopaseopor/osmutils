@@ -7,17 +7,26 @@
     let lastResults = [];
     let lastQuery = '';
 
+    function getActiveLayers() {
+        return window.layers.filter(layerObj => 
+            (layerObj._olLayerGroup && layerObj._olLayerGroup.getVisible && layerObj._olLayerGroup.getVisible()) ||
+            (layerObj.getVisible && layerObj.getVisible())
+        );
+    }
+
     function renderDropdown(results) {
         dropdown.innerHTML = '';
-        // Get all active layers
-        const activeLayers = [];
-        $.each(window.layers, function(indexLayer, layerObj) {
-            const isVisible = (layerObj._olLayerGroup && layerObj._olLayerGroup.getVisible && layerObj._olLayerGroup.getVisible()) ||
-                            (layerObj.getVisible && layerObj.getVisible());
-            if (isVisible) {
-                activeLayers.push(layerObj);
-            }
-        });
+        const activeLayers = getActiveLayers();
+        const searchQuery = searchInput.value.trim().toLowerCase();
+        
+        // If there's a search query, include active layers in the results
+        if (searchQuery) {
+            activeLayers.forEach(activeLayer => {
+                if (!results.some(layer => layer === activeLayer)) {
+                    results.unshift(activeLayer); // Add active layers at the top
+                }
+            });
+        }
 
         // Add a 'Clear Active Layers' button if any layers are active
         if (activeLayers.length > 0) {
@@ -135,48 +144,87 @@
             });
             opt.appendChild(activateBtn);
 
-            // Layer orderer buttons
-            const upBtn = document.createElement('button');
-            upBtn.textContent = '↑';
-            upBtn.title = 'Move layer up';
-            upBtn.style.marginLeft = '2px';
-            upBtn.style.cursor = 'pointer';
-            upBtn.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const idx = window.layers.indexOf(layer);
-                if (idx > 0) {
-                    // Swap in array
-                    [window.layers[idx-1], window.layers[idx]] = [window.layers[idx], window.layers[idx-1]];
-                    // Also swap in config.layers if present
-                    if (window.config && Array.isArray(window.config.layers)) {
-                        [window.config.layers[idx-1], window.config.layers[idx]] = [window.config.layers[idx], window.config.layers[idx-1]];
+            // Layer orderer buttons (only for active layers)
+            const isLayerActive = (layer._olLayerGroup && layer._olLayerGroup.getVisible && layer._olLayerGroup.getVisible()) || 
+                               (layer.getVisible && layer.getVisible());
+            
+            if (isLayerActive) {
+                const upBtn = document.createElement('button');
+                upBtn.textContent = '↑';
+                upBtn.title = 'Move layer up in z-order';
+                upBtn.style.marginLeft = '2px';
+                upBtn.style.cursor = 'pointer';
+                upBtn.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const activeLayers = getActiveLayers();
+                    const activeIdx = activeLayers.indexOf(layer);
+                    
+                    if (activeIdx > 0) {
+                        // Find the current position in the main layers array
+                        const currentIdx = window.layers.indexOf(layer);
+                        // Find the target position (previous active layer's position)
+                        const targetLayer = activeLayers[activeIdx - 1];
+                        const targetIdx = window.layers.indexOf(targetLayer);
+                        
+                        // Move the layer in the array
+                        window.layers.splice(currentIdx, 1);
+                        window.layers.splice(targetIdx, 0, layer);
+                        
+                        // Update config if it exists
+                        if (window.config && Array.isArray(window.config.layers)) {
+                            const configLayer = window.config.layers.splice(currentIdx, 1)[0];
+                            window.config.layers.splice(targetIdx, 0, configLayer);
+                        }
+                        
+                        // Re-render the UI
+                        if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
+                        renderDropdown(window.layers.filter(l => 
+                            l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
+                            (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))
+                        ));
                     }
-                    if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
-                    renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
-                }
-            });
-            opt.appendChild(upBtn);
+                });
+                opt.appendChild(upBtn);
 
-            const downBtn = document.createElement('button');
-            downBtn.textContent = '↓';
-            downBtn.title = 'Move layer down';
-            downBtn.style.marginLeft = '2px';
-            downBtn.style.cursor = 'pointer';
-            downBtn.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const idx = window.layers.indexOf(layer);
-                if (idx < window.layers.length - 1) {
-                    [window.layers[idx], window.layers[idx+1]] = [window.layers[idx+1], window.layers[idx]];
-                    if (window.config && Array.isArray(window.config.layers)) {
-                        [window.config.layers[idx], window.config.layers[idx+1]] = [window.config.layers[idx+1], window.config.layers[idx]];
+                const downBtn = document.createElement('button');
+                downBtn.textContent = '↓';
+                downBtn.title = 'Move layer down in z-order';
+                downBtn.style.marginLeft = '2px';
+                downBtn.style.cursor = 'pointer';
+                downBtn.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const activeLayers = getActiveLayers();
+                    const activeIdx = activeLayers.indexOf(layer);
+                    
+                    if (activeIdx < activeLayers.length - 1) {
+                        // Find the current position in the main layers array
+                        const currentIdx = window.layers.indexOf(layer);
+                        // Find the target position (next active layer's position)
+                        const targetLayer = activeLayers[activeIdx + 1];
+                        const targetIdx = window.layers.indexOf(targetLayer);
+                        
+                        // Move the layer in the array
+                        window.layers.splice(currentIdx, 1);
+                        window.layers.splice(targetIdx, 0, layer);
+                        
+                        // Update config if it exists
+                        if (window.config && Array.isArray(window.config.layers)) {
+                            const configLayer = window.config.layers.splice(currentIdx, 1)[0];
+                            window.config.layers.splice(targetIdx, 0, configLayer);
+                        }
+                        
+                        // Re-render the UI
+                        if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
+                        renderDropdown(window.layers.filter(l => 
+                            l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
+                            (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))
+                        ));
                     }
-                    if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
-                    renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
-                }
-            });
-            opt.appendChild(downBtn);
+                });
+                opt.appendChild(downBtn);
+            }
 
             opt.addEventListener('mousedown', function(e) {
                 // Prevent slider or orderer from triggering layer activation
@@ -210,10 +258,28 @@
             filterAndRender([], '');
             return;
         }
-        const filtered = window.layers.filter(layer =>
+        
+        // First filter by search query
+        let filtered = window.layers.filter(layer =>
             (layer.title && layer.title.toLowerCase().includes(query)) ||
-            (layer.group && layer.group.toLowerCase().includes(query))
+            (layer.group && group.toLowerCase().includes(query))
         );
+        
+        // Then sort: active layers first, then by match relevance
+        filtered.sort((a, b) => {
+            const aActive = (a._olLayerGroup && a._olLayerGroup.getVisible && a._olLayerGroup.getVisible()) || 
+                          (a.getVisible && a.getVisible());
+            const bActive = (b._olLayerGroup && b._olLayerGroup.getVisible && b._olLayerGroup.getVisible()) || 
+                          (b.getVisible && b.getVisible());
+            
+            // Active layers first
+            if (aActive && !bActive) return -1;
+            if (!aActive && bActive) return 1;
+            
+            // Then sort by position in the original array (z-order)
+            return window.layers.indexOf(a) - window.layers.indexOf(b);
+        });
+        
         lastResults = filtered;
         lastQuery = query;
         renderDropdown(filtered);
