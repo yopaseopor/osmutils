@@ -1,7 +1,3 @@
-// OpenLayers WMS layers generated from JOSM imagery.xml
-// Generated on: 2025-07-07 23:30:22 UTC
-// Total layers: 15
-
 export const FRLayers = [
     new ol.layer.Tile({
         title: 'Auvergne 2013 25cm CRAIG',
@@ -226,6 +222,6 @@ export const FRLayers = [
             },
             serverType: 'geoserver'
         }),
-        visible: false
+visible: false
     })
 ];
