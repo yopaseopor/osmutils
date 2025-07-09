@@ -112,8 +112,8 @@ export const FRLayers = [
             params: {
                 'LAYERS': 'n_sentier_littoral_l_metropole_outremer',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -157,8 +157,8 @@ export const FRLayers = [
             params: {
                 'LAYERS': 'ortho_2018',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -172,8 +172,8 @@ export const FRLayers = [
             params: {
                 'LAYERS': 'ortho_2012',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -187,8 +187,8 @@ export const FRLayers = [
             params: {
                 'LAYERS': 'ortho_2022',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),

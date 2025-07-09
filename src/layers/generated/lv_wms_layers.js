@@ -26,8 +26,8 @@ const LVLayers = [
             params: {
                 'LAYERS': 'publicwfs:Kadastra_karte',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -71,8 +71,8 @@ const LVLayers = [
             params: {
                 'LAYERS': 'public:Orto_4cikls',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/vnd.jpeg-png8','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/vnd.jpeg-png8',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -86,8 +86,8 @@ const LVLayers = [
             params: {
                 'LAYERS': 'public:Orto_5cikls',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/vnd.jpeg-png8','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/vnd.jpeg-png8',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -101,8 +101,8 @@ const LVLayers = [
             params: {
                 'LAYERS': 'public:Orto_LKS',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/vnd.jpeg-png8','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/vnd.jpeg-png8',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -116,8 +116,8 @@ const LVLayers = [
             params: {
                 'LAYERS': 'public:ZemeLKS',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/vnd.jpeg-png8','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/vnd.jpeg-png8',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -131,8 +131,8 @@ const LVLayers = [
             params: {
                 'LAYERS': 'public:Topo50',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/vnd.jpeg-png8','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/vnd.jpeg-png8',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
