@@ -11,8 +11,8 @@ const CZLayers = [
             params: {
                 'LAYERS': 'parcelni_cisla_i,obrazy_parcel_i,RST_KMD_I,hranice_parcel_i,DEF_BUDOVY,RST_KN_I,dalsi_p_mapy_i,prehledka_kat_prac,prehledka_kat_uz,prehledka_kraju-linie',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const CZLayers = [
             params: {
                 'LAYERS': 'dmr5g:GrayscaleHillshade',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const CZLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const CZLayers = [
             params: {
                 'LAYERS': 'DPB_UCINNE,DPB_UCINNE_KOD',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

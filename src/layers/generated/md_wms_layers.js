@@ -11,8 +11,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Ortochis_2000',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -26,8 +26,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Zona_Ialoveni_AneniNoi_orto_2003',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -41,8 +41,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Ortochis_2006',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -56,8 +56,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Ortofoto_2007_20cm',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -71,8 +71,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Ortofoto_2007',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -86,8 +86,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:chisinau_2011',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -101,8 +101,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Orto_Linemap_2011',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -116,8 +116,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Ortochis_2014',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -131,8 +131,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Ortofoto_2016_RM',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -146,8 +146,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:Moldova_2016_ratio5_transparent',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -161,8 +161,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:2020_ortofoto_moldova_centru',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -176,8 +176,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'orthophoto:2021_ortofoto_moldova_sud',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -191,8 +191,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'maps:harta_topografica_50k_1982',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -206,8 +206,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'caroiaj:Caroiaj_10K_GK42,maps:harta_topografica_10k_sc1942',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -221,8 +221,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'caroiaj:Caroiaj_10K_GK63,maps:harta_topografica_10k_sc1963',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -236,8 +236,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'caroiaj:Caroiaj_10K_GK42_VISHAGI,maps:harta_topografica_10k_vishagi_sc1942',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -251,8 +251,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'caroiaj:Caroiaj_10K_GK63_VISHAGI,maps:harta_topografica_10k_vishagi_sc1963',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -266,8 +266,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'maps:Harti_topografice_2k',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -281,8 +281,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'caroiaj:Caroiaj_5K_GK42,maps:harta_topografica_5k_sc1942',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -296,8 +296,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'caroiaj:Caroiaj_5K_GK63,maps:harta_topografica_5k_sc1963',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -311,8 +311,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'maps:Linemap_2017',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -326,8 +326,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'maps:harta_topografica_50k_2013',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -341,8 +341,8 @@ const MDLayers = [
             params: {
                 'LAYERS': 'maps:Map50k',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),

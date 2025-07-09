@@ -56,8 +56,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'LABELS,AARDEWEG,WANDFIETS,PLLWEG,VENTWEG,OPAFGGKR,OPAFOGKR,VERKPLEIN,SPECSIT,ROT,DIENSTWEG,WEGEEN,WEGGESCH,AUTOSWEG',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -206,8 +206,8 @@ const BELayers = [
             params: {
                 'LAYERS': '1,3,4,5,7,9,10,11,12,13,14,16,17,19,21,22,23,24,26,27,28,29,31',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -236,8 +236,8 @@ const BELayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -251,8 +251,8 @@ const BELayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -266,8 +266,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'UrbISFrenchLabeledColor',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -281,8 +281,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'UrbISNotLabeledColor',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -296,8 +296,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'UrbISDutchLabeledColor',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -311,8 +311,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -326,8 +326,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2009',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -341,8 +341,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2012',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -356,8 +356,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2014',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -371,8 +371,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2015',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -386,8 +386,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2016',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -401,8 +401,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2017',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -416,8 +416,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2018',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -431,8 +431,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2019',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -446,8 +446,8 @@ const BELayers = [
             params: {
                 'LAYERS': 'Ortho2020',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),

@@ -11,8 +11,8 @@ const PTLayers = [
             params: {
                 'LAYERS': 'COS2018v1',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const PTLayers = [
             params: {
                 'LAYERS': 'Ortos2021-RGB',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -101,8 +101,8 @@ const PTLayers = [
             params: {
                 'LAYERS': 'ortoSat2023-CorVerdadeira',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

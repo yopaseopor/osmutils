@@ -41,8 +41,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'default:eg_budynki_g',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -131,8 +131,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'ieg_budynek',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -236,8 +236,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'prg-place',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -281,8 +281,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'budynki',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -296,8 +296,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'dzialki',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -311,8 +311,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'prg-ulice',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -356,8 +356,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'PozostaleObiektyFizjograficzne,Hydrografia,PozostaleMiejscowosci,Wies,UksztaltowanieTerenu',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -371,8 +371,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'prg-adresy',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -386,8 +386,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'A03_Granice_gmin',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -401,8 +401,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'A04_Granice_miast',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -416,8 +416,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'A00_Granice_panstwa',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -431,8 +431,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'A02_Granice_powiatow',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -446,8 +446,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'A01_Granice_wojewodztw',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -476,8 +476,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'przewod_cieplowniczy',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -491,8 +491,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'przewod_elektroenergetyczny',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -506,8 +506,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'przewod_gazowy',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -521,8 +521,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'przewod_kanalizacyjny',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -536,8 +536,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'przewod_telekomunikacyjny',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -551,8 +551,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'przewod_wodociagowy',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -566,8 +566,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'default:budynki',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -686,8 +686,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'EBT,budynki,adresy',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -701,8 +701,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'budynki,adresy,EBU,EBT,S',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -716,8 +716,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'S,EBT,adresy,budynki_ewid',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -731,8 +731,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'budynki',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -746,8 +746,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'budynki,EBT,EBU',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -776,8 +776,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'EBT,adresy,budynki,centroidy',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -836,8 +836,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'adresy,budynki',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -866,8 +866,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'budynki,drogi,adresy,ulice',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -941,8 +941,8 @@ const PLLayers = [
             params: {
                 'LAYERS': 'Budynki,Ulice,Adresy',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

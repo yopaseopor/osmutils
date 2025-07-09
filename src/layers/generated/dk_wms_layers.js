@@ -11,8 +11,8 @@ const DKLayers = [
             params: {
                 'LAYERS': 'CP.CadastralParcel',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const DKLayers = [
             params: {
                 'LAYERS': 'dtk25',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const DKLayers = [
             params: {
                 'LAYERS': 'dtk_skaermkort',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const DKLayers = [
             params: {
                 'LAYERS': 'dhm_overflade_skyggekort',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const DKLayers = [
             params: {
                 'LAYERS': 'dhm_terraen_skyggekort',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

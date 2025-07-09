@@ -11,8 +11,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'flate_ihht_akvakulturregisteret,akvakultur_lokaliteter',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'Fotrute',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'vegnett2',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'fylker_gjel,kommuner_gjel',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'nrlflate,nrllinje,nrlluftspenn,nrlmast,nrlpunkt',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'BU.Building',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -101,8 +101,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'matrikkel_WMS',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -116,8 +116,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'hoydepunkt,Dybdepunkt,hoydetall5linje,hoydetall5punkt,N100Hoydekurver,hoydekurver_1m,hoydekurver_5m,N50Hoydekurver,N250Hoydekurver,N500Hoydekurver,N1000Hoydekurver,N2000Hoydekurver,Dybdekontur',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -146,8 +146,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'amt1',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -161,8 +161,8 @@ const NOLayers = [
             params: {
                 'LAYERS': '13,12,10,8,6,5,4,3',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -176,8 +176,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'naturvern_klasser_omrade',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -191,8 +191,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'friluftsliv_statlig_sikra',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -206,8 +206,8 @@ const NOLayers = [
             params: {
                 'LAYERS': '30,55,58',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -221,8 +221,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'Snoskred-Aktsomhetsomrader',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -236,8 +236,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'Sentralnett,Regionalnett,Distribusjonsnett,Sjokabler,Master_og_stolper29882,Transformatorstasjoner',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -251,8 +251,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'Vannkraftverk,Vannvei,Dam',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -266,8 +266,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'Vindkraft_konsesjon_gitt_ikke_utbygd,Vindkraft_under_bygging,Vindkraft_utbygd,Vindkraftomrade,Vindturbin',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -281,8 +281,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'Enkeltminner,Enkeltminneikoner',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -296,8 +296,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'layer_193',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -311,8 +311,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'layer_198',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -326,8 +326,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'DOM:skyggerelieff',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -341,8 +341,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'DTM:skyggerelieff',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

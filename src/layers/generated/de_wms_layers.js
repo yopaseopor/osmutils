@@ -11,8 +11,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'luftbild',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -26,8 +26,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'IMAGES_DOP_20_RGB',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'adv_alkis_gewaesser,adv_alkis_vegetation,adv_alkis_flurstuecke,adv_alkis_gebaeude,adv_alkis_tatsaechliche_nutzung,adv_alkis_verkehr,adv_alkis_siedlung',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'dgm',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image%2Fpng','
-                'TRANSPARENT': true'
+                'FORMAT': 'image%2Fpng',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'bebb_dop20c',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'vzg_strecken,station_codes,level_crossings',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -101,8 +101,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'vzg_strecken,station_codes,level_crossings',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -176,8 +176,8 @@ const DELayers = [
             params: {
                 'LAYERS': '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,27,25,23,29,30',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -191,8 +191,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'DK5',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -296,8 +296,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'C7F0E141BD264811A166B9D478C0E20F',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -311,8 +311,8 @@ const DELayers = [
             params: {
                 'LAYERS': '4B1281A1EBD54D74897B3DDA16F00006',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -356,8 +356,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'adv_alkis_tatsaechliche_nutzung,adv_alkis_gewaesser,adv_alkis_vegetation,adv_alkis_verkehr,adv_alkis_siedlung,adv_alkis_gesetzl_festlegungen,adv_alkis_bodensch,adv_alkis_oeff_rechtl_sonst_festl,adv_alkis_weiteres,adv_alkis_bauw_einricht,adv_alkis_gebaeude,adv_alkis_flurstuecke',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -371,8 +371,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'adv_alkis_gebaeude',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -386,8 +386,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'nw_gst_PunktortAG',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -416,8 +416,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'nw_idop_rgb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -446,8 +446,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'nw_vdop_rgb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -461,8 +461,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'sl_dop20_rgb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -626,8 +626,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'Vegetation,Siedlung,Gewaesser,Verkehr,Administrative_Einheiten,Beschriftung',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -641,8 +641,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'Flurstueck,Gemarkung,Gemarkungsname',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -656,8 +656,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'hoehenlinien_50m,hoehenlinien_25m,hoehenlinien_20m,hoehenlinien_5m,hoehenlinien_2_5m',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -686,8 +686,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'sn_dtk_pg_color',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -701,8 +701,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'BU.Building',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -716,8 +716,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'CP.CadastralParcel',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -731,8 +731,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'HY.Network',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -746,8 +746,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'lsa_lvermgeo_dop20_2',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -761,8 +761,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'flur,gema,gmdbez,gmd,land,lk',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -791,8 +791,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'th_dop',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -806,8 +806,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'D763F3C28EC14D8BAB4C307D33306FAF',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -821,8 +821,8 @@ const DELayers = [
             params: {
                 'LAYERS': '9B60078F347C447FAF4D224FEA0028D9',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -836,8 +836,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'A14D534CD14849F9972FB3BF26185152',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -851,8 +851,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'FFF9DFB4F6814391AB0B4BC96B3B70B2',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -866,8 +866,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'E1C1EF1295564C3E8B3504D516F081E9',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -881,8 +881,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'alkis_lk_inkas',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -896,8 +896,8 @@ const DELayers = [
             params: {
                 'LAYERS': 'FlurkarteNW_Viersen',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

@@ -11,8 +11,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'plan_cadastral',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -476,8 +476,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'Selbstrechte,Liegenschaften,Bodenbedeckung_1,Bodenbedeckung_2,hoehenkurven,Einzelobjekte_Flaechen_1,Einzelobjekte_Linien_1,Gebaeude,BO_uebrige_befestigte,BO_Verkehr,Einzelobjekte_Flaechen_2,Einzelobjekte_Linien_2,Einzelobjekte_Punkte,Gemeindegrenzen,Kantonsgrenzen,Landesgrenzen,Hoehenkoten,BO_Objeknamen,Gelaendenamen,Strassennamen',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -491,8 +491,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'Radwege',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -506,8 +506,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'Wanderwege',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -701,8 +701,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

@@ -56,8 +56,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'PS.ProtectedSites.OBO,PS.ProtectedSites.DVO,PS.ProtectedSites.IF,PS.ProtectedSites.KR,PS.ProtectedSites.NP,PS.ProtectedSites.NM,PS.ProtectedSites.NM.Punkter,PS.ProtectedSites.NM.Ytor,PS.ProtectedSites.NR,PS.ProtectedSites.NVO,PS.ProtectedSites.SBO,PS.ProtectedSites.VSO',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'LED',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'PS.ProtectedSite',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -101,8 +101,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'BU.Building',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -116,8 +116,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'PS.ProtectedSite',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -131,8 +131,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'BU.Building',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -146,8 +146,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Forskoleklass,Grundsarskola,Grundskola,Gymnasiesarskola,Gymnasieskola,Sameskola,Specialskola',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -161,8 +161,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'p_40137',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -176,8 +176,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'stadskarta',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -341,8 +341,8 @@ const SELayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -386,8 +386,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'stat:Verksamhetsomraden.2015',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -401,8 +401,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'stat:Smaorter.2015',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -416,8 +416,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Tatorter_2020',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -431,8 +431,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Fritidshusomraden',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -446,8 +446,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'p_1003070',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -461,8 +461,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'US.ElectricityNetwork.Lines,US.ElectricityNetwork.Pylons,US.ElectricityNetwork.StationAreas,US.ElectricityNetwork.Stations',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -476,8 +476,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Spar_Huvud_och_sidospar',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -491,8 +491,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Vagnummer,Vaghinder,Rastplats,Hallplats,Farthinder,BroTunnel,ATK_Matplats',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -506,8 +506,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Vagtrafiknat,Funkvagklass,Farjeled',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

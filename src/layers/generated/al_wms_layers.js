@@ -11,8 +11,8 @@ const ALLayers = [
             params: {
                 'LAYERS': 'adr_ndertese,adr_numertim,adr_rruge',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

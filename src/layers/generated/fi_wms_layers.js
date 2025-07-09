@@ -11,8 +11,8 @@ const FILayers = [
             params: {
                 'LAYERS': 'dr_tielinkki_toim_lk',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image%2Fpng','
-                'TRANSPARENT': true'
+                'FORMAT': 'image%2Fpng',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const FILayers = [
             params: {
                 'LAYERS': 'georaster%3Atampere_2022_3067_r0125',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -56,8 +56,8 @@ const FILayers = [
             params: {
                 'LAYERS': 'Ilmakuva 2018 True ortho',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const FILayers = [
             params: {
                 'LAYERS': 'Turunseutu%20ilmakuva%202018',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const FILayers = [
             params: {
                 'LAYERS': 'Ilmakuva 2021',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -101,8 +101,8 @@ const FILayers = [
             params: {
                 'LAYERS': 'Maastokartta',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),

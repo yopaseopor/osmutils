@@ -11,8 +11,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'Ortofoto2015',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'ctmmultiescalas_mercator',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'deres-ext:TRECHOINFO',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -71,8 +71,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'ortofoto_2010',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -86,8 +86,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'ortofoto_2016',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -101,8 +101,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CAMADA_BASE:mapa_fortaleza',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -116,8 +116,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'logradouros',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -191,8 +191,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2021_Aglomerado_Rural_Isolado_P',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -206,8 +206,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2021_Est_Gerad_Energia_Eletrica_P',
                 'VERSION': '1.1.0',
-                'FORMAT': 'image%2Fpng','
-                'TRANSPARENT': true'
+                'FORMAT': 'image%2Fpng',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -221,8 +221,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2021_Municipio_A',
                 'VERSION': '1.1.0',
-                'FORMAT': 'image%2Fpng','
-                'TRANSPARENT': true'
+                'FORMAT': 'image%2Fpng',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -236,8 +236,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2021_Pista_Ponto_Pouso_L',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -251,8 +251,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2021_Trecho_Drenagem_L',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -266,8 +266,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2021_Trecho_Rodoviario_L',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -281,8 +281,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2019_Terra_Indigena_A',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -296,8 +296,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2019_Unidade_Uso_Sustentavel_A',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -311,8 +311,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'CCAR:BC250_2021_Vila_P',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),
@@ -326,8 +326,8 @@ const BRLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -341,8 +341,8 @@ const BRLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -371,8 +371,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'png8&VERSION=1.3.0&LAYERS=6139ca97-1bc9-4952-a441-b68957ab222c&CRS={proj}&WIDTH={width}&HEIGHT={height}&BBOX={bbox}',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -386,8 +386,8 @@ const BRLayers = [
             params: {
                 'LAYERS': 'prdAracatiacu,prdJaibaras,prdSobral,prdTaperuaba',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'geoserver'
         }),

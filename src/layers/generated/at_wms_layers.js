@@ -71,8 +71,8 @@ const ATLayers = [
             params: {
                 'LAYERS': 'Hoehenschichtlinien_20m',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
@@ -146,8 +146,8 @@ const ATLayers = [
             params: {
                 'LAYERS': 'MZK_LINIE_L.DGMGKV1,MZK_LINIE_L.DGMGKV2,GRP__MZKSITUATION',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/png','
-                'TRANSPARENT': true'
+                'FORMAT': 'image/png',
+                'TRANSPARENT': 'true'
             },
             serverType: 'mapserver'
         }),
