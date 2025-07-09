@@ -146,8 +146,8 @@ const HRLayers = [
             params: {
                 'LAYERS': 'Ortofoto_2012',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'geoserver'
         }),
@@ -161,8 +161,8 @@ const HRLayers = [
             params: {
                 'LAYERS': 'Ortofoto_2020',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'geoserver'
         }),

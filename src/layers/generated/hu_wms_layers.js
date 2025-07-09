@@ -11,8 +11,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'orto2015_20160304',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'orto_2017',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'orto_2019',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'orto_2021',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'orto_2023',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'orto_2025',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -101,8 +101,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'ORTO_2013_5CM_2013SZEPT_TAKARASSAL_512_512',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -116,8 +116,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'TBORTO_2015_20160218',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -131,8 +131,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'TBORTO_2018',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -146,8 +146,8 @@ const HULayers = [
             params: {
                 'LAYERS': 'TBORTO_2021',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

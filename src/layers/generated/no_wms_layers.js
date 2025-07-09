@@ -131,8 +131,8 @@ const NOLayers = [
             params: {
                 'LAYERS': 'n5raster_foerstegang_metadata,n5raster_foerstegang',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

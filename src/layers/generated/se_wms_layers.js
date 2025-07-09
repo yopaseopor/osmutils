@@ -11,8 +11,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'OI.Histortho_60',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'OI.Histortho_75',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'theme-ortofoto2012',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -191,8 +191,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'terranglutning',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -206,8 +206,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'orto_2015',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -221,8 +221,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'orto_2017',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -236,8 +236,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'orto_2019',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -251,8 +251,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'orto_2021',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -266,8 +266,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'orto',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -281,8 +281,8 @@ const SELayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -296,8 +296,8 @@ const SELayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -311,8 +311,8 @@ const SELayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -326,8 +326,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Kalmar_2020:RGB_2020',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -356,8 +356,8 @@ const SELayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -371,8 +371,8 @@ const SELayers = [
             params: {
                 'LAYERS': 'Kommun_2010_25cm',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

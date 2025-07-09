@@ -11,8 +11,8 @@ const USLayers = [
             params: {
                 'LAYERS': '3DEPElevation:Hillshade%20Gray',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:2',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:1,4',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -101,8 +101,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -116,8 +116,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -131,8 +131,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -146,8 +146,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'alaska_delta_junction_2021:NaturalColor_4Band_Vivid_NoStretch',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -161,8 +161,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -176,8 +176,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -191,8 +191,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:4',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -206,8 +206,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -221,8 +221,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -236,8 +236,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -251,8 +251,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:4',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -266,8 +266,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -281,8 +281,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -296,8 +296,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -311,8 +311,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -326,8 +326,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -341,8 +341,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -356,8 +356,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -371,8 +371,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -386,8 +386,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -401,8 +401,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -416,8 +416,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -431,8 +431,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -446,8 +446,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -461,8 +461,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -476,8 +476,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -491,8 +491,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -506,8 +506,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -521,8 +521,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -536,8 +536,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -551,8 +551,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -566,8 +566,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -581,8 +581,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -596,8 +596,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -641,8 +641,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -656,8 +656,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -671,8 +671,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -686,8 +686,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -701,8 +701,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -716,8 +716,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -731,8 +731,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -746,8 +746,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -761,8 +761,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -776,8 +776,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -791,8 +791,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -806,8 +806,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -821,8 +821,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -836,8 +836,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -851,8 +851,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -866,8 +866,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -881,8 +881,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -896,8 +896,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -911,8 +911,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -926,8 +926,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -941,8 +941,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -956,8 +956,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -971,8 +971,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -986,8 +986,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1001,8 +1001,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1016,8 +1016,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1031,8 +1031,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1046,8 +1046,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1061,8 +1061,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1076,8 +1076,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1091,8 +1091,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1106,8 +1106,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1121,8 +1121,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1136,8 +1136,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1151,8 +1151,8 @@ const USLayers = [
             params: {
                 'LAYERS': '2021_webmercator',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1166,8 +1166,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1181,8 +1181,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1196,8 +1196,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1211,8 +1211,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1226,8 +1226,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1241,8 +1241,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1256,8 +1256,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1271,8 +1271,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1286,8 +1286,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1301,8 +1301,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1316,8 +1316,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1331,8 +1331,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:57',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1361,8 +1361,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1376,8 +1376,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1391,8 +1391,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1406,8 +1406,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1421,8 +1421,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1436,8 +1436,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1451,8 +1451,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1466,8 +1466,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'hawaii_vivid_2022_30cm:Natural Color No Stretch',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1481,8 +1481,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'northwest_hawaiian_islands_2022_30cm:Natural Color No Stretch',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1496,8 +1496,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1511,8 +1511,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1526,8 +1526,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1541,8 +1541,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1556,8 +1556,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1571,8 +1571,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1586,8 +1586,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1601,8 +1601,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1616,8 +1616,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1631,8 +1631,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1646,8 +1646,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1661,8 +1661,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1676,8 +1676,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1691,8 +1691,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1706,8 +1706,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1721,8 +1721,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1736,8 +1736,8 @@ const USLayers = [
             params: {
                 'LAYERS': '2017AirPhotoLeafOff6Inch:None',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1751,8 +1751,8 @@ const USLayers = [
             params: {
                 'LAYERS': '2019AirPhotoLeafOff6Inch_Spring:default',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1766,8 +1766,8 @@ const USLayers = [
             params: {
                 'LAYERS': '1',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1781,8 +1781,8 @@ const USLayers = [
             params: {
                 'LAYERS': '1',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1796,8 +1796,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1811,8 +1811,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1826,8 +1826,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1841,8 +1841,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'mncomp',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1856,8 +1856,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1871,8 +1871,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1886,8 +1886,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1901,8 +1901,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1916,8 +1916,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1931,8 +1931,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1946,8 +1946,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1961,8 +1961,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1976,8 +1976,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -1991,8 +1991,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show,0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2066,8 +2066,8 @@ const USLayers = [
             params: {
                 'LAYERS': '7',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2081,8 +2081,8 @@ const USLayers = [
             params: {
                 'LAYERS': '6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2096,8 +2096,8 @@ const USLayers = [
             params: {
                 'LAYERS': '3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2111,8 +2111,8 @@ const USLayers = [
             params: {
                 'LAYERS': '2',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2141,8 +2141,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'Infrared2020',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2171,8 +2171,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'Natural2020',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2186,8 +2186,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2201,8 +2201,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2216,8 +2216,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2231,8 +2231,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2246,8 +2246,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'MRCOG_2020_ECW',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2261,8 +2261,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'SJC_2019_Imagery',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2276,8 +2276,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'SJC_2021Imagery',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2291,8 +2291,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'SJC2023Imagery',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2306,8 +2306,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'SJC_2025_3in6inCombined',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2321,8 +2321,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:12',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2336,8 +2336,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:8',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2351,8 +2351,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:44',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2366,8 +2366,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0,1,2,3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2381,8 +2381,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0,1,2,3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2411,8 +2411,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2426,8 +2426,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2441,8 +2441,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2456,8 +2456,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2471,8 +2471,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2486,8 +2486,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2501,8 +2501,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2516,8 +2516,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2531,8 +2531,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2546,8 +2546,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2561,8 +2561,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2576,8 +2576,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2591,8 +2591,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2606,8 +2606,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2621,8 +2621,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2636,8 +2636,8 @@ const USLayers = [
             params: {
                 'LAYERS': '8',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2651,8 +2651,8 @@ const USLayers = [
             params: {
                 'LAYERS': '5',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2666,8 +2666,8 @@ const USLayers = [
             params: {
                 'LAYERS': '4',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2681,8 +2681,8 @@ const USLayers = [
             params: {
                 'LAYERS': '1',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2696,8 +2696,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2711,8 +2711,8 @@ const USLayers = [
             params: {
                 'LAYERS': '1',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2726,8 +2726,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2741,8 +2741,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'show:7,10',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2816,8 +2816,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'StratMap19_NCCIR_6in_Brazos',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2831,8 +2831,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'StratMap19_NCCIR_CapArea',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2846,8 +2846,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2861,8 +2861,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2876,8 +2876,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2891,8 +2891,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2906,8 +2906,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2921,8 +2921,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2936,8 +2936,8 @@ const USLayers = [
             params: {
                 'LAYERS': '0',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2951,8 +2951,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2966,8 +2966,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'StratMap21_NCCIR_CapArea_Brazos_Kerr',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2981,8 +2981,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'StratMap20_NCCIR_CapArea_McLennan',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -2996,8 +2996,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3011,8 +3011,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3026,8 +3026,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3041,8 +3041,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3056,8 +3056,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3071,8 +3071,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3086,8 +3086,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3101,8 +3101,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3116,8 +3116,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3131,8 +3131,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3146,8 +3146,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3161,8 +3161,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3176,8 +3176,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3191,8 +3191,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3206,8 +3206,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'Monongalia_County_2022:None',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -3221,8 +3221,8 @@ const USLayers = [
             params: {
                 'LAYERS': 'Monongalia_County_2023:None',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

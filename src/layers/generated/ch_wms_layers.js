@@ -26,8 +26,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '4',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '5',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -86,8 +86,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '3',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -101,8 +101,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '4',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -116,8 +116,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '5',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -131,8 +131,8 @@ const CHLayers = [
             params: {
                 'LAYERS': '6',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -146,8 +146,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'OF_TrueOrthofoto2020Maerz',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -161,8 +161,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'OF_TrueOrthofoto2023Mai',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -176,8 +176,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'zg.orthofoto_2011_kt_zg',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -191,8 +191,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'zg.orthofoto_2016_kt_zg',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -206,8 +206,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'zg.orthofoto_2018_kt_zg',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -221,8 +221,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'zg.orthofoto_2019_kt_zg',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -236,8 +236,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'zg.orthofoto_2020_kt_zg',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -251,8 +251,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'zg.orthofoto_2021_kt_zg',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -266,8 +266,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'LDOM50CM_LORELIEF_4163',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -281,8 +281,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'LDTM50CM_LTRELIEF_883',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -296,8 +296,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'Relief_2013',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -311,8 +311,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'Luftbild_2013',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -326,8 +326,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.lidar_2014.dom_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -341,8 +341,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.bl.agi.lidar_2018.dsm_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -356,8 +356,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.lidar_2019.dsm_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -371,8 +371,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.lidar_2014.dtm_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -386,8 +386,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.bl.agi.lidar_2018.dtm_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -401,8 +401,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.lidar_2019.dtm_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -416,8 +416,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.orthofoto_2014.rgb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -431,8 +431,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.orthofoto_2015.rgb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -446,8 +446,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.orthofoto_2016_rgb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -461,8 +461,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.so.agi.orthofoto_2017_rgb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -521,8 +521,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'Orthofoto2017_RGB',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -536,8 +536,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'dom2014_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -551,8 +551,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'dom2017_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -566,8 +566,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'dtm2014_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -581,8 +581,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'dtm2017_relief',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -596,8 +596,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ortho_s_2014',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -611,8 +611,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ortho_w_2015',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -626,8 +626,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ortho_s_2018',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -641,8 +641,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ortho_s_2020',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -656,8 +656,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ortho_w_2021',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -671,8 +671,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ortho_s_2024',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -686,8 +686,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'OP_SG',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -716,8 +716,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'OP_2013_STZH.tif',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -731,8 +731,8 @@ const CHLayers = [
             params: {
                 'LAYERS': 'ch.swisstopo.swissimage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

@@ -26,8 +26,8 @@ const PTLayers = [
             params: {
                 'LAYERS': 'MDT2M-2014-2015-litoral',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const PTLayers = [
             params: {
                 'LAYERS': 'Ortoimagens_2014-2015_Litoral',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const PTLayers = [
             params: {
                 'LAYERS': 'Ortos2018-RGB',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -71,8 +71,8 @@ const PTLayers = [
             params: {
                 'LAYERS': 'Ortos2004-2006-RGB',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

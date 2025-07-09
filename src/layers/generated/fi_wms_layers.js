@@ -26,8 +26,8 @@ const FILayers = [
             params: {
                 'LAYERS': 'taustakartat_ja_aluejaot:Ortoilmakuva_2017',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'geoserver'
         }),

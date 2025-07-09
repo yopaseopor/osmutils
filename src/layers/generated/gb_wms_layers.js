@@ -11,8 +11,8 @@ const GBLayers = [
             params: {
                 'LAYERS': 'Lidar_Composite_Hillshade_LZ_DSM_1m',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const GBLayers = [
             params: {
                 'LAYERS': 'Lidar_Composite_Hillshade_DTM_1m',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

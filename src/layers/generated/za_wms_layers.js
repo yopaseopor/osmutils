@@ -11,8 +11,8 @@ const ZALayers = [
             params: {
                 'LAYERS': 'Aerial%20Imagery_Aerial%20Imagery%202017Jan',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const ZALayers = [
             params: {
                 'LAYERS': 'Aerial%20Imagery_Aerial%20Imagery%202018Feb',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -41,8 +41,8 @@ const ZALayers = [
             params: {
                 'LAYERS': 'Aerial%20Imagery_Aerial%20Imagery%202023Jan',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -56,8 +56,8 @@ const ZALayers = [
             params: {
                 'LAYERS': 'Aerial%20Imagery_Aerial%20Imagery%202024',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

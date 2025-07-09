@@ -11,8 +11,8 @@ const TWLayers = [
             params: {
                 'LAYERS': 'LANDSECT',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
@@ -26,8 +26,8 @@ const TWLayers = [
             params: {
                 'LAYERS': 'Village',
                 'VERSION': '1.1.1',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

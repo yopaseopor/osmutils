@@ -11,8 +11,8 @@ const MHLayers = [
             params: {
                 'LAYERS': 'marshall_islands_vivid_2023_30cm:Natural Color No Stretch',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

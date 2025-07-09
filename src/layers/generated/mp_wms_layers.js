@@ -11,8 +11,8 @@ const MPLayers = [
             params: {
                 'LAYERS': 'cnmi_vivid_2022_30cm:Natural Color No Stretch',
                 'VERSION': '1.3.0',
-                'FORMAT': 'image/jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'image/jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

@@ -11,8 +11,8 @@ const PWLayers = [
             params: {
                 'LAYERS': 'exportImage',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),

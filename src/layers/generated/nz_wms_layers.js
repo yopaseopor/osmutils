@@ -11,8 +11,8 @@ const NZLayers = [
             params: {
                 'LAYERS': 'export',
                 'VERSION': '1.3.0',
-                'FORMAT': 'jpeg','
-                'TRANSPARENT': false'
+                'FORMAT': 'jpeg',
+                'TRANSPARENT': 'false'
             },
             serverType: 'mapserver'
         }),
