@@ -78,28 +78,44 @@
             // Activation button
             const activateBtn = document.createElement('button');
             activateBtn.textContent = 'A';
-            activateBtn.title = 'Activate layer';
+            activateBtn.title = 'Toggle layer visibility';
             activateBtn.style.marginLeft = '10px';
             activateBtn.style.cursor = 'pointer';
+            
+            // Set initial active state
+            const isActive = (layer._olLayerGroup && layer._olLayerGroup.getVisible && layer._olLayerGroup.getVisible()) || 
+                            (layer.getVisible && layer.getVisible());
+            if (isActive) {
+                activateBtn.style.fontWeight = 'bold';
+                activateBtn.style.backgroundColor = '#e0e0e0';
+            }
+            
             activateBtn.addEventListener('mousedown', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                // Hide all layers first
-                window.layers.forEach(l => {
-                    if (l._olLayerGroup && l._olLayerGroup.setVisible) {
-                        l._olLayerGroup.setVisible(false);
-                    } else if (l.setVisible) {
-                        l.setVisible(false);
-                    }
-                });
-                // Show the selected layer
-                if (layer._olLayerGroup && layer._olLayerGroup.setVisible) {
-                    layer._olLayerGroup.setVisible(true);
-                } else if (layer.setVisible) {
-                    layer.setVisible(true);
+                
+                // Toggle the selected layer's visibility
+                let newState;
+                if (layer._olLayerGroup && layer._olLayerGroup.getVisible) {
+                    newState = !layer._olLayerGroup.getVisible();
+                    layer._olLayerGroup.setVisible(newState);
+                } else if (layer.getVisible) {
+                    newState = !layer.getVisible();
+                    layer.setVisible(newState);
                 }
+                
+                // Update button appearance
+                if (newState) {
+                    activateBtn.style.fontWeight = 'bold';
+                    activateBtn.style.backgroundColor = '#e0e0e0';
+                } else {
+                    activateBtn.style.fontWeight = '';
+                    activateBtn.style.backgroundColor = '';
+                }
+                
                 if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
-                renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
+                renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
+                    (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
             });
             opt.appendChild(activateBtn);
 
