@@ -7,4 +7,4 @@ import { myCustomLayer } from './myCustomLayer.js';
 import { osmBrightLayer } from './osmBrightLayer.js';
 import { stamenTonerLayer } from './stamenTonerLayer.js';
 
-export const allLayers = { fr_wms_layers, myCustomLayer, osmBrightLayer, stamenTonerLayer };
+export const allLayers = { FRlayers, myCustomLayer, osmBrightLayer, stamenTonerLayer };
