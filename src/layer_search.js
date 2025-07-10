@@ -1,6 +1,44 @@
 // Layer Searcher: interactive with predictive dropdown
 // Assumes layers are available globally as window.layers (array of {title, id, group, ...})
 (function() {
+    // Helper function to update the config layers order based on the current map layers
+    function updateConfigLayersOrder(mapLayers) {
+        if (!window.config || !Array.isArray(window.config.layers)) return;
+        
+        const newLayers = [];
+        const processedGroups = new Set();
+        
+        // Process each layer in the map
+        mapLayers.getArray().forEach(layer => {
+            if (layer.getLayers) {
+                // Handle layer groups
+                const groupLayers = layer.getLayers().getArray();
+                groupLayers.forEach(subLayer => {
+                    // Find the corresponding config layer
+                    const configLayer = window.config.layers.find(l => 
+                        (l instanceof ol.layer.Group && l.getLayers().getArray().includes(subLayer)) ||
+                        l === subLayer
+                    );
+                    
+                    if (configLayer && !processedGroups.has(configLayer)) {
+                        newLayers.push(configLayer);
+                        processedGroups.add(configLayer);
+                    }
+                });
+            } else {
+                // Handle regular layers
+                const configLayer = window.config.layers.find(l => l === layer);
+                if (configLayer && !processedGroups.has(configLayer)) {
+                    newLayers.push(configLayer);
+                    processedGroups.add(configLayer);
+                }
+            }
+        });
+        
+        // Update the config with the new layer order
+        window.config.layers = newLayers;
+    }
+    
     const searchInput = document.getElementById('layer-search');
     const dropdown = document.getElementById('layer-search-dropdown');
 
@@ -181,16 +219,23 @@
                         const nextOlLayer = nextLayer._olLayerGroup || nextLayer;
                         
                         // Get the current index in the map's layer collection
-                        const olLayerIndex = mapLayers.getArray().indexOf(olLayer);
-                        const nextOlLayerIndex = mapLayers.getArray().indexOf(nextOlLayer);
+                        const olLayerIndex = mapLayers.getArray().findIndex(l => 
+                            l === olLayer || (l.getLayers && l.getLayers().getArray().includes(olLayer))
+                        );
+                        const nextOlLayerIndex = mapLayers.getArray().findIndex(l => 
+                            l === nextOlLayer || (l.getLayers && l.getLayers().getArray().includes(nextOlLayer))
+                        );
                         
                         if (olLayerIndex !== -1 && nextOlLayerIndex !== -1) {
                             // Remove and reinsert to change the order
-                            mapLayers.remove(olLayer);
+                            mapLayers.removeAt(olLayerIndex);
                             mapLayers.insertAt(nextOlLayerIndex, olLayer);
                             
                             // Force map update
                             window.map.render();
+                            
+                            // Update the config layers order
+                            updateConfigLayersOrder(mapLayers);
                         }
                     }
                     
@@ -234,16 +279,23 @@
                         const prevOlLayer = prevLayer._olLayerGroup || prevLayer;
                         
                         // Get the current index in the map's layer collection
-                        const olLayerIndex = mapLayers.getArray().indexOf(olLayer);
-                        const prevOlLayerIndex = mapLayers.getArray().indexOf(prevOlLayer);
+                        const olLayerIndex = mapLayers.getArray().findIndex(l => 
+                            l === olLayer || (l.getLayers && l.getLayers().getArray().includes(olLayer))
+                        );
+                        const prevOlLayerIndex = mapLayers.getArray().findIndex(l => 
+                            l === prevOlLayer || (l.getLayers && l.getLayers().getArray().includes(prevOlLayer))
+                        );
                         
                         if (olLayerIndex !== -1 && prevOlLayerIndex !== -1) {
                             // Remove and reinsert to change the order
-                            mapLayers.remove(olLayer);
+                            mapLayers.removeAt(olLayerIndex);
                             mapLayers.insertAt(prevOlLayerIndex, olLayer);
                             
                             // Force map update
                             window.map.render();
+                            
+                            // Update the config layers order
+                            updateConfigLayersOrder(mapLayers);
                         }
                     }
                     
