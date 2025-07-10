@@ -46,55 +46,50 @@
                 (l.group && l.group.toLowerCase().includes(currentSearch))
             ));
             
-            // Update the map layers to match the new order
+            // Update the map layers to match the new order using z-index
             try {
-                // Get the map instance (trying different possible locations)
+                // Get all OpenLayers layer objects
+                const olLayers = window.layers.map(layer => getOLLayer(layer)).filter(Boolean);
+                
+                // Set z-index for each layer based on its position in the array
+                // (higher index = higher z-index = drawn on top)
+                olLayers.forEach((olLayer, index) => {
+                    if (olLayer.setZIndex) {
+                        olLayer.setZIndex(index);
+                    } else if (olLayer.set) {
+                        olLayer.set('zIndex', index);
+                    }
+                    
+                    // For layer groups, set z-index on all sublayers
+                    if (olLayer.getLayers) {
+                        const subLayers = olLayer.getLayers().getArray();
+                        subLayers.forEach((subLayer, subIndex) => {
+                            if (subLayer.setZIndex) {
+                                subLayer.setZIndex(index * 100 + subIndex);
+                            } else if (subLayer.set) {
+                                subLayer.set('zIndex', index * 100 + subIndex);
+                            }
+                        });
+                    }
+                });
+                
+                console.log('Updated layer z-indices');
+                
+                // Try to force a re-render
                 const map = window.map || window.olMap || 
                           (window.ol && window.ol.Map && window.ol.Map.instance_);
                 
                 if (map) {
-                    // Get the layers collection
-                    let layers = map.getLayers ? map.getLayers() : 
-                               (map.layers || (map.get && map.get('layers')));
-                    
-                    if (layers) {
-                        // Convert to array if it's a collection
-                        const layersArray = layers.getArray ? layers.getArray() : 
-                                         (Array.isArray(layers) ? layers : []);
-                        
-                        // Clear the current layers
-                        while (layers.getLength && layers.getLength() > 0) {
-                            layers.pop();
-                        }
-                        
-                        // Add layers back in the new order from window.layers
-                        window.layers.forEach(layer => {
-                            const olLayer = getOLLayer(layer);
-                            if (olLayer) {
-                                if (layers.push) {
-                                    layers.push(olLayer);
-                                } else if (layers.addLayer) {
-                                    layers.addLayer(olLayer);
-                                }
-                            }
-                        });
-                        
-                        console.log('Updated map layers order');
-                    }
-                    
-                    // Force a re-render
                     if (typeof map.render === 'function') map.render();
                     if (typeof map.renderSync === 'function') map.renderSync();
                     
-                    // Trigger a view change to update the display
+                    // Force update the view
                     const view = map.getView ? map.getView() : 
                                (map.view || (map.get && map.get('view')));
                     if (view && view.changed) view.changed();
-                } else {
-                    console.warn('Could not find map instance to update layers');
                 }
             } catch (e) {
-                console.error('Error updating map layers:', e);
+                console.error('Error updating layer z-indices:', e);
             }
             
             console.log('Layer moved successfully');
