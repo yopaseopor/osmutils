@@ -23,21 +23,32 @@
 			},
 		{
 			"source": "customyopaseopor",
-			"id": "railway-motorway",
-			"type": "line",
-			"source-layer": "land",
-			"filter": [ "all", [ "!=", "bridge", true ], [ "!=", "tunnel", true ], [ "in", "kind", "railway" ], [ "!=", "link", true ] ],
-			"paint": {
-				"line-color": "#2176ff",
-				"line-width": { "stops": [ [ 5, 0 ], [ 6, 1 ], [ 10, 4 ], [ 14, 7 ], [ 16, 14 ], [ 18, 36 ], [ 19, 80 ], [ 20, 160 ] ] },
-				"line-dasharray": [2, 1],
-				"line-opacity": { "stops": [ [ 5, 0 ], [ 6, 1 ] ] }
-			},
-			"layout": {
-				"line-join": "round",
-				"line-cap": "round"
-			}
-		},
+  "id": "transport-rail",
+  "type": "line",
+  "source-layer": "streets",
+  "filter": [
+    "all",
+    ["in", "kind", "rail"],
+    ["!has", "service"],
+    ["!=", "bridge", true],
+    ["!=", "tunnel", true]
+  ],
+  "paint": {
+    "line-color": "rgb(197,204,211)",
+    "line-width": {
+      "stops": [
+        [14, 0],
+        [15, 1],
+        [20, 10]
+      ]
+    },
+    "line-dasharray": [2, 2],
+    "line-opacity": {
+      "stops": [[14, 0], [15, 1]]
+    }
+  },
+  "minzoom": 14
+},
 		{
 			"source": "customyopaseopor",
 			"id": "railway-highspeed",
