@@ -1,66 +1,39 @@
 // Layer Searcher: interactive with predictive dropdown
 // Assumes layers are available globally as window.layers (array of {title, id, group, ...})
 (function() {
-    // Helper function to find a layer in the map's layer collection
-    function findLayerInMap(layerToFind) {
-        if (!window.map) return null;
-        
-        const mapLayers = window.map.getLayers();
-        for (let i = 0; i < mapLayers.getLength(); i++) {
-            const layer = mapLayers.item(i);
-            if (layer === layerToFind) return { layer, index: i };
-            
-            // Check if it's a group
-            if (layer.getLayers) {
-                const subLayers = layer.getLayers().getArray();
-                const subIndex = subLayers.findIndex(l => l === layerToFind || 
-                    (l._olLayerGroup && l._olLayerGroup === layerToFind) ||
-                    (layerToFind._olLayerGroup && l === layerToFind._olLayerGroup));
-                if (subIndex !== -1) return { 
-                    layer: subLayers[subIndex], 
-                    index: subIndex, 
-                    parent: layer 
-                };
-            }
-        }
-        return null;
+    // Helper function to get the OpenLayers layer object from a layer config
+    function getOLLayer(layerConfig) {
+        return layerConfig._olLayerGroup || layerConfig;
     }
-    
-    // Helper function to swap two layers in the map
-    function swapLayersInMap(layer1, layer2) {
+
+    // Helper function to move a layer in the map's layer collection
+    function moveLayerInMap(layer, offset) {
         if (!window.map) return false;
         
         const mapLayers = window.map.getLayers();
-        const layer1Info = findLayerInMap(layer1);
-        const layer2Info = findLayerInMap(layer2);
+        const olLayer = getOLLayer(layer);
+        const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
         
-        if (!layer1Info || !layer2Info) return false;
+        if (currentIndex === -1) return false;
         
-        // If layers are in the same group, swap them directly
-        if (layer1Info.parent === layer2Info.parent) {
-            const parent = layer1Info.parent || mapLayers;
-            const array = parent.getLayers ? parent.getLayers().getArray() : parent.getArray();
-            
-            const index1 = array.indexOf(layer1);
-            const index2 = array.indexOf(layer2);
-            
-            if (index1 !== -1 && index2 !== -1) {
-                array[index1] = layer2;
-                array[index2] = layer1;
-                
-                // Trigger update
-                if (parent.getLayers) {
-                    parent.getLayers().changed();
-                } else {
-                    parent.changed();
-                }
-                
-                window.map.render();
-                return true;
-            }
-        }
+        const newIndex = currentIndex + offset;
+        if (newIndex < 0 || newIndex >= window.layers.length) return false;
         
-        return false;
+        // Remove the layer from the map
+        mapLayers.remove(olLayer);
+        
+        // Insert it at the new position
+        mapLayers.insertAt(newIndex, olLayer);
+        
+        // Update the layers array
+        const [movedLayer] = window.layers.splice(currentIndex, 1);
+        window.layers.splice(newIndex, 0, movedLayer);
+        
+        // Force update
+        mapLayers.changed();
+        window.map.render();
+        
+        return true;
     }
     const searchInput = document.getElementById('layer-search');
     const dropdown = document.getElementById('layer-search-dropdown');
@@ -225,31 +198,12 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    const currentIdx = window.layers.findIndex(l => l.id === layer.id);
-                    if (currentIdx === -1 || currentIdx >= window.layers.length - 1) return;
-                    
-                    // Get the next layer
-                    const nextLayer = window.layers[currentIdx + 1];
-                    
-                    // Get the actual OpenLayers layer objects
-                    const olLayer = layer._olLayerGroup || layer;
-                    const nextOlLayer = nextLayer._olLayerGroup || nextLayer;
-                    
-                    // Try to swap the layers in the map
-                    const swapped = swapLayersInMap(olLayer, nextOlLayer);
-                    
-                    if (swapped) {
-                        // Swap in the layers array
-                        window.layers[currentIdx] = nextLayer;
-                        window.layers[currentIdx + 1] = layer;
-                        
-                        // Update the UI
-                        if (window.renderLayerList) {
-                            window.renderLayerList(window.layers, searchInput.value);
-                        }
-                        
-                        // Re-render the dropdown with the same filter
+                    // Move the layer up in the map and update the UI
+                    if (moveLayerInMap(layer, -1)) {
                         const currentSearch = searchInput.value.toLowerCase();
+                        if (window.renderLayerList) {
+                            window.renderLayerList(window.layers, currentSearch);
+                        }
                         renderDropdown(window.layers.filter(l => 
                             l.title.toLowerCase().includes(currentSearch) || 
                             (l.group && l.group.toLowerCase().includes(currentSearch))
@@ -267,31 +221,12 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    const currentIdx = window.layers.findIndex(l => l.id === layer.id);
-                    if (currentIdx <= 0) return;
-                    
-                    // Get the previous layer
-                    const prevLayer = window.layers[currentIdx - 1];
-                    
-                    // Get the actual OpenLayers layer objects
-                    const olLayer = layer._olLayerGroup || layer;
-                    const prevOlLayer = prevLayer._olLayerGroup || prevLayer;
-                    
-                    // Try to swap the layers in the map
-                    const swapped = swapLayersInMap(olLayer, prevOlLayer);
-                    
-                    if (swapped) {
-                        // Swap in the layers array
-                        window.layers[currentIdx] = prevLayer;
-                        window.layers[currentIdx - 1] = layer;
-                        
-                        // Update the UI
-                        if (window.renderLayerList) {
-                            window.renderLayerList(window.layers, searchInput.value);
-                        }
-                        
-                        // Re-render the dropdown with the same filter
+                    // Move the layer down in the map and update the UI
+                    if (moveLayerInMap(layer, 1)) {
                         const currentSearch = searchInput.value.toLowerCase();
+                        if (window.renderLayerList) {
+                            window.renderLayerList(window.layers, currentSearch);
+                        }
                         renderDropdown(window.layers.filter(l => 
                             l.title.toLowerCase().includes(currentSearch) || 
                             (l.group && l.group.toLowerCase().includes(currentSearch))
