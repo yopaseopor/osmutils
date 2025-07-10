@@ -21,6 +21,28 @@
         }
         
         try {
+            // Get the map instance
+            const map = window.map || window.olMap || 
+                      (window.ol && window.ol.Map && window.ol.Map.instance_);
+            
+            if (!map) {
+                console.error('Map instance not found');
+                return false;
+            }
+            
+            // Get the layers collection
+            const layers = map.getLayers ? map.getLayers() : 
+                         (map.layers || (map.get && map.get('layers')));
+            
+            if (!layers) {
+                console.error('Could not get layers collection');
+                return false;
+            }
+            
+            // Get the current layer order
+            const currentLayers = layers.getArray ? layers.getArray() : 
+                               (Array.isArray(layers) ? layers : []);
+            
             // Reorder window.layers
             const newLayers = [...window.layers];
             const [movedLayer] = newLayers.splice(currentIndex, 1);
@@ -31,6 +53,27 @@
             
             console.log('New layer order after move:', 
                 window.layers.map(l => l.title || l.id || 'unnamed'));
+            
+            // Get the OpenLayers layer objects in the new order
+            const newLayerOrder = [];
+            window.layers.forEach(layer => {
+                const olLayer = getOLLayer(layer);
+                if (olLayer) {
+                    newLayerOrder.push(olLayer);
+                }
+            });
+            
+            // Update the map layers
+            if (layers.clear) {
+                layers.clear();
+                newLayerOrder.forEach(layer => layers.push(layer));
+            } else if (Array.isArray(layers)) {
+                layers.length = 0;
+                newLayerOrder.forEach(layer => layers.push(layer));
+            }
+            
+            // Force a re-render
+            if (map.render) map.render();
             
             // Get the current search term
             const currentSearch = document.getElementById('layer-search')?.value?.toLowerCase() || '';
@@ -47,7 +90,7 @@
             );
             renderDropdown(filteredLayers);
             
-            console.log('Layer order updated in UI');
+            console.log('Layer order updated in UI and map');
             return true;
             
         } catch (error) {
