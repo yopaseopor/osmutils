@@ -5,36 +5,6 @@
     function getOLLayer(layerConfig) {
         return layerConfig._olLayerGroup || layerConfig;
     }
-
-    // Helper function to move a layer in the map's layer collection
-    function moveLayerInMap(layer, offset) {
-        if (!window.map) return false;
-        
-        const mapLayers = window.map.getLayers();
-        const olLayer = getOLLayer(layer);
-        const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
-        
-        if (currentIndex === -1) return false;
-        
-        const newIndex = currentIndex + offset;
-        if (newIndex < 0 || newIndex >= window.layers.length) return false;
-        
-        // Remove the layer from the map
-        mapLayers.remove(olLayer);
-        
-        // Insert it at the new position
-        mapLayers.insertAt(newIndex, olLayer);
-        
-        // Update the layers array
-        const [movedLayer] = window.layers.splice(currentIndex, 1);
-        window.layers.splice(newIndex, 0, movedLayer);
-        
-        // Force update
-        mapLayers.changed();
-        window.map.render();
-        
-        return true;
-    }
     const searchInput = document.getElementById('layer-search');
     const dropdown = document.getElementById('layer-search-dropdown');
 
@@ -184,61 +154,11 @@
             });
             opt.appendChild(activateBtn);
 
-            // Layer orderer buttons (only for active layers)
-            const isLayerActive = (layer._olLayerGroup && layer._olLayerGroup.getVisible && layer._olLayerGroup.getVisible()) || 
-                               (layer.getVisible && layer.getVisible());
-            
-            if (isLayerActive) {
-                const upBtn = document.createElement('button');
-                upBtn.textContent = '↑';
-                upBtn.title = 'Move layer up in z-order';
-                upBtn.style.marginLeft = '2px';
-                upBtn.style.cursor = 'pointer';
-                upBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    // Move the layer up in the map and update the UI
-                    if (moveLayerInMap(layer, -1)) {
-                        const currentSearch = searchInput.value.toLowerCase();
-                        if (window.renderLayerList) {
-                            window.renderLayerList(window.layers, currentSearch);
-                        }
-                        renderDropdown(window.layers.filter(l => 
-                            l.title.toLowerCase().includes(currentSearch) || 
-                            (l.group && l.group.toLowerCase().includes(currentSearch))
-                        ));
-                    }
-                });
-                opt.appendChild(upBtn);
 
-                const downBtn = document.createElement('button');
-                downBtn.textContent = '↓';
-                downBtn.title = 'Move layer down in z-order';
-                downBtn.style.marginLeft = '2px';
-                downBtn.style.cursor = 'pointer';
-                downBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    // Move the layer down in the map and update the UI
-                    if (moveLayerInMap(layer, 1)) {
-                        const currentSearch = searchInput.value.toLowerCase();
-                        if (window.renderLayerList) {
-                            window.renderLayerList(window.layers, currentSearch);
-                        }
-                        renderDropdown(window.layers.filter(l => 
-                            l.title.toLowerCase().includes(currentSearch) || 
-                            (l.group && l.group.toLowerCase().includes(currentSearch))
-                        ));
-                    }
-                });
-                opt.appendChild(downBtn);
-            }
 
             opt.addEventListener('mousedown', function(e) {
-                // Prevent slider or orderer from triggering layer activation
-                if (e.target === slider || e.target === upBtn || e.target === downBtn) return;
+                // Prevent slider from triggering layer activation
+                if (e.target === slider) return;
                 e.preventDefault();
                 searchInput.value = ''; // Clear the search input
                 dropdown.style.display = 'none';
