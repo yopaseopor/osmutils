@@ -79,12 +79,18 @@
             slider.style.verticalAlign = 'middle';
             slider.title = 'Opacity';
             slider.addEventListener('input', function(e) {
+                e.stopPropagation(); // Prevent event from bubbling up
                 var val = parseInt(e.target.value, 10) / 100;
                 if (layer._olLayerGroup && layer._olLayerGroup.setOpacity) {
                     layer._olLayerGroup.setOpacity(val);
                 } else if (layer.setOpacity) {
                     layer.setOpacity(val);
                 }
+            });
+            
+            // Also prevent mousedown on the slider from closing the menu
+            slider.addEventListener('mousedown', function(e) {
+                e.stopPropagation();
             });
             opt.appendChild(slider);
 
@@ -305,14 +311,26 @@
         }
     });
 
-    // Hide dropdown on blur, but keep it open if the clear button is being clicked
+    // Click outside handler
+    document.addEventListener('click', function(e) {
+        // If the click is outside both the search input and dropdown
+        if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+    
+    // Prevent dropdown from closing when clicking inside it
+    dropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+    
+    // Hide dropdown when search input loses focus (with a small delay to allow for button clicks)
     searchInput.addEventListener('blur', function() {
         setTimeout(function() {
-            var clearBtn = document.getElementById('clear-active-layer-btn');
-            if (clearBtn && document.activeElement === clearBtn) {
-                return;
+            // Only hide if focus isn't moving to an element inside the dropdown
+            if (!dropdown.contains(document.activeElement)) {
+                dropdown.style.display = 'none';
             }
-            dropdown.style.display = 'none';
         }, 100);
     });
 })();
