@@ -10,15 +10,8 @@
     function moveLayerUp(layer) {
         console.log('moveLayerUp called for layer:', layer);
         
-        // Get the OpenLayers layer object
-        const olLayer = getOLLayer(layer);
-        if (!olLayer) {
-            console.error('Could not get OpenLayers layer');
-            return false;
-        }
-        
         // Find the layer in window.layers
-        const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
+        const currentIndex = window.layers.findIndex(l => l === layer);
         console.log('Current index in window.layers:', currentIndex);
         
         // Can't move up if already at the top or not found
@@ -28,70 +21,26 @@
         }
         
         try {
-            console.log('Layer _olLayerGroup:', layer._olLayerGroup);
-            
-            // Get the parent group from the _olLayerGroup
-            const parentGroup = layer._olLayerGroup;
-            if (!parentGroup) {
-                console.error('No _olLayerGroup found on layer');
+            // Get the OpenLayers layer object
+            const olLayer = getOLLayer(layer);
+            if (!olLayer) {
+                console.error('Could not get OpenLayers layer');
                 return false;
             }
             
-            // Try to get the layers array from the parent group
-            let layers = [];
-            if (parentGroup.getLayers) {
-                const collection = parentGroup.getLayers();
-                layers = collection.getArray ? collection.getArray() : 
-                        (collection.array_ || []);
-                console.log('Got layers from parentGroup.getLayers()');
-            } else if (Array.isArray(parentGroup)) {
-                layers = parentGroup;
-                console.log('Using parentGroup as layers array');
-            } else if (parentGroup.array_) {
-                layers = parentGroup.array_;
-                console.log('Using parentGroup.array_ as layers array');
-            } else {
-                console.error('Could not get layers from parentGroup');
-                return false;
-            }
+            // Get the current map state
+            const map = window.map || window.olMap;
+            const view = map?.getView();
+            const center = view?.getCenter();
+            const zoom = view?.getZoom();
             
-            console.log('Layers in group:', layers.map(l => (l.get && l.get('title')) || l.title || 'unnamed'));
+            // Reorder window.layers
+            const newLayers = [...window.layers];
+            const [movedLayer] = newLayers.splice(currentIndex, 1);
+            newLayers.splice(currentIndex - 1, 0, movedLayer);
             
-            // Find the layer in the layers array
-            const layerIndex = layers.findIndex(l => {
-                if (!l) return false;
-                // Try different ways to identify the layer
-                return l === olLayer || 
-                       (l.get && l.get('title') === layer.title) ||
-                       l.title === layer.title ||
-                       (l.getLayers && l.getLayers().getArray().includes(olLayer));
-            });
-            
-            if (layerIndex <= 0) {
-                console.log('Layer not found in layers array or already at the top');
-                return false;
-            }
-            
-            console.log(`Moving layer ${layer.title} from index ${layerIndex} to ${layerIndex - 1}`);
-            
-            // Move the layer in the parent group
-            if (layers.removeAt && layers.insertAt) {
-                layers.removeAt(layerIndex);
-                layers.insertAt(layerIndex - 1, olLayer);
-                console.log('Moved layer using removeAt/insertAt');
-            } else if (layers.remove && layers.insertAt) {
-                layers.remove(olLayer);
-                layers.insertAt(layerIndex - 1, olLayer);
-                console.log('Moved layer using remove/insertAt');
-            } else if (Array.isArray(layers)) {
-                layers.splice(layerIndex, 1);
-                layers.splice(layerIndex - 1, 0, olLayer);
-                console.log('Moved layer using direct array manipulation');
-            }
-            
-            // Update window.layers array to match
-            const [movedLayer] = window.layers.splice(currentIndex, 1);
-            window.layers.splice(currentIndex - 1, 0, movedLayer);
+            // Update window.layers
+            window.layers = newLayers;
             
             console.log('New layer order after move:', 
                 window.layers.map(l => l.title || l.id || 'unnamed'));
@@ -108,9 +57,28 @@
                 (l.group && l.group.toLowerCase().includes(currentSearch))
             ));
             
-            // Force map to update
-            if (window.map?.render) window.map.render();
-            else if (window.olMap?.render) window.olMap.render();
+            // If we have a map, reinitialize it with the new layer order
+            if (map) {
+                // Store the current view state
+                const viewState = view?.getState();
+                
+                // Reinitialize the map with the new layer order
+                if (window.initMap) {
+                    window.initMap();
+                } else if (window.initializeMap) {
+                    window.initializeMap();
+                }
+                
+                // Restore the view state
+                if (viewState) {
+                    const newView = map.getView();
+                    newView.setCenter(center);
+                    newView.setZoom(zoom);
+                }
+                
+                // Trigger a render
+                map.renderSync();
+            }
             
             console.log('Layer moved successfully');
             return true;
