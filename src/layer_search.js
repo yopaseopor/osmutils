@@ -164,8 +164,8 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    const currentIdx = window.layers.indexOf(layer);
-                    if (currentIdx >= window.layers.length - 1) return;
+                    const currentIdx = window.layers.findIndex(l => l.id === layer.id);
+                    if (currentIdx === -1 || currentIdx >= window.layers.length - 1) return;
                     
                     // Get the next layer
                     const nextLayer = window.layers[currentIdx + 1];
@@ -174,34 +174,27 @@
                     window.layers[currentIdx] = nextLayer;
                     window.layers[currentIdx + 1] = layer;
                     
-                    // Update config if it exists
-                    if (window.config && Array.isArray(window.config.layers)) {
-                        const temp = window.config.layers[currentIdx];
-                        window.config.layers[currentIdx] = window.config.layers[currentIdx + 1];
-                        window.config.layers[currentIdx + 1] = temp;
-                    }
-                    
-                    // Update the map
+                    // Update the map by reordering the layers in the map's layer collection
                     if (window.map) {
                         const mapLayers = window.map.getLayers();
                         const olLayer = layer._olLayerGroup || layer;
-                        
-                        // Get the current z-index of the layer
-                        const currentZIndex = olLayer.getZIndex() || 0;
-                        
-                        // Find the next layer's z-index
                         const nextOlLayer = nextLayer._olLayerGroup || nextLayer;
-                        const nextZIndex = nextOlLayer.getZIndex() || 0;
                         
-                        // Swap z-indices
-                        olLayer.setZIndex(nextZIndex);
-                        nextOlLayer.setZIndex(currentZIndex);
+                        // Get the current index in the map's layer collection
+                        const olLayerIndex = mapLayers.getArray().indexOf(olLayer);
+                        const nextOlLayerIndex = mapLayers.getArray().indexOf(nextOlLayer);
                         
-                        // Force map update
-                        window.map.render();
+                        if (olLayerIndex !== -1 && nextOlLayerIndex !== -1) {
+                            // Remove and reinsert to change the order
+                            mapLayers.remove(olLayer);
+                            mapLayers.insertAt(nextOlLayerIndex, olLayer);
+                            
+                            // Force map update
+                            window.map.render();
+                        }
                     }
                     
-                    // Re-render the UI
+                    // Update the UI
                     if (window.renderLayerList) {
                         window.renderLayerList(window.layers, searchInput.value);
                     }
@@ -224,7 +217,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    const currentIdx = window.layers.indexOf(layer);
+                    const currentIdx = window.layers.findIndex(l => l.id === layer.id);
                     if (currentIdx <= 0) return;
                     
                     // Get the previous layer
@@ -234,30 +227,24 @@
                     window.layers[currentIdx] = prevLayer;
                     window.layers[currentIdx - 1] = layer;
                     
-                    // Update config if it exists
-                    if (window.config && Array.isArray(window.config.layers)) {
-                        const temp = window.config.layers[currentIdx];
-                        window.config.layers[currentIdx] = window.config.layers[currentIdx - 1];
-                        window.config.layers[currentIdx - 1] = temp;
-                    }
-                    
-                    // Update the map
+                    // Update the map by reordering the layers in the map's layer collection
                     if (window.map) {
+                        const mapLayers = window.map.getLayers();
                         const olLayer = layer._olLayerGroup || layer;
                         const prevOlLayer = prevLayer._olLayerGroup || prevLayer;
                         
-                        // Get the current z-index of the layer
-                        const currentZIndex = olLayer.getZIndex() || 0;
+                        // Get the current index in the map's layer collection
+                        const olLayerIndex = mapLayers.getArray().indexOf(olLayer);
+                        const prevOlLayerIndex = mapLayers.getArray().indexOf(prevOlLayer);
                         
-                        // Get the previous layer's z-index
-                        const prevZIndex = prevOlLayer.getZIndex() || 0;
-                        
-                        // Swap z-indices
-                        olLayer.setZIndex(prevZIndex);
-                        prevOlLayer.setZIndex(currentZIndex);
-                        
-                        // Force map update
-                        window.map.render();
+                        if (olLayerIndex !== -1 && prevOlLayerIndex !== -1) {
+                            // Remove and reinsert to change the order
+                            mapLayers.remove(olLayer);
+                            mapLayers.insertAt(prevOlLayerIndex, olLayer);
+                            
+                            // Force map update
+                            window.map.render();
+                        }
                     }
                     
                     // Re-render the UI
