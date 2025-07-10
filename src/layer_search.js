@@ -5,6 +5,34 @@
     function getOLLayer(layerConfig) {
         return layerConfig._olLayerGroup || layerConfig;
     }
+
+    // Helper function to move a layer up in the z-order
+    function moveLayerUp(layer) {
+        if (!window.map) return false;
+        
+        const mapLayers = window.map.getLayers();
+        const olLayer = getOLLayer(layer);
+        const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
+        
+        // Can't move up if already at the top
+        if (currentIndex <= 0) return false;
+        
+        // Remove the layer from the map
+        mapLayers.remove(olLayer);
+        
+        // Insert it one position higher
+        mapLayers.insertAt(currentIndex - 1, olLayer);
+        
+        // Update the layers array
+        const [movedLayer] = window.layers.splice(currentIndex, 1);
+        window.layers.splice(currentIndex - 1, 0, movedLayer);
+        
+        // Force update
+        mapLayers.changed();
+        window.map.render();
+        
+        return true;
+    }
     const searchInput = document.getElementById('layer-search');
     const dropdown = document.getElementById('layer-search-dropdown');
 
@@ -154,11 +182,41 @@
             });
             opt.appendChild(activateBtn);
 
+            // Add up button for active layers
+            const isLayerActive = (layer._olLayerGroup && layer._olLayerGroup.getVisible && layer._olLayerGroup.getVisible()) || 
+                               (layer.getVisible && layer.getVisible());
+            
+            if (isLayerActive) {
+                const upBtn = document.createElement('button');
+                upBtn.textContent = '↑';
+                upBtn.title = 'Move layer up in z-order';
+                upBtn.style.marginLeft = '5px';
+                upBtn.style.padding = '2px 5px';
+                upBtn.style.cursor = 'pointer';
+                upBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Move the layer up and update the UI
+                    if (moveLayerUp(layer)) {
+                        const currentSearch = searchInput.value.toLowerCase();
+                        if (window.renderLayerList) {
+                            window.renderLayerList(window.layers, currentSearch);
+                        }
+                        // Re-render the dropdown to show the new order
+                        renderDropdown(window.layers.filter(l => 
+                            l.title.toLowerCase().includes(currentSearch) || 
+                            (l.group && l.group.toLowerCase().includes(currentSearch))
+                        ));
+                    }
+                });
+                opt.appendChild(upBtn);
+            }
 
 
             opt.addEventListener('mousedown', function(e) {
-                // Prevent slider from triggering layer activation
-                if (e.target === slider) return;
+                // Prevent slider or up button from triggering layer activation
+                if (e.target === slider || (e.target.tagName === 'BUTTON' && e.target.textContent === '↑')) return;
                 e.preventDefault();
                 searchInput.value = ''; // Clear the search input
                 dropdown.style.display = 'none';
