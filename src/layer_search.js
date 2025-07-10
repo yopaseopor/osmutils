@@ -28,16 +28,33 @@
             console.log('Current layer order before move:', 
                 window.layers.map(l => l.title || l.id || 'unnamed'));
             
-            // Get the layer's DOM element (assuming it has one)
-            const layerElement = document.querySelector(`[data-layer-id="${layer.id}"]`);
-            const parentElement = layerElement?.parentElement;
+            // Find the layer in the dropdown by its title
+            const dropdown = document.getElementById('layer-search-dropdown');
+            if (!dropdown) {
+                console.error('Could not find layer dropdown');
+                return false;
+            }
             
-            if (layerElement && parentElement && currentIndex > 0) {
-                // Move the DOM element up
-                const previousSibling = parentElement.children[currentIndex - 1];
-                if (previousSibling) {
-                    parentElement.insertBefore(layerElement, previousSibling);
-                }
+            // Find all layer items in the dropdown
+            const layerItems = Array.from(dropdown.querySelectorAll('div'));
+            const currentItem = layerItems.find(item => 
+                item.textContent && item.textContent.includes(layer.title)
+            );
+            
+            if (!currentItem) {
+                console.error('Could not find layer in dropdown:', layer.title);
+                return false;
+            }
+            
+            const parentElement = currentItem.parentElement;
+            const currentPosition = Array.from(parentElement.children).indexOf(currentItem);
+            
+            if (currentPosition > 0) {
+                // Get the previous sibling to insert before
+                const previousSibling = parentElement.children[currentPosition - 1];
+                
+                // Move the DOM element
+                parentElement.insertBefore(currentItem, previousSibling);
                 
                 // Update the window.layers array
                 const [movedLayer] = window.layers.splice(currentIndex, 1);
@@ -46,9 +63,18 @@
                 console.log('New layer order after move:', 
                     window.layers.map(l => l.title || l.id || 'unnamed'));
                 
-                // Force a redraw of the map if possible
-                if (window.map?.render) window.map.render();
-                else if (window.olMap?.render) window.olMap.render();
+                // Try to force a redraw of the map if possible
+                try {
+                    if (window.map?.render) window.map.render();
+                    else if (window.olMap?.render) window.olMap.render();
+                    else if (window.ol?.Map?.prototype?.render) {
+                        // Try to find and call render on the map instance
+                        const mapInstance = Object.values(window.ol.Map.instances_ || {})[0];
+                        if (mapInstance?.render) mapInstance.render();
+                    }
+                } catch (e) {
+                    console.warn('Could not trigger map render:', e);
+                }
                 
                 console.log('Layer moved successfully in DOM and layers array');
                 return true;
