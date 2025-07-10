@@ -337,10 +337,11 @@
         }
         
         // First filter by search query
-        let filtered = window.layers.filter(layer =>
-            (layer.title && layer.title.toLowerCase().includes(query)) ||
-            (layer.group && group.toLowerCase().includes(query))
-        );
+        let filtered = window.layers.filter(layer => {
+            const titleMatch = layer.title && layer.title.toLowerCase().includes(query);
+            const groupMatch = layer.group && layer.group.toLowerCase().includes(query);
+            return titleMatch || groupMatch;
+        });
         
         // Then sort: active layers first, then by match relevance
         filtered.sort((a, b) => {
