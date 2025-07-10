@@ -163,41 +163,48 @@
                 upBtn.addEventListener('mousedown', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    const currentIdx = window.layers.indexOf(layer);
                     
-                    if (currentIdx < window.layers.length - 1) {
-                        // Move layer up one position
-                        window.layers[currentIdx] = window.layers[currentIdx + 1];
-                        window.layers[currentIdx + 1] = layer;
-                        
-                        // Update config if it exists
-                        if (window.config && Array.isArray(window.config.layers)) {
-                            const temp = window.config.layers[currentIdx];
-                            window.config.layers[currentIdx] = window.config.layers[currentIdx + 1];
-                            window.config.layers[currentIdx + 1] = temp;
-                        }
-                        
-                        // Update the map
-                        if (window.map) {
-                            const mapLayers = window.map.getLayers().getArray();
-                            const olLayer = layer._olLayerGroup || layer;
-                            const layerIndex = mapLayers.findIndex(l => l === olLayer);
-                            
-                            if (layerIndex !== -1 && layerIndex < mapLayers.length - 1) {
-                                // Swap with the layer above
-                                mapLayers[layerIndex] = mapLayers[layerIndex + 1];
-                                mapLayers[layerIndex + 1] = olLayer;
-                                window.map.render();
-                            }
-                        }
-                        
-                        // Re-render the UI
-                        if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
-                        renderDropdown(window.layers.filter(l => 
-                            l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
-                            (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))
-                        ));
+                    const currentIdx = window.layers.indexOf(layer);
+                    if (currentIdx >= window.layers.length - 1) return;
+                    
+                    // Swap in the layers array
+                    const nextLayer = window.layers[currentIdx + 1];
+                    window.layers[currentIdx + 1] = layer;
+                    window.layers[currentIdx] = nextLayer;
+                    
+                    // Update config if it exists
+                    if (window.config && Array.isArray(window.config.layers)) {
+                        const temp = window.config.layers[currentIdx];
+                        window.config.layers[currentIdx] = window.config.layers[currentIdx + 1];
+                        window.config.layers[currentIdx + 1] = temp;
                     }
+                    
+                    // Update the map
+                    if (window.map) {
+                        const mapLayers = window.map.getLayers();
+                        const olLayer = layer._olLayerGroup || layer;
+                        const nextOlLayer = nextLayer._olLayerGroup || nextLayer;
+                        
+                        // Remove and reinsert the layer to change z-index
+                        mapLayers.remove(olLayer);
+                        const targetIndex = mapLayers.getArray().findIndex(l => l === nextOlLayer);
+                        if (targetIndex !== -1) {
+                            mapLayers.insertAt(targetIndex + 1, olLayer);
+                            window.map.render();
+                        }
+                    }
+                    
+                    // Re-render the UI
+                    if (window.renderLayerList) {
+                        window.renderLayerList(window.layers, searchInput.value);
+                    }
+                    
+                    // Re-render the dropdown with the same filter
+                    const currentSearch = searchInput.value.toLowerCase();
+                    renderDropdown(window.layers.filter(l => 
+                        l.title.toLowerCase().includes(currentSearch) || 
+                        (l.group && l.group.toLowerCase().includes(currentSearch))
+                    ));
                 });
                 opt.appendChild(upBtn);
 
@@ -209,41 +216,48 @@
                 downBtn.addEventListener('mousedown', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    const currentIdx = window.layers.indexOf(layer);
                     
-                    if (currentIdx > 0) {
-                        // Move layer down one position
-                        window.layers[currentIdx] = window.layers[currentIdx - 1];
-                        window.layers[currentIdx - 1] = layer;
-                        
-                        // Update config if it exists
-                        if (window.config && Array.isArray(window.config.layers)) {
-                            const temp = window.config.layers[currentIdx];
-                            window.config.layers[currentIdx] = window.config.layers[currentIdx - 1];
-                            window.config.layers[currentIdx - 1] = temp;
-                        }
-                        
-                        // Update the map
-                        if (window.map) {
-                            const mapLayers = window.map.getLayers().getArray();
-                            const olLayer = layer._olLayerGroup || layer;
-                            const layerIndex = mapLayers.findIndex(l => l === olLayer);
-                            
-                            if (layerIndex > 0) {
-                                // Swap with the layer below
-                                mapLayers[layerIndex] = mapLayers[layerIndex - 1];
-                                mapLayers[layerIndex - 1] = olLayer;
-                                window.map.render();
-                            }
-                        }
-                        
-                        // Re-render the UI
-                        if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
-                        renderDropdown(window.layers.filter(l => 
-                            l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
-                            (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))
-                        ));
+                    const currentIdx = window.layers.indexOf(layer);
+                    if (currentIdx <= 0) return;
+                    
+                    // Swap in the layers array
+                    const prevLayer = window.layers[currentIdx - 1];
+                    window.layers[currentIdx - 1] = layer;
+                    window.layers[currentIdx] = prevLayer;
+                    
+                    // Update config if it exists
+                    if (window.config && Array.isArray(window.config.layers)) {
+                        const temp = window.config.layers[currentIdx];
+                        window.config.layers[currentIdx] = window.config.layers[currentIdx - 1];
+                        window.config.layers[currentIdx - 1] = temp;
                     }
+                    
+                    // Update the map
+                    if (window.map) {
+                        const mapLayers = window.map.getLayers();
+                        const olLayer = layer._olLayerGroup || layer;
+                        const prevOlLayer = prevLayer._olLayerGroup || prevLayer;
+                        
+                        // Remove and reinsert the layer to change z-index
+                        mapLayers.remove(olLayer);
+                        const targetIndex = mapLayers.getArray().findIndex(l => l === prevOlLayer);
+                        if (targetIndex > 0) {
+                            mapLayers.insertAt(targetIndex - 1, olLayer);
+                            window.map.render();
+                        }
+                    }
+                    
+                    // Re-render the UI
+                    if (window.renderLayerList) {
+                        window.renderLayerList(window.layers, searchInput.value);
+                    }
+                    
+                    // Re-render the dropdown with the same filter
+                    const currentSearch = searchInput.value.toLowerCase();
+                    renderDropdown(window.layers.filter(l => 
+                        l.title.toLowerCase().includes(currentSearch) || 
+                        (l.group && l.group.toLowerCase().includes(currentSearch))
+                    ));
                 });
                 opt.appendChild(downBtn);
             }
