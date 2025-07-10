@@ -39,18 +39,65 @@
                 return false;
             }
             
-            // Get the layers collection
-            const layers = map.getLayers ? map.getLayers() : (map.layers || []);
-            let layersArray = [];
+            // Debug: Log the map object structure
+            console.log('Map object:', {
+                type: typeof map,
+                keys: Object.keys(map),
+                hasGetLayers: typeof map.getLayers === 'function',
+                hasLayers: 'layers' in map,
+                layersType: map.layers ? typeof map.layers : 'no layers',
+                prototype: Object.getPrototypeOf(map)
+            });
             
-            // Get the actual layers array
-            if (layers.getArray) {
-                layersArray = layers.getArray();
-            } else if (Array.isArray(layers)) {
-                layersArray = layers;
-            } else if (layers.array_) {
-                layersArray = layers.array_;
+            // Try to find layers in the prototype chain
+            let proto = map;
+            while (proto) {
+                console.log('Prototype:', {
+                    type: typeof proto,
+                    keys: Object.keys(proto),
+                    hasGetLayers: typeof proto.getLayers === 'function',
+                    hasLayers: 'layers' in proto,
+                    layersType: proto.layers ? typeof proto.layers : 'no layers'
+                });
+                proto = Object.getPrototypeOf(proto);
+                if (!proto) break;
             }
+            
+            // Get the layers collection - try different ways to access it
+            let layers, layersArray = [];
+            
+            // Try different methods to get the layers collection
+            if (map.getLayers) {
+                layers = map.getLayers();
+                if (layers.getArray) layersArray = layers.getArray();
+                else if (layers.array_) layersArray = layers.array_;
+                else if (layers.getLayers) layersArray = layers.getLayers();
+            }
+            
+            // If we still don't have layers, try direct access
+            if (layersArray.length === 0) {
+                if (map.layers) {
+                    if (Array.isArray(map.layers)) {
+                        layersArray = map.layers;
+                    } else if (map.layers.getArray) {
+                        layersArray = map.layers.getArray();
+                    } else if (map.layers.array_) {
+                        layersArray = map.layers.array_;
+                    }
+                }
+            }
+            
+            // Last resort: try to find layers in the map object
+            if (layersArray.length === 0) {
+                for (const key in map) {
+                    if (Array.isArray(map[key]) && key.toLowerCase().includes('layer')) {
+                        layersArray = map[key];
+                        break;
+                    }
+                }
+            }
+            
+            console.log('Found map layers:', layersArray);
             
             console.log('Map layers before move:', layersArray.map(l => l.get('title') || l.get('name') || 'unnamed'));
             
