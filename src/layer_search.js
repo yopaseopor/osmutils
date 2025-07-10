@@ -40,89 +40,16 @@
                 window.renderLayerList(window.layers, currentSearch);
             }
             
-            // Re-render the dropdown
-            renderDropdown(window.layers.filter(l => 
+            // Re-render the dropdown with current search results
+            const filteredLayers = window.layers.filter(l => 
                 l.title.toLowerCase().includes(currentSearch) || 
                 (l.group && l.group.toLowerCase().includes(currentSearch))
-            ));
+            );
+            renderDropdown(filteredLayers);
             
-            // Update the map layers to match the new order
-            try {
-                // Get the map instance
-                const map = window.map || window.olMap || 
-                          (window.ol && window.ol.Map && window.ol.Map.instance_);
-                
-                if (!map) {
-                    console.warn('Map instance not found');
-                    return;
-                }
-                
-                // Get the layers collection
-                let layers = map.getLayers ? map.getLayers() : 
-                           (map.layers || (map.get && map.get('layers')));
-                
-                if (!layers) {
-                    console.warn('Could not get layers collection');
-                    return;
-                }
-                
-                // Convert to array if it's a collection
-                const layersArray = layers.getArray ? layers.getArray() : 
-                                 (Array.isArray(layers) ? layers : []);
-                
-                console.log('Current map layers:', layersArray.map(l => l.get('title') || 'unnamed'));
-                
-                // Create a new array with layers in the correct order
-                const newLayersOrder = [];
-                
-                // First, add all layers from window.layers that exist in the map
-                window.layers.forEach(layer => {
-                    const olLayer = getOLLayer(layer);
-                    if (olLayer && layersArray.includes(olLayer)) {
-                        newLayersOrder.push(olLayer);
-                    }
-                });
-                
-                // Then add any remaining layers that weren't in window.layers
-                layersArray.forEach(layer => {
-                    if (!newLayersOrder.includes(layer)) {
-                        newLayersOrder.push(layer);
-                    }
-                });
-                
-                console.log('New layer order will be:', newLayersOrder.map(l => l.get('title') || 'unnamed'));
-                
-                // Clear all layers
-                while (layers.getLength && layers.getLength() > 0) {
-                    layers.pop();
-                }
-                
-                // Add layers back in the new order
-                newLayersOrder.forEach(layer => {
-                    if (layers.push) {
-                        layers.push(layer);
-                    } else if (layers.addLayer) {
-                        layers.addLayer(layer);
-                    }
-                });
-                
-                console.log('Updated map layer order');
-                
-                // Force a re-render
-                if (typeof map.render === 'function') map.render();
-                if (typeof map.renderSync === 'function') map.renderSync();
-                
-                // Force update the view
-                const view = map.getView ? map.getView() : 
-                           (map.view || (map.get && map.get('view')));
-                if (view && view.changed) view.changed();
-                
-            } catch (e) {
-                console.error('Error updating map layers:', e);
-            }
-            
-            console.log('Layer moved successfully');
+            console.log('Layer order updated in UI');
             return true;
+            
         } catch (error) {
             console.error('Error moving layer:', error);
             return false;
@@ -178,9 +105,20 @@
                         layer.setVisible(false);
                     }
                 });
-                if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
-                renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
-                    (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
+                // Get current search query
+                const currentSearch = searchInput.value.toLowerCase();
+                
+                // Update the layer list
+                if (window.renderLayerList) {
+                    window.renderLayerList(window.layers, currentSearch);
+                }
+                
+                // Re-render dropdown with current search results
+                const filteredLayers = window.layers.filter(l => 
+                    l.title.toLowerCase().includes(currentSearch) || 
+                    (l.group && l.group.toLowerCase().includes(currentSearch))
+                );
+                renderDropdown(filteredLayers);
                 searchInput.focus();
             });
             dropdown.appendChild(clearBtn);
@@ -271,9 +209,20 @@
                     activateBtn.style.color = '';
                 }
                 
-                if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
-                renderDropdown(window.layers.filter(l => l.title.toLowerCase().includes(searchInput.value.toLowerCase()) || 
-                    (l.group && l.group.toLowerCase().includes(searchInput.value.toLowerCase()))));
+                // Get current search query
+                const currentSearch = searchInput.value.toLowerCase();
+                
+                // Update the layer list
+                if (window.renderLayerList) {
+                    window.renderLayerList(window.layers, currentSearch);
+                }
+                
+                // Re-render dropdown with current search results
+                const filteredLayers = window.layers.filter(l => 
+                    l.title.toLowerCase().includes(currentSearch) || 
+                    (l.group && l.group.toLowerCase().includes(currentSearch))
+                );
+                renderDropdown(filteredLayers);
             });
             opt.appendChild(activateBtn);
 
