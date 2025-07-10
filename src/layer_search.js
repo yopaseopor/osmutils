@@ -9,50 +9,71 @@
     // Helper function to move a layer up in the z-order
     function moveLayerUp(layer) {
         console.log('moveLayerUp called for layer:', layer);
-        if (!window.map) {
+        const map = window.map || (window.olMap && window.olMap.getMap());
+        
+        if (!map) {
             console.error('No map found');
             return false;
         }
         
-        const mapLayers = window.map.getLayers();
-        console.log('Total layers in map:', mapLayers.getLength());
+        // Different ways to get layers based on OpenLayers version
+        const mapLayers = map.getLayers ? map.getLayers() : 
+                         (map.getLayersCollection ? map.getLayersCollection() : null);
+        
+        if (!mapLayers) {
+            console.error('Could not get map layers');
+            return false;
+        }
         
         const olLayer = getOLLayer(layer);
         console.log('OpenLayers layer:', olLayer);
         
+        // Find the layer in our window.layers array
         const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
         console.log('Current index in window.layers:', currentIndex);
         
-        // Can't move up if already at the top
+        // Can't move up if already at the top or not found
         if (currentIndex <= 0) {
-            console.log('Layer is already at the top');
+            console.log('Layer is already at the top or not found');
             return false;
         }
         
         try {
             console.log('Current layer order before move:', 
-                Array.from(window.layers).map(l => l.title || l.id || 'unnamed'));
-                
+                window.layers.map(l => l.title || l.id || 'unnamed'));
+            
+            // Get the actual layer collection array
+            const layersArray = mapLayers.getArray ? mapLayers.getArray() : 
+                              (mapLayers.array_ ? mapLayers.array_ : []);
+            
+            // Find the layer in the actual map layers
+            const layerIndex = layersArray.findIndex(l => l === olLayer);
+            if (layerIndex === -1) {
+                console.error('Layer not found in map layers');
+                return false;
+            }
+            
             // Remove the layer from the map
             console.log('Removing layer from map...');
-            mapLayers.remove(olLayer);
+            mapLayers.removeAt(layerIndex);
             
             // Insert it one position higher
-            console.log('Reinserting layer at position', currentIndex - 1);
-            mapLayers.insertAt(currentIndex - 1, olLayer);
+            const newIndex = Math.max(0, layerIndex - 1);
+            console.log('Reinserting layer at position', newIndex);
+            mapLayers.insertAt(newIndex, olLayer);
             
-            // Update the layers array
+            // Update our window.layers array to match
             console.log('Updating window.layers array...');
             const [movedLayer] = window.layers.splice(currentIndex, 1);
-            window.layers.splice(currentIndex - 1, 0, movedLayer);
+            window.layers.splice(newIndex, 0, movedLayer);
             
             console.log('New layer order after move:', 
-                Array.from(window.layers).map(l => l.title || l.id || 'unnamed'));
+                window.layers.map(l => l.title || l.id || 'unnamed'));
             
             // Force update
             console.log('Triggering map update...');
-            mapLayers.changed();
-            window.map.render();
+            if (mapLayers.changed) mapLayers.changed();
+            if (map.render) map.render();
             
             console.log('Layer moved successfully');
             return true;
