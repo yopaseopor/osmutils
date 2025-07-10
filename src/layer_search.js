@@ -6,98 +6,7 @@
         return layerConfig._olLayerGroup || layerConfig;
     }
 
-    // Helper function to move a layer up in the z-order
-    function moveLayerUp(layer) {
-        console.log('moveLayerUp called for layer:', layer);
-        
-        // Find the layer in window.layers
-        const currentIndex = window.layers.findIndex(l => l === layer);
-        console.log('Current index in window.layers:', currentIndex);
-        
-        // Can't move up if already at the top or not found
-        if (currentIndex <= 0) {
-            console.log('Layer is already at the top or not found');
-            return false;
-        }
-        
-        try {
-            // Get the map instance
-            const map = window.map || window.olMap || 
-                      (window.ol && window.ol.Map && window.ol.Map.instance_);
-            
-            if (!map) {
-                console.error('Map instance not found');
-                return false;
-            }
-            
-            // Get the layers collection
-            const layers = map.getLayers ? map.getLayers() : 
-                         (map.layers || (map.get && map.get('layers')));
-            
-            if (!layers) {
-                console.error('Could not get layers collection');
-                return false;
-            }
-            
-            // Get the current layer order
-            const currentLayers = layers.getArray ? layers.getArray() : 
-                               (Array.isArray(layers) ? layers : []);
-            
-            // Reorder window.layers
-            const newLayers = [...window.layers];
-            const [movedLayer] = newLayers.splice(currentIndex, 1);
-            newLayers.splice(currentIndex - 1, 0, movedLayer);
-            
-            // Update window.layers
-            window.layers = newLayers;
-            
-            console.log('New layer order after move:', 
-                window.layers.map(l => l.title || l.id || 'unnamed'));
-            
-            // Get the OpenLayers layer objects in the new order
-            const newLayerOrder = [];
-            window.layers.forEach(layer => {
-                const olLayer = getOLLayer(layer);
-                if (olLayer) {
-                    newLayerOrder.push(olLayer);
-                }
-            });
-            
-            // Update the map layers
-            if (layers.clear) {
-                layers.clear();
-                newLayerOrder.forEach(layer => layers.push(layer));
-            } else if (Array.isArray(layers)) {
-                layers.length = 0;
-                newLayerOrder.forEach(layer => layers.push(layer));
-            }
-            
-            // Force a re-render
-            if (map.render) map.render();
-            
-            // Get the current search term
-            const currentSearch = document.getElementById('layer-search')?.value?.toLowerCase() || '';
-            
-            // Update the UI
-            if (window.renderLayerList) {
-                window.renderLayerList(window.layers, currentSearch);
-            }
-            
-            // Re-render the dropdown with current search results
-            const filteredLayers = window.layers.filter(l => 
-                l.title.toLowerCase().includes(currentSearch) || 
-                (l.group && l.group.toLowerCase().includes(currentSearch))
-            );
-            renderDropdown(filteredLayers);
-            
-            console.log('Layer order updated in UI and map');
-            return true;
-            
-        } catch (error) {
-            console.error('Error moving layer:', error);
-            return false;
-        }
-    }
+    // Layer reordering functionality has been removed
     const searchInput = document.getElementById('layer-search');
     const dropdown = document.getElementById('layer-search-dropdown');
 
@@ -269,46 +178,7 @@
             });
             opt.appendChild(activateBtn);
 
-            // Add up button for active layers
-            const isLayerActive = (layer._olLayerGroup && layer._olLayerGroup.getVisible && layer._olLayerGroup.getVisible()) || 
-                               (layer.getVisible && layer.getVisible());
-            
-            if (isLayerActive) {
-                const upBtn = document.createElement('button');
-                upBtn.textContent = '↑';
-                upBtn.title = 'Move layer up in z-order';
-                upBtn.style.marginLeft = '5px';
-                upBtn.style.padding = '2px 5px';
-                upBtn.style.cursor = 'pointer';
-                upBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    console.log('Up button clicked for layer:', layer.title || layer.id || 'unnamed');
-                    
-                    // Move the layer up and update the UI
-                    const success = moveLayerUp(layer);
-                    console.log('moveLayerUp result:', success);
-                    
-                    if (success) {
-                        const currentSearch = searchInput.value.toLowerCase();
-                        console.log('Updating UI...');
-                        
-                        if (window.renderLayerList) {
-                            window.renderLayerList(window.layers, currentSearch);
-                        }
-                        
-                        // Re-render the dropdown to show the new order
-                        const filteredLayers = window.layers.filter(l => 
-                            l.title.toLowerCase().includes(currentSearch) || 
-                            (l.group && l.group.toLowerCase().includes(currentSearch))
-                        );
-                        console.log('Rendering dropdown with filtered layers:', filteredLayers.length);
-                        renderDropdown(filteredLayers);
-                    }
-                });
-                opt.appendChild(upBtn);
-            }
+            // Up button functionality removed
 
 
             opt.addEventListener('mousedown', function(e) {
