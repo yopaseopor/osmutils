@@ -160,17 +160,19 @@
                 upBtn.title = 'Move layer up in z-order';
                 upBtn.style.marginLeft = '2px';
                 upBtn.style.cursor = 'pointer';
-                upBtn.addEventListener('mousedown', function(e) {
+                upBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
                     const currentIdx = window.layers.indexOf(layer);
                     if (currentIdx >= window.layers.length - 1) return;
                     
-                    // Swap in the layers array
+                    // Get the next layer
                     const nextLayer = window.layers[currentIdx + 1];
-                    window.layers[currentIdx + 1] = layer;
+                    
+                    // Swap in the layers array
                     window.layers[currentIdx] = nextLayer;
+                    window.layers[currentIdx + 1] = layer;
                     
                     // Update config if it exists
                     if (window.config && Array.isArray(window.config.layers)) {
@@ -183,15 +185,20 @@
                     if (window.map) {
                         const mapLayers = window.map.getLayers();
                         const olLayer = layer._olLayerGroup || layer;
-                        const nextOlLayer = nextLayer._olLayerGroup || nextLayer;
                         
-                        // Remove and reinsert the layer to change z-index
-                        mapLayers.remove(olLayer);
-                        const targetIndex = mapLayers.getArray().findIndex(l => l === nextOlLayer);
-                        if (targetIndex !== -1) {
-                            mapLayers.insertAt(targetIndex + 1, olLayer);
-                            window.map.render();
-                        }
+                        // Get the current z-index of the layer
+                        const currentZIndex = olLayer.getZIndex() || 0;
+                        
+                        // Find the next layer's z-index
+                        const nextOlLayer = nextLayer._olLayerGroup || nextLayer;
+                        const nextZIndex = nextOlLayer.getZIndex() || 0;
+                        
+                        // Swap z-indices
+                        olLayer.setZIndex(nextZIndex);
+                        nextOlLayer.setZIndex(currentZIndex);
+                        
+                        // Force map update
+                        window.map.render();
                     }
                     
                     // Re-render the UI
@@ -213,17 +220,19 @@
                 downBtn.title = 'Move layer down in z-order';
                 downBtn.style.marginLeft = '2px';
                 downBtn.style.cursor = 'pointer';
-                downBtn.addEventListener('mousedown', function(e) {
+                downBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
                     const currentIdx = window.layers.indexOf(layer);
                     if (currentIdx <= 0) return;
                     
-                    // Swap in the layers array
+                    // Get the previous layer
                     const prevLayer = window.layers[currentIdx - 1];
-                    window.layers[currentIdx - 1] = layer;
+                    
+                    // Swap in the layers array
                     window.layers[currentIdx] = prevLayer;
+                    window.layers[currentIdx - 1] = layer;
                     
                     // Update config if it exists
                     if (window.config && Array.isArray(window.config.layers)) {
@@ -234,17 +243,21 @@
                     
                     // Update the map
                     if (window.map) {
-                        const mapLayers = window.map.getLayers();
                         const olLayer = layer._olLayerGroup || layer;
                         const prevOlLayer = prevLayer._olLayerGroup || prevLayer;
                         
-                        // Remove and reinsert the layer to change z-index
-                        mapLayers.remove(olLayer);
-                        const targetIndex = mapLayers.getArray().findIndex(l => l === prevOlLayer);
-                        if (targetIndex > 0) {
-                            mapLayers.insertAt(targetIndex - 1, olLayer);
-                            window.map.render();
-                        }
+                        // Get the current z-index of the layer
+                        const currentZIndex = olLayer.getZIndex() || 0;
+                        
+                        // Get the previous layer's z-index
+                        const prevZIndex = prevOlLayer.getZIndex() || 0;
+                        
+                        // Swap z-indices
+                        olLayer.setZIndex(prevZIndex);
+                        prevOlLayer.setZIndex(currentZIndex);
+                        
+                        // Force map update
+                        window.map.render();
                     }
                     
                     // Re-render the UI
