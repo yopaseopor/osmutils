@@ -12,7 +12,10 @@
         
         // Get the OpenLayers layer object
         const olLayer = getOLLayer(layer);
-        console.log('OpenLayers layer:', olLayer);
+        if (!olLayer) {
+            console.error('Could not get OpenLayers layer');
+            return false;
+        }
         
         // Find the layer in window.layers
         const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
@@ -25,115 +28,48 @@
         }
         
         try {
-            // Get the map instance
-            let map;
-            if (window.map) map = window.map;
-            else if (window.olMap) map = window.olMap;
-            else if (window.ol?.Map?.instances_) {
-                const instances = Object.values(window.ol.Map.instances_);
-                if (instances.length > 0) map = instances[0];
-            }
-            
-            if (!map) {
-                console.error('Could not find map instance');
+            // Get the parent layer group from the layer itself
+            const parentGroup = olLayer.get('parent') || olLayer.get('parentGroup');
+            if (!parentGroup) {
+                console.error('Could not find parent group for layer');
                 return false;
             }
             
-            // Debug: Log the map object structure
-            console.log('Map object:', {
-                type: typeof map,
-                keys: Object.keys(map),
-                hasGetLayers: typeof map.getLayers === 'function',
-                hasLayers: 'layers' in map,
-                layersType: map.layers ? typeof map.layers : 'no layers',
-                prototype: Object.getPrototypeOf(map)
-            });
+            // Get the layers from the parent group
+            const layers = parentGroup.getLayers ? parentGroup.getLayers() : 
+                         (parentGroup.getArray ? parentGroup : null);
             
-            // Try to find layers in the prototype chain
-            let proto = map;
-            while (proto) {
-                console.log('Prototype:', {
-                    type: typeof proto,
-                    keys: Object.keys(proto),
-                    hasGetLayers: typeof proto.getLayers === 'function',
-                    hasLayers: 'layers' in proto,
-                    layersType: proto.layers ? typeof proto.layers : 'no layers'
-                });
-                proto = Object.getPrototypeOf(proto);
-                if (!proto) break;
+            if (!layers) {
+                console.error('Could not get layers from parent group');
+                return false;
             }
             
-            // Get the layers collection - try different ways to access it
-            let layers, layersArray = [];
+            const layersArray = layers.getArray ? layers.getArray() : 
+                              (Array.isArray(layers) ? layers : []);
             
-            // Try different methods to get the layers collection
-            if (map.getLayers) {
-                layers = map.getLayers();
-                if (layers.getArray) layersArray = layers.getArray();
-                else if (layers.array_) layersArray = layers.array_;
-                else if (layers.getLayers) layersArray = layers.getLayers();
-            }
+            console.log('Layers in parent group:', layersArray.map(l => l.get('title') || 'unnamed'));
             
-            // If we still don't have layers, try direct access
-            if (layersArray.length === 0) {
-                if (map.layers) {
-                    if (Array.isArray(map.layers)) {
-                        layersArray = map.layers;
-                    } else if (map.layers.getArray) {
-                        layersArray = map.layers.getArray();
-                    } else if (map.layers.array_) {
-                        layersArray = map.layers.array_;
-                    }
-                }
-            }
-            
-            // Last resort: try to find layers in the map object
-            if (layersArray.length === 0) {
-                for (const key in map) {
-                    if (Array.isArray(map[key]) && key.toLowerCase().includes('layer')) {
-                        layersArray = map[key];
-                        break;
-                    }
-                }
-            }
-            
-            console.log('Found map layers:', layersArray);
-            
-            console.log('Map layers before move:', layersArray.map(l => l.get('title') || l.get('name') || 'unnamed'));
-            
-            // Find the layer in the map's layers by comparing titles
-            const layerIndex = layersArray.findIndex(l => {
-                const title1 = l.get('title') || '';
-                const title2 = layer.title || '';
-                return title1 === title2 || l === olLayer;
-            });
-            
+            // Find the layer in the parent group
+            const layerIndex = layersArray.findIndex(l => l === olLayer);
             if (layerIndex <= 0) {
-                console.log('Layer not found in map layers or already at the top');
+                console.log('Layer not found in parent group or already at the top');
                 return false;
             }
             
             console.log(`Moving layer ${layer.title} from index ${layerIndex} to ${layerIndex - 1}`);
             
-            // Get the actual layer objects from the map
-            const layerToMove = layersArray[layerIndex];
-            const layerAbove = layersArray[layerIndex - 1];
-            
-            // Swap the layers in the map
+            // Move the layer in the parent group
             if (layers.removeAt && layers.insertAt) {
-                // Modern OpenLayers
                 layers.removeAt(layerIndex);
-                layers.insertAt(layerIndex - 1, layerToMove);
+                layers.insertAt(layerIndex - 1, olLayer);
                 console.log('Moved layer using removeAt/insertAt');
             } else if (layers.remove && layers.insertAt) {
-                // Alternative OpenLayers API
-                layers.remove(layerToMove);
-                layers.insertAt(layerIndex - 1, layerToMove);
+                layers.remove(olLayer);
+                layers.insertAt(layerIndex - 1, olLayer);
                 console.log('Moved layer using remove/insertAt');
             } else if (Array.isArray(layers)) {
-                // Direct array manipulation as last resort
                 layers.splice(layerIndex, 1);
-                layers.splice(layerIndex - 1, 0, layerToMove);
+                layers.splice(layerIndex - 1, 0, olLayer);
                 console.log('Moved layer using direct array manipulation');
             }
             
@@ -150,24 +86,15 @@
                 window.renderLayerList(window.layers, currentSearch);
             }
             
-            // Re-render the dropdown
+            // Re-render the dropdown to reflect the new order
             renderDropdown(window.layers.filter(l => 
                 l.title.toLowerCase().includes(currentSearch) || 
                 (l.group && l.group.toLowerCase().includes(currentSearch))
             ));
             
             // Force map to update
-            if (map.render) {
-                map.render();
-                console.log('Triggered map.render()');
-            } else if (map.renderSync) {
-                map.renderSync();
-                console.log('Triggered map.renderSync()');
-            }
-            
-            // Log the final layer order for debugging
-            const finalLayers = layers.getArray ? layers.getArray() : layers;
-            console.log('Final map layer order:', finalLayers.map(l => l.get('title') || l.get('name') || 'unnamed'));
+            if (window.map?.render) window.map.render();
+            else if (window.olMap?.render) window.olMap.render();
             
             console.log('Layer moved successfully');
             return true;
