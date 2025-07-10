@@ -13,8 +13,14 @@
             // Check if it's a group
             if (layer.getLayers) {
                 const subLayers = layer.getLayers().getArray();
-                const subIndex = subLayers.indexOf(layerToFind);
-                if (subIndex !== -1) return { layer: layerToFind, index: i, parent: layer };
+                const subIndex = subLayers.findIndex(l => l === layerToFind || 
+                    (l._olLayerGroup && l._olLayerGroup === layerToFind) ||
+                    (layerToFind._olLayerGroup && l === layerToFind._olLayerGroup));
+                if (subIndex !== -1) return { 
+                    layer: subLayers[subIndex], 
+                    index: subIndex, 
+                    parent: layer 
+                };
             }
         }
         return null;
@@ -291,18 +297,6 @@
                             (l.group && l.group.toLowerCase().includes(currentSearch))
                         ));
                     }
-                    
-                    // Re-render the UI
-                    if (window.renderLayerList) {
-                        window.renderLayerList(window.layers, searchInput.value);
-                    }
-                    
-                    // Re-render the dropdown with the same filter
-                    const currentSearch = searchInput.value.toLowerCase();
-                    renderDropdown(window.layers.filter(l => 
-                        l.title.toLowerCase().includes(currentSearch) || 
-                        (l.group && l.group.toLowerCase().includes(currentSearch))
-                    ));
                 });
                 opt.appendChild(downBtn);
             }
@@ -311,7 +305,7 @@
                 // Prevent slider or orderer from triggering layer activation
                 if (e.target === slider || e.target === upBtn || e.target === downBtn) return;
                 e.preventDefault();
-                searchInput.value = layer.title;
+                searchInput.value = ''; // Clear the search input
                 dropdown.style.display = 'none';
                 // Toggle layer visibility (allow multiple active)
                 if (layer._olLayerGroup && layer._olLayerGroup.setVisible) {
@@ -319,7 +313,9 @@
                 } else if (layer.setVisible) {
                     layer.setVisible(!layer.getVisible());
                 }
-                if (window.renderLayerList) window.renderLayerList(window.layers, searchInput.value);
+                if (window.renderLayerList) {
+                    window.renderLayerList(window.layers, '');
+                }
             });
             dropdown.appendChild(opt);
         });
