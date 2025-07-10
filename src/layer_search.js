@@ -46,34 +46,55 @@
                 (l.group && l.group.toLowerCase().includes(currentSearch))
             ));
             
-            // Try to update the map if possible
+            // Update the map layers to match the new order
             try {
-                // Look for the map in common locations
+                // Get the map instance (trying different possible locations)
                 const map = window.map || window.olMap || 
                           (window.ol && window.ol.Map && window.ol.Map.instance_);
                 
                 if (map) {
-                    // Try to force a re-render
+                    // Get the layers collection
+                    let layers = map.getLayers ? map.getLayers() : 
+                               (map.layers || (map.get && map.get('layers')));
+                    
+                    if (layers) {
+                        // Convert to array if it's a collection
+                        const layersArray = layers.getArray ? layers.getArray() : 
+                                         (Array.isArray(layers) ? layers : []);
+                        
+                        // Clear the current layers
+                        while (layers.getLength && layers.getLength() > 0) {
+                            layers.pop();
+                        }
+                        
+                        // Add layers back in the new order from window.layers
+                        window.layers.forEach(layer => {
+                            const olLayer = getOLLayer(layer);
+                            if (olLayer) {
+                                if (layers.push) {
+                                    layers.push(olLayer);
+                                } else if (layers.addLayer) {
+                                    layers.addLayer(olLayer);
+                                }
+                            }
+                        });
+                        
+                        console.log('Updated map layers order');
+                    }
+                    
+                    // Force a re-render
                     if (typeof map.render === 'function') map.render();
                     if (typeof map.renderSync === 'function') map.renderSync();
                     
-                    // If there's a view, update it
+                    // Trigger a view change to update the display
                     const view = map.getView ? map.getView() : 
                                (map.view || (map.get && map.get('view')));
-                    
-                    if (view && view.changed) {
-                        view.changed();
-                    }
-                }
-                
-                // Try to reinitialize the map if possible
-                if (typeof window.initMap === 'function') {
-                    window.initMap();
-                } else if (typeof window.initializeMap === 'function') {
-                    window.initializeMap();
+                    if (view && view.changed) view.changed();
+                } else {
+                    console.warn('Could not find map instance to update layers');
                 }
             } catch (e) {
-                console.warn('Could not update map:', e);
+                console.error('Error updating map layers:', e);
             }
             
             console.log('Layer moved successfully');
