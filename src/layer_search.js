@@ -166,14 +166,15 @@
                     const currentIdx = window.layers.indexOf(layer);
                     
                     if (currentIdx < window.layers.length - 1) {
-                        // Move layer to the front (end of array)
-                        window.layers.splice(currentIdx, 1);
-                        window.layers.push(layer);
+                        // Move layer up one position
+                        window.layers[currentIdx] = window.layers[currentIdx + 1];
+                        window.layers[currentIdx + 1] = layer;
                         
                         // Update config if it exists
                         if (window.config && Array.isArray(window.config.layers)) {
-                            const configLayer = window.config.layers.splice(currentIdx, 1)[0];
-                            window.config.layers.push(configLayer);
+                            const temp = window.config.layers[currentIdx];
+                            window.config.layers[currentIdx] = window.config.layers[currentIdx + 1];
+                            window.config.layers[currentIdx + 1] = temp;
                         }
                         
                         // Update the map
@@ -182,9 +183,11 @@
                             const olLayer = layer._olLayerGroup || layer;
                             const layerIndex = mapLayers.findIndex(l => l === olLayer);
                             
-                            if (layerIndex !== -1) {
-                                mapLayers.splice(layerIndex, 1);
-                                mapLayers.push(olLayer);
+                            if (layerIndex !== -1 && layerIndex < mapLayers.length - 1) {
+                                // Swap with the layer above
+                                const temp = mapLayers[layerIndex];
+                                mapLayers[layerIndex] = mapLayers[layerIndex + 1];
+                                mapLayers[layerIndex + 1] = temp;
                                 window.map.render();
                             }
                         }
@@ -210,14 +213,15 @@
                     const currentIdx = window.layers.indexOf(layer);
                     
                     if (currentIdx > 0) {
-                        // Move layer to the back (beginning of array)
-                        window.layers.splice(currentIdx, 1);
-                        window.layers.unshift(layer);
+                        // Move layer down one position
+                        window.layers[currentIdx] = window.layers[currentIdx - 1];
+                        window.layers[currentIdx - 1] = layer;
                         
                         // Update config if it exists
                         if (window.config && Array.isArray(window.config.layers)) {
-                            const configLayer = window.config.layers.splice(currentIdx, 1)[0];
-                            window.config.layers.unshift(configLayer);
+                            const temp = window.config.layers[currentIdx];
+                            window.config.layers[currentIdx] = window.config.layers[currentIdx - 1];
+                            window.config.layers[currentIdx - 1] = temp;
                         }
                         
                         // Update the map
@@ -226,9 +230,11 @@
                             const olLayer = layer._olLayerGroup || layer;
                             const layerIndex = mapLayers.findIndex(l => l === olLayer);
                             
-                            if (layerIndex !== -1) {
-                                mapLayers.splice(layerIndex, 1);
-                                mapLayers.unshift(olLayer);
+                            if (layerIndex > 0) {
+                                // Swap with the layer below
+                                const temp = mapLayers[layerIndex];
+                                mapLayers[layerIndex] = mapLayers[layerIndex - 1];
+                                mapLayers[layerIndex - 1] = temp;
                                 window.map.render();
                             }
                         }
