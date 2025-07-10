@@ -23,6 +23,72 @@
 		},
 		{
 			"source": "customyopaseopor",
+			"id": "railway-highspeed",
+			"type": "line",
+			"source-layer": "transportation",
+			"minzoom": 10,
+			"filter": ["all", ["==", "railway", "rail"], ["==", "service", null], ["==", "highspeed", "yes"]],
+			"paint": {
+				"line-color": "#ff0000",
+				"line-width": {
+					"base": 1.4,
+					"stops": [
+						[10, 1],
+						[13, 2],
+						[16, 3],
+						[19, 6]
+					]
+				},
+				"line-dasharray": [2, 1],
+				"line-opacity": 0.8
+			}
+		},
+		{
+			"source": "customyopaseopor",
+			"id": "railway-normal",
+			"type": "line",
+			"source-layer": "transportation",
+			"minzoom": 11,
+			"filter": ["all", ["==", "railway", "rail"], ["==", "service", null], ["!=", "highspeed", "yes"]],
+			"paint": {
+				"line-color": "#444444",
+				"line-width": {
+					"base": 1.4,
+					"stops": [
+						[11, 0.5],
+						[13, 1.5],
+						[16, 2.5],
+						[19, 5]
+					]
+				},
+				"line-dasharray": [4, 2],
+				"line-opacity": 0.8
+			}
+		},
+		{
+			"source": "customyopaseopor",
+			"id": "railway-other",
+			"type": "line",
+			"source-layer": "transportation",
+			"minzoom": 12,
+			"filter": ["all", ["in", "railway", "light_rail", "narrow_gauge", "monorail", "tram", "funicular"], ["==", "service", null]],
+			"paint": {
+				"line-color": "#666666",
+				"line-width": {
+					"base": 1.4,
+					"stops": [
+						[12, 0.5],
+						[14, 1],
+						[16, 1.5],
+						[19, 3]
+					]
+				},
+				"line-dasharray": [1, 1],
+				"line-opacity": 0.7
+			}
+		},
+		{
+			"source": "customyopaseopor",
 			"id": "water-ocean",
 			"type": "fill",
 			"source-layer": "ocean",
