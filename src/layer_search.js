@@ -21,19 +21,6 @@
         }
         
         try {
-            // Get the OpenLayers layer object
-            const olLayer = getOLLayer(layer);
-            if (!olLayer) {
-                console.error('Could not get OpenLayers layer');
-                return false;
-            }
-            
-            // Get the current map state
-            const map = window.map || window.olMap;
-            const view = map?.getView();
-            const center = view?.getCenter();
-            const zoom = view?.getZoom();
-            
             // Reorder window.layers
             const newLayers = [...window.layers];
             const [movedLayer] = newLayers.splice(currentIndex, 1);
@@ -45,39 +32,48 @@
             console.log('New layer order after move:', 
                 window.layers.map(l => l.title || l.id || 'unnamed'));
             
-            // Force a UI update
+            // Get the current search term
             const currentSearch = document.getElementById('layer-search')?.value?.toLowerCase() || '';
+            
+            // Update the UI
             if (window.renderLayerList) {
                 window.renderLayerList(window.layers, currentSearch);
             }
             
-            // Re-render the dropdown to reflect the new order
+            // Re-render the dropdown
             renderDropdown(window.layers.filter(l => 
                 l.title.toLowerCase().includes(currentSearch) || 
                 (l.group && l.group.toLowerCase().includes(currentSearch))
             ));
             
-            // If we have a map, reinitialize it with the new layer order
-            if (map) {
-                // Store the current view state
-                const viewState = view?.getState();
+            // Try to update the map if possible
+            try {
+                // Look for the map in common locations
+                const map = window.map || window.olMap || 
+                          (window.ol && window.ol.Map && window.ol.Map.instance_);
                 
-                // Reinitialize the map with the new layer order
-                if (window.initMap) {
+                if (map) {
+                    // Try to force a re-render
+                    if (typeof map.render === 'function') map.render();
+                    if (typeof map.renderSync === 'function') map.renderSync();
+                    
+                    // If there's a view, update it
+                    const view = map.getView ? map.getView() : 
+                               (map.view || (map.get && map.get('view')));
+                    
+                    if (view && view.changed) {
+                        view.changed();
+                    }
+                }
+                
+                // Try to reinitialize the map if possible
+                if (typeof window.initMap === 'function') {
                     window.initMap();
-                } else if (window.initializeMap) {
+                } else if (typeof window.initializeMap === 'function') {
                     window.initializeMap();
                 }
-                
-                // Restore the view state
-                if (viewState) {
-                    const newView = map.getView();
-                    newView.setCenter(center);
-                    newView.setZoom(zoom);
-                }
-                
-                // Trigger a render
-                map.renderSync();
+            } catch (e) {
+                console.warn('Could not update map:', e);
             }
             
             console.log('Layer moved successfully');
