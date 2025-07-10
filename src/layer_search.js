@@ -185,9 +185,8 @@
                             
                             if (layerIndex !== -1 && layerIndex < mapLayers.length - 1) {
                                 // Swap with the layer above
-                                const temp = mapLayers[layerIndex];
                                 mapLayers[layerIndex] = mapLayers[layerIndex + 1];
-                                mapLayers[layerIndex + 1] = temp;
+                                mapLayers[layerIndex + 1] = olLayer;
                                 window.map.render();
                             }
                         }
@@ -232,9 +231,8 @@
                             
                             if (layerIndex > 0) {
                                 // Swap with the layer below
-                                const temp = mapLayers[layerIndex];
                                 mapLayers[layerIndex] = mapLayers[layerIndex - 1];
-                                mapLayers[layerIndex - 1] = temp;
+                                mapLayers[layerIndex - 1] = olLayer;
                                 window.map.render();
                             }
                         }
