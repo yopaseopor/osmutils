@@ -28,31 +28,61 @@
         }
         
         try {
-            // Get the parent layer group from the layer itself
-            const parentGroup = olLayer.get('parent') || olLayer.get('parentGroup');
-            if (!parentGroup) {
-                console.error('Could not find parent group for layer');
+            // Try to get the parent group from the _olLayerGroup
+            let parentGroup = null;
+            let layersArray = [];
+            
+            // Try to get the parent group from the layer's _olLayerGroup
+            if (layer._olLayerGroup) {
+                console.log('Found _olLayerGroup:', layer._olLayerGroup);
+                // If _olLayerGroup is an array, use it directly
+                if (Array.isArray(layer._olLayerGroup)) {
+                    layersArray = layer._olLayerGroup;
+                    console.log('Using _olLayerGroup as layers array');
+                } 
+                // If it's a group with getLayers
+                else if (typeof layer._olLayerGroup.getLayers === 'function') {
+                    const layers = layer._olLayerGroup.getLayers();
+                    layersArray = layers.getArray ? layers.getArray() : [];
+                    console.log('Got layers from _olLayerGroup.getLayers()');
+                }
+                // If it's a group with array_
+                else if (layer._olLayerGroup.array_) {
+                    layersArray = layer._olLayerGroup.array_;
+                    console.log('Using _olLayerGroup.array_ as layers array');
+                }
+                parentGroup = layer._olLayerGroup;
+            }
+            
+            // If we still don't have the layers array, try to get it from the map
+            if (layersArray.length === 0 && window.map) {
+                console.log('Trying to get layers from map');
+                const mapLayers = window.map.getLayers();
+                if (mapLayers) {
+                    layersArray = mapLayers.getArray ? mapLayers.getArray() : 
+                                 (mapLayers.array_ || []);
+                    parentGroup = mapLayers;
+                    console.log('Got layers from map.getLayers()');
+                }
+            }
+            
+            if (layersArray.length === 0) {
+                console.error('Could not find layers array');
                 return false;
             }
             
-            // Get the layers from the parent group
-            const layers = parentGroup.getLayers ? parentGroup.getLayers() : 
-                         (parentGroup.getArray ? parentGroup : null);
+            console.log('Layers in group:', layersArray.map(l => (l.get && l.get('title')) || l.title || 'unnamed'));
             
-            if (!layers) {
-                console.error('Could not get layers from parent group');
-                return false;
-            }
+            // Find the layer in the layers array
+            const layerIndex = layersArray.findIndex(l => {
+                // Try different ways to identify the layer
+                return l === olLayer || 
+                       (l.get && l.get('title') === layer.title) ||
+                       l.title === layer.title;
+            });
             
-            const layersArray = layers.getArray ? layers.getArray() : 
-                              (Array.isArray(layers) ? layers : []);
-            
-            console.log('Layers in parent group:', layersArray.map(l => l.get('title') || 'unnamed'));
-            
-            // Find the layer in the parent group
-            const layerIndex = layersArray.findIndex(l => l === olLayer);
             if (layerIndex <= 0) {
-                console.log('Layer not found in parent group or already at the top');
+                console.log('Layer not found in layers array or already at the top');
                 return false;
             }
             
