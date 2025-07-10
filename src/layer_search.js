@@ -6,84 +6,21 @@
         return layerConfig._olLayerGroup || layerConfig;
     }
 
-    // Helper function to find the OpenLayers map instance
-    function findMapInstance() {
-        // Try different ways to find the map instance
-        if (window.map && window.map.getLayers) return window.map;
-        if (window.olMap) {
-            if (typeof window.olMap.getMap === 'function') return window.olMap.getMap();
-            return window.olMap;
-        }
-        
-        // Try to find map in ol.Map.instances_
-        if (window.ol && window.ol.Map && window.ol.Map.instances_) {
-            const instances = Object.values(window.ol.Map.instances_);
-            if (instances.length > 0) return instances[0];
-        }
-        
-        // Try to find any ol.Map instance in the global scope
-        for (const key in window) {
-            const value = window[key];
-            if (value && value instanceof window.ol.Map) {
-                return value;
-            }
-        }
-        
-        console.error('Could not find map instance');
-        return null;
-    }
-    
     // Helper function to move a layer up in the z-order
     function moveLayerUp(layer) {
         console.log('moveLayerUp called for layer:', layer);
         
-        // Get the map instance
-        const map = findMapInstance();
-        if (!map) {
-            console.error('No map instance found');
-            return false;
-        }
-        
-        console.log('Found map instance:', map);
-        
-        // Get the layers collection
-        let mapLayers;
-        if (map.getLayers) {
-            mapLayers = map.getLayers();
-        } else if (map.getLayersCollection) {
-            mapLayers = map.getLayersCollection();
-        } else if (map.layers) {
-            mapLayers = map.layers;
-        } else {
-            console.error('Could not get map layers collection');
-            return false;
-        }
-        
+        // Get the OpenLayers layer object
         const olLayer = getOLLayer(layer);
         console.log('OpenLayers layer:', olLayer);
         
-        // Get the layers array
-        let layersArray;
-        if (mapLayers.getArray) {
-            layersArray = mapLayers.getArray();
-        } else if (mapLayers.array_) {
-            layersArray = mapLayers.array_;
-        } else if (Array.isArray(mapLayers)) {
-            layersArray = mapLayers;
-        } else {
-            console.error('Could not get layers array');
-            return false;
-        }
-        
-        console.log('Map layers:', layersArray);
-        
-        // Find the layer in the map's layers
-        const layerIndex = layersArray.findIndex(l => l === olLayer);
-        console.log('Layer index in map layers:', layerIndex);
+        // Find the layer in window.layers
+        const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
+        console.log('Current index in window.layers:', currentIndex);
         
         // Can't move up if already at the top or not found
-        if (layerIndex <= 0) {
-            console.log('Layer is already at the top or not found in map layers');
+        if (currentIndex <= 0) {
+            console.log('Layer is already at the top or not found');
             return false;
         }
         
@@ -91,56 +28,34 @@
             console.log('Current layer order before move:', 
                 window.layers.map(l => l.title || l.id || 'unnamed'));
             
-            // We already have the layer index
+            // Get the layer's DOM element (assuming it has one)
+            const layerElement = document.querySelector(`[data-layer-id="${layer.id}"]`);
+            const parentElement = layerElement?.parentElement;
             
-            try {
-                // Remove the layer from the map
-                console.log('Removing layer from map...');
-                if (mapLayers.removeAt) {
-                    mapLayers.removeAt(layerIndex);
-                } else if (mapLayers.remove) {
-                    mapLayers.remove(olLayer);
-                } else {
-                    // Direct array manipulation as last resort
-                    layersArray.splice(layerIndex, 1);
+            if (layerElement && parentElement && currentIndex > 0) {
+                // Move the DOM element up
+                const previousSibling = parentElement.children[currentIndex - 1];
+                if (previousSibling) {
+                    parentElement.insertBefore(layerElement, previousSibling);
                 }
                 
-                // Insert it one position higher
-                const newIndex = layerIndex - 1;
-                console.log('Reinserting layer at position', newIndex);
+                // Update the window.layers array
+                const [movedLayer] = window.layers.splice(currentIndex, 1);
+                window.layers.splice(currentIndex - 1, 0, movedLayer);
                 
-                if (mapLayers.insertAt) {
-                    mapLayers.insertAt(newIndex, olLayer);
-                } else {
-                    // Direct array manipulation
-                    layersArray.splice(newIndex, 0, olLayer);
-                    if (mapLayers.changed) mapLayers.changed();
-                }
+                console.log('New layer order after move:', 
+                    window.layers.map(l => l.title || l.id || 'unnamed'));
                 
-                // Update our window.layers array to match if it exists
-                if (window.layers) {
-                    console.log('Updating window.layers array...');
-                    const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
-                    if (currentIndex !== -1) {
-                        const [movedLayer] = window.layers.splice(currentIndex, 1);
-                        window.layers.splice(newIndex, 0, movedLayer);
-                    }
-                    console.log('New layer order after move:', 
-                        window.layers.map(l => l.title || l.id || 'unnamed'));
-                }
+                // Force a redraw of the map if possible
+                if (window.map?.render) window.map.render();
+                else if (window.olMap?.render) window.olMap.render();
                 
-                // Force update
-                console.log('Triggering map update...');
-                if (mapLayers.changed) mapLayers.changed();
-                if (map.render) map.render();
-                else if (map.renderSync) map.renderSync();
-            } catch (error) {
-                console.error('Error during layer movement:', error);
+                console.log('Layer moved successfully in DOM and layers array');
+                return true;
+            } else {
+                console.error('Could not find layer element in DOM');
                 return false;
             }
-            
-            console.log('Layer moved successfully');
-            return true;
         } catch (error) {
             console.error('Error moving layer:', error);
             return false;
