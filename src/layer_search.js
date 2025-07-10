@@ -8,30 +8,58 @@
 
     // Helper function to move a layer up in the z-order
     function moveLayerUp(layer) {
-        if (!window.map) return false;
+        console.log('moveLayerUp called for layer:', layer);
+        if (!window.map) {
+            console.error('No map found');
+            return false;
+        }
         
         const mapLayers = window.map.getLayers();
+        console.log('Total layers in map:', mapLayers.getLength());
+        
         const olLayer = getOLLayer(layer);
+        console.log('OpenLayers layer:', olLayer);
+        
         const currentIndex = window.layers.findIndex(l => getOLLayer(l) === olLayer);
+        console.log('Current index in window.layers:', currentIndex);
         
         // Can't move up if already at the top
-        if (currentIndex <= 0) return false;
+        if (currentIndex <= 0) {
+            console.log('Layer is already at the top');
+            return false;
+        }
         
-        // Remove the layer from the map
-        mapLayers.remove(olLayer);
-        
-        // Insert it one position higher
-        mapLayers.insertAt(currentIndex - 1, olLayer);
-        
-        // Update the layers array
-        const [movedLayer] = window.layers.splice(currentIndex, 1);
-        window.layers.splice(currentIndex - 1, 0, movedLayer);
-        
-        // Force update
-        mapLayers.changed();
-        window.map.render();
-        
-        return true;
+        try {
+            console.log('Current layer order before move:', 
+                Array.from(window.layers).map(l => l.title || l.id || 'unnamed'));
+                
+            // Remove the layer from the map
+            console.log('Removing layer from map...');
+            mapLayers.remove(olLayer);
+            
+            // Insert it one position higher
+            console.log('Reinserting layer at position', currentIndex - 1);
+            mapLayers.insertAt(currentIndex - 1, olLayer);
+            
+            // Update the layers array
+            console.log('Updating window.layers array...');
+            const [movedLayer] = window.layers.splice(currentIndex, 1);
+            window.layers.splice(currentIndex - 1, 0, movedLayer);
+            
+            console.log('New layer order after move:', 
+                Array.from(window.layers).map(l => l.title || l.id || 'unnamed'));
+            
+            // Force update
+            console.log('Triggering map update...');
+            mapLayers.changed();
+            window.map.render();
+            
+            console.log('Layer moved successfully');
+            return true;
+        } catch (error) {
+            console.error('Error moving layer:', error);
+            return false;
+        }
     }
     const searchInput = document.getElementById('layer-search');
     const dropdown = document.getElementById('layer-search-dropdown');
@@ -197,17 +225,27 @@
                     e.preventDefault();
                     e.stopPropagation();
                     
+                    console.log('Up button clicked for layer:', layer.title || layer.id || 'unnamed');
+                    
                     // Move the layer up and update the UI
-                    if (moveLayerUp(layer)) {
+                    const success = moveLayerUp(layer);
+                    console.log('moveLayerUp result:', success);
+                    
+                    if (success) {
                         const currentSearch = searchInput.value.toLowerCase();
+                        console.log('Updating UI...');
+                        
                         if (window.renderLayerList) {
                             window.renderLayerList(window.layers, currentSearch);
                         }
+                        
                         // Re-render the dropdown to show the new order
-                        renderDropdown(window.layers.filter(l => 
+                        const filteredLayers = window.layers.filter(l => 
                             l.title.toLowerCase().includes(currentSearch) || 
                             (l.group && l.group.toLowerCase().includes(currentSearch))
-                        ));
+                        );
+                        console.log('Rendering dropdown with filtered layers:', filteredLayers.length);
+                        renderDropdown(filteredLayers);
                     }
                 });
                 opt.appendChild(upBtn);
