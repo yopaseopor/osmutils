@@ -28,57 +28,43 @@
         }
         
         try {
-            // Try to get the parent group from the _olLayerGroup
-            let parentGroup = null;
-            let layersArray = [];
+            console.log('Layer _olLayerGroup:', layer._olLayerGroup);
             
-            // Try to get the parent group from the layer's _olLayerGroup
-            if (layer._olLayerGroup) {
-                console.log('Found _olLayerGroup:', layer._olLayerGroup);
-                // If _olLayerGroup is an array, use it directly
-                if (Array.isArray(layer._olLayerGroup)) {
-                    layersArray = layer._olLayerGroup;
-                    console.log('Using _olLayerGroup as layers array');
-                } 
-                // If it's a group with getLayers
-                else if (typeof layer._olLayerGroup.getLayers === 'function') {
-                    const layers = layer._olLayerGroup.getLayers();
-                    layersArray = layers.getArray ? layers.getArray() : [];
-                    console.log('Got layers from _olLayerGroup.getLayers()');
-                }
-                // If it's a group with array_
-                else if (layer._olLayerGroup.array_) {
-                    layersArray = layer._olLayerGroup.array_;
-                    console.log('Using _olLayerGroup.array_ as layers array');
-                }
-                parentGroup = layer._olLayerGroup;
-            }
-            
-            // If we still don't have the layers array, try to get it from the map
-            if (layersArray.length === 0 && window.map) {
-                console.log('Trying to get layers from map');
-                const mapLayers = window.map.getLayers();
-                if (mapLayers) {
-                    layersArray = mapLayers.getArray ? mapLayers.getArray() : 
-                                 (mapLayers.array_ || []);
-                    parentGroup = mapLayers;
-                    console.log('Got layers from map.getLayers()');
-                }
-            }
-            
-            if (layersArray.length === 0) {
-                console.error('Could not find layers array');
+            // Get the parent group from the _olLayerGroup
+            const parentGroup = layer._olLayerGroup;
+            if (!parentGroup) {
+                console.error('No _olLayerGroup found on layer');
                 return false;
             }
             
-            console.log('Layers in group:', layersArray.map(l => (l.get && l.get('title')) || l.title || 'unnamed'));
+            // Try to get the layers array from the parent group
+            let layers = [];
+            if (parentGroup.getLayers) {
+                const collection = parentGroup.getLayers();
+                layers = collection.getArray ? collection.getArray() : 
+                        (collection.array_ || []);
+                console.log('Got layers from parentGroup.getLayers()');
+            } else if (Array.isArray(parentGroup)) {
+                layers = parentGroup;
+                console.log('Using parentGroup as layers array');
+            } else if (parentGroup.array_) {
+                layers = parentGroup.array_;
+                console.log('Using parentGroup.array_ as layers array');
+            } else {
+                console.error('Could not get layers from parentGroup');
+                return false;
+            }
+            
+            console.log('Layers in group:', layers.map(l => (l.get && l.get('title')) || l.title || 'unnamed'));
             
             // Find the layer in the layers array
-            const layerIndex = layersArray.findIndex(l => {
+            const layerIndex = layers.findIndex(l => {
+                if (!l) return false;
                 // Try different ways to identify the layer
                 return l === olLayer || 
                        (l.get && l.get('title') === layer.title) ||
-                       l.title === layer.title;
+                       l.title === layer.title ||
+                       (l.getLayers && l.getLayers().getArray().includes(olLayer));
             });
             
             if (layerIndex <= 0) {
