@@ -163,24 +163,30 @@
                 upBtn.addEventListener('mousedown', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    const activeLayers = getActiveLayers();
-                    const activeIdx = activeLayers.indexOf(layer);
+                    const currentIdx = window.layers.indexOf(layer);
                     
-                    if (activeIdx > 0) {
-                        // Find the current position in the main layers array
-                        const currentIdx = window.layers.indexOf(layer);
-                        // Find the target position (previous active layer's position)
-                        const targetLayer = activeLayers[activeIdx - 1];
-                        const targetIdx = window.layers.indexOf(targetLayer);
-                        
-                        // Move the layer in the array
+                    if (currentIdx < window.layers.length - 1) {
+                        // Move layer to the front (end of array)
                         window.layers.splice(currentIdx, 1);
-                        window.layers.splice(targetIdx, 0, layer);
+                        window.layers.push(layer);
                         
                         // Update config if it exists
                         if (window.config && Array.isArray(window.config.layers)) {
                             const configLayer = window.config.layers.splice(currentIdx, 1)[0];
-                            window.config.layers.splice(targetIdx, 0, configLayer);
+                            window.config.layers.push(configLayer);
+                        }
+                        
+                        // Update the map
+                        if (window.map) {
+                            const mapLayers = window.map.getLayers().getArray();
+                            const olLayer = layer._olLayerGroup || layer;
+                            const layerIndex = mapLayers.findIndex(l => l === olLayer);
+                            
+                            if (layerIndex !== -1) {
+                                mapLayers.splice(layerIndex, 1);
+                                mapLayers.push(olLayer);
+                                window.map.render();
+                            }
                         }
                         
                         // Re-render the UI
@@ -201,24 +207,30 @@
                 downBtn.addEventListener('mousedown', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    const activeLayers = getActiveLayers();
-                    const activeIdx = activeLayers.indexOf(layer);
+                    const currentIdx = window.layers.indexOf(layer);
                     
-                    if (activeIdx < activeLayers.length - 1) {
-                        // Find the current position in the main layers array
-                        const currentIdx = window.layers.indexOf(layer);
-                        // Find the target position (next active layer's position)
-                        const targetLayer = activeLayers[activeIdx + 1];
-                        const targetIdx = window.layers.indexOf(targetLayer);
-                        
-                        // Move the layer in the array
+                    if (currentIdx > 0) {
+                        // Move layer to the back (beginning of array)
                         window.layers.splice(currentIdx, 1);
-                        window.layers.splice(targetIdx, 0, layer);
+                        window.layers.unshift(layer);
                         
                         // Update config if it exists
                         if (window.config && Array.isArray(window.config.layers)) {
                             const configLayer = window.config.layers.splice(currentIdx, 1)[0];
-                            window.config.layers.splice(targetIdx, 0, configLayer);
+                            window.config.layers.unshift(configLayer);
+                        }
+                        
+                        // Update the map
+                        if (window.map) {
+                            const mapLayers = window.map.getLayers().getArray();
+                            const olLayer = layer._olLayerGroup || layer;
+                            const layerIndex = mapLayers.findIndex(l => l === olLayer);
+                            
+                            if (layerIndex !== -1) {
+                                mapLayers.splice(layerIndex, 1);
+                                mapLayers.unshift(olLayer);
+                                window.map.render();
+                            }
                         }
                         
                         // Re-render the UI
