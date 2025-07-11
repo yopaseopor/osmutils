@@ -20,7 +20,29 @@
 			"paint": {
 				"background-color": "#f9f4ee"
 			}
-},
+		},
+		{
+			"source": "customyopaseopor",
+			"id": "symboltransitbus2",
+			"type": "symbol",
+			"source-layer": "streets",
+			"filter": [ "all", [ "==", "bus_stop", true ], [ "in", "kind", "bus_stop" ] ],
+			"layout": {
+				"symbol-placement": "line",
+				"symbol-spacing": 175,
+				"icon-rotate": 90,
+				"icon-rotation-alignment": "map",
+				"icon-padding": 5,
+				"symbol-avoid-edges": true,
+				"icon-image": "marking-arrow",
+				"text-font": [ "monospace" ]
+			},
+			"minzoom": 14,
+			"paint": {
+				"icon-opacity": { "stops": [ [ 16, 0 ], [ 17, 0.7 ] ] },
+				"text-opacity": { "stops": [ [ 16, 0 ], [ 17, 0.7 ] ] }
+			}
+		},
 		{
 			"source": "customyopaseopor",
 			"id": "symboltransitbus",
