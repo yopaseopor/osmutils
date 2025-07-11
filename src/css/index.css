@@ -1068,8 +1068,9 @@ CLEAR ACTIVE OVERLAY BUTTON
   width: 100%;
   padding: 6px 12px;
 }
-#layer-search:not(:placeholder-shown) ~ #layer-list {
-  display: none;
+/* Hide the layer list completely */
+#layer-list {
+  display: none !important;
 }
 .overlay-search-dropdown, #layer-search-dropdown {
   position: absolute;
