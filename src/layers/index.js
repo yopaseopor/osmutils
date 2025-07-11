@@ -38,6 +38,7 @@ import { USLayers } from './generated/us_wms_layers.js';
 import { UYLayers } from './generated/uy_wms_layers.js';
 import { XXLayers } from './generated/xx_wms_layers.js';
 import { ZALayers } from './generated/za_wms_layers.js';
+import { BE_TMS_LAYERS } from './generated/tms_layers_BE.js';
 import { myCustomLayer } from './myCustomLayer.js';
 import { osmBrightLayer } from './osmBrightLayer.js';
 import { stamenTonerLayer } from './stamenTonerLayer.js';
@@ -45,6 +46,6 @@ import { stamenTonerLayer } from './stamenTonerLayer.js';
 export const allLayers = { ASLayers, ATLayers, AULayers, BELayers, BRLayers, CALayers, CHLayers, CZLayers,
   DELayers, DKLayers, EELayers, ESLayers, FILayers, FMLayers, FRLayers, GBLayers, GULayers,
   HRLayers, HULayers, ITLayers, LVLayers, MDLayers, MHLayers, MPLayers, NOLayers, NZLayers,
-  PLLayers, PTLayers, PWLayers, SELayers, SGLayers, TWLayers, USLayers, UYLayers, XXLayers, ZALayers,
+  PLLayers, PTLayers, PWLayers, SELayers, SGLayers, TWLayers, USLayers, UYLayers, XXLayers, ZALayers, BE_TMS_LAYERS,
   myCustomLayer, osmBrightLayer, stamenTonerLayer 
 };

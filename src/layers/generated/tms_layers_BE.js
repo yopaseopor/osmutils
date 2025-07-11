@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 6
 
-const BE_TMS_LAYERS = [
+export const BE_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "Digitaal Vlaanderen GRB",
         type: 'XYZ',
@@ -88,9 +88,3 @@ const BE_TMS_LAYERS = [
         visible: false
     }
 ];
-
-// Add to global layers array if it exists
-if (typeof window.layers === 'undefined') {
-    window.layers = [];
-}
-window.layers = window.layers.concat(BE_TMS_LAYERS);
