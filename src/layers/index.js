@@ -68,6 +68,7 @@ import { stamenTonerLayer } from './stamenTonerLayer.js';
 export const allLayers = { ASLayers, ATLayers, AULayers, BELayers, BRLayers, CALayers, CHLayers, CZLayers,
   DELayers, DKLayers, EELayers, ESLayers, FILayers, FMLayers, FRLayers, GBLayers, GULayers,
   HRLayers, HULayers, ITLayers, LVLayers, MDLayers, MHLayers, MPLayers, NOLayers, NZLayers,
-  PLLayers, PTLayers, PWLayers, SELayers, SGLayers, TWLayers, USLayers, UYLayers, XXLayers, ZALayers, BE_TMS_LAYERS, BR_TMS_LAYERS, CZ_TMS_LAYERS, DK_TMS_LAYERS, FI_TMS_LAYERS, HT_TMS_LAYERS, HU_TMS_LAYERS, IT_TMS_LAYERS, LT_TMS_LAYERS, LU_TMS_LAYERS, MD_TMS_LAYERS, NL_TMS_LAYERS, NZ_TMS_LAYERS, PH_TMS_LAYERS, PL_TMS_LAYERS, RS_TMS_LAYERS, SE_TMS_LAYERS, SG_TMS_LAYERS, SK_TMS_LAYERS, TW_TMS_LAYERS, XX_TMS_LAYERS, ZA_TMS_LAYERS, ZM_TMS_LAYERS,
+  PLLayers, PTLayers, PWLayers, SELayers, SGLayers, TWLayers, USLayers, UYLayers, XXLayers, ZALayers, 
+  BE_TMS_LAYERS, BR_TMS_LAYERS, CZ_TMS_LAYERS, DK_TMS_LAYERS, FI_TMS_LAYERS, HT_TMS_LAYERS, HU_TMS_LAYERS, IT_TMS_LAYERS, LT_TMS_LAYERS, LU_TMS_LAYERS, MD_TMS_LAYERS, NL_TMS_LAYERS, NZ_TMS_LAYERS, PH_TMS_LAYERS, PL_TMS_LAYERS, RS_TMS_LAYERS, SE_TMS_LAYERS, SG_TMS_LAYERS, SK_TMS_LAYERS, TW_TMS_LAYERS, XX_TMS_LAYERS, ZA_TMS_LAYERS, ZM_TMS_LAYERS,
   myCustomLayer, osmBrightLayer, stamenTonerLayer 
 };
