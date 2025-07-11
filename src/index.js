@@ -56,10 +56,14 @@ $(function () {
             var isActive = activeLayer && ((layer.id && activeLayer.get('id') === layer.id) || (activeLayer.get('title') === layer.title && activeLayer.get('group') === layer.group));
             var $item = $('<div>').addClass('layer-list-item').text((layer.group ? layer.group + ': ' : '') + layer.title);
             if (isActive) $item.addClass('active').attr('tabindex', 0);
-            $item.css({cursor:'pointer'}).on('click', function() {
-                window.activateLayer(layer);
-
-                
+            $item.css({cursor:'pointer'}).on('click', function(e) {
+                e.stopPropagation();
+                if (window.activateLayer) {
+                    window.activateLayer(layer);
+                }
+                // Clear the search and hide the dropdown
+                $('.layer-search-option').removeClass('active');
+                $('#layer-search-dropdown').hide();
             });
             $list.append($item);
             if (isActive) {
