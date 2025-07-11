@@ -148,68 +148,71 @@
 
     function renderDropdown(results) {
         dropdown.innerHTML = '';
-        lastQuery = searchInput.value.trim().toLowerCase();
-        
-        if (!lastQuery || !results.length) {
+
+        if (!searchInput.value || !results.length) {
             dropdown.style.display = 'none';
             return;
         }
 
-        // Sort results by group and title
-        results.sort((a, b) => {
-            const groupCompare = (a.group || '').localeCompare(b.group || '');
-            if (groupCompare !== 0) return groupCompare;
-            return (a.title || '').localeCompare(b.title || '');
+        // Group overlays by first letter, limit to 10 per letter
+        let letterMap = {};
+        results.forEach(function(overlay) {
+            var titleOrGroup = (overlay.title || overlay.group || '').trim();
+            var firstLetter = titleOrGroup.charAt(0) ? titleOrGroup.charAt(0).toUpperCase() : '_';
+            if (!letterMap[firstLetter]) letterMap[firstLetter] = [];
+            if (letterMap[firstLetter].length < 10) {
+                letterMap[firstLetter].push(overlay);
+            }
         });
 
-        // Add results to dropdown (already filtered in the input event)
-        results.slice(0, 10).forEach(overlay => {  // Limit to 10 results
-            const opt = document.createElement('div');
-            opt.className = 'overlay-search-option';
-            
-            // Add icon if available
-            if (overlay.iconSrc) {
-                const iconImg = document.createElement('img');
-                iconImg.src = overlay.iconSrc;
-                iconImg.alt = '';
-                iconImg.className = 'overlay-search-option-icon';
-                iconImg.style.maxWidth = '30px';
-                iconImg.style.maxHeight = '30px';
-                iconImg.style.width = 'auto';
-                iconImg.style.height = 'auto';
-                iconImg.style.marginRight = '10px';
-                iconImg.style.verticalAlign = 'middle';
-                opt.appendChild(iconImg);
-            }
-
-            // Add the text (group/category: title)
-            const textSpan = document.createElement('span');
-            textSpan.textContent = overlay.group ? `${overlay.group}: ${overlay.title}` : overlay.title;
-            opt.appendChild(textSpan);
-
-            // Check if overlay is currently visible
-            const layer = findOverlayLayer(overlay);
-            if (layer && layer.getVisible()) {
-                opt.classList.add('active');
-            }
-
-            opt.tabIndex = 0;
-            opt.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-                searchInput.value = overlay.title;
-                dropdown.style.display = 'none';
+        Object.keys(letterMap).sort().forEach(function(letter) {
+            letterMap[letter].forEach(function(overlay) {
+                const opt = document.createElement('div');
+                opt.className = 'overlay-search-option';
                 
-                // Toggle overlay
-                toggleOverlay(overlay);
-                
-                // Update overlay list UI
-                if (window.renderOverlayList) {
-                    window.renderOverlayList([], '');
+                // Add icon if available
+                if (overlay.iconSrc) {
+                    const iconImg = document.createElement('img');
+                    iconImg.src = overlay.iconSrc;
+                    iconImg.alt = '';
+                    iconImg.className = 'overlay-search-option-icon';
+                    iconImg.style.maxWidth = '30px';
+                    iconImg.style.maxHeight = '30px';
+                    iconImg.style.width = 'auto';
+                    iconImg.style.height = 'auto';
+                    iconImg.style.marginRight = '10px';
+                    iconImg.style.verticalAlign = 'middle';
+                    opt.appendChild(iconImg);
                 }
+
+                // Add the text (group/category: title)
+                const textSpan = document.createElement('span');
+                textSpan.textContent = overlay.group + ': ' + overlay.title;
+                opt.appendChild(textSpan);
+
+                // Check if overlay is currently visible
+                const layer = findOverlayLayer(overlay);
+                if (layer && layer.getVisible()) {
+                    opt.classList.add('active');
+                }
+
+                opt.tabIndex = 0;
+                opt.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    searchInput.value = overlay.title;
+                    dropdown.style.display = 'none';
+                    
+                    // Toggle overlay
+                    toggleOverlay(overlay);
+                    
+                    // Update overlay list UI
+                    if (window.renderOverlayList) {
+                        window.renderOverlayList([], '');
+                    }
+                });
+                dropdown.appendChild(opt);
             });
-            dropdown.appendChild(opt);
         });
-        
         dropdown.style.display = 'block';
     }
 
@@ -221,8 +224,6 @@
 
     searchInput.addEventListener('input', function() {
         const query = this.value.trim().toLowerCase();
-        lastQuery = query;
-        
         if (!query) {
             dropdown.style.display = 'none';
             filterAndRender([], '');
@@ -230,21 +231,15 @@
         }
 
         const allOverlays = getAllOverlays();
-        const filtered = allOverlays.filter(overlay => {
-            const title = (overlay.title || '').toLowerCase();
-            const group = (overlay.group || '').toLowerCase();
-            return title.includes(query) || group.includes(query);
-        });
+        const filtered = allOverlays.filter(overlay =>
+            (overlay.title && overlay.title.toLowerCase().includes(query)) ||
+            (overlay.group && overlay.group.toLowerCase().includes(query))
+        );
         
         lastResults = filtered;
-        
-        if (filtered.length === 0) {
-            dropdown.style.display = 'none';
-            filterAndRender([], query);
-        } else {
-            renderDropdown(filtered);
-            filterAndRender(filtered, query);
-        }
+        lastQuery = query;
+        renderDropdown(filtered);
+        filterAndRender(filtered, query);
     });
 
     // Keyboard navigation for dropdown
