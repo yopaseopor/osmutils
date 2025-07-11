@@ -25,7 +25,7 @@
 			"source": "customyopaseopor",
 			"id": "symboltransitbus2",
 			"type": "symbol",
-			"source-layer": "streets",
+			"source-layer": "public_transport",
 			"filter": [ "all", [ "==", "bus_stop", true ], [ "in", "kind", "bus_stop" ] ],
 			"layout": {
 				"symbol-placement": "line",
