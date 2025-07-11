@@ -86,5 +86,5 @@ export const BE_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
