@@ -28,7 +28,7 @@
 			"source-layer": "public_transport",
 			"filter": [ "all", [ "==", "bus_stop", true ], [ "in", "kind", "bus_stop" ] ],
 			"layout": {
-				"symbol-placement": "line",
+				"symbol-placement": "point",
 				"symbol-spacing": 175,
 				"icon-rotate": 90,
 				"icon-rotation-alignment": "map",
