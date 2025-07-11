@@ -32,74 +32,49 @@ $(function () {
         });
     }
     // 2. Define window.renderLayerList
-    window.renderLayerList = function(layers, query) {
+    window.renderLayerList = function(filtered, query) {
         var $list = $('#layer-list');
         if (!$list.length) {
             $list = $('<div id="layer-list"></div>');
             $('#menu').find('#layer-search-container').after($list);
         }
         $list.empty();
-        
-        // If there's a query, filter the layers
-        var filteredLayers = [];
-        if (query) {
-            const queryLower = query.toLowerCase();
-            filteredLayers = layers.filter(layer => {
-                const title = (layer.title || '').toLowerCase();
-                const group = (layer.group || '').toLowerCase();
-                return title.includes(queryLower) || group.includes(queryLower);
-            });
-            
-            if (filteredLayers.length === 0) {
-                $list.append('<div style="padding:8px;color:#888;">No layers found matching "' + query + '".</div>');
-                return;
+        if (!query || !filtered || !filtered.length) {
+            // Only show message if there is a query
+            if (query && (!filtered || !filtered.length)) {
+                $list.append('<div style="padding:8px;color:#888;">No layers found.</div>');
             }
-        } else {
-            // If no query, show all layers
-            filteredLayers = layers;
+            return;
         }
-
-        // Find the currently active layer
         var activeLayer = null;
         $.each(config.layers, function(indexLayer, layerGroup) {
             if (layerGroup.get && layerGroup.get('type') !== 'overlay' && layerGroup.getVisible && layerGroup.getVisible()) {
                 activeLayer = layerGroup;
             }
         });
+        filtered.forEach(function(layer, idx) {
+            var isActive = activeLayer && ((layer.id && activeLayer.get('id') === layer.id) || (activeLayer.get('title') === layer.title && activeLayer.get('group') === layer.group));
+            var $item = $('<div>').addClass('layer-list-item').text((layer.group ? layer.group + ': ' : '') + layer.title);
+            if (isActive) $item.addClass('active').attr('tabindex', 0);
+            $item.css({cursor:'pointer'}).on('click', function() {
+                window.activateLayer(layer);
 
-        // Render the filtered layers
-        filteredLayers.forEach(function(layer) {
-            var isActive = activeLayer && (
-                (layer.id && activeLayer.get('id') === layer.id) || 
-                (activeLayer.get('title') === layer.title && activeLayer.get('group') === layer.group)
-            );
-            
-            var $item = $('<div>')
-                .addClass('layer-list-item')
-                .text((layer.group ? layer.group + ': ' : '') + layer.title)
-                .css({cursor: 'pointer'})
-                .on('click', function() {
-                    window.activateLayer(layer);
-                });
                 
-            if (isActive) {
-                $item.addClass('active').attr('tabindex', 0);
-            }
-            
+            });
             $list.append($item);
-            
             if (isActive) {
-                setTimeout(function() {
-                    $item[0].scrollIntoView({block: 'nearest'});
+                setTimeout(function(){
+                    $item[0].scrollIntoView({block:'nearest'});
                     $item.focus();
                 }, 10);
             }
         });
     };
 
+
     // Render all layers initially
     $(document).ready(function() {
-        window.renderLayerList(window.layers, '');
+        window.renderLayerList(window.layers);
     });
     // --- End Layer Searcher Integration ---
 
