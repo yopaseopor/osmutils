@@ -31,48 +31,32 @@ $(function () {
             }
         });
     }
-    // 2. Define window.renderLayerList
+    // 2. Define window.renderLayerList - Modified to prevent rendering the layer list
     window.renderLayerList = function(filtered, query) {
-        var $list = $('#layer-list');
-        if (!$list.length) {
-            $list = $('<div id="layer-list"></div>');
-            $('#menu').find('#layer-search-container').after($list);
-        }
-        $list.empty();
-        if (!query || !filtered || !filtered.length) {
-            // Only show message if there is a query
-            if (query && (!filtered || !filtered.length)) {
-                $list.append('<div style="padding:8px;color:#888;">No layers found.</div>');
-            }
-            return;
-        }
-        var activeLayer = null;
-        $.each(config.layers, function(indexLayer, layerGroup) {
-            if (layerGroup.get && layerGroup.get('type') !== 'overlay' && layerGroup.getVisible && layerGroup.getVisible()) {
-                activeLayer = layerGroup;
-            }
-        });
-        filtered.forEach(function(layer, idx) {
-            var isActive = activeLayer && ((layer.id && activeLayer.get('id') === layer.id) || (activeLayer.get('title') === layer.title && activeLayer.get('group') === layer.group));
-            var $item = $('<div>').addClass('layer-list-item').text((layer.group ? layer.group + ': ' : '') + layer.title);
-            if (isActive) $item.addClass('active').attr('tabindex', 0);
-            $item.css({cursor:'pointer'}).on('click', function(e) {
-                e.stopPropagation();
-                if (window.activateLayer) {
+        // Remove the layer list if it exists
+        $('#layer-list').remove();
+        
+        // If there's a search query, we'll still process the layers but not show them
+        if (query && filtered && filtered.length > 0) {
+            // Find the active layer if any
+            var activeLayer = null;
+            $.each(config.layers, function(indexLayer, layerGroup) {
+                if (layerGroup.get && layerGroup.get('type') !== 'overlay' && layerGroup.getVisible && layerGroup.getVisible()) {
+                    activeLayer = layerGroup;
+                }
+            });
+            
+            // If a layer is being activated, handle it without showing the list
+            filtered.forEach(function(layer) {
+                var isActive = activeLayer && ((layer.id && activeLayer.get('id') === layer.id) || 
+                             (activeLayer.get('title') === layer.title && activeLayer.get('group') === layer.group));
+                
+                // If this is the layer being activated, call activateLayer
+                if (isActive && window.activateLayer) {
                     window.activateLayer(layer);
                 }
-                // Clear the search and hide the dropdown
-                $('.layer-search-option').removeClass('active');
-                $('#layer-search-dropdown').hide();
             });
-            $list.append($item);
-            if (isActive) {
-                setTimeout(function(){
-                    $item[0].scrollIntoView({block:'nearest'});
-                    $item.focus();
-                }, 10);
-            }
-        });
+        }
     };
 
 
