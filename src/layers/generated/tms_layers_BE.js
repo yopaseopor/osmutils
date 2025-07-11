@@ -16,8 +16,8 @@ export const BE_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Digitaal Vlaanderen most recent aerial imagery",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ export const BE_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Digitaal Vlaanderen preliminary aerial imagery",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,8 +44,8 @@ export const BE_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (Belgian Style - Dutch)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -58,8 +58,8 @@ export const BE_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (Belgian Style - French)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -72,8 +72,8 @@ export const BE_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (Belgian Style)",
         type: 'XYZ',
         source: new ol.source.XYZ({
