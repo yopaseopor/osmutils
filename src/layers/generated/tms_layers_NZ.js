@@ -60,7 +60,7 @@ export const NZ_TMS_LAYERS = [
         visible: false
     }),
     new ol.layer.Tile({
-        title: "LINZ Cyclone Gabrielle – Hawke's Bay",
+        title: "LINZ Cyclone Gabrielle – Hawke\'s Bay",
         type: 'XYZ',
         source: new ol.source.XYZ({
             url: 'https://basemaps.linz.govt.nz/v1/tiles/hawkes-bay-cyclone-gabrielle-2023-0.1m/WebMercatorQuad/{z}/{x}/{y}.webp?api=d01egend5f8dv4zcbfj6z2t7rs3',

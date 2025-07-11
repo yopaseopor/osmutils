@@ -60,7 +60,7 @@ export const LU_TMS_LAYERS = [
         visible: false
     }),
     new ol.layer.Tile({
-        title: "openstreetmap.lu \\"mapper’s delight\\" hillshade lidar 2019 with unclassified points",
+        title: "openstreetmap.lu mapper\’s delight hillshade lidar 2019 with unclassified points",
         type: 'XYZ',
         source: new ol.source.XYZ({
             url: 'https://lidar-hillshade-2019.openstreetmap.lu/layer/mappers_delight_lidar_hillshade_2019_withunclassified/{z}/{x}/{y}.png',
