@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 1
 
-const MPLayers = [
+export const MPLayers = [
     new ol.layer.Tile({
         title: 'USDA Northern Mariana Islands Imagery (2022)',
         source: new ol.source.TileWMS({
@@ -16,8 +16,7 @@ const MPLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default MPLayers;

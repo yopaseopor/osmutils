@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 65
 
-const PLLayers = [
+export const PLLayers = [
     new ol.layer.Tile({
         title: 'Będzin: Buildings',
         source: new ol.source.TileWMS({
@@ -976,8 +976,7 @@ const PLLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default PLLayers;

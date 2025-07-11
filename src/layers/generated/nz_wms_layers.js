@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 1
 
-const NZLayers = [
+export const NZLayers = [
     new ol.layer.Tile({
         title: 'Environment Canterbury Imagery',
         source: new ol.source.TileWMS({
@@ -16,8 +16,7 @@ const NZLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default NZLayers;

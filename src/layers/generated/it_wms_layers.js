@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 16
 
-const ITLayers = [
+export const ITLayers = [
     new ol.layer.Tile({
         title: 'Lombardia - Italy (C.T.R. 10000 - 1980-94)',
         source: new ol.source.TileWMS({
@@ -241,8 +241,7 @@ const ITLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default ITLayers;

@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 6
 
-const CZLayers = [
+export const CZLayers = [
     new ol.layer.Tile({
         title: 'Czech CUZK:KM',
         source: new ol.source.TileWMS({
@@ -91,8 +91,7 @@ const CZLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default CZLayers;

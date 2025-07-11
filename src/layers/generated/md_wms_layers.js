@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 23
 
-const MDLayers = [
+export const MDLayers = [
     new ol.layer.Tile({
         title: 'Chișinău Orthophoto (2000)',
         source: new ol.source.TileWMS({
@@ -346,8 +346,7 @@ const MDLayers = [
             },
             serverType: 'geoserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default MDLayers;

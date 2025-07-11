@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 30
 
-const BELayers = [
+export const BELayers = [
     new ol.layer.Tile({
         title: 'Digitaal Vlaanderen DHV II, multidirectional hillshade 0,25 m',
         source: new ol.source.TileWMS({
@@ -451,8 +451,7 @@ const BELayers = [
             },
             serverType: 'geoserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default BELayers;

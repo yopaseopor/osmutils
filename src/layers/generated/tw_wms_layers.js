@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 2
 
-const TWLayers = [
+export const TWLayers = [
     new ol.layer.Tile({
         title: 'Taiwan Land-Section Data',
         source: new ol.source.TileWMS({
@@ -31,8 +31,7 @@ const TWLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default TWLayers;

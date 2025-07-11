@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 23
 
-const NOLayers = [
+export const NOLayers = [
     new ol.layer.Tile({
         title: 'Fiskeridirektoratet Aquaculture overlay',
         source: new ol.source.TileWMS({
@@ -346,8 +346,7 @@ const NOLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default NOLayers;

@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 11
 
-const CALayers = [
+export const CALayers = [
     new ol.layer.Tile({
         title: 'Canvec - French',
         source: new ol.source.TileWMS({
@@ -166,8 +166,7 @@ const CALayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default CALayers;

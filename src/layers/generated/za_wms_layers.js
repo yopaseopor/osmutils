@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 4
 
-const ZALayers = [
+export const ZALayers = [
     new ol.layer.Tile({
         title: 'City of Cape Town Aerial Imagery (2017)',
         source: new ol.source.TileWMS({
@@ -61,8 +61,7 @@ const ZALayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default ZALayers;

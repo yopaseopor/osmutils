@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 60
 
-const DELayers = [
+export const DELayers = [
     new ol.layer.Tile({
         title: 'Aktuelle Luftbilder der Landeshauptstadt München 20cm',
         source: new ol.source.TileWMS({
@@ -901,8 +901,7 @@ const DELayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default DELayers;

@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 34
 
-const SELayers = [
+export const SELayers = [
     new ol.layer.Tile({
         title: 'Lantmäteriet Historic Orthophoto 1960',
         source: new ol.source.TileWMS({
@@ -511,8 +511,7 @@ const SELayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default SELayers;

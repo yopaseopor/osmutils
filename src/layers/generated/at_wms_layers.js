@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 18
 
-const ATLayers = [
+export const ATLayers = [
     new ol.layer.Tile({
         title: 'BEV INSPIRE Orthofoto',
         source: new ol.source.TileWMS({
@@ -271,8 +271,7 @@ const ATLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default ATLayers;

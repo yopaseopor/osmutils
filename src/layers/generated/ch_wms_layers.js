@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 49
 
-const CHLayers = [
+export const CHLayers = [
     new ol.layer.Tile({
         title: 'Plan Cadastral du SITN, Neuchâtel',
         source: new ol.source.TileWMS({
@@ -736,8 +736,6 @@ const CHLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
-
-export default CHLayers;

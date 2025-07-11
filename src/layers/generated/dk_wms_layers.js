@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 5
 
-const DKLayers = [
+export const DKLayers = [
     new ol.layer.Tile({
         title: 'SDFI Cadastral Parcels INSPIRE View',
         source: new ol.source.TileWMS({
@@ -76,8 +76,7 @@ const DKLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default DKLayers;

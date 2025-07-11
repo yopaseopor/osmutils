@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 26
 
-const BRLayers = [
+export const BRLayers = [
     new ol.layer.Tile({
         title: 'Belo Horizonte Ortofoto 2015',
         source: new ol.source.TileWMS({
@@ -391,8 +391,7 @@ const BRLayers = [
             },
             serverType: 'geoserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default BRLayers;

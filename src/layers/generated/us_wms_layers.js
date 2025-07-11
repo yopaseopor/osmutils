@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 215
 
-const USLayers = [
+export const USLayers = [
     new ol.layer.Tile({
         title: 'USGS 3D Elevation Program',
         source: new ol.source.TileWMS({
@@ -3226,8 +3226,7 @@ const USLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default USLayers;

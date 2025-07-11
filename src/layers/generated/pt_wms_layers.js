@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 7
 
-const PTLayers = [
+export const PTLayers = [
     new ol.layer.Tile({
         title: 'Land Use and Soil Occupation Charter of mainland Portugal - 2018 (DGT)',
         source: new ol.source.TileWMS({
@@ -106,8 +106,7 @@ const PTLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default PTLayers;

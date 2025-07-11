@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 1
 
-const PWLayers = [
+export const PWLayers = [
     new ol.layer.Tile({
         title: 'USDA Palau Imagery (2022)',
         source: new ol.source.TileWMS({
@@ -16,8 +16,7 @@ const PWLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default PWLayers;

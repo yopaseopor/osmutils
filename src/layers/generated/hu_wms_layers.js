@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 10
 
-const HULayers = [
+export const HULayers = [
     new ol.layer.Tile({
         title: 'Budapest district XI orthophoto 2015',
         source: new ol.source.TileWMS({
@@ -151,8 +151,7 @@ const HULayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default HULayers;

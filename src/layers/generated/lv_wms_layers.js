@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 9
 
-const LVLayers = [
+export const LVLayers = [
     new ol.layer.Tile({
         title: 'USSR - Latvia',
         source: new ol.source.TileWMS({
@@ -136,8 +136,7 @@ const LVLayers = [
             },
             serverType: 'geoserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default LVLayers;

@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 2
 
-const GBLayers = [
+export const GBLayers = [
     new ol.layer.Tile({
         title: 'EA LiDAR Digital Surface Model 1m (2022)',
         source: new ol.source.TileWMS({
@@ -31,8 +31,7 @@ const GBLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default GBLayers;

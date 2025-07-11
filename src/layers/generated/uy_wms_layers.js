@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 1
 
-const UYLayers = [
+export const UYLayers = [
     new ol.layer.Tile({
         title: 'Uruguay IDE.uy Ortofotos 2019',
         source: new ol.source.TileWMS({
@@ -16,8 +16,7 @@ const UYLayers = [
             },
             serverType: 'geoserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default UYLayers;

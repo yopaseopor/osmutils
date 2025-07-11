@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 7
 
-const FILayers = [
+export const FILayers = [
     new ol.layer.Tile({
         title: 'FTIA Road Network',
         source: new ol.source.TileWMS({
@@ -106,8 +106,7 @@ const FILayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default FILayers;

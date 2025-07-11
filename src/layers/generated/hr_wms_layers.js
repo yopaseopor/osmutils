@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 11
 
-const HRLayers = [
+export const HRLayers = [
     new ol.layer.Tile({
         title: 'dgu.hr: Croatia 2011 Aerial imagery',
         source: new ol.source.TileWMS({
@@ -166,8 +166,7 @@ const HRLayers = [
             },
             serverType: 'geoserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default HRLayers;

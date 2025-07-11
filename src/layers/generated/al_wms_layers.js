@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 1
 
-const ALLayers = [
+export const ALLayers = [
     new ol.layer.Tile({
         title: 'Address System Albania (ASIG)',
         source: new ol.source.TileWMS({
@@ -16,8 +16,7 @@ const ALLayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default ALLayers;

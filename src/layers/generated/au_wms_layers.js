@@ -2,7 +2,7 @@
 // Generated on: 2025-07-07 23:30:22 UTC
 // Total layers: 56
 
-const AULayers = [
+export const AULayers = [
     new ol.layer.Tile({
         title: 'ACTmapi Imagery Mar 2025',
         source: new ol.source.TileWMS({
@@ -841,8 +841,7 @@ const AULayers = [
             },
             serverType: 'mapserver'
         }),
-        visible: false
-    }),
+visible: false
+    })
 ];
 
-export default AULayers;
