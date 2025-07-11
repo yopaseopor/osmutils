@@ -193,8 +193,9 @@
                 } else if (layer.setVisible) {
                     layer.setVisible(!layer.getVisible());
                 }
+                // Clear the layer list by rendering with an empty array
                 if (window.renderLayerList) {
-                    window.renderLayerList(window.layers, '');
+                    window.renderLayerList([], '');
                 }
             });
             dropdown.appendChild(opt);
