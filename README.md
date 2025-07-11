@@ -232,6 +232,8 @@ OSMUtils is born
 
 +Windsurf made a python script to parser osmlabs imagery.xml. During 15 minutes it tries itself to parser the WMS layers. Finally it gets the data (not included in the app).
 +Other day Windsurf and SWE makes the same with TMS layers.
++-Fixing layer buttons up and down and opacity results the removal of up and down button and the creation of a Activation layer button. Now active layers are kept in the top list.
+*Modifying manually the TMS and WMS data all the layers now are available through the layer searcher
 
 
 ```
@@ -420,8 +422,15 @@ Afegim búlgar (bg) a continuació:
 
 Li busco nom, això ja és una altra cosa.
 Neix OSMUtils
-```
 
+2025/07/07
+
++Afegit un resum de les característiques actives que pots veure al mapa. +He intentat fer les capes externes en fitxers separats, per apuntar a l'ÍNDEX DE CAPES d'OSM LABS +-Mostra capes externes individualment, però no el títol +-Mostra el títol del grup de capes però no les capes en si encara que estiguin actives. *Crèdits de GitHub Copilot esgotats. Torn a Windsurf i SWE
+
+2025/07/08
+
++Windsurf va fer un script en Python per analitzar l'imagery.xml d'osmlabs. Durant 15 minuts va intentar analitzar les capes WMS. Finalment va obtenir les dades (no incloses a l'aplicació). +Un altre dia Windsurf i SWE van fer el mateix amb les capes TMS. +-Arreglar els botons de capes amunt i avall i l'opacitat va resultar en l'eliminació dels botons d'amunt i avall i la creació d'un botó d'Activació de capa. Ara les capes actives es mantenen a la llista superior. *Modificant manualment les dades TMS i WMS, ara totes les capes estan disponibles a través del cercador de capes.
+```
 ---
 
 ## Español
@@ -615,4 +624,19 @@ Let's add Bulgarian (bg) next:
 
 Le busco nombre, esto ya es otra cosa.
 Nace OSMUtils
+
+2025/07/07
+
++Se agregó un resumen de las características activas que puedes ver en el mapa. 
++Intenté hacer las capas externas en archivos separados, para apuntar al ÍNDICE DE CAPAS DE OSM LABS 
++-Muestra capas externas individualmente, pero no el título +-Muestra el título del grupo de capas pero no las capas en sí aunque estén activas. 
+*Créditos de GitHub Copilot agotados. Regreso a Windsurf y SWE
+
+2025/07/08
+
++Windsurf hizo un script en Python para analizar el imagery.xml de osmlabs. Durante 15 minutos intentó analizar las capas WMS. Finalmente obtuvo los datos (no incluidos en la aplicación). 
++Otro día Windsurf y SWE hicieron lo mismo con las capas TMS. 
++-Arreglar los botones de capas arriba y abajo y la opacidad resultó en la eliminación de los botones de arriba y abajo y la creación de un botón de Activación de capa. Ahora las capas activas se mantienen en la lista superior. 
+*Modificando manualmente los datos TMS y WMS, ahora todas las capas están disponibles a través del buscador de capas.
+
 ```
