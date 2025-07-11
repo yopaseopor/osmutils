@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:10:37
 // Total layers: 729
 
-const ALL_TMS_LAYERS = [
+export const ALL_TMS_LAYERS = [
   new ol.layer.Tile({
     "id": "layer_0",
     "title": "7th Series (OS7) (GB)",
@@ -6741,7 +6741,7 @@ const ALL_TMS_LAYERS = [
 })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

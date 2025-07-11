@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 2
 
-const TW_TMS_LAYERS = [
+export const TW_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "NLSC General Map with Contour line",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const TW_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Taiwan e-Map Open Data",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,11 +30,11 @@ const TW_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }
-window.layers = window.layers.concat(TW_TMS_LAYERS);
+window.layers = window.layers.concat(TW_TMS_LAYERS);*/

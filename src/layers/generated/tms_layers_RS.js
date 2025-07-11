@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 3
 
-const RS_TMS_LAYERS = [
+export const RS_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "Official Serbia OSM (cyr)",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const RS_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Official Serbia OSM (lat)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ const RS_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "RGZ address and street open data overlay",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,10 +44,10 @@ const RS_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

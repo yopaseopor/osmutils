@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 7
 
-const LU_TMS_LAYERS = [
+export const LU_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "Basemap geoportail.lu",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const LU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Cadastre geoportail.lu",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ const LU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "geoportail.lu ortho technique 2019 (10cm)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,8 +44,8 @@ const LU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Latest available ortho geoportail.lu",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -58,8 +58,8 @@ const LU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "openstreetmap.lu \\"mapper’s delight\\" hillshade lidar 2019 with unclassified points",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -72,8 +72,8 @@ const LU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Ortho 2021 geoportail.lu",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -86,8 +86,8 @@ const LU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Topographical Map geoportail.lu",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -100,10 +100,10 @@ const LU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

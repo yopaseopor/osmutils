@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 4
 
-const ZA_TMS_LAYERS = [
+export const ZA_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "City of Cape Town 2013 Aerial",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const ZA_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "City of Cape Town 2015 Aerial",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ const ZA_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "City of Cape Town Aerial Imagery (2021)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,8 +44,8 @@ const ZA_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "South Africa CD:NGI Aerial",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -58,10 +58,10 @@ const ZA_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

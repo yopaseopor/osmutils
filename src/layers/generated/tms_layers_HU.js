@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 13
 
-const HU_TMS_LAYERS = [
+export const HU_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "Danube flood orthophoto 2013",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "EUFAR Balaton orthophotos",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "FÖMI orthophoto 2000",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,8 +44,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "FÖMI orthophoto 2005",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -58,8 +58,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "FÖMI orthophoto 2007–2010",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -72,8 +72,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "FÖMI orthophoto 2011–2014 (WEBP)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -86,8 +86,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "FÖMI orthophoto 2015 (WEBP)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -100,8 +100,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "FÖMI orthophoto 2015 leaf-off 20cm (webp)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -114,8 +114,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Hillshade Hungary",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -128,8 +128,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (turistautak)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -142,8 +142,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "openstreetmap.hu orthophotos",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -156,8 +156,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Szeged orthophoto 2011",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -170,8 +170,8 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Sóskút, Pusztazámor, Tárnok, Diósd ortophoto 2017",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -184,10 +184,10 @@ const HU_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

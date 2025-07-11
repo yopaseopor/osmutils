@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 5
 
-const CZ_TMS_LAYERS = [
+export const CZ_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "Czech CUZK:KM tiles proxy",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const CZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Czech RUIAN budovy",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ const CZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Czech RUIAN parcely",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,8 +44,8 @@ const CZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Praha IPR latest orthophoto (TMS mirror)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -58,8 +58,8 @@ const CZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Praha IPR low-vegetation orthophoto (TMS mirror)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -72,10 +72,10 @@ const CZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

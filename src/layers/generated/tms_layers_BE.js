@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 6
 
-export const BE_TMS_LAYERS = [
+export export const BE_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "Digitaal Vlaanderen GRB",
         type: 'XYZ',

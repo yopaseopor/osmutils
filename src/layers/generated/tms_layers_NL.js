@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 2
 
-const NL_TMS_LAYERS = [
+export const NL_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "PDOK aerial imagery Beeldmateriaal.nl 8cm (WMTS) latest",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const NL_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "PDOK BGT standaardvisualisatie",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,10 +30,10 @@ const NL_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

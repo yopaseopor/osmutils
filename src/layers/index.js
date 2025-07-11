@@ -39,6 +39,28 @@ import { UYLayers } from './generated/uy_wms_layers.js';
 import { XXLayers } from './generated/xx_wms_layers.js';
 import { ZALayers } from './generated/za_wms_layers.js';
 import { BE_TMS_LAYERS } from './generated/tms_layers_BE.js';
+import { BR_TMS_LAYERS } from './generated/tms_layers_BR.js';
+import { CZ_TMS_LAYERS } from './generated/tms_layers_CZ.js';
+import { DK_TMS_LAYERS } from './generated/tms_layers_DK.js';
+import { FI_TMS_LAYERS } from './generated/tms_layers_FI.js';
+import { HT_TMS_LAYERS } from './generated/tms_layers_HT.js';
+import { HU_TMS_LAYERS } from './generated/tms_layers_HU.js';
+import { IT_TMS_LAYERS } from './generated/tms_layers_IT.js';
+import { LT_TMS_LAYERS } from './generated/tms_layers_LT.js';
+import { LU_TMS_LAYERS } from './generated/tms_layers_LU.js';
+import { MD_TMS_LAYERS } from './generated/tms_layers_MD.js';
+import { NL_TMS_LAYERS } from './generated/tms_layers_NL.js';
+import { NZ_TMS_LAYERS } from './generated/tms_layers_NZ.js';
+import { PH_TMS_LAYERS } from './generated/tms_layers_PH.js';
+import { PL_TMS_LAYERS } from './generated/tms_layers_PL.js';
+import { RS_TMS_LAYERS } from './generated/tms_layers_RS.js';
+import { SE_TMS_LAYERS } from './generated/tms_layers_SE.js';
+import { SG_TMS_LAYERS } from './generated/tms_layers_SG.js';
+import { SK_TMS_LAYERS } from './generated/tms_layers_SK.js';
+import { TW_TMS_LAYERS } from './generated/tms_layers_TW.js';
+import { XX_TMS_LAYERS } from './generated/tms_layers_XX.js';
+import { ZA_TMS_LAYERS } from './generated/tms_layers_ZA.js';
+import { ZM_TMS_LAYERS } from './generated/tms_layers_ZM.js';
 import { myCustomLayer } from './myCustomLayer.js';
 import { osmBrightLayer } from './osmBrightLayer.js';
 import { stamenTonerLayer } from './stamenTonerLayer.js';
@@ -46,6 +68,6 @@ import { stamenTonerLayer } from './stamenTonerLayer.js';
 export const allLayers = { ASLayers, ATLayers, AULayers, BELayers, BRLayers, CALayers, CHLayers, CZLayers,
   DELayers, DKLayers, EELayers, ESLayers, FILayers, FMLayers, FRLayers, GBLayers, GULayers,
   HRLayers, HULayers, ITLayers, LVLayers, MDLayers, MHLayers, MPLayers, NOLayers, NZLayers,
-  PLLayers, PTLayers, PWLayers, SELayers, SGLayers, TWLayers, USLayers, UYLayers, XXLayers, ZALayers, BE_TMS_LAYERS,
+  PLLayers, PTLayers, PWLayers, SELayers, SGLayers, TWLayers, USLayers, UYLayers, XXLayers, ZALayers, BE_TMS_LAYERS, BR_TMS_LAYERS, CZ_TMS_LAYERS, DK_TMS_LAYERS, FI_TMS_LAYERS, HT_TMS_LAYERS, HU_TMS_LAYERS, IT_TMS_LAYERS, LT_TMS_LAYERS, LU_TMS_LAYERS, MD_TMS_LAYERS, NL_TMS_LAYERS, NZ_TMS_LAYERS, PH_TMS_LAYERS, PL_TMS_LAYERS, RS_TMS_LAYERS, SE_TMS_LAYERS, SG_TMS_LAYERS, SK_TMS_LAYERS, TW_TMS_LAYERS, XX_TMS_LAYERS, ZA_TMS_LAYERS, ZM_TMS_LAYERS,
   myCustomLayer, osmBrightLayer, stamenTonerLayer 
 };

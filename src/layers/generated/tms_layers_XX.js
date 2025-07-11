@@ -2,7 +2,7 @@
 // Generated on: 2025-07-08 11:19:17
 // Total layers: 42
 
-const XX_TMS_LAYERS = [
+export const XX_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "Cambodia, Laos, Thailand, Vietnam, Malaysia, Myanmar bilingual",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "CyclOSM",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Esri World Imagery",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,8 +44,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Esri World Imagery (Clarity) Beta",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -58,8 +58,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Locator Overlay",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -72,8 +72,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Mapbox Satellite",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -86,8 +86,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Nordic snowmobile overlay",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -100,8 +100,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenAerialMap Mosaic, by Kontur.io",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -114,8 +114,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenPT Map (overlay)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -128,8 +128,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenRailwayMap",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -142,8 +142,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenRailwayMap Maxspeeds",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -156,8 +156,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenRailwayMap Signalling",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -170,8 +170,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenSeaMap",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -184,8 +184,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenSnowMap overlay",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -198,8 +198,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (French Style)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -212,8 +212,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (German Style)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -226,8 +226,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (HOT Style)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -240,8 +240,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (Mapnik, no labels)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -254,8 +254,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap (Standard)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -268,8 +268,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenStreetMap GPS traces",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -282,8 +282,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OpenTopoMap",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -296,8 +296,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OSM Inspector: Addresses",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -310,8 +310,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OSM Inspector: Area",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -324,8 +324,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OSM Inspector: Geometry",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -338,8 +338,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OSM Inspector: Highways",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -352,8 +352,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OSM Inspector: Places",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -366,8 +366,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OSM Inspector: Routing",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -380,8 +380,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "OSM Inspector: Tagging",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -394,8 +394,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Public Transport (ÖPNV)",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -408,8 +408,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "QA No Address",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -422,8 +422,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "skobbler",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -436,8 +436,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Stamen Terrain",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -450,8 +450,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Thunderforest Landscape",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -464,8 +464,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Thunderforest OpenCycleMap",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -478,8 +478,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Thunderforest Outdoors",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -492,8 +492,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Waymarked Trails: Cycling",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -506,8 +506,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Waymarked Trails: Hiking",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -520,8 +520,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Waymarked Trails: Horse Riding",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -534,8 +534,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Waymarked Trails: MTB",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -548,8 +548,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Waymarked Trails: Skating",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -562,8 +562,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Waymarked Trails: Winter Sports",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -576,8 +576,8 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "Wikimedia Map",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -590,10 +590,10 @@ const XX_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }

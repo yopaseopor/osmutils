@@ -2,7 +2,7 @@
 // Generated on: 2025-07-09 02:09:02
 // Total layers: 10
 
-const NZ_TMS_LAYERS = [
+export const NZ_TMS_LAYERS = [
   new ol.layer.Tile({
         title: "LINZ Auckland 2017",
         type: 'XYZ',
@@ -16,8 +16,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ Auckland 2023",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -30,8 +30,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ Bay of Plenty 2014-2015",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -44,8 +44,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ Christchurch 2015-2016",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -58,8 +58,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ Cyclone Gabrielle – Hawke's Bay",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -72,8 +72,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ Hamilton 2016-2017",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -86,8 +86,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ NZ Aerial Imagery",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -100,8 +100,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ NZ Hillshade",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -114,8 +114,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ NZ Topo50 Gridless Maps",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -128,8 +128,8 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    },
-  new ol.layer.Tile({
+    }),
+    new ol.layer.Tile({
         title: "LINZ Wellington 2017",
         type: 'XYZ',
         source: new ol.source.XYZ({
@@ -142,10 +142,10 @@ const NZ_TMS_LAYERS = [
             projection: 'EPSG:3857'
         }),
         visible: false
-    }
+    })
 ];
 
-// Add to global layers array if it exists
+/* Add to global layers array if it exists
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }
