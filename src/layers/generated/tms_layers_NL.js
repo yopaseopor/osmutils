@@ -37,4 +37,4 @@ export const NL_TMS_LAYERS = [
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }
-window.layers = window.layers.concat(NL_TMS_LAYERS);
+window.layers = window.layers.concat(NL_TMS_LAYERS);*/

@@ -107,4 +107,4 @@ export const LU_TMS_LAYERS = [
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }
-window.layers = window.layers.concat(LU_TMS_LAYERS);
+window.layers = window.layers.concat(LU_TMS_LAYERS);*/

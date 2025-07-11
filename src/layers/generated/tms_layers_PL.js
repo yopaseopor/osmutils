@@ -23,4 +23,4 @@ export const PL_TMS_LAYERS = [
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }
-window.layers = window.layers.concat(PL_TMS_LAYERS);
+window.layers = window.layers.concat(PL_TMS_LAYERS);*/

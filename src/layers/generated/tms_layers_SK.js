@@ -135,4 +135,4 @@ export const SK_TMS_LAYERS = [
 if (typeof window.layers === 'undefined') {
     window.layers = [];
 }
-window.layers = window.layers.concat(SK_TMS_LAYERS);
+window.layers = window.layers.concat(SK_TMS_LAYERS);*/
