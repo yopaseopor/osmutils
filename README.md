@@ -1,37 +1,69 @@
-# OSM POIS Map
+# OSM Utils 
 
-Based on ideas of `https://osm-catalan.github.io/osmcatmap/` and `https://github.com/Ripollx/osmcatmap2` .
-Developed with [OpenLayers](https://openlayers.org/) library  and with API from [Overpass Turbo](https://wiki.openstreetmap.org/wiki/Overpass_turbo) available on [Overpass Turbo website](https://overpass-turbo.eu/).
+Based on [https://github.com/yopaseopor/osmpoismap](https://github.com/yopaseopor/osmpoismap)
 
-## Features:
+## Authors:
 
--Map based on [Bicycle tags map](https://wiki.openstreetmap.org/wiki/Bicycle_tags_map)
+-Map running on Openlayers. Based on [Bicycle tags map](https://wiki.openstreetmap.org/wiki/Bicycle_tags_map). New Openlayers version done by [Ripollx](https://github.com/Ripollx)
 
 -With modifications of [Ramiro Balado](https://github.com/Qjammer)
-
--New Openlayers version done by [Ripollx](https://github.com/Ripollx)
 
 -Possibility of show outside JSONs by [Hugoren Martinako ](https://github.com/Crashillo)
 
 -Complex queries possibility done by [Ismael Luceno](https://github.com/ismaell)
 
--Additional ideas by [yopaseopor](https://github.com/yopaseopor)
+-Search by [Nominatim](https://nominatim.openstreetmap.org)
 
-## Tags
+-Street imagery by [Panoramax](https://api.panoramax.xyz)
 
-OSM POIS Map shows you all the tags refered to brands and general business.
+-Other images by [Mapillary](https://www.mapillary.com)
 
+-Routing for car, bicycle and walk by [OSRM](https://project-osrm.org/)
 
-## Using
+-Brands extracted from [Name Suggestion Index](https://nsi.guide)
 
-You can modify the page editing these files:
-* index.html contains the structure of the page.
-* index.js contains the orchestrator to use OpenLayers (only modify if you want to add new functionalities).
-* config.js contains definition of layers, languages and characteristics you want to show.
+-Layers extracted from [OSM Editor Layer Index](https://osmlab.github.io/editor-layer-index/)
+
+-Translations done by [SWE](https://windsurf.com/blog/windsurf-wave-9-swe-1)
+
+-Vibe coding to mix all of it by [yopaseopor](https://github.com/yopaseopor)
+
+## Features
+
+OSM Utils enables you to taste the power of Openstreetmap environment. It puts on your hand:
+
+-A searcher
+
+-A router for car, bicycle and walk
+
+-A layer searcher and selector with more than 800 TMS and WMS layers you can activate and control its opacity between them, including vector tiles and layers from other commercial sources.
+
+-An overlay searcher with more than 15000 brands from all around the world.
+
+-A custom vector style called customyopaseopor
+
+-38 languages for main parts of the website
+
+-Street imagery from Panoramax and Mapillary
+
+-Main links to manage the data you have found.
+
+## Vibe coding
+
+We have used some programs about coding and also AIs LMs to do major part of the work.
+
+-Cursor with Claude Sonnet 3.5, Chat GPT 4.0
+
+-Windsurf with ChatGPT 4.1, Deepseek 0324, Gemini 2.5, SWE-1
+
+-Visual Studio Code with Copilot and ChatGPT 4.1
+
 
 ## Demo
 
-You can see it [here](https://yopaseopor.github.io/osmpoismap)
+Touch and use. Test it. Fork it. Make it better.
+
+You can see it [here](https://yopaseopor.github.io/osmutils)
 
 ---
 
