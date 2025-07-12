@@ -1319,6 +1319,17 @@
 		},
 		{
 			"source": "customyopaseopor",
+			"id": "water-area-ocean",
+			"type": "fill",
+			"source-layer": "ocean",
+			"filter": [ "all", [ "in", "kind", "ocean" ] ],
+			"paint": {
+				"fill-color": "#beddf3",
+				"fill-opacity": { "stops": [ [ 4, 0 ], [ 6, 1 ] ] }
+			}
+		},
+		{
+			"source": "customyopaseopor",
 			"id": "water-area-small",
 			"type": "fill",
 			"source-layer": "water_polygons",
