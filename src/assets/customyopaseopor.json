@@ -1319,13 +1319,11 @@
 		},
 		{
 			"source": "customyopaseopor",
-			"id": "water-area-ocean",
+			"id": "water-ocean",
 			"type": "fill",
 			"source-layer": "ocean",
-			"filter": [ "all", [ "in", "kind", "ocean" ] ],
 			"paint": {
-				"fill-color": "#beddf3",
-				"fill-opacity": { "stops": [ [ 4, 0 ], [ 6, 1 ] ] }
+				"fill-color": "rgb(203,210,223)"
 			}
 		},
 		{
