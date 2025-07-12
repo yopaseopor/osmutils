@@ -86,7 +86,7 @@ var config = {
 			const colorfulLayer = new ol.layer.VectorTile({
 				title: 'Versatiles colorful',
 				iconSrc: imgSrc + 'icones_web/osm_logo-layer.svg',
-				visible: true,
+				visible: false,
 				opacity: 1.0,
 				source: new ol.source.VectorTile({
 					tilePixelRatio: 1,
@@ -122,7 +122,7 @@ var config = {
 			const customLayer = new ol.layer.VectorTile({
 				title: 'OSM Customyopaseopor',
 				iconSrc: imgSrc + 'icones_web/osm_logo-layer.svg',
-				visible: false,
+				visible: true,
 				opacity: 1.0,
 				source: new ol.source.VectorTile({
 					tilePixelRatio: 1,
