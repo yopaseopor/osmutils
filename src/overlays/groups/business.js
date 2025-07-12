@@ -2,6 +2,573 @@ import { getTranslation } from '../../i18n/index.js';
 
 export function businessOverlays() {
     return [
+        // Generic business entries
+        {
+            group: getTranslation('agrarian'),
+            title: getTranslation('agrarian'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"agrarian\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(139,69,19,0.4)' // Brown color for agrarian
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(139,69,19,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('appliance'),
+            title: getTranslation('appliance'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"appliance\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(70,130,180,0.4)' // Steel blue color for appliance stores
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(70,130,180,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('baby_goods'),
+            title: getTranslation('baby_goods'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"baby_goods\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(255,192,203,0.4)' // Pink color for baby goods
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(255,192,203,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('bag'),
+            title: getTranslation('bag'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"bag\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(139,69,19,0.4)' // Brown color for bags/leather goods
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(139,69,19,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('bathroom_furnishing'),
+            title: getTranslation('bathroom_furnishing'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"bathroom_furnishing\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(173,216,230,0.4)' // Light blue color for bathroom furnishings
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(173,216,230,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('bbq'),
+            title: getTranslation('bbq'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"bbq\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(139,0,0,0.4)' // Dark red color for BBQ grills and equipment
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(139,0,0,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('carpenter'),
+            title: getTranslation('carpenter'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"carpenter\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(0,128,0,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(0,128,0,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('cleaning'),
+            title: getTranslation('cleaning'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"cleaning\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(0,0,255,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(0,0,255,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('electrician'),
+            title: getTranslation('electrician'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"electrician\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(255,165,0,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(255,165,0,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('electronics_repair'),
+            title: getTranslation('electronics_repair'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"electronics_repair\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(128,0,128,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(128,0,128,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('plumber'),
+            title: getTranslation('plumber'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"plumber\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(0,191,255,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(0,191,255,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        // Glaziery
+        {
+            group: getTranslation('glaziery'),
+            title: getTranslation('glaziery'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"glaziery\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(128,0,128,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(128,0,128,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        // Handicraft
+        {
+            group: getTranslation('handicraft'),
+            title: getTranslation('handicraft'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"handicraft\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(139,69,19,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(139,69,19,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        // Signmaker
+        {
+            group: getTranslation('signmaker'),
+            title: getTranslation('signmaker'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"signmaker\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(0,191,255,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(0,191,255,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        // Window Construction
+        {
+            group: getTranslation('window_construction'),
+            title: getTranslation('window_construction'),
+            query: "[out:json][timeout:25];(nwr[\"craft\"=\"window_construction\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(0,128,128,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(0,128,128,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        // Services (highway services)
+        {
+            group: getTranslation('services'),
+            title: getTranslation('services'),
+            query: "[out:json][timeout:25];(nwr[\"highway\"=\"services\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(255,165,0,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(255,165,0,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        // First branded entry
         {
     group: getTranslation('carpenter'),
 	title: "\u30d7\u30ed\u30bf\u30a4\u30e0\u30ba",
