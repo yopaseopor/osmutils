@@ -4,7 +4,7 @@ export function animalOverlays() {
     return [
         {
             group: getTranslation('animal_boarding'),
-            title: getTranslation('generic_animal_boarding'),
+            title: getTranslation('animal_boarding'),
             query: "[out:json][timeout:25];(nwr[\"amenity\"=\"animal_boarding\"]({{bbox}});node(w););out meta;",
             iconSrc: "src/img/logos/generic.svg",
             iconStyle: "background-color:rgba(255,255,255,0.4)",
@@ -40,7 +40,7 @@ export function animalOverlays() {
         },
         {
             group: getTranslation('animal_shelter'),
-            title: getTranslation('generic_animal_shelter'),
+            title: getTranslation('animal_shelter'),
             query: "[out:json][timeout:25];(nwr[\"amenity\"=\"animal_shelter\"]({{bbox}});node(w););out meta;",
             iconSrc: "src/img/logos/generic.svg",
             iconStyle: "background-color:rgba(255,255,255,0.4)",
@@ -76,7 +76,7 @@ export function animalOverlays() {
         },
         {
             group: getTranslation('veterinary'),
-            title: getTranslation('generic_veterinary'),
+            title: getTranslation('veterinary'),
             query: "[out:json][timeout:25];(nwr[\"amenity\"=\"veterinary\"]({{bbox}});node(w););out meta;",
             iconSrc: "src/img/logos/generic.svg",
             iconStyle: "background-color:rgba(255,255,255,0.4)",
