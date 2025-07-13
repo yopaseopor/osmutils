@@ -3006,6 +3006,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('telecommunication'),
+    title: getTranslation('telecommunication'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"telecommunication\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,191,255,0.4)' // Blue color for telecommunication
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,191,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('telecommunication'),
 	title: "Antik Telecom",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Antik Telecom\"][\"brand:wikidata\"=\"Q30297477\"][\"name\"=\"Antik Telecom\"][\"office\"=\"telecommunication\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Antik_Telecom_Logo.png",
@@ -4986,6 +5021,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('appliance'),
+    title: getTranslation('appliance'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"appliance\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,140,0,0.4)' // Orange color for appliance stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,140,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('appliance'),
 	title: "Tien21",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Tien21\"][\"brand:wikidata\"=\"Q120442324\"][\"name\"=\"Tien21\"][\"shop\"=\"appliance\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -5958,6 +6028,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('baby_goods'),
+    title: getTranslation('baby_goods'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"baby_goods\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,192,203,0.4)' // Pink color for baby goods
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,192,203,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('baby_goods'),
 	title: "\u897f\u677e\u5c4b",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"\u897f\u677e\u5c4b\"][\"brand:en\"=\"Nishimatsuya\"][\"brand:ja\"=\"\u897f\u677e\u5c4b\"][\"brand:wikidata\"=\"Q11628761\"][\"name\"=\"\u897f\u677e\u5c4b\"][\"name:en\"=\"Nishimatsuya\"][\"name:ja\"=\"\u897f\u677e\u5c4b\"][\"shop\"=\"baby_goods\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -6890,6 +6995,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('bathroom_furnishing'),
+    title: getTranslation('bathroom_furnishing'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"bathroom_furnishing\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(173,216,230,0.4)' // Light blue color for bathroom furnishings
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(173,216,230,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -7866,6 +8006,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('bed'),
+    title: getTranslation('bed'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"bed\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,69,19,0.4)' // Brown color for bed stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,69,19,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('bed'),
 	title: "Mattress Firm Clearance",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Mattress Firm Clearance\"][\"brand:wikidata\"=\"Q6791878\"][\"name\"=\"Mattress Firm Clearance\"][\"shop\"=\"bed\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Mattress_Firm_logo.svg",
@@ -8838,6 +9013,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('camera'),
+    title: getTranslation('camera'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"camera\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,128,0.4)' // Navy blue color for camera stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,128,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('camera'),
 	title: "Kamera Express",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Kamera Express\"][\"brand:wikidata\"=\"Q77976400\"][\"name\"=\"Kamera Express\"][\"shop\"=\"camera\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -9806,6 +10016,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('chemist'),
+    title: getTranslation('chemist'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"chemist\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,0,0.4)' // Green color for chemist stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,128,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -11754,6 +11999,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('computer'),
+    title: getTranslation('computer'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"computer\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.4)' // Blue color for computer stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('computer'),
 	title: "Canada Computers",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Canada Computers\"][\"brand:wikidata\"=\"Q60763885\"][\"name\"=\"Canada Computers\"][\"shop\"=\"computer\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -12722,6 +13002,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('copyshop'),
+    title: getTranslation('copyshop'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"copyshop\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(128,0,128,0.4)' // Purple color for copy shops
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(128,0,128,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -13698,6 +14013,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('craft'),
+    title: getTranslation('craft'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"craft\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,165,0,0.4)' // Orange color for craft stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,165,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('craft'),
 	title: "Hobbycraft",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Hobbycraft\"][\"brand:wikidata\"=\"Q16984508\"][\"name\"=\"Hobbycraft\"][\"shop\"=\"craft\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -14666,6 +15016,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('doityourself'),
+    title: getTranslation('doityourself'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"doityourself\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,69,19,0.4)' // Brown color for DIY stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,69,19,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -19638,6 +20023,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('dry_cleaning'),
+    title: getTranslation('dry_cleaning'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"dry_cleaning\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,191,255,0.4)' // Light blue color for dry cleaning
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,191,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('dry_cleaning'),
 	title: "Martinizing Dry Cleaning",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Martinizing Dry Cleaning\"][\"brand:wikidata\"=\"Q6777169\"][\"name\"=\"Martinizing Dry Cleaning\"][\"shop\"=\"dry_cleaning\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -20610,6 +21030,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('e-cigarette'),
+    title: getTranslation('e-cigarette'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"e-cigarette\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(147,112,219,0.4)' // Medium purple color for e-cigarette shops
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(147,112,219,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('e-cigarette'),
 	title: "SoFly",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"SoFly\"][\"brand:wikidata\"=\"Q130474815\"][\"name\"=\"SoFly\"][\"shop\"=\"e-cigarette\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -21542,6 +21997,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('electronics'),
+    title: getTranslation('electronics'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"electronics\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.4)' // Blue color for electronics stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
