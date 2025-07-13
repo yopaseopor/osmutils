@@ -1210,6 +1210,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('electronics_repair'),
+    title: getTranslation('electronics_repair'),
+    query: "[out:json][timeout:25];(nwr[\"craft\"=\"electronics_repair\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(70,130,180,0.4)' // Steel blue color for electronics repair
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(70,130,180,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('electronics_repair'),
 	title: "Asurion Tech Repair & Solutions",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Asurion Tech Repair & Solutions\"][\"brand:wikidata\"=\"Q4811938\"][\"craft\"=\"electronics_repair\"][\"electronics_repair\"=\"computer;appliance;phone\"][\"name\"=\"Asurion Tech Repair & Solutions\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Asurion_Logo.png",
@@ -1966,6 +2001,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('signmaker'),
+    title: getTranslation('signmaker'),
+    query: "[out:json][timeout:25];(nwr[\"craft\"=\"signmaker\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(128,0,128,0.4)' // Purple color for signmakers
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(128,0,128,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('signmaker'),
 	title: "Signarama",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Signarama\"][\"brand:wikidata\"=\"Q24963251\"][\"craft\"=\"signmaker\"][\"name\"=\"Signarama\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Signarama_Logo.png",
@@ -2034,6 +2104,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('window_construction'),
+    title: getTranslation('window_construction'),
+    query: "[out:json][timeout:25];(nwr[\"craft\"=\"window_construction\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,100,0,0.4)' // Dark green color for window construction
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,100,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -2250,6 +2355,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('services'),
+    title: getTranslation('services'),
+    query: "[out:json][timeout:25];(nwr[\"highway\"=\"services\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,191,255,0.4)' // Deep sky blue color for services
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,191,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
