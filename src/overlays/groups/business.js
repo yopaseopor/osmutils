@@ -354,6 +354,76 @@ export function businessOverlays() {
             }
         },
         {
+            group: getTranslation('car_parts'),
+            title: getTranslation('car_parts'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"car_parts\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(205,92,92,0.4)' // Indian red color for car parts stores
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(205,92,92,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('car_repair'),
+            title: getTranslation('car_repair'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"car_repair\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(220,20,60,0.4)' // Crimson color for car repair shops
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(220,20,60,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
             group: getTranslation('carpenter'),
             title: getTranslation('carpenter'),
             query: "[out:json][timeout:25];(nwr[\"craft\"=\"carpenter\"]({{bbox}});node(w););out meta;",
@@ -368,6 +438,111 @@ export function businessOverlays() {
                 });
                 var stroke = new ol.style.Stroke({
                     color: 'rgba(0,128,0,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('carpet'),
+            title: getTranslation('carpet'),
+            query: "[out:json][timeout:25];(nwr[\"shop\"=\"carpet\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(205,133,63,0.4)' // Peru color for carpet and flooring stores
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(205,133,63,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('car_rental'),
+            title: getTranslation('car_rental'),
+            query: "[out:json][timeout:25];(nwr[\"amenity\"=\"car_rental\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(255,69,0,0.4)' // Orange-red color for car rental services
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(255,69,0,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('car_sharing'),
+            title: getTranslation('car_sharing'),
+            query: "[out:json][timeout:25];(nwr[\"amenity\"=\"car_sharing\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(30,144,255,0.4)' // Dodger blue color for car sharing services
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(30,144,255,1)',
                     width: 1
                 });
                 return new ol.style.Style({
