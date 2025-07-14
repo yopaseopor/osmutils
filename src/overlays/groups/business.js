@@ -29020,6 +29020,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('erotic'),
+    title: getTranslation('erotic'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"erotic\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,0,139,0.4)' // Dark magenta color for erotic shops
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,0,139,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('erotic'),
 	title: "Erotic Store Venus",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Erotic Store Venus\"][\"brand:wikidata\"=\"Q122900757\"][\"min_age\"=\"18\"][\"name\"=\"Erotic Store Venus\"][\"shop\"=\"erotic\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -29988,6 +30023,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('furniture'),
+    title: getTranslation('furniture'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"furniture\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,69,19,0.4)' // Brown color for furniture stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,69,19,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -37948,6 +38018,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('garden_centre'),
+    title: getTranslation('garden_centre'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"garden_centre\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(34,139,34,0.4)' // Forest green color for garden centers
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(34,139,34,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('garden_centre'),
 	title: "Walmart Garden Centre",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Walmart\"][\"brand:wikidata\"=\"Q483551\"][\"name\"=\"Walmart Garden Centre\"][\"shop\"=\"garden_centre\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Walmart_logo_(2025;_Alt).svg",
@@ -38920,6 +39025,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('hardware'),
+    title: getTranslation('hardware'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"hardware\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(210,105,30,0.4)' // Chocolate color for hardware stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(210,105,30,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('hardware'),
 	title: "Santandreu",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Santandreu\"][\"brand:wikidata\"=\"Q113217174\"][\"name\"=\"Santandreu\"][\"shop\"=\"hardware\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -39852,6 +39992,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('kitchen'),
+    title: getTranslation('kitchen'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"kitchen\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,165,0,0.4)' // Orange color for kitchen stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,165,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -40864,6 +41039,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('laundry'),
+    title: getTranslation('laundry'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"laundry\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(135,206,250,0.4)' // Light sky blue color for laundries
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(135,206,250,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('laundry'),
 	title: "Bubbles",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Bubbles\"][\"name\"=\"Bubbles\"][\"shop\"=\"laundry\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -41796,6 +42006,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('paint'),
+    title: getTranslation('paint'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"paint\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,191,255,0.4)' // Deep sky blue color for paint stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,191,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -42768,6 +43013,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('photo'),
+    title: getTranslation('photo'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"photo\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,255,0,0.4)' // Yellow color for photo stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
