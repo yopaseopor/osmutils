@@ -44024,6 +44024,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('second_hand'),
+    title: getTranslation('second_hand'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"second_hand\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,69,19,0.4)' // Brown color for second-hand stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,69,19,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('second_hand'),
 	title: "\u8cb7\u53d6\u738b\u56fd",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"\u8cb7\u53d6\u738b\u56fd\"][\"brand:en\"=\"Treasure Bomb\"][\"brand:ja\"=\"\u8cb7\u53d6\u738b\u56fd\"][\"brand:ja-Latn\"=\"Kaitori Okoku\"][\"brand:wikidata\"=\"Q18336741\"][\"name\"=\"\u8cb7\u53d6\u738b\u56fd\"][\"name:en\"=\"Treasure Bomb\"][\"name:ja\"=\"\u8cb7\u53d6\u738b\u56fd\"][\"name:ja-Latn\"=\"Kaitori Okoku\"][\"shop\"=\"second_hand\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Kaitori_Okoku_Moriyama-Omori_Branch_20160524.jpg",
@@ -44996,6 +45031,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('stationery'),
+    title: getTranslation('stationery'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"stationery\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,191,255,0.4)' // Deep sky blue color for stationery stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,191,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('stationery'),
 	title: "Warehouse Stationery",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Warehouse Stationery\"][\"brand:wikidata\"=\"Q110221565\"][\"name\"=\"Warehouse Stationery\"][\"shop\"=\"stationery\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -45928,6 +45998,41 @@ export function businessOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('tiles'),
+    title: getTranslation('tiles'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"tiles\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(128,0,128,0.4)' // Purple color for tiles stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(128,0,128,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
