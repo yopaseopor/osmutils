@@ -267,6 +267,10 @@ OSMUtils is born
 +-Fixing layer buttons up and down and opacity results the removal of up and down button and the creation of a Activation layer button. Now active layers are kept in the top list.
 *Modifying manually the TMS and WMS data all the layers now are available through the layer searcher
 
+2025/07/13
+
++Generic queries for overlays 
+
 
 ```
 

@@ -46073,6 +46073,41 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('tool_hire'),
+    title: getTranslation('tool_hire'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"tool_hire\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.4)' // Blue color for tool hire
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('tool_hire'),
 	title: "Bo-rent",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Bo-rent\"][\"brand:wikidata\"=\"Q126919301\"][\"name\"=\"Bo-rent\"][\"shop\"=\"tool_hire\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Bo-rent_Rental_automobile,_Winschoten_(2018).jpg",
@@ -46793,8 +46828,8 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('window_blind'),
-	title: "Le March\u00e9 du Store",
-    query: "[out:json][timeout:25];(nwr[\"brand\"=\"Le March\u00e9 du Store\"][\"brand:wikidata\"=\"Q123409913\"][\"name\"=\"Le March\u00e9 du Store\"][\"shop\"=\"window_blind\"]({{bbox}});node(w););out meta;",
+	title: "Le Marché du Store",
+    query: "[out:json][timeout:25];(nwr[\"brand\"=\"Le Marché du Store\"][\"brand:wikidata\"=\"Q123409913\"][\"name\"=\"Le Marché du Store\"][\"shop\"=\"window_blind\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
@@ -46829,7 +46864,77 @@ export function businessOverlays() {
 },
 {
     group: getTranslation('window_blind'),
-	title: "Monsieur Store",
+    title: getTranslation('window_blind'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"window_blind\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,128,0.4)' // Teal color for window blind stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,128,128,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('window_blind'),
+    title: "Le Marché du Store",
+    query: "[out:json][timeout:25];(nwr[\"brand\"=\"Le Marché du Store\"][\"brand:wikidata\"=\"Q123409913\"][\"name\"=\"Le Marché du Store\"][\"shop\"=\"window_blind\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('window_blind'),
+    title: "Monsieur Store",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Monsieur Store\"][\"brand:wikidata\"=\"Q113686692\"][\"name\"=\"Monsieur Store\"][\"shop\"=\"window_blind\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
