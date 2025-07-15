@@ -270,6 +270,12 @@ OSMUtils is born
 2025/07/13
 
 +Generic queries for overlays 
+-Cascade breaks and chat is lost. So we have to restart. I have to control the process because sometimes it starts to do other files or styles I have not queried for it. 
++Pasting a piece of itself conversation recovers the procedure. You have to control it.
+-Error in food_drink.js. It can't open the file.
+-In health.js it invents a code text: feature.get("name") || '', when the code original says  text: name,
+-In leisure.js it decide to elaborate other brand query.
+
 
 
 ```

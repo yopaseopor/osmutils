@@ -4,6 +4,42 @@ export function leisureOverlays() {
     return [
         {
     group: getTranslation('cinema'),
+    title: getTranslation('cinema'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"cinema\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('cinema'),
     title: "109\u30b7\u30cd\u30de\u30ba",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"cinema\"][\"brand\"=\"109\u30b7\u30cd\u30de\u30ba\"][\"brand:en\"=\"109 Cinemas\"][\"brand:ja\"=\"109\u30b7\u30cd\u30de\u30ba\"][\"brand:wikidata\"=\"Q10854269\"][\"name\"=\"109\u30b7\u30cd\u30de\u30ba\"][\"name:en\"=\"109 Cinemas\"][\"name:ja\"=\"109\u30b7\u30cd\u30de\u30ba\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/109_Cinemas_logo.png",
@@ -9944,6 +9980,42 @@ export function leisureOverlays() {
     group: getTranslation('hairdresser'),
 	title: "Kinki Kappers",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Kinki Kappers\"][\"brand:wikidata\"=\"Q124152910\"][\"name\"=\"Kinki Kappers\"][\"shop\"=\"hairdresser\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('hairdresser'),
+    title: getTranslation('hairdresser'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"hairdresser\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
