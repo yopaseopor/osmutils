@@ -1154,6 +1154,41 @@ export function cultureOverlays() {
 },
 {
     group: getTranslation('art'),
+    title: getTranslation('art'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"art\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,192,203,0.4)' // Light pink color for art shops
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,192,203,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('art'),
 	title: "DeSerres",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"DeSerres\"][\"brand:wikidata\"=\"Q3020049\"][\"name\"=\"DeSerres\"][\"shop\"=\"art\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
