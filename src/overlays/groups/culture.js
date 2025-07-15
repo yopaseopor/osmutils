@@ -3,7 +3,42 @@ import { getTranslation } from '../../i18n/index.js';
 export function cultureOverlays() {
     return [
         {
-	group: getTranslation('public_bookcase'),
+            group: getTranslation('public_bookcase'),
+            title: getTranslation('public_bookcase'),
+            query: "[out:json][timeout:25];(nwr[\"amenity\"=\"public_bookcase\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(139,69,19,0.4)' // Brown color for public bookcases
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(139,69,19,1)',
+                    width: 1
+                });
+                return new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale: 0.0200
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX: 7,
+                        offsetY: -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        })
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+            }
+        },
+        {
+            group: getTranslation('public_bookcase'),
 	title: "Bibliocabine",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"public_bookcase\"][\"brand\"=\"Bibliocabine\"][\"brand:wikidata\"=\"Q130461884\"][\"name\"=\"Bibliocabina\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -972,6 +1007,41 @@ export function cultureOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('anime'),
+    title: getTranslation('anime'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"anime\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,105,180,0.4)' // Pink color for anime stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,105,180,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
@@ -1948,6 +2018,41 @@ export function cultureOverlays() {
 },
 {
     group: getTranslation('bookmaker'),
+    title: getTranslation('bookmaker'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"bookmaker\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,100,0,0.4)' // Dark green color for bookmakers
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,100,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('bookmaker'),
 	title: "Paddy Power",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Paddy Power\"][\"brand:wikidata\"=\"Q3888718\"][\"name\"=\"Paddy Power\"][\"shop\"=\"bookmaker\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Paddypowerplc.png",
@@ -2916,6 +3021,41 @@ export function cultureOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('books'),
+    title: getTranslation('books'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"books\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,69,19,0.4)' // SaddleBrown color for bookstores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,69,19,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
