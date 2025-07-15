@@ -178,7 +178,217 @@ export function healthOverlays() {
                 scale: 0.0200
             }),
             text: new ol.style.Text({
-                text: feature.get(\"name\") || '',
+                text: feature.get("name") || '',
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('physiotherapist'),
+    title: getTranslation('physiotherapist'),
+    query: '[out:json][timeout:25];(nwr["amenity"="physiotherapist"]({{bbox}});node(w););out meta;',
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,255,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: feature.get("name") || '',
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('sample_collection'),
+    title: getTranslation('sample_collection'),
+    query: '[out:json][timeout:25];(nwr["amenity"="sample_collection"]({{bbox}});node(w););out meta;',
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,255,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: feature.get("name") || '',
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('hearing_aids'),
+    title: getTranslation('hearing_aids'),
+    query: '[out:json][timeout:25];(nwr["amenity"="hearing_aids"]({{bbox}});node(w););out meta;',
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,255,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: feature.get("name") || '',
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('herbalist'),
+    title: getTranslation('herbalist'),
+    query: '[out:json][timeout:25];(nwr["amenity"="herbalist"]({{bbox}});node(w););out meta;',
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,255,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: feature.get("name") || '',
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('massage'),
+    title: getTranslation('massage'),
+    query: '[out:json][timeout:25];(nwr["amenity"="massage"]({{bbox}});node(w););out meta;',
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,255,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: feature.get("name") || '',
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('medical_supply'),
+    title: getTranslation('medical_supply'),
+    query: '[out:json][timeout:25];(nwr["amenity"="medical_supply"]({{bbox}});node(w););out meta;',
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,255,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: feature.get("name") || '',
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('optician'),
+    title: getTranslation('optician'),
+    query: '[out:json][timeout:25];(nwr["amenity"="optician"]({{bbox}});node(w););out meta;',
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,255,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,255,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: feature.get("name") || '',
                 offsetX: 7,
                 offsetY: -12,
                 fill: new ol.style.Fill({ color: 'rgba(0,0,0,1)' })
