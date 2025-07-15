@@ -3676,6 +3676,42 @@ export function leisureOverlays() {
 },
 {
     group: getTranslation('internet_cafe'),
+    title: getTranslation('internet_cafe'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"internet_cafe\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('internet_cafe'),
 	title: "Akshaya",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"internet_cafe\"][\"brand\"=\"Akshaya\"][\"brand:wikidata\"=\"Q99562093\"][\"name\"=\"Akshaya\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -3966,6 +4002,42 @@ export function leisureOverlays() {
     group: getTranslation('internet_cafe'),
 	title: "\u81ea\u904a\u7a7a\u9593",
     query: "[out:json][timeout:25];(nwr[\"alt_name:en\"=\"Jiyu Kukan\"][\"amenity\"=\"internet_cafe\"][\"brand\"=\"\u81ea\u904a\u7a7a\u9593\"][\"brand:en\"=\"Space Create\"][\"brand:ja\"=\"\u81ea\u904a\u7a7a\u9593\"][\"brand:wikidata\"=\"Q88121843\"][\"internet_access:fee\"=\"yes\"][\"name\"=\"\u81ea\u904a\u7a7a\u9593\"][\"name:en\"=\"Space Create\"][\"name:ja\"=\"\u81ea\u904a\u7a7a\u9593\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('karaoke_box'),
+    title: getTranslation('karaoke_box'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"karaoke_box\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
@@ -4378,6 +4450,42 @@ export function leisureOverlays() {
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/Cashbox_Partyworld_Zhonghua_New_Hall_20140121.jpg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('adult_gaming_centre'),
+    title: getTranslation('adult_gaming_centre'),
+    query: "[out:json][timeout:25];(nwr[\"leisure\"=\"adult_gaming_centre\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
