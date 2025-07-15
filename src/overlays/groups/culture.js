@@ -2027,10 +2027,10 @@ export function cultureOverlays() {
         var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
         var name = feature.get(name_key) || '';
         var fill = new ol.style.Fill({
-            color: 'rgba(0,100,0,0.4)' // Dark green color for bookmakers
+            color: 'rgba(255,140,0,0.4)' // Orange color for bookmakers
         });
         var stroke = new ol.style.Stroke({
-            color: 'rgba(0,100,0,1)',
+            color: 'rgba(255,140,0,1)',
             width: 1
         });
         return new ol.style.Style({
@@ -3034,10 +3034,10 @@ export function cultureOverlays() {
         var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
         var name = feature.get(name_key) || '';
         var fill = new ol.style.Fill({
-            color: 'rgba(139,69,19,0.4)' // SaddleBrown color for bookstores
+            color: 'rgba(100,149,237,0.4)' // Light blue color for bookstores
         });
         var stroke = new ol.style.Stroke({
-            color: 'rgba(139,69,19,1)',
+            color: 'rgba(100,149,237,1)',
             width: 1
         });
         return new ol.style.Style({
