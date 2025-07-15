@@ -5008,6 +5008,42 @@ export function leisureOverlays() {
 },
 {
     group: getTranslation('amusement_arcade'),
+    title: getTranslation('amusement_arcade'),
+    query: "[out:json][timeout:25];(nwr[\"leisure\"=\"amusement_arcade\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('amusement_arcade'),
 	title: "\u30af\u30e9\u30d6\u30bb\u30ac",
     query: "[out:json][timeout:25];(nwr[\"alt_name\"=\"\u30bb\u30ac\u30ef\u30fc\u30eb\u30c9\"][\"alt_name:en\"=\"Sega World\"][\"alt_name:ja\"=\"\u30bb\u30ac\u30ef\u30fc\u30eb\u30c9\"][\"brand\"=\"\u30af\u30e9\u30d6\u30bb\u30ac\"][\"brand:en\"=\"Club Sega\"][\"brand:ja\"=\"\u30af\u30e9\u30d6\u30bb\u30ac\"][\"brand:wikidata\"=\"Q7446141\"][\"leisure\"=\"amusement_arcade\"][\"name\"=\"\u30af\u30e9\u30d6\u30bb\u30ac\"][\"name:en\"=\"Club Sega\"][\"name:ja\"=\"\u30af\u30e9\u30d6\u30bb\u30ac\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/GENDA_GiGO_Entertainment_Logo.svg",
@@ -15036,6 +15072,42 @@ export function leisureOverlays() {
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/Yomiuri-Shimbun-Logo.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('party'),
+    title: getTranslation('party'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"party\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
