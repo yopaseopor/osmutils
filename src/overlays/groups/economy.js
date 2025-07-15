@@ -4,8 +4,8 @@ export function economyOverlays() {
     return [
         {
     group: getTranslation('atm'),
-    title: "",
-    query: "[out:json][timeout:25];(nwr({{bbox}}););out body;>;out skel qt;",
+    title: getTranslation('atm'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"atm\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
@@ -13,29 +13,28 @@ export function economyOverlays() {
         var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
         var name = feature.get(name_key) || '';
         var fill = new ol.style.Fill({
-            color: 'rgba(255,0,0,0.4)'
+            color: 'rgba(255,165,0,0.4)' // Orange color for ATMs
         });
         var stroke = new ol.style.Stroke({
-            color: 'rgba(255,0,0,1)',
+            color: 'rgba(255,165,0,1)',
             width: 1
         });
-        var style = new ol.style.Style({
+        return new ol.style.Style({
             image: new ol.style.Icon({
                 src: "src/img/logos/generic.svg",
-                scale:0.30
+                scale: 0.0200
             }),
             text: new ol.style.Text({
                 text: name,
-                offsetX : 7,
-                offsetY : -12,
+                offsetX: 7,
+                offsetY: -12,
                 fill: new ol.style.Fill({
                     color: 'rgba(0,0,0,1)'
-                }),
+                })
             }),
             fill: fill,
             stroke: stroke
         });
-        return style;
     }
 },
 {
@@ -2020,6 +2019,41 @@ export function economyOverlays() {
 },
 {
     group: getTranslation('bank'),
+    title: getTranslation('bank'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"bank\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,0,0.4)' // Green color for banks
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,128,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('bank'),
     title: "Addiko Bank",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"bank\"][\"brand\"=\"Addiko Bank\"][\"brand:wikidata\"=\"Q27926559\"][\"name\"=\"Addiko Bank\"]({{bbox}}););out body;>;out skel qt;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Addiko_Bank_Logo.svg",
@@ -3996,6 +4030,111 @@ export function economyOverlays() {
             stroke: stroke
         });
         return style;
+    }
+},
+{
+    group: getTranslation('money_transfer'),
+    title: getTranslation('money_transfer'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"money_transfer\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,128,0.4)' // Teal color for money transfer
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,128,128,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('pawnbroker'),
+    title: getTranslation('pawnbroker'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"pawnbroker\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(128,0,128,0.4)' // Purple color for pawnbrokers
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(128,0,128,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('currency_exchange'),
+    title: getTranslation('currency_exchange'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"currency_exchange\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,140,0,0.4)' // Orange-red color for currency exchange
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,140,0,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
     }
 },
 {
