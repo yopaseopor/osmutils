@@ -8028,6 +8028,41 @@ export function cultureOverlays() {
 },
 {
     group: getTranslation('musical_instrument'),
+    title: getTranslation('musical_instrument'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"musical_instrument\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(144,238,144,0.4)' // Light green color for musical instrument stores
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(144,238,144,1)',
+            width: 1
+        });
+        return new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.0200
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                })
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+    }
+},
+{
+    group: getTranslation('musical_instrument'),
 	title: "Long & McQuade",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Long & McQuade\"][\"brand:wikidata\"=\"Q6672180\"][\"name\"=\"Long & McQuade\"][\"shop\"=\"musical_instrument\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
