@@ -20022,6 +20022,42 @@ export function leisureOverlays() {
 },
 {
     group: getTranslation('travel_agency'),
+    title: getTranslation('travel_agency'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"travel_agency\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('travel_agency'),
 	title: "Turkish Airlines",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Turkish Airlines\"][\"brand:wikidata\"=\"Q4548\"][\"name\"=\"Turkish Airlines\"][\"shop\"=\"travel_agency\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Turkish_Airlines_logo_2019_compact.svg",
@@ -29960,6 +29996,42 @@ export function leisureOverlays() {
     group: getTranslation('hotel'),
 	title: "Rosewood",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Rosewood\"][\"brand:wikidata\"=\"Q7368777\"][\"name\"=\"Rosewood\"][\"official_name\"=\"Rosewood Hotels & Resorts\"][\"tourism\"=\"hotel\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('hotel'),
+    title: getTranslation('hotel'),
+    query: "[out:json][timeout:25];(nwr[\"tourism\"=\"hotel\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
