@@ -16600,6 +16600,42 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('charging_station'),
+    title: getTranslation('charging_station'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"charging_station\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('charging_station'),
     title: "BP Pulse",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"charging_station\"][\"brand\"=\"BP Pulse\"][\"brand:wikidata\"=\"Q39057719\"][\"operator\"=\"BP Pulse\"][\"operator:wikidata\"=\"Q39057719\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/BP_Pulse_logo.png",
@@ -17968,6 +18004,42 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('driving_school'),
+    title: getTranslation('driving_school'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"driving_school\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('driving_school'),
     title: "Galadari",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"driving_school\"][\"brand\"=\"Galadari\"][\"name\"=\"Galadari\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -18907,6 +18979,42 @@ export function mobilityOverlays() {
     group: getTranslation('fuel'),
     title: "Alpet",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"fuel\"][\"brand\"=\"Alpet\"][\"brand:wikidata\"=\"Q62131561\"][\"name\"=\"Alpet\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('fuel'),
+    title: getTranslation('fuel'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"fuel\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
