@@ -4,6 +4,42 @@ export function logisticsOverlays() {
     return [
         {
     group: getTranslation('parcel_locker'),
+    title: getTranslation('parcel_locker'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"parcel_locker\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('parcel_locker'),
 	title: "5post",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"parcel_locker\"][\"brand\"=\"5post\"][\"name\"=\"5post\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -4972,8 +5008,44 @@ export function logisticsOverlays() {
 },
 {
     group: getTranslation('post_office'),
+    title: getTranslation('post_office'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"post_office\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('post_office'),
 	title: "Post Office (UK)",
-    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"post_office\"][\"brand\"=\"Post Office\"][\"brand:wikidata\"=\"Q1783168\"]({{bbox}});node(w););out meta;",
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"post_office\"][\"brand\"=\"Post Office\"][\"brand:wikidata\"=\"Q1783168\"]({{bbox}});node(w););out meta;
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Post_Office_Logo_RGB.png",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
