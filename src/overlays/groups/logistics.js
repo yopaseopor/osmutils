@@ -3856,6 +3856,42 @@ export function logisticsOverlays() {
 },
 {
     group: getTranslation('post_depot'),
+    title: getTranslation('post_depot'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"post_depot\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('post_depot'),
 	title: "Amazon",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"post_depot\"][\"brand\"=\"Amazon\"][\"brand:wikidata\"=\"Q3884\"][\"operator\"=\"Amazon\"][\"operator:type\"=\"private\"][\"operator:wikidata\"=\"Q3884\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Amazon_logo.svg",
@@ -5045,7 +5081,7 @@ export function logisticsOverlays() {
 {
     group: getTranslation('post_office'),
 	title: "Post Office (UK)",
-    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"post_office\"][\"brand\"=\"Post Office\"][\"brand:wikidata\"=\"Q1783168\"]({{bbox}});node(w););out meta;
+query: "[out:json][timeout:25];(nwr[\"amenity\"=\"post_office\"][\"brand\"=\"Post Office\"][\"brand:wikidata\"=\"Q1783168\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Post_Office_Logo_RGB.png",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
@@ -5800,6 +5836,42 @@ export function logisticsOverlays() {
 },
 {
     group: getTranslation('logistics'),
+    title: getTranslation('logistics'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"logistics\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('logistics'),
 	title: "Averitt Express",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Averitt Express\"][\"brand:wikidata\"=\"Q4828320\"][\"name\"=\"Averitt Express\"][\"office\"=\"logistics\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Averitt_Express_logo.svg",
@@ -6088,7 +6160,43 @@ export function logisticsOverlays() {
 },
 {
     group: getTranslation('moving_company'),
-	title: "Les D\u00e9m\u00e9nageurs Bretons",
+    title: getTranslation('moving_company'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"moving_company\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('moving_company'),
+	title: "Les Déménageurs Bretons",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Les D\u00e9m\u00e9nageurs Bretons\"][\"brand:wikidata\"=\"Q60849018\"][\"name\"=\"Les D\u00e9m\u00e9nageurs Bretons\"][\"office\"=\"moving_company\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
@@ -6198,6 +6306,42 @@ export function logisticsOverlays() {
     group: getTranslation('moving_company'),
 	title: "\u30b5\u30ab\u30a4\u5f15\u8d8a\u30bb\u30f3\u30bf\u30fc",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"\u30b5\u30ab\u30a4\u5f15\u8d8a\u30bb\u30f3\u30bf\u30fc\"][\"brand:en\"=\"Sakai Moving Service\"][\"brand:ja\"=\"\u30b5\u30ab\u30a4\u5f15\u8d8a\u30bb\u30f3\u30bf\u30fc\"][\"brand:wikidata\"=\"Q11304384\"][\"name\"=\"\u30b5\u30ab\u30a4\u5f15\u8d8a\u30bb\u30f3\u30bf\u30fc\"][\"name:en\"=\"Sakai Moving Service\"][\"name:ja\"=\"\u30b5\u30ab\u30a4\u5f15\u8d8a\u30bb\u30f3\u30bf\u30fc\"][\"office\"=\"moving_company\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('outpost'),
+    title: getTranslation('outpost'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"outpost\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
@@ -6769,6 +6913,42 @@ export function logisticsOverlays() {
         });
         return style;
 }
+},
+{
+    group: getTranslation('storage_rental'),
+    title: getTranslation('storage_rental'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"storage_rental\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
 },
 {
     group: getTranslation('storage_rental'),
@@ -8533,6 +8713,42 @@ export function logisticsOverlays() {
         });
         return style;
    }
+},
+{
+    group: getTranslation('trade'),
+    title: getTranslation('trade'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"trade\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
 },
 {
     group: getTranslation('trade'),
@@ -12457,6 +12673,42 @@ export function logisticsOverlays() {
         });
         return style;
      }
+},
+{
+    group: getTranslation('wholesale'),
+    title: getTranslation('wholesale'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"wholesale\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
 },
 {
     group: getTranslation('wholesale'),
