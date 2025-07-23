@@ -17104,6 +17104,42 @@ group: getTranslation('association'),
 },
 {
     group: getTranslation('insurance_adjuster'),
+    title: getTranslation('insurance_adjuster'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"insurance_adjuster\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('insurance_adjuster'),
 	title: "Custard Insurance Adjusters",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Custard Insurance Adjusters\"][\"brand:wikidata\"=\"Q121435838\"][\"name\"=\"Custard Insurance Adjusters\"][\"office\"=\"insurance_adjuster\"][\"short_name\"=\"CIA\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -17137,6 +17173,42 @@ group: getTranslation('association'),
         });
         return style;
 
+    }
+},
+{
+    group: getTranslation('it'),
+    title: getTranslation('it'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"it\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(128,0,128,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(128,0,128,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
     }
 },
 {
@@ -17321,7 +17393,43 @@ group: getTranslation('association'),
 },
 {
     group: getTranslation('lawyer'),
-	title: "Becker B\u00fcttner Held",
+	title: getTranslation('lawyer'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"lawyer\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,139,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,139,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('lawyer'),
+	title: "Becker Büttner Held",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Becker B\u00fcttner Held\"][\"brand:wikidata\"=\"Q22910047\"][\"name\"=\"Becker B\u00fcttner Held\"][\"office\"=\"lawyer\"][\"short_name\"=\"BBH\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Becker_B\u00fcttner_Held_logo.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
@@ -17658,6 +17766,42 @@ group: getTranslation('association'),
         });
         var stroke = new ol.style.Stroke({
             color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('political_party'),
+    title: getTranslation('political_party'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"political_party\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,100,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,100,0,1)',
             width: 1
         });
         var style = new ol.style.Style({
@@ -22467,6 +22611,42 @@ group: getTranslation('association'),
         return style;
 
               }
+        },
+        {
+            group: getTranslation('insurance'),
+            title: getTranslation('insurance'),
+            query: "[out:json][timeout:25];(nwr[\"office\"=\"insurance\"]({{bbox}});node(w););out meta;",
+            iconSrc: "src/img/logos/generic.svg",
+            iconStyle: "background-color:rgba(255,255,255,0.4)",
+            style: function (feature) {
+                var key_regex = /^name$/
+                var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+                var name = feature.get(name_key) || '';
+                var fill = new ol.style.Fill({
+                    color: 'rgba(128,0,0,0.4)'
+                });
+                var stroke = new ol.style.Stroke({
+                    color: 'rgba(128,0,0,1)',
+                    width: 1
+                });
+                var style = new ol.style.Style({
+                    image: new ol.style.Icon({
+                        src: "src/img/logos/generic.svg",
+                        scale:0.30
+                    }),
+                    text: new ol.style.Text({
+                        text: name,
+                        offsetX : 7,
+                        offsetY : -12,
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,0,0,1)'
+                        }),
+                    }),
+                    fill: fill,
+                    stroke: stroke
+                });
+                return style;
+            }
         }
     ];
 }
