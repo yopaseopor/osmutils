@@ -3,6 +3,42 @@ import { getTranslation } from '../../i18n/index.js';
 export function officeOverlays() {
     return [
         {
+    group: getTranslation('association'),
+    title: getTranslation('association'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"association\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(70,130,180,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(70,130,180,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
 group: getTranslation('association'),
 	title: "ACE",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"ACE\"][\"brand:wikidata\"=\"Q784865\"][\"name\"=\"ACE\"][\"office\"=\"association\"][\"official_name\"=\"Auto Club Europa\"]({{bbox}});node(w););out meta;",
@@ -526,6 +562,42 @@ group: getTranslation('association'),
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/VCD-2017.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('company'),
+    title: getTranslation('company'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"company\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(47,79,79,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(47,79,79,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
