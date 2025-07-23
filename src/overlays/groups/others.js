@@ -4,6 +4,42 @@ export function othersOverlays() {
     return [
         {
     group: getTranslation('community_centre'),
+    title: getTranslation('community_centre'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"community_centre\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,165,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,165,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('community_centre'),
     title: "Deutsches Rotes Kreuz",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"community_centre\"][\"brand\"=\"Deutsches Rotes Kreuz\"][\"brand:wikidata\"=\"Q694104\"][\"name\"=\"Deutsches Rotes Kreuz\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/DRK-Logo_rund_RGB.jpg",
@@ -112,6 +148,42 @@ export function othersOverlays() {
 },
 {
     group: getTranslation('conference_centre'),
+    title: getTranslation('conference_centre'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"conference_centre\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,128,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,128,128,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('conference_centre'),
     title: "etc.venues",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"conference_centre\"][\"brand\"=\"etc.venues\"][\"brand:wikidata\"=\"Q120081345\"][\"name\"=\"etc.venues\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -125,6 +197,42 @@ export function othersOverlays() {
         });
         var stroke = new ol.style.Stroke({
             color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('mortuary'),
+    title: getTranslation('mortuary'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"mortuary\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(47,79,79,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(47,79,79,1)',
             width: 1
         });
         var style = new ol.style.Style({
@@ -197,6 +305,42 @@ export function othersOverlays() {
         });
         var stroke = new ol.style.Stroke({
             color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('photo_booth'),
+    title: getTranslation('photo_booth'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"photo_booth\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(147,112,219,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(147,112,219,1)',
             width: 1
         });
         var style = new ol.style.Style({
@@ -541,6 +685,42 @@ export function othersOverlays() {
         });
         return style;
   }
+},
+{
+    group: getTranslation('recycling'),
+    title: getTranslation('recycling'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"recycling\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(34,139,34,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(34,139,34,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
 },
 {
     group: getTranslation('recycling'),
@@ -1588,6 +1768,42 @@ export function othersOverlays() {
 },
 {
     group: getTranslation('social_centre'),
+    title: getTranslation('social_centre'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"social_centre\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(65,105,225,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(65,105,225,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('social_centre'),
 	title: "AHEPA Hall",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"social_centre\"][\"brand\"=\"AHEPA\"][\"brand:wikidata\"=\"Q4743973\"][\"name\"=\"AHEPA Hall\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -2074,6 +2290,42 @@ export function othersOverlays() {
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/VFW_2018-08-14_two-color_logo_with_name.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('social_facility'),
+    title: getTranslation('social_facility'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"social_facility\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,128,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,128,128,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
@@ -3783,6 +4035,42 @@ export function othersOverlays() {
     }
 },
 {
+    group: getTranslation('telephone'),
+    title: getTranslation('telephone'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"telephone\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(128,0,128,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(128,0,128,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
 	group: getTranslation('telephone'),
 	title: "NTT",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"telephone\"][\"brand\"=\"NTT\"][\"brand:en\"=\"Nippon Telegraph and Telephone\"][\"brand:ja\"=\"\u65e5\u672c\u96fb\u4fe1\u96fb\u8a71\u682a\u5f0f\u4f1a\u793e\"][\"brand:short\"=\"NTT\"][\"brand:wikidata\"=\"Q1054787\"][\"name\"=\"NTT\"]({{bbox}});node(w););out meta;",
@@ -3857,6 +4145,42 @@ export function othersOverlays() {
 },
 {
     group: getTranslation('trolley_bay'),
+    title: getTranslation('trolley_bay'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"trolley_bay\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(70,130,180,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(70,130,180,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('trolley_bay'),
 	title: "Chariots",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"trolley_bay\"][\"brand\"=\"Chariots\"][\"name\"=\"Chariots\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -3911,6 +4235,42 @@ export function othersOverlays() {
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/Smarte_Carte_stand_SJC_2019.jpg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('waste_basket'),
+    title: getTranslation('waste_basket'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"waste_basket\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(85,107,47,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(85,107,47,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
@@ -4019,6 +4379,42 @@ export function othersOverlays() {
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/Robidog.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('bail_bond_agent'),
+    title: getTranslation('bail_bond_agent'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"bail_bond_agent\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
@@ -4842,6 +5238,42 @@ export function othersOverlays() {
         });
         var stroke = new ol.style.Stroke({
             color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('tobacco'),
+    title: getTranslation('tobacco'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"tobacco\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(160,82,45,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(160,82,45,1)',
             width: 1
         });
         var style = new ol.style.Style({
