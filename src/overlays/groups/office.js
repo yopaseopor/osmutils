@@ -1228,6 +1228,42 @@ group: getTranslation('association'),
 },
 {
     group: getTranslation('consulting'),
+    title: getTranslation('consulting'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"consulting\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(128,0,128,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(128,0,128,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('consulting'),
 	title: "Accenture",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Accenture\"][\"brand:wikidata\"=\"Q338825\"][\"name\"=\"Accenture\"][\"office\"=\"consulting\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Accenture.svg",
@@ -1966,6 +2002,42 @@ group: getTranslation('association'),
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/WeWork_logo.png",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('coworking'),
+    title: getTranslation('coworking'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"coworking\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,191,255,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,191,255,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
@@ -2956,6 +3028,42 @@ group: getTranslation('association'),
 },
 {
     group: getTranslation('employment_agency'),
+    title: getTranslation('employment_agency'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"employment_agency\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(218,165,32,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(218,165,32,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('employment_agency'),
 	title: "Manpower",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Manpower\"][\"brand:wikidata\"=\"Q1472539\"][\"name\"=\"Manpower\"][\"office\"=\"employment_agency\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/ManpowerGroup_logo.svg",
@@ -3874,6 +3982,42 @@ group: getTranslation('association'),
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_barnes_327.jpg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('estate_agent'),
+    title: getTranslation('estate_agent'),
+    query: "[out:json][timeout:25];(nwr[\"office\"=\"estate_agent\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,20,147,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,20,147,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
