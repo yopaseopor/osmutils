@@ -51017,6 +51017,42 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('car_repair'),
+    title: getTranslation('car_repair'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"car_repair\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,165,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,140,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('car_repair'),
 	title: "AAMCO",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"AAMCO\"][\"brand:wikidata\"=\"Q4649902\"][\"name\"=\"AAMCO\"][\"service:vehicle:transmission\"=\"yes\"][\"shop\"=\"car_repair\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -56993,6 +57029,42 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('motorcycle_repair'),
+    title: getTranslation('motorcycle_repair'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"motorcycle_repair\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(139,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(139,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('motorcycle_repair'),
 	title: "Bajaj",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Bajaj\"][\"brand:wikidata\"=\"Q10910065\"][\"name\"=\"Bajaj\"][\"shop\"=\"motorcycle_repair\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Bajaj_Auto_Ltd_logo.svg",
@@ -57929,6 +58001,42 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('truck'),
+    title: getTranslation('truck'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"truck\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(165,42,42,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(165,42,42,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('truck'),
 	title: "Skuba",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Skuba\"][\"brand:wikidata\"=\"Q15847758\"][\"name\"=\"Skuba\"][\"shop\"=\"truck\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -57983,6 +58091,42 @@ export function mobilityOverlays() {
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/Volvo-Iron-Mark-Black.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('truck_repair'),
+    title: getTranslation('truck_repair'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"truck_repair\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(160,82,45,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(160,82,45,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
