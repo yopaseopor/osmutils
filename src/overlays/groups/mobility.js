@@ -42773,8 +42773,80 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('motorcycle_rental'),
+    title: getTranslation('motorcycle_rental'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"motorcycle_rental\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('motorcycle_rental'),
 	title: "EagleRider",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"motorcycle_rental\"][\"brand\"=\"EagleRider\"][\"brand:wikidata\"=\"Q5324992\"][\"name\"=\"EagleRider\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('parking'),
+    title: getTranslation('parking'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"parking\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
@@ -42919,6 +42991,42 @@ export function mobilityOverlays() {
     group: getTranslation('parking'),
 	title: "\u548c\u96f2\u884c\u52d5",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"parking\"][\"brand\"=\"\u548c\u96f2\u884c\u52d5\"][\"brand:en\"=\"Hi parking\"][\"brand:wikidata\"=\"Q132008893\"][\"brand:zh\"=\"\u548c\u96f2\u884c\u52d5\"][\"fee\"=\"yes\"][\"name\"=\"\u548c\u96f2\u884c\u52d5\"][\"name:en\"=\"Hi parking\"][\"name:zh\"=\"\u548c\u96f2\u884c\u52d5\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('vehicle_inspection'),
+    title: getTranslation('vehicle_inspection'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"vehicle_inspection\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
     iconStyle: "background-color:rgba(255,255,255,0.4)",
     style: function (feature) {
@@ -43781,6 +43889,42 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('weighbridge'),
+    title: getTranslation('weighbridge'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"weighbridge\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(255,0,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('weighbridge'),
 	title: "CAT Scale",
     query: "[out:json][timeout:25];(nwr[\"amenity\"=\"weighbridge\"][\"brand\"=\"CAT Scale\"][\"brand:wikidata\"=\"Q111631907\"][\"name\"=\"CAT Scale\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -43817,6 +43961,42 @@ export function mobilityOverlays() {
 },
 {
     group: getTranslation('charge_point'),
+    title: getTranslation('charge_point'),
+    query: "[out:json][timeout:25];(nwr[\"amenity\"=\"charging_station\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,191,255,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('charge_point'),
 	title: "",
     query: "[out:json][timeout:25];(nwr({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -43830,6 +44010,42 @@ export function mobilityOverlays() {
         });
         var stroke = new ol.style.Stroke({
             color: 'rgba(255,0,0,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('car'),
+    title: getTranslation('car'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"car\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,0,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,100,0,1)',
             width: 1
         });
         var style = new ol.style.Style({
