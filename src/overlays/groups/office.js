@@ -19769,6 +19769,42 @@ group: getTranslation('association'),
 },
 {
     group: getTranslation('telecommunication'),
+    title: getTranslation('telecommunication'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"telecommunication\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,128,128,0.4)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,128,128,1)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('telecommunication'),
 	title: "1O1O",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"1O1O\"][\"brand:wikidata\"=\"Q10843723\"][\"name\"=\"1O1O\"][\"shop\"=\"telecommunication\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
