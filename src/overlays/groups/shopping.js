@@ -96882,78 +96882,8 @@ return style;
             stroke: stroke
         });
         return style;
-    }
-},
-{
-    group: getTranslation('shoes'),
-	title: "\u9774\u5c02\u79d1",
-    query: "[out:json][timeout:25];(nwr[\"brand\"=\"\u9774\u5c02\u79d1\"][\"brand:en\"=\"Kutsusenka\"][\"brand:ja\"=\"\u9774\u5c02\u79d1\"][\"brand:wikidata\"=\"Q93265015\"][\"name\"=\"\u9774\u5c02\u79d1\"][\"name:en\"=\"Kutsusenka\"][\"name:ja\"=\"\u9774\u5c02\u79d1\"][\"shop\"=\"shoes\"]({{bbox}});node(w););out meta;",
-    iconSrc: "src/img/logos/generic.svg",
-    iconStyle: "background-color:rgba(255,255,255,0.4)",
-    style: function (feature) {
-        var key_regex = /^name$/
-        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
-        var name = feature.get(name_key) || '';
-        var fill = new ol.style.Fill({
-            color: 'rgba(255,0,0,0.4)'
-        });
-        var stroke = new ol.style.Stroke({
-            color: 'rgba(255,0,0,1)',
-            width: 1
-        });
-        var style = new ol.style.Style({
-            image: new ol.style.Icon({
-                src: "src/img/logos/generic.svg",
-                scale:0.30
-            }),
-            text: new ol.style.Text({
-                text: name,
-                offsetX : 7,
-                offsetY : -12,
-                fill: new ol.style.Fill({
-                    color: 'rgba(0,0,0,1)'
-                }),
-            }),
-            fill: fill,
-            stroke: stroke
-        });
-        return style;
-    }
-},
-{
-    group: getTranslation('shoes'),
-	title: "\u978b\u5168\u5bb6\u798f",
-    query: "[out:json][timeout:25];(nwr[\"brand\"=\"\u978b\u5168\u5bb6\u798f\"][\"brand:en\"=\"familyshoes\"][\"brand:wikidata\"=\"Q132359984\"][\"brand:zh\"=\"\u978b\u5168\u5bb6\u798f\"][\"name\"=\"\u978b\u5168\u5bb6\u798f\"][\"name:en\"=\"familyshoes\"][\"name:zh\"=\"\u978b\u5168\u5bb6\u798f\"][\"operator\"=\"\u4e09\u5546\u4f01\u696d\u96c6\u5718\"][\"operator:en\"=\"Mercuries Group\"][\"operator:wikidata\"=\"Q10865578\"][\"operator:zh\"=\"\u4e09\u5546\u4f01\u696d\u96c6\u5718\"][\"shop\"=\"shoes\"]({{bbox}});node(w););out meta;",
-    iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Logo-shoes.png",
-    iconStyle: "background-color:rgba(255,255,255,0.4)",
-    style: function (feature) {
-        var key_regex = /^name$/
-        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
-        var name = feature.get(name_key) || '';
-        var fill = new ol.style.Fill({
-            color: 'rgba(255,0,0,0.4)'
-        });
-        var stroke = new ol.style.Stroke({
-            color: 'rgba(255,0,0,1)',
-            width: 1
-        });
-        var style = new ol.style.Style({
-            image: new ol.style.Icon({
-                src: "https://commons.wikimedia.org/wiki/Special:FilePath/Logo-shoes.png",
-                scale:0.30
-            }),
-            text: new ol.style.Text({
-                text: name,
-                offsetX : 7,
-                offsetY : -12,
-                fill: new ol.style.Fill({
-                    color: 'rgba(0,0,0,1)'
-                }),
-            fill: fill,
-            stroke: stroke
-        });
-        return style;
- 
+
+    		
             }
         }
     ];
