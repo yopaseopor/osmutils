@@ -11337,6 +11337,42 @@
 },
 {
     group: getTranslation('mobile_phone_accessories'),
+    title: getTranslation('mobile_phone_accessories'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"mobile_phone_accessories\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.25
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('mobile_phone_accessories'),
 	title: "Casetify",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Casetify\"][\"brand:wikidata\"=\"Q64209733\"][\"name\"=\"Casetify\"][\"shop\"=\"mobile_phone_accessories\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Casetify_logo.png",
@@ -11505,6 +11541,42 @@
                 text: name,
                 offsetX : 7,
                 offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('perfumery'),
+    title: getTranslation('perfumery'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"perfumery\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.25
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
                 fill: new ol.style.Fill({
                     color: 'rgba(0,0,0,1)'
                 }),
@@ -12441,6 +12513,42 @@
                 text: name,
                 offsetX : 7,
                 offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('shoes'),
+    title: getTranslation('shoes'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"shoes\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale: 0.25
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX: 7,
+                offsetY: -12,
                 fill: new ol.style.Fill({
                     color: 'rgba(0,0,0,1)'
                 }),
