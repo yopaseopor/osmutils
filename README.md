@@ -276,6 +276,11 @@ OSMUtils is born
 -In health.js it invents a code text: feature.get("name") || '', when the code original says  text: name,
 -In leisure.js it decide to elaborate other brand query.
 
+2025/07/26
+-It's a mess. I had to proporcionate the lines and the categories via a searching in a file for the translations.
++It's done. Generic queries are online now
+-Limit for editing or analizing the file: 4MB . You have to split the content of a file if you want to use it/manipulate it.
+
 
 
 ```
@@ -472,6 +477,20 @@ Neix OSMUtils
 2025/07/08
 
 +Windsurf va fer un script en Python per analitzar l'imagery.xml d'osmlabs. Durant 15 minuts va intentar analitzar les capes WMS. Finalment va obtenir les dades (no incloses a l'aplicació). +Un altre dia Windsurf i SWE van fer el mateix amb les capes TMS. +-Arreglar els botons de capes amunt i avall i l'opacitat va resultar en l'eliminació dels botons d'amunt i avall i la creació d'un botó d'Activació de capa. Ara les capes actives es mantenen a la llista superior. *Modificant manualment les dades TMS i WMS, ara totes les capes estan disponibles a través del cercador de capes.
+
+2025/07/13
+
++Consultes genèriques per a superposicions 
+-El xat de Cascade es tanca i es perd el contingut. Cal reiniciar. He de controlar el procés perquè de vegades comença a processar altres arxius o estils que no he sol·licitat. 
++En enganxar un fragment de la conversa es recupera el procediment. Has de controlar-ho. 
+-Error a food_drink.js. No pot obrir l'arxiu. 
+-A health.js s'inventa un codi: text: feature.get("name") || '', quan el codi original diu text: name, 
+-A leisure.js decideix elaborar una altra consulta de marca.
+
+2025/07/26 
+-És un desastre. He hagut de proporcionar les línies i les categories mitjançant una cerca en un fitxer per a les traduccions. 
++Ja està fet. Les consultes genèriques ja estan en línia. 
+-Límit per editar o analitzar l'arxiu: 4MB. Has de dividir el contingut d'un fitxer si el vols utilitzar/manipular.
 ```
 ---
 
@@ -680,5 +699,19 @@ Nace OSMUtils
 +Otro día Windsurf y SWE hicieron lo mismo con las capas TMS. 
 +-Arreglar los botones de capas arriba y abajo y la opacidad resultó en la eliminación de los botones de arriba y abajo y la creación de un botón de Activación de capa. Ahora las capas activas se mantienen en la lista superior. 
 *Modificando manualmente los datos TMS y WMS, ahora todas las capas están disponibles a través del buscador de capas.
+
+2025/07/13
+
++Consultas genéricas para superposiciones 
+-El chat de Cascade se rompe y se pierde el contenido. Hay que reiniciar. Debo controlar el proceso porque a veces empieza a hacer otros archivos o estilos que no he solicitado. 
++Al pegar un fragmento de la conversación se recupera el procedimiento. Tienes que controlarlo. 
+-Error en food_drink.js. No puede abrir el archivo. 
+-En health.js inventa un código: text: feature.get("name") || '', cuando el código original dice text: name, 
+-En leisure.js decide elaborar otra consulta de marca.
+
+2025/07/26 
+-Es un desastre. Tuve que proporcionar las líneas y las categorías mediante una búsqueda en un archivo para las traducciones. 
++Está hecho. Las consultas genéricas ya están en línea. 
+-Límite para editar o analizar el archivo: 4MB. Tienes que dividir el contenido de un archivo si quieres usarlo/manipularlo.
 
 ```
