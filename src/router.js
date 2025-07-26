@@ -1,8 +1,22 @@
-/* global config, ol, $ */
-function initRouter(map) {
+/* global ol, $ */
+
+export function initRouter(map) {
+    console.log('Initializing router with map:', map);
+    if (!map) {
+        console.error('Router initialization failed: No map instance provided');
+        return;
+    }
     // Add router menu to the map
     const routerMenu = $('<div>').addClass('router-steps');
-    $('.ol-overlaycontainer-stopevent').append(routerMenu);
+    const container = $('.ol-overlaycontainer-stopevent');
+    
+    if (container.length === 0) {
+        console.error('Could not find overlay container. The map might not be fully initialized.');
+        return;
+    }
+    
+    container.append(routerMenu);
+    console.log('Router menu added to container');
     
     // Router steps configuration
     const steps = [

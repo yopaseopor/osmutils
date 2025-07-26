@@ -1,4 +1,12 @@
 /* global config, ol */
+import { initRouter } from './router.js';
+import './components/LanguageSelector.js';
+import './language_init.js';
+import './overlays/translated_overlays.js';
+import './overlays/external/loader.js';
+import './overlays/index.js';
+import './overlay_integration.js';
+
 $(function () {
 
     // --- Layer Searcher Integration ---
@@ -588,6 +596,16 @@ $(function () {
 	// Initialize Nominatim search
 	initNominatimSearch(map);
 
+	// Initialize the router with the map after a small delay
+	// to ensure the map is fully loaded
+	setTimeout(() => {
+		try {
+			initRouter(map);
+		} catch (error) {
+			console.error('Failed to initialize router:', error);
+		}
+	}, 1000);
+
 	// Initialize PanoraMax viewer
 	initPanoraMaxViewer(map);
 
@@ -760,9 +778,6 @@ $(function () {
     };
     map.addControl(new ol.control.ZoomSlider());
 	
-
-
-
 	// Geolocation Control
 	// In some browsers, this feature is available only in secure contexts (HTTPS)
 	var geolocationControlBuild = function () {
