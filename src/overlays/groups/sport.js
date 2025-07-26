@@ -5656,6 +5656,42 @@ export function sportOverlays() {
 },
 {
     group: getTranslation('fitness_station'),
+	title: getTranslation('fitness_station'),
+    query: "[out:json][timeout:25];(nwr[\"leisure\"=\"fitness_station\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('fitness_station'),
 	title: "Fitness Court",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Fitness Court\"][\"brand:wikidata\"=\"Q116211382\"][\"leisure\"=\"fitness_station\"][\"name\"=\"Fitness Court\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -7204,6 +7240,42 @@ export function sportOverlays() {
 },
 {
     group: getTranslation('bicycle'),
+	title: getTranslation('bicycle'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"bicycle\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('bicycle'),
 	title: "Evans Cycles",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Evans Cycles\"][\"brand:wikidata\"=\"Q5415901\"][\"name\"=\"Evans Cycles\"][\"shop\"=\"bicycle\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_Evans_Cycles.jpg",
@@ -8068,6 +8140,42 @@ export function sportOverlays() {
 },
 {
     group: getTranslation('fishing'),
+	title: getTranslation('fishing'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"fishing\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('fishing'),
 	title: "Angling Direct",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"Angling Direct\"][\"brand:wikidata\"=\"Q119276672\"][\"name\"=\"Angling Direct\"][\"shop\"=\"fishing\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -8173,6 +8281,42 @@ export function sportOverlays() {
         });
         return style;
      }
+},
+{
+    group: getTranslation('outdoor'),
+	title: getTranslation('outdoor'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"outdoor\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
 },
 {
     group: getTranslation('outdoor'),
