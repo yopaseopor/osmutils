@@ -1,22 +1,26 @@
-/* global ol, $ */
+/* global ol, $, window */
 
-export function initRouter(map) {
+function initRouter(map) {
     console.log('Initializing router with map:', map);
     if (!map) {
         console.error('Router initialization failed: No map instance provided');
         return;
     }
-    // Add router menu to the map
+// Add router menu to the map
     const routerMenu = $('<div>').addClass('router-steps');
-    const container = $('.ol-overlaycontainer-stopevent');
     
-    if (container.length === 0) {
-        console.error('Could not find overlay container. The map might not be fully initialized.');
-        return;
-    }
-    
-    container.append(routerMenu);
-    console.log('Router menu added to container');
+    // Wait for the map to be fully initialized
+    const checkContainer = setInterval(() => {
+        const container = $('.ol-overlaycontainer-stopevent');
+        if (container.length > 0) {
+            clearInterval(checkContainer);
+            container.append(routerMenu);
+            console.log('Router menu added to container');
+            
+            // Initialize the router UI
+            renderSteps();
+        }
+    }, 100);
     
     // Router steps configuration
     const steps = [
@@ -316,9 +320,6 @@ export function initRouter(map) {
             });
     }
 
-    // Initialize the router UI
-    renderSteps();
-    
     // Create markers for points
     const createMarker = function(coordinate, type) {
         const icon = {

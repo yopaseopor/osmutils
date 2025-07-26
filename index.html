@@ -65,7 +65,19 @@
 	<script src="src/panoramax_viewer.js"></script>
 	<script src="src/mapillary_viewer.js"></script>
 
-	<!-- Main application module -->
-	<script type="module" src="src/index.js"></script>
+	<!-- Router must be loaded after all other scripts -->
+	<script src="src/router.js"></script>
+
+	<!-- Main application script -->
+	<script>
+	$(document).ready(function() {
+		// Initialize the router when the document is ready
+		if (typeof window.initRouter === 'function' && window.map) {
+			window.initRouter(window.map);
+		} else {
+			console.error('Router initialization failed: map not available');
+		}
+	});
+	</script>
 </body>
 </html>
