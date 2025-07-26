@@ -1,11 +1,5 @@
-/* global config, ol */
-import { initRouter } from './router.js';
-import './components/LanguageSelector.js';
-import './language_init.js';
-import './overlays/translated_overlays.js';
-import './overlays/external/loader.js';
-import './overlays/index.js';
-import './overlay_integration.js';
+/* global config, ol, $, window */
+// Remove all imports since we're using global scope
 
 $(function () {
 
@@ -587,7 +581,8 @@ $(function () {
 		zoom: config.initialConfig.zoom
 	});
 
-	const map = new ol.Map({
+	// Initialize the map and expose it globally
+	window.map = new ol.Map({
 		layers: config.layers,
 		target: 'map',
 		view: view
@@ -596,15 +591,8 @@ $(function () {
 	// Initialize Nominatim search
 	initNominatimSearch(map);
 
-	// Initialize the router with the map after a small delay
-	// to ensure the map is fully loaded
-	setTimeout(() => {
-		try {
-			initRouter(map);
-		} catch (error) {
-			console.error('Failed to initialize router:', error);
-		}
-	}, 1000);
+	// The router will be initialized by the script in index.html
+	// after the document is fully loaded
 
 	// Initialize PanoraMax viewer
 	initPanoraMaxViewer(map);
