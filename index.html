@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="src/css/font-awesome.css" type="text/css"/>
 	<link rel="stylesheet" href="src/css/index.css" type="text/css"/>
 	<link rel="stylesheet" href="src/css/language-selector.css" type="text/css"/>
-	<link rel="stylesheet" href="src/css/router-menu.css" type="text/css"/>
 	
 	<link rel="icon" href="favicon.ico"/>
 </head>
@@ -58,26 +57,22 @@
 	<!-- Configuration -->
 	<script src="src/config.js"></script>
 
-	<!-- Non-module scripts -->
+	<!-- Modules -->
+	<script type="module" src="src/components/LanguageSelector.js"></script>
+	<script type="module" src="src/language_init.js"></script>
+	<script type="module" src="src/overlays/translated_overlays.js"></script>
+	<script type="module" src="src/overlays/external/loader.js"></script>
+	<script type="module" src="src/overlays/index.js"></script>
+	<script type="module" src="src/overlay_integration.js"></script>
+	<script type="module" src="src/init.js"></script>
+
+	<!-- Application Logic -->
 	<script src="src/layer_search.js"></script>
 	<script src="src/overlay_search.js"></script>
 	<script src="src/nominatim_search.js"></script>
 	<script src="src/panoramax_viewer.js"></script>
 	<script src="src/mapillary_viewer.js"></script>
-
-	<!-- Router must be loaded after all other scripts -->
 	<script src="src/router.js"></script>
-
-	<!-- Main application script -->
-	<script>
-	$(document).ready(function() {
-		// Initialize the router when the document is ready
-		if (typeof window.initRouter === 'function' && window.map) {
-			window.initRouter(window.map);
-		} else {
-			console.error('Router initialization failed: map not available');
-		}
-	});
-	</script>
+	<script src="src/index.js"></script>
 </body>
 </html>

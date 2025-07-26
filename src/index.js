@@ -1,6 +1,4 @@
-/* global config, ol, $, window */
-// Remove all imports since we're using global scope
-
+/* global config, ol */
 $(function () {
 
     // --- Layer Searcher Integration ---
@@ -581,8 +579,7 @@ $(function () {
 		zoom: config.initialConfig.zoom
 	});
 
-	// Initialize the map and expose it globally
-	window.map = new ol.Map({
+	const map = new ol.Map({
 		layers: config.layers,
 		target: 'map',
 		view: view
@@ -590,9 +587,6 @@ $(function () {
 
 	// Initialize Nominatim search
 	initNominatimSearch(map);
-
-	// The router will be initialized by the script in index.html
-	// after the document is fully loaded
 
 	// Initialize PanoraMax viewer
 	initPanoraMaxViewer(map);
@@ -766,6 +760,9 @@ $(function () {
     };
     map.addControl(new ol.control.ZoomSlider());
 	
+
+
+
 	// Geolocation Control
 	// In some browsers, this feature is available only in secure contexts (HTTPS)
 	var geolocationControlBuild = function () {
