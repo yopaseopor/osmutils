@@ -4,6 +4,42 @@ export function sportOverlays() {
     return [
         {
 	group: getTranslation('fitness_centre'),
+	title: getTranslation('fitness_centre'),
+    query: "[out:json][timeout:25];(nwr[\"leisure\"=\"fitness_centre\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+	group: getTranslation('fitness_centre'),
 	title: "[solidcore]",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"[solidcore]\"][\"brand:wikidata\"=\"Q124429271\"][\"leisure\"=\"fitness_centre\"][\"name\"=\"Solidcore\"]({{bbox}});node(w););out meta;",
     iconSrc: "src/img/logos/generic.svg",
@@ -12964,6 +13000,42 @@ export function sportOverlays() {
 },
 {
     group: getTranslation('sports'),
+	title: getTranslation('sports'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"sports\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('sports'),
 	title: "\u30b9\u30dd\u30fc\u30c4\u30aa\u30fc\u30bd\u30ea\u30c6\u30a3",
     query: "[out:json][timeout:25];(nwr[\"brand\"=\"\u30b9\u30dd\u30fc\u30c4\u30aa\u30fc\u30bd\u30ea\u30c6\u30a3\"][\"brand:en\"=\"Sports Authority\"][\"brand:ja\"=\"\u30b9\u30dd\u30fc\u30c4\u30aa\u30fc\u30bd\u30ea\u30c6\u30a3\"][\"brand:wikidata\"=\"Q7579688\"][\"name\"=\"\u30b9\u30dd\u30fc\u30c4\u30aa\u30fc\u30bd\u30ea\u30c6\u30a3\"][\"name:en\"=\"Sports Authority\"][\"name:ja\"=\"\u30b9\u30dd\u30fc\u30c4\u30aa\u30fc\u30bd\u30ea\u30c6\u30a3\"][\"shop\"=\"sports\"]({{bbox}});node(w););out meta;",
     iconSrc: "https://commons.wikimedia.org/wiki/Special:FilePath/Sports_Authority_logo2011.jpg",
@@ -13126,6 +13198,42 @@ export function sportOverlays() {
         var style = new ol.style.Style({
             image: new ol.style.Icon({
                 src: "https://commons.wikimedia.org/wiki/Special:FilePath/Adidas_2022_logo.svg",
+                scale:0.30
+            }),
+            text: new ol.style.Text({
+                text: name,
+                offsetX : 7,
+                offsetY : -12,
+                fill: new ol.style.Fill({
+                    color: 'rgba(0,0,0,1)'
+                }),
+            }),
+            fill: fill,
+            stroke: stroke
+        });
+        return style;
+    }
+},
+{
+    group: getTranslation('swimming_pool'),
+	title: getTranslation('swimming_pool'),
+    query: "[out:json][timeout:25];(nwr[\"shop\"=\"swimming_pool\"]({{bbox}});node(w););out meta;",
+    iconSrc: "src/img/logos/generic.svg",
+    iconStyle: "background-color:rgba(255,255,255,0.4)",
+    style: function (feature) {
+        var key_regex = /^name$/
+        var name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
+        var name = feature.get(name_key) || '';
+        var fill = new ol.style.Fill({
+            color: 'rgba(0,0,255,0.3)'
+        });
+        var stroke = new ol.style.Stroke({
+            color: 'rgba(0,0,255,0.8)',
+            width: 1
+        });
+        var style = new ol.style.Style({
+            image: new ol.style.Icon({
+                src: "src/img/logos/generic.svg",
                 scale:0.30
             }),
             text: new ol.style.Text({
