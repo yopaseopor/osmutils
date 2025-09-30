@@ -655,11 +655,20 @@ CLEAR ACTIVE OVERLAY BUTTON
 		width: 300px;
 	}
 	.osmcat-menu{
-		display: block;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 	}
-	.osmcat-layer {
+
+	/* Layers and Overlays side by side - 50% 50% */
+	.osmcat-layer,
+	.osmcat-overlay {
 		width: 100%;
+		flex: 1 1 50%;
+		max-height: 50%;
+		overflow-y: auto;
 	}
+
 	.osmcat-content > div:hover {
 		cursor: pointer;
 		background-color: rgba(36,0,136,.3);
