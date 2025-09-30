@@ -790,14 +790,13 @@ CLEAR ACTIVE OVERLAY BUTTON
    Buttons positioned on the right side in logical order from top to bottom
 */
 
-/* Top button - Router */
+/* Top buttons - Router and Clear */
 .osmcat-router {
     top: 80px;
 }
 
-/* Clear overlay button */
 .osmcat-clearoverlaybutton {
-    bottom: 310px;
+    top: 130px;
 }
 
 /* Mapillary viewer button */
