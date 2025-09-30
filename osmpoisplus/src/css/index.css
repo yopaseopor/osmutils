@@ -179,8 +179,8 @@ CLEAR ACTIVE OVERLAY BUTTON
 .osmcat-router {
     position: absolute;
     right: 8px;
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
     background-color: #567CAC;
     color: #fff;
     border: none;
@@ -701,8 +701,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     border: none;
     border-radius: 2px;
     padding: 2px;
-    width: 1.375em;
-    height: 1.375em;
+    width: 30px !important;
+    height: 30px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -910,8 +910,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     border: none;
     border-radius: 2px;
     padding: 2px;
-    width: 1.375em;
-    height: 1.375em;
+    width: 30px !important;
+    height: 30px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1023,9 +1023,9 @@ CLEAR ACTIVE OVERLAY BUTTON
   font-weight: bold;
   margin-bottom: 6px;
   border-radius: 4px;
-  display: block;
-  width: 100%;
-  text-align: left;
+  display: inline-block;
+  width: auto;
+  text-align: center;
   transition: background 0.2s;
 }
 .clear-active-overlay-btn:hover, .clear-active-overlay-btn:focus {
@@ -1107,7 +1107,6 @@ CLEAR ACTIVE OVERLAY BUTTON
 /* Standardize button sizes and colors */
 .osmcat-button,
 .nominatim-search button,
-.osmcat-panoramax button,
 .router-input .search-button,
 .osmcat-routerbutton button {
     background-color: rgba(255,255,255,0.4);
@@ -1115,8 +1114,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     border-radius: 2px;
     padding: 2px;
     cursor: pointer;
-    width: 1.375em;
-    height: 1.375em;
+    width: 40px !important;
+    height: 40px !important;
     display: flex;
     align-items: center;
     justify-content: center;
