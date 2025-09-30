@@ -830,8 +830,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     border: none;
     border-radius: 2px;
     padding: 2px;
-    width: 1.375em;
-    height: 1.375em;
+    width: 30px !important;
+    height: 30px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -854,8 +854,8 @@ CLEAR ACTIVE OVERLAY BUTTON
 .router-input .search-button {
     position: relative;
     padding: 2px;
-    width: 1.375em;
-    height: 1.375em;
+    width: 30px !important;
+    height: 30px !important;
 }
 
 /* Calculate route button */
