@@ -793,6 +793,8 @@ CLEAR ACTIVE OVERLAY BUTTON
 /* Top buttons - Router and Clear */
 .osmcat-router {
     top: 80px;
+    background-color: #567CAC !important;
+    color: #fff !important;
 }
 
 .osmcat-clearoverlaybutton {
