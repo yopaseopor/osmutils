@@ -167,14 +167,14 @@ CLEAR ACTIVE OVERLAY BUTTON
 .osmcat-clearoverlaybutton {
     position: absolute;
     right: 8px;
-    top: 150px;
+    bottom: 190px;
     z-index: 1002;
 }
 
 
 .osmcat-geobutton {
-	bottom: 30px;
-	left: 8px;
+	bottom: 70px;
+	right: 8px;
 }
 
 .osmcat-infobutton {
@@ -183,7 +183,7 @@ CLEAR ACTIVE OVERLAY BUTTON
 }
 
 .osmcat-sharebutton {
-	bottom: 150px;
+	bottom: 110px;
 	right: 8px;
 }
 
@@ -1007,13 +1007,13 @@ CLEAR ACTIVE OVERLAY BUTTON
 
 /* PanoraMax viewer button position */
 .osmcat-panoramax {
-    bottom: 70px;
+    bottom: 150px;
     right: 8px;
 }
 
 /* Mapillary viewer button position */
 .osmcat-mapillary {
-    bottom: 110px;
+    bottom: 190px;
     right: 8px;
 }
 
