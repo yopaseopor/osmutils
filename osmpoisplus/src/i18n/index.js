@@ -1,16 +1,75 @@
+import { an } from './an.js';
+import { ar } from './ar.js';
+import { ast } from './ast.js';
+import { bn } from './bn.js';
 import { ca } from './ca.js';
+import { da } from './da.js';
+import { de } from './de.js';
 import { en } from './en.js';
 import { es } from './es.js';
-
+import { eu } from './eu.js';
+import { fi } from './fi.js';
+import { fr } from './fr.js';
+import { gl } from './gl.js';
+import { hi } from './hi.js';
+import { it } from './it.js';
+import { ja } from './ja.js';
+import { ko } from './ko.js';
+import { nl } from './nl.js';
+import { no } from './no.js';
+import { pl } from './pl.js';
+import { pt } from './pt.js';
+import { ru } from './ru.js';
+import { sv } from './sv.js';
+import { uk } from './uk.js';
+import { vi } from './vi.js';
+import { zh } from './zh.js';
+import { bg } from './bg.js';
+import { cs } from './cs.js';
+import { el } from './el.js';
+import { hr } from './hr.js';
+import { hu } from './hu.js';
+import { ro } from './ro.js';
+import { sk } from './sk.js';
+import { sr } from './sr.js';
 
 // Create a sorted and formatted languages object
 export const languages = (() => {
     const langEntries = [
-
+        { code: 'an', native: 'Aragonés', en: 'Aragonese', translations: an },
+        { code: 'ar', native: 'العربية', en: 'Arabic', translations: ar, rtl: true },
+        { code: 'ast', native: 'Asturianu', en: 'Asturian', translations: ast },
+        { code: 'bg', native: 'Български', en: 'Bulgarian', translations: bg },
+        { code: 'bn', native: 'বাংলা', en: 'Bengali', translations: bn },
         { code: 'ca', native: 'Català', en: 'Catalan', translations: ca },
-       { code: 'en', native: 'English', en: 'English', translations: en },
+        { code: 'cs', native: 'Čeština', en: 'Czech', translations: cs },
+        { code: 'da', native: 'Dansk', en: 'Danish', translations: da },
+        { code: 'de', native: 'Deutsch', en: 'German', translations: de },
+        { code: 'el', native: 'Ελληνικά', en: 'Greek', translations: el },
+        { code: 'en', native: 'English', en: 'English', translations: en },
         { code: 'es', native: 'Español', en: 'Spanish', translations: es },
-
+        { code: 'eu', native: 'Euskara', en: 'Basque', translations: eu },
+        { code: 'fi', native: 'Suomi', en: 'Finnish', translations: fi },
+        { code: 'fr', native: 'Français', en: 'French', translations: fr },
+        { code: 'gl', native: 'Galego', en: 'Galician', translations: gl },
+        { code: 'hi', native: 'हिन्दी', en: 'Hindi', translations: hi },
+        { code: 'hu', native: 'Magyar', en: 'Hungarian', translations: hu },
+        { code: 'it', native: 'Italiano', en: 'Italian', translations: it },
+        { code: 'ja', native: '日本語', en: 'Japanese', translations: ja },
+        { code: 'ko', native: '한국어', en: 'Korean', translations: ko },
+        { code: 'nl', native: 'Nederlands', en: 'Dutch', translations: nl },
+        { code: 'no', native: 'Norsk', en: 'Norwegian', translations: no },
+        { code: 'pl', native: 'Polski', en: 'Polish', translations: pl },
+        { code: 'pt', native: 'Português', en: 'Portuguese', translations: pt },
+        { code: 'ro', native: 'Română', en: 'Romanian', translations: ro },
+        { code: 'ru', native: 'Русский', en: 'Russian', translations: ru },
+        { code: 'sk', native: 'Slovenčina', en: 'Slovak', translations: sk },
+        { code: 'sr', native: 'Српски', en: 'Serbian', translations: sr },
+        { code: 'sv', native: 'Svenska', en: 'Swedish', translations: sv },
+        { code: 'uk', native: 'Українська', en: 'Ukrainian', translations: uk },
+        { code: 'vi', native: 'Tiếng Việt', en: 'Vietnamese', translations: vi },
+        { code: 'zh', native: '中文', en: 'Chinese', translations: zh },
+        { code: 'hr', native: 'Hrvatski', en: 'Croatian', translations: hr }
     ];
 
     // Sort by English name

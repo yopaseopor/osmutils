@@ -1,4 +1,19 @@
 import { animalOverlays } from './groups/animal.js';
+import { businessOverlays } from './groups/business.js';
+import { food_drinkOverlays } from './groups/food_drink.js';
+import { shoppingOverlays } from './groups/shopping.js';
+import { economyOverlays } from './groups/economy.js';
+import {governmentOverlays } from './groups/government.js';
+import { leisureOverlays } from './groups/leisure.js';
+import { logisticsOverlays } from './groups/logistics.js';
+import { mobilityOverlays } from './groups/mobility.js';
+import { cultureOverlays } from './groups/culture.js';
+import { officeOverlays } from './groups/office.js';
+import { othersOverlays } from './groups/others.js';
+import { transportOverlays } from './groups/transport.js';
+import { sportOverlays } from './groups/sport.js';
+import { healthOverlays } from './groups/health.js';
+import { educationOverlays } from './groups/education.js';
 import { loadExternalOverlays } from './external/loader.js';
 import { translatedOverlays } from './translated_overlays.js';
 
@@ -8,6 +23,21 @@ console.log('Initializing overlays system...');
 export function getAllOverlays() {
     return {
 		animal: animalOverlays(), // static for this example
+		business: businessOverlays(), // always re-evaluate for translations
+        food_drink: food_drinkOverlays(), // always re-evaluate for translations
+        shopping: shoppingOverlays(), // static for this example
+		economy: economyOverlays(), // static for this example
+		leisure: leisureOverlays(), // static for this example
+		logistics: logisticsOverlays(), // static for this example
+		mobility: mobilityOverlays(), // static for this example
+		culture: cultureOverlays(), // static for this example
+				government: governmentOverlays(), // static for this example
+		office: officeOverlays(), // static for this example
+		education: educationOverlays(),
+		health: healthOverlays(),
+		sport: sportOverlays(),
+		others: othersOverlays(),
+        transport: transportOverlays,
         translated: translatedOverlays || [],
         external: []
     };
