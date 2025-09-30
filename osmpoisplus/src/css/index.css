@@ -179,8 +179,8 @@ CLEAR ACTIVE OVERLAY BUTTON
 .osmcat-router {
     position: absolute;
     right: 8px;
-    width: 15px !important;
-    height: 15px !important;
+    width: 25px !important;
+    height: 25px !important;
     background-color: #567CAC;
     color: #fff;
     border: none;
@@ -193,7 +193,7 @@ CLEAR ACTIVE OVERLAY BUTTON
     margin: 2px;
     transition: background-color 0.2s, color 0.2s;
     z-index: 1001;
-    font-size: 0.7em;
+    font-size: 1em;
 }
 
 .osmcat-geobutton:hover,
@@ -701,8 +701,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     border: none;
     border-radius: 2px;
     padding: 2px;
-    width: 15px !important;
-    height: 15px !important;
+    width: 25px !important;
+    height: 25px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -856,8 +856,8 @@ CLEAR ACTIVE OVERLAY BUTTON
 .router-input .search-button {
     position: relative;
     padding: 2px;
-    width: 15px !important;
-    height: 15px !important;
+    width: 25px !important;
+    height: 25px !important;
 }
 
 /* Calculate route button */
@@ -912,8 +912,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     border: none;
     border-radius: 2px;
     padding: 2px;
-    width: 15px !important;
-    height: 15px !important;
+    width: 25px !important;
+    height: 25px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1116,8 +1116,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     border-radius: 2px;
     padding: 2px;
     cursor: pointer;
-    width: 15px !important;
-    height: 15px !important;
+    width: 25px !important;
+    height: 25px !important;
     display: flex;
     align-items: center;
     justify-content: center;
