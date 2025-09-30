@@ -164,27 +164,72 @@ CLEAR ACTIVE OVERLAY BUTTON
     margin: 8px 8px 0 8px;
 }
 
-.osmcat-clearoverlaybutton {
+/* ====================================
+   BASE GRAPHIC CONTROL BUTTONS
+   ====================================
+   Unified styling for all map control buttons positioned on the right side
+*/
+
+.osmcat-geobutton,
+.osmcat-infobutton,
+.osmcat-sharebutton,
+.osmcat-clearoverlaybutton,
+.osmcat-panoramax,
+.osmcat-mapillary,
+.osmcat-router {
     position: absolute;
     right: 8px;
-    bottom: 190px;
-    z-index: 1002;
+    width: 40px;
+    height: 40px;
+    background-color: #567CAC;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    margin: 2px;
+    transition: background-color 0.2s, color 0.2s;
+    z-index: 1001;
+    font-size: 1.2em;
 }
 
-
-.osmcat-geobutton {
-	bottom: 70px;
-	right: 8px;
+.osmcat-geobutton:hover,
+.osmcat-infobutton:hover,
+.osmcat-sharebutton:hover,
+.osmcat-clearoverlaybutton:hover,
+.osmcat-panoramax:hover,
+.osmcat-mapillary:hover,
+.osmcat-router:hover,
+.osmcat-geobutton:focus,
+.osmcat-infobutton:focus,
+.osmcat-sharebutton:focus,
+.osmcat-clearoverlaybutton:focus,
+.osmcat-panoramax:focus,
+.osmcat-mapillary:focus,
+.osmcat-router:focus {
+    background-color: #34587C;
+    color: #fff;
+    outline: none;
 }
 
-.osmcat-infobutton {
-	bottom: 30px;
-	right: 8px;
-}
-
-.osmcat-sharebutton {
-	bottom: 110px;
-	right: 8px;
+.osmcat-geobutton i,
+.osmcat-infobutton i,
+.osmcat-sharebutton i,
+.osmcat-clearoverlaybutton i,
+.osmcat-panoramax i,
+.osmcat-mapillary i,
+.osmcat-router i {
+    color: #fff;
+    font-size: 1.2em;
+    line-height: 1;
+    width: 1em;
+    height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .osmcat-menu {
@@ -739,43 +784,45 @@ CLEAR ACTIVE OVERLAY BUTTON
     }
 }
 
-.osmcat-panoramax button {
-    background-color: #567CAC;
-    border: none;
-    border-radius: 2px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin: 2px;
-}
-.osmcat-panoramax button i {
-    color: #FFFFFF;
-}
-.osmcat-panoramax button:hover {
-    background: #34587C;
-}
-.osmcat-panoramax button.active {
-    background: #34587C;
-    color: #fff;
-}
+/* ====================================
+   ORDERED GRAPHIC CONTROL BUTTONS
+   ====================================
+   Buttons positioned on the right side in logical order from top to bottom
+*/
 
-/* Router Styles */
+/* Top button - Router */
 .osmcat-router {
     top: 80px;
-    right: 8px;
-	background-color: #567CAC;
-    color: #fff;
-    border: none;
-    border-radius: 2px;
-    padding: 2px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-    margin: 2px;
-    transition: background 0.2s, color 0.2s;
+}
+
+/* Clear overlay button */
+.osmcat-clearoverlaybutton {
+    bottom: 310px;
+}
+
+/* Mapillary viewer button */
+.osmcat-mapillary {
+    bottom: 260px;
+}
+
+/* PanoraMax viewer button */
+.osmcat-panoramax {
+    bottom: 210px;
+}
+
+/* Share button */
+.osmcat-sharebutton {
+    bottom: 160px;
+}
+
+/* Geolocation button */
+.osmcat-geobutton {
+	bottom: 110px;
+}
+
+/* Info button (bottom) */
+.osmcat-infobutton {
+	bottom: 30px;
 }
 
 /* PanoraMax viewer styles update */
@@ -948,74 +995,6 @@ CLEAR ACTIVE OVERLAY BUTTON
     }
 }
 
-.osmcat-mapillary button {
-    background-color: #567CAC;
-    border: none;
-    border-radius: 2px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin: 2px;
-}
-.osmcat-mapillary button i {
-    color: #FFFFFF;
-}
-.osmcat-mapillary button:hover {
-    background: #34587C;
-}
-.osmcat-mapillary button.active {
-    background: #34587C;
-    color: #fff;
-}
-
-/* ====================================
-   ROUTER BUTTON (osmcat-router)
-   ====================================
-   This section styles the .osmcat-router button, which is always visible and active.
-   It matches the appearance and UX of other OpenLayers/map control buttons.
-*/
-.osmcat-router {
-    top: 80px;
-    right: 8px;
-	background-color: #567CAC;
-    color: #fff;
-    border: none;
-    border-radius: 2px;
-    padding: 2px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-    margin: 2px;
-    transition: background 0.2s, color 0.2s;
-    position: absolute;
-    z-index: 1001;
-}
-.osmcat-router.active,
-.osmcat-router:focus,
-.osmcat-router:hover {
-    background-color: #34587C;
-    color: #fff;
-    outline: none;
-}
-.osmcat-router i {
-    color: #fff;
-    font-size: 1.2em;
-}
-
-/* PanoraMax viewer button position */
-.osmcat-panoramax {
-    bottom: 150px;
-    right: 8px;
-}
-
-/* Mapillary viewer button position */
-.osmcat-mapillary {
-    bottom: 190px;
-    right: 8px;
-}
 
 /* Mapillary dot styles */
 .map .ol-layer canvas {
