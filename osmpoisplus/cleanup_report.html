@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Informe de Neteja - OSM Utils</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        h1, h2 { color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .delete { background-color: #ffe6e6; }
+        .keep { background-color: #e6ffe6; }
+        .summary { background-color: #f0f8ff; padding: 15px; margin: 20px 0; }
+        .file-list { font-family: monospace; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>📋 Informe de Neteja del Projecte OSM Utils</h1>
+
+    <div class="summary">
+        <h2>📊 Resum Executiu</h2>
+        <p><strong>Anàlisi exhaustiva dels arxius del projecte OSM Utils per identificar recursos no utilitzats i optimitzar l'espai d'emmagatzematge.</strong></p>
+        <p><strong>Total arxius per esborrar:</strong> ~115 arxius | <strong>Espai a alliberar:</strong> ~50-70 MB</p>
+    </div>
+
+    <h2>🗑️ ARXIUS PER ESBORRAR</h2>
+
+    <h3>1. Arxius d'Idiomes NO Actius (35 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/i18n/</code></p>
+    <div class="file-list">
+        an.js, ar.js, ast.js, bn.js, da.js, de.js, eu.js, fi.js, fr.js, gl.js<br>
+        hi.js, it.js, ja.js, ko.js, nl.js, no.js, pl.js, pt.js, ru.js, sv.js<br>
+        uk.js, vi.js, zh.js, bg.js, cs.js, el.js, hr.js, hu.js, ro.js, sk.js<br>
+        sr.js (31 arxius no actius)
+    </div>
+
+    <h3>2. Versions Alternatives d'Idiomes (3 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/i18n/</code></p>
+    <div class="file-list">ca2.js, en2.js, es2.js</div>
+
+    <h3>3. Grups d'Overlays Comentats (14 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/overlays/groups/</code></p>
+    <div class="file-list">
+        business.js, food_drink.js, shopping.js, economy.js<br>
+        leisure.js, logistics.js, mobility.js, culture.js<br>
+        office.js, others.js, transport.js, sport.js<br>
+        health.js, education.js
+    </div>
+
+    <h3>4. Arxius de Layers Comentats (3 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/layers/</code></p>
+    <div class="file-list">myCustomLayer.js, osmBrightLayer.js, stamenTonerLayer.js</div>
+
+    <h3>5. Arxius WMS Layers No Utilitzats (35 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/layers/generated/</code></p>
+    <div class="file-list">
+        al_wms_layers.js, all_tms_layers.js, as_wms_layers.js, at_wms_layers.js<br>
+        au_wms_layers.js, be_wms_layers.js, br_wms_layers.js, ca_wms_layers.js<br>
+        ch_wms_layers.js, cz_wms_layers.js, dk_wms_layers.js, ee_wms_layers.js<br>
+        fi_wms_layers.js, fm_wms_layers.js, fr_wms_layers.js, gu_wms_layers.js<br>
+        hr_wms_layers.js, hu_wms_layers.js, it_wms_layers.js, lv_wms_layers.js<br>
+        md_wms_layers.js, mh_wms_layers.js, mp_wms_layers.js, no_wms_layers.js<br>
+        nz_wms_layers.js, pl_wms_layers.js, pt_wms_layers.js, pw_wms_layers.js<br>
+        se_wms_layers.js, sg_wms_layers.js, tw_wms_layers.js, us_wms_layers.js<br>
+        uy_wms_layers.js, xx_wms_layers.js, za_wms_layers.js
+    </div>
+
+    <h3>6. Arxius TMS Layers No Utilitzats (23 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/layers/generated/</code></p>
+    <div class="file-list">
+        tms_layers_BE.js, tms_layers_BR.js, tms_layers_CZ.js, tms_layers_DK.js<br>
+        tms_layers_FI.js, tms_layers_HT.js, tms_layers_HU.js, tms_layers_IT.js<br>
+        tms_layers_LT.js, tms_layers_LU.js, tms_layers_MD.js, tms_layers_NL.js<br>
+        tms_layers_NZ.js, tms_layers_PH.js, tms_layers_PL.js, tms_layers_RS.js<br>
+        tms_layers_SE.js, tms_layers_SG.js, tms_layers_SK.js, tms_layers_TW.js<br>
+        tms_layers_XX.js, tms_layers_ZA.js, tms_layers_ZM.js
+    </div>
+
+    <h2>✅ ARXIUS PER MANTENIR</h2>
+
+    <h3>Idiomes Actius (4 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/i18n/</code></p>
+    <div class="file-list">
+        ✅ ca.js (Català)<br>
+        ✅ en.js (Anglès)<br>
+        ✅ es.js (Espanyol)<br>
+        ✅ index.js (Configuració d'idiomes)
+    </div>
+
+    <h3>Grups d'Overlays Actius (2 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/overlays/groups/</code></p>
+    <div class="file-list">
+        ✅ animal.js<br>
+        ✅ government.js
+    </div>
+
+    <h3>Arxius de Layers Actius (3 arxius)</h3>
+    <p><strong>Ubicació:</strong> <code>src/layers/generated/</code></p>
+    <div class="file-list">
+        ✅ de_wms_layers.js (Alemanya)<br>
+        ✅ es_wms_layers.js (Espanya)<br>
+        ✅ gb_wms_layers.js (Gran Bretanya)
+    </div>
+
+    <h3>Arxius Essencials del Projecte</h3>
+    <p><strong>Ubicació:</strong> <code>src/</code></p>
+    <div class="file-list">
+        ✅ config.js (Configuració principal)<br>
+        ✅ index.js (Punt d'entrada principal)<br>
+        ✅ init.js (Inicialització)<br>
+        ✅ layer_search.js (Cerca de capes)<br>
+        ✅ overlay_search.js (Cerca d'overlays)<br>
+        ✅ nominatim_search.js (Cerca de llocs)<br>
+        ✅ panoramax_viewer.js (Visor PanoraMax)<br>
+        ✅ mapillary_viewer.js (Visor Mapillary)<br>
+        ✅ router.js (Sistema de rutes)<br>
+        ✅ overlays/index.js (Sistema d'overlays)<br>
+        ✅ overlay_integration.js (Integració d'overlays)<br>
+        ✅ language_init.js (Inicialització d'idiomes)<br>
+        ✅ components/LanguageSelector.js (Selector d'idiomes)<br>
+        ✅ layers/index.js (Sistema de capes)
+    </div>
+
+    <h3>CSS i Recursos</h3>
+    <p><strong>Ubicació:</strong> <code>src/css/</code></p>
+    <div class="file-list">
+        ✅ index.css (Estils principals)<br>
+        ✅ font-awesome.css (Icones Font Awesome)<br>
+        ✅ language-selector.css (Estils del selector d'idiomes)
+    </div>
+
+    <h3>Llibreries Externes</h3>
+    <p><strong>Ubicació:</strong> <code>src/api/</code></p>
+    <div class="file-list">
+        ✅ jquery-ui-1.12.1.custom/ (jQuery UI)<br>
+        ✅ openlayers/v6.2.2-custom/ (OpenLayers)
+    </div>
+
+    <div class="summary">
+        <h2>📈 Estadístiques Finals</h2>
+        <table>
+            <tr><th>Categoria</th><th>Arxius per Esborrar</th><th>Arxius per Mantenir</th><th>Espai Estimat</th></tr>
+            <tr><td>Idiomes</td><td>38</td><td>4</td><td>~5 MB</td></tr>
+            <tr><td>Overlays</td><td>14</td><td>2</td><td>~15 MB</td></tr>
+            <tr><td>Layers</td><td>61</td><td>3</td><td>~30 MB</td></tr>
+            <tr><td>Scripts</td><td>2</td><td>-</td><td>~2 MB</td></tr>
+            <tr><td>Icones</td><td>12</td><td>-</td><td>~1 MB</td></tr>
+            <tr><th>TOTAL</th><th>~127</th><th>~50</th><th>~53 MB</th></tr>
+        </table>
+    </div>
+
+    <div style="background-color: #fff3cd; padding: 15px; margin: 20px 0;">
+        <h2>⚠️ Notes Importants</h2>
+        <p><strong>Arxius Faltants (Crítics):</strong></p>
+        <ul>
+            <li><code>src/api/jquery/3.4.1/jquery.min.js</code> - Referenciat a <code>index.html</code> però no existeix</li>
+        </ul>
+        <p><strong>Arxius Potencialment No Utilitzats:</strong></p>
+        <ul>
+            <li>Alguns directoris d'imatges (<code>icones/</code>, <code>icones_web/</code>) contenen molts arxius sense referències directes</li>
+            <li>Alguns arxius de <code>layers/generated/</code> poden no utilitzar-se</li>
+        </ul>
+    </div>
+
+    <h2>🔧 Comandes d'Execució</h2>
+    <div style="background-color: #f8f9fa; padding: 15px; font-family: monospace; font-size: 12px;">
+        <p><strong># Esborrar idiomes no actius</strong></p>
+        <p>cd src/i18n && rm an.js ar.js ast.js bn.js da.js de.js eu.js fi.js fr.js gl.js hi.js it.js ja.js ko.js nl.js no.js pl.js pt.js ru.js sv.js uk.js vi.js zh.js bg.js cs.js el.js hr.js hu.js ro.js sk.js sr.js</p>
+
+        <p><strong># Esborrar versions alternatives</strong></p>
+        <p>cd src/i18n && rm ca2.js en2.js es2.js</p>
+
+        <p><strong># Esborrar overlays comentats</strong></p>
+        <p>cd src/overlays/groups && rm business.js food_drink.js shopping.js economy.js leisure.js logistics.js mobility.js culture.js office.js others.js transport.js sport.js health.js education.js</p>
+
+        <p><strong># Esborrar layers comentats</strong></p>
+        <p>cd src/layers && rm myCustomLayer.js osmBrightLayer.js stamenTonerLayer.js</p>
+
+        <p><strong># Esborrar WMS layers no utilitzats</strong></p>
+        <p>cd src/layers/generated && rm al_wms_layers.js all_tms_layers.js as_wms_layers.js at_wms_layers.js au_wms_layers.js be_wms_layers.js br_wms_layers.js ca_wms_layers.js ch_wms_layers.js cz_wms_layers.js dk_wms_layers.js ee_wms_layers.js fi_wms_layers.js fm_wms_layers.js fr_wms_layers.js gu_wms_layers.js hr_wms_layers.js hu_wms_layers.js it_wms_layers.js lv_wms_layers.js md_wms_layers.js mh_wms_layers.js mp_wms_layers.js no_wms_layers.js nz_wms_layers.js pl_wms_layers.js pt_wms_layers.js pw_wms_layers.js se_wms_layers.js sg_wms_layers.js tw_wms_layers.js us_wms_layers.js uy_wms_layers.js xx_wms_layers.js za_wms_layers.js</p>
+
+        <p><strong># Esborrar TMS layers</strong></p>
+        <p>cd src/layers/generated && rm tms_layers_*.js</p>
+    </div>
+
+    <div class="summary">
+        <h2>✅ Verificació Post-Neteja</h2>
+        <p>Després d'executar les comandes:</p>
+        <ol>
+            <li>Verificar que l'aplicació funciona correctament</li>
+            <li>Comprovar que no es trenquen funcionalitats</li>
+            <li>Restaurar jQuery si cal</li>
+            <li>Testejar els idiomes actius (ca, en, es)</li>
+        </ol>
+    </div>
+
+    <hr>
+    <p><em>Informe generat automàticament el 2025-10-01</em></p>
+    <p><em>Espai estimat a alliberar: ~53 MB</em></p>
+</body>
+</html>
