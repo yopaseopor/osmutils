@@ -121,23 +121,22 @@ function initMapillaryViewer(map) {
 
     // Function to show the viewer with a specific image
     function showMapillaryViewer(lat, lon, zoom, imageId) {
-        // Build URL with the new Mapillary embed format
+        // Build URL with the new Mapillary embed format - simplified version
         var url = `https://www.mapillary.com/embed?` +
             `lat=${lat}&` +
             `lng=${lon}&` +
             `z=${zoom}&` +
-            `style=photo&` +
-            `noBearing=true&` +
-            `width=100%25&` +
-            `height=100%25`;
+            `style=photo`;
 
         if (imageId) {
             url += `&imageKey=${imageId}`;
         }
 
+        console.log('Mapillary URL:', url); // Debug line
+
         var iframe = $('#mapillary-iframe');
 
-        // Configure iframe
+        // Configure iframe with loading
         iframe.attr({
             'src': 'about:blank',
             'frameborder': '0',
@@ -146,9 +145,18 @@ function initMapillaryViewer(map) {
             'allowfullscreen': 'true'
         });
 
+        // Show loading state
+        $('.mapillary-viewer').addClass('loading');
+
         // Force reload the iframe with new coordinates
         setTimeout(function() {
             iframe.attr('src', url);
+            console.log('Iframe src set to:', url); // Debug line
+
+            // Remove loading state after a delay
+            setTimeout(function() {
+                $('.mapillary-viewer').removeClass('loading');
+            }, 2000);
         }, 100);
 
         $('.mapillary-viewer').addClass('active');
