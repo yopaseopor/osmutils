@@ -1,6 +1,8 @@
 {
     "externalOverlayFiles": [
         "food.js",
-        "custom_overlays.js"
+        "custom_overlays.js",
+        "osmaccessibilitymap.js",
+        "osmbabymap.js"
     ]
 } 
