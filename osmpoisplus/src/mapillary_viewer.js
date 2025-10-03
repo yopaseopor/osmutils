@@ -128,7 +128,7 @@ function initMapillaryViewer(map) {
         var url = `https://www.mapillary.com/embed?` +
             `lat=${lat}&` +
             `lng=${lon}&` +
-            `z=${zoom}&` +
+            `z=${Math.max(1, Math.min(20, zoom))}&` +
             `style=photo`;
 
         if (imageId) {
@@ -139,17 +139,22 @@ function initMapillaryViewer(map) {
 
         var iframe = $('#mapillary-iframe');
 
-        // Configure iframe with loading
+        // Configure iframe with error handling
         iframe.attr({
             'src': 'about:blank',
             'frameborder': '0',
             'width': '100%',
             'height': '100%',
             'allowfullscreen': 'true'
+        }).on('error', function() {
+            console.error('Error loading Mapillary iframe');
+            $('.mapillary-viewer').removeClass('loading').addClass('error');
+            // Disable the button after multiple failures
+            $('.osmcat-mapillary button').addClass('disabled').prop('disabled', true);
         });
 
         // Show loading state
-        $('.mapillary-viewer').addClass('loading');
+        $('.mapillary-viewer').addClass('loading').removeClass('error');
 
         // Force reload the iframe with new coordinates
         setTimeout(function() {
@@ -159,6 +164,13 @@ function initMapillaryViewer(map) {
             // Remove loading state after a delay
             setTimeout(function() {
                 $('.mapillary-viewer').removeClass('loading');
+                // If still loading after 5 seconds, show error
+                setTimeout(function() {
+                    if ($('.mapillary-viewer').hasClass('loading')) {
+                        $('.mapillary-viewer').removeClass('loading').addClass('error');
+                        $('.osmcat-mapillary button').addClass('disabled').prop('disabled', true);
+                    }
+                }, 5000);
             }, 2000);
         }, 100);
 
