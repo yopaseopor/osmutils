@@ -9,21 +9,24 @@ function initMapillaryViewer(map) {
             var epsg4326Extent = ol.proj.transformExtent(extent, projection, 'EPSG:4326');
             var bbox = epsg4326Extent.join(',');
 
-            // Fetch Mapillary coverage data using the new API v4
-            fetch(`https://api.mapillary.com/v4/images?bbox=${bbox}&limit=100&fields=id,geometry`)
+            // Fetch Mapillary coverage data using CORS proxy to avoid CORS issues
+            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.mapillary.com/v4/images?bbox=' + bbox + '&limit=100&fields=id,geometry')}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data && data.data) {
-                        var features = data.data.map(function(image) {
-                            return new ol.Feature({
-                                geometry: new ol.geom.Point(ol.proj.fromLonLat([
-                                    image.geometry.coordinates[0],
-                                    image.geometry.coordinates[1]
-                                ])),
-                                id: image.id
+                    if (data && data.contents) {
+                        var mapillaryData = JSON.parse(data.contents);
+                        if (mapillaryData && mapillaryData.data) {
+                            var features = mapillaryData.data.map(function(image) {
+                                return new ol.Feature({
+                                    geometry: new ol.geom.Point(ol.proj.fromLonLat([
+                                        image.geometry.coordinates[0],
+                                        image.geometry.coordinates[1]
+                                    ])),
+                                    id: image.id
+                                });
                             });
-                        });
-                        mapillarySource.addFeatures(features);
+                            mapillarySource.addFeatures(features);
+                        }
                     }
                 })
                 .catch(error => {
