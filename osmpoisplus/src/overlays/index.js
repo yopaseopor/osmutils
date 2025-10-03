@@ -5,16 +5,8 @@ import { animalOverlays } from './groups/animal.js';
 //import { economyOverlays } from './groups/economy.js';
 import {governmentOverlays } from './groups/government.js';
 //import { leisureOverlays } from './groups/leisure.js';
-//import { logisticsOverlays } from './groups/logistics.js';
-//import { mobilityOverlays } from './groups/mobility.js';
-//import { cultureOverlays } from './groups/culture.js';
-//import { officeOverlays } from './groups/office.js';
-//import { othersOverlays } from './groups/others.js';
-//import { transportOverlays } from './groups/transport.js';
-//import { sportOverlays } from './groups/sport.js';
-//import { healthOverlays } from './groups/health.js';
-//import { educationOverlays } from './groups/education.js';
-import { loadExternalOverlays } from './external/loader.js';
+import { osmaccessibilitymapOverlays } from './groups/osmaccessibilitymap.js';
+import { osmbabymapOverlays } from './groups/osmbabymap.js';
 //import { translatedOverlays } from './translated_overlays.js';
 
 console.log('Initializing overlays system...');
@@ -39,6 +31,8 @@ export function getAllOverlays() {
 		//others: othersOverlays(),
         //transport: transportOverlays,
         //translated: translatedOverlays || [],
+        osmaccessibilitymap: osmaccessibilitymapOverlays(),
+        osmbabymap: osmbabymapOverlays(),
         external: []
     };
 }
@@ -48,17 +42,17 @@ window.getAllOverlays = getAllOverlays;
 window.allOverlays = getAllOverlays();
 
 // Load external overlays
-loadExternalOverlays().then(externalOverlays => {
-    console.log('External overlays loaded:', externalOverlays.length);
-    window.allOverlays.external = externalOverlays;
-
-    // Dispatch event to notify that overlays are ready
-    window.dispatchEvent(new CustomEvent('overlaysUpdated', {
-        detail: window.allOverlays
-    }));
-}).catch(error => {
-    console.error('Error loading external overlays:', error);
-});
+//loadExternalOverlays().then(externalOverlays => {
+//    console.log('External overlays loaded:', externalOverlays.length);
+//    window.allOverlays.external = externalOverlays;
+//
+//    // Dispatch event to notify that overlays are ready
+//    window.dispatchEvent(new CustomEvent('overlaysUpdated', {
+//        detail: window.allOverlays
+//    }));
+//}).catch(error => {
+//    console.error('Error loading external overlays:', error);
+//});
 
 // Dispatch event to notify that overlays are ready
 window.dispatchEvent(new CustomEvent('overlaysUpdated', {
