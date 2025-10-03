@@ -8,9 +8,9 @@ function initMapillaryViewer(map) {
         loader: function(extent, resolution, projection) {
             var epsg4326Extent = ol.proj.transformExtent(extent, projection, 'EPSG:4326');
             var bbox = epsg4326Extent.join(',');
-            
-            // Fetch Mapillary coverage data
-            fetch(`https://graph.mapillary.com/images?access_token=MLY|9116824181759144|d7242bf6a8614c2c6d13c5b0787ab629&bbox=${bbox}&fields=geometry,id`)
+
+            // Fetch Mapillary coverage data using the new API v4
+            fetch(`https://api.mapillary.com/v4/images?bbox=${bbox}&limit=100&fields=id,geometry`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.data) {
@@ -62,13 +62,13 @@ function initMapillaryViewer(map) {
             'id': 'mapillary-iframe',
             'allowfullscreen': 'true'
         }));
-    
+
     $('body').append(viewerContainer);
 
     // Create viewer button control
     var viewerControlBuild = function() {
         var container = $('<div>').addClass('ol-control ol-unselectable osmcat-mapillary');
-        
+
         // Map view button
         var mapViewButton = $('<button type="button">')
             .html('<i class="fa fa-camera"></i>')
@@ -89,7 +89,7 @@ function initMapillaryViewer(map) {
                 }
                 $(this).toggleClass('active');
             });
-        
+
         container.append(mapViewButton);
         return container[0];
     };
@@ -121,23 +121,22 @@ function initMapillaryViewer(map) {
 
     // Function to show the viewer with a specific image
     function showMapillaryViewer(lat, lon, zoom, imageId) {
-        // Build URL with embed parameters
+        // Build URL with the new Mapillary embed format
         var url = `https://www.mapillary.com/embed?` +
-            `client_id=9116824181759144&` +
-            `style=photo&` +
-            `map_style=OpenStreetMap&` +
             `lat=${lat}&` +
             `lng=${lon}&` +
             `z=${zoom}&` +
+            `style=photo&` +
+            `noBearing=true&` +
             `width=100%25&` +
             `height=100%25`;
-            
+
         if (imageId) {
-            url += `&image_key=${imageId}`;
+            url += `&imageKey=${imageId}`;
         }
-        
+
         var iframe = $('#mapillary-iframe');
-        
+
         // Configure iframe
         iframe.attr({
             'src': 'about:blank',
@@ -151,7 +150,7 @@ function initMapillaryViewer(map) {
         setTimeout(function() {
             iframe.attr('src', url);
         }, 100);
-        
+
         $('.mapillary-viewer').addClass('active');
         $('#map').addClass('viewer-active');
 
@@ -182,7 +181,7 @@ function initMapillaryViewer(map) {
             var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
                 return feature;
             });
-            
+
             if (feature) {
                 var coords = ol.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
                 showMapillaryViewer(coords[1], coords[0], map.getView().getZoom(), feature.get('id'));
