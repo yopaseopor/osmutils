@@ -1,19 +1,20 @@
-// Taginfo API integration for OSM Utils
-// Provides predictive search for keys and values using the Taginfo API
+// Taginfo API integration for OSM key/value predictive search
+// Provides functionality to query OSM keys and values from taginfo.openstreetmap.org
 
 (function() {
     'use strict';
 
-    // Taginfo API base URL
-    const TAGINFO_API_BASE = 'https://taginfo.openstreetmap.org/api/4';
+    // Taginfo API endpoints
+    const TAGINFO_BASE_URL = 'https://taginfo.openstreetmap.org/api/4';
 
     // Cache for API responses to avoid repeated requests
     const cache = {
         keys: new Map(),
-        values: new Map()
+        values: new Map(),
+        keyValues: new Map()
     };
 
-    // Debounce utility
+    // Debounce function for API requests
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -26,152 +27,176 @@
         };
     }
 
-    // Get current map bbox and view
-    function getCurrentMapExtent() {
-        if (typeof window !== 'undefined' && window.map) {
-            const view = window.map.getView();
-            const extent = view.calculateExtent();
-            // Convert to EPSG:4326 bbox
-            const epsg4326Extent = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
-            return {
-                minLon: epsg4326Extent[0],
-                minLat: epsg4326Extent[1],
-                maxLon: epsg4326Extent[2],
-                maxLat: epsg4326Extent[3]
-            };
-        }
-        return null;
-    }
-
-    // Get element types filter (node/way/relation) based on current zoom level or user preference
-    function getElementTypes() {
-        // Default to all types, but could be made configurable based on zoom level
-        return ['node', 'way', 'relation'];
-    }
-
-    // Fetch keys from Taginfo API
-    async function fetchKeys(query = '', limit = 10) {
-        const bbox = getCurrentMapExtent();
-        if (!bbox) return [];
-
-        const elementTypes = getElementTypes();
-        const cacheKey = `${query}_${elementTypes.join(',')}_${bbox.minLon}_${bbox.minLat}_${bbox.maxLon}_${bbox.maxLat}`;
-
-        if (cache.keys.has(cacheKey)) {
-            return cache.keys.get(cacheKey);
+    // Main Taginfo API class
+    class TaginfoAPI {
+        constructor() {
+            this.pendingRequests = new Map();
         }
 
-        try {
-            const params = new URLSearchParams({
-                query: query,
-                minLon: bbox.minLon,
-                minLat: bbox.minLat,
-                maxLon: bbox.maxLon,
-                maxLat: bbox.maxLat,
-                sortname: 'count',
-                sortorder: 'desc',
-                page: '1',
-                rp: limit.toString()
-            });
+        // Query keys from Taginfo API
+        async searchKeys(query, options = {}) {
+            const cacheKey = `keys:${query}:${JSON.stringify(options)}`;
 
-            // Add element type filters if not all types
-            if (elementTypes.length < 3) {
-                elementTypes.forEach(type => {
-                    params.append('type', type);
+            // Check cache first
+            if (cache.keys.has(cacheKey)) {
+                return cache.keys.get(cacheKey);
+            }
+
+            // Check if request is already pending
+            if (this.pendingRequests.has(cacheKey)) {
+                return this.pendingRequests.get(cacheKey);
+            }
+
+            const requestPromise = this._makeRequest(cacheKey, 'keys', query, options);
+            this.pendingRequests.set(cacheKey, requestPromise);
+
+            try {
+                const result = await requestPromise;
+                cache.keys.set(cacheKey, result);
+                return result;
+            } finally {
+                this.pendingRequests.delete(cacheKey);
+            }
+        }
+
+        // Query values for a specific key
+        async searchValues(key, query = '', options = {}) {
+            const cacheKey = `values:${key}:${query}:${JSON.stringify(options)}`;
+
+            // Check cache first
+            if (cache.values.has(cacheKey)) {
+                return cache.values.get(cacheKey);
+            }
+
+            // Check if request is already pending
+            if (this.pendingRequests.has(cacheKey)) {
+                return this.pendingRequests.get(cacheKey);
+            }
+
+            const requestPromise = this._makeRequest(cacheKey, 'key/values', `${key}/${query}`, options);
+            this.pendingRequests.set(cacheKey, requestPromise);
+
+            try {
+                const result = await requestPromise;
+                cache.values.set(cacheKey, result);
+                return result;
+            } finally {
+                this.pendingRequests.delete(cacheKey);
+            }
+        }
+
+        // Query combinations of keys and values
+        async searchKeyValues(keyQuery, valueQuery, options = {}) {
+            const cacheKey = `keyvalues:${keyQuery}:${valueQuery}:${JSON.stringify(options)}`;
+
+            // Check cache first
+            if (cache.keyValues.has(cacheKey)) {
+                return cache.keyValues.get(cacheKey);
+            }
+
+            // Check if request is already pending
+            if (this.pendingRequests.has(cacheKey)) {
+                return this.pendingRequests.get(cacheKey);
+            }
+
+            const requestPromise = this._makeRequest(cacheKey, 'key/values', `${keyQuery}/${valueQuery}`, options);
+            this.pendingRequests.set(cacheKey, requestPromise);
+
+            try {
+                const result = await requestPromise;
+                cache.keyValues.set(cacheKey, result);
+                return result;
+            } finally {
+                this.pendingRequests.delete(cacheKey);
+            }
+        }
+
+        // Generic request handler
+        async _makeRequest(cacheKey, endpoint, query, options) {
+            const params = new URLSearchParams();
+
+            if (query) {
+                params.append('q', query);
+            }
+
+            // Add pagination
+            if (options.page !== undefined) {
+                params.append('page', options.page);
+            }
+            if (options.limit !== undefined) {
+                params.append('limit', options.limit || 50);
+            } else {
+                params.append('limit', 25);
+            }
+
+            // Add sorting
+            if (options.sortname) {
+                params.append('sortname', options.sortname);
+            }
+            if (options.sortorder) {
+                params.append('sortorder', options.sortorder);
+            }
+
+            // Add filters for bbox and object types
+            if (options.bbox) {
+                params.append('bbox', options.bbox);
+            }
+            if (options.objectTypes && options.objectTypes.length > 0) {
+                options.objectTypes.forEach(type => {
+                    params.append('otype', type);
                 });
             }
 
-            const response = await fetch(`${TAGINFO_API_BASE}/keys/all?${params}`);
-            const data = await response.json();
+            const url = `${TAGINFO_BASE_URL}/${endpoint}?${params.toString()}`;
 
-            const keys = data.data.map(item => ({
-                key: item.key,
-                count: item.count,
-                inWiki: item.in_wiki,
-                description: item.description || ''
-            }));
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Taginfo API error: ${response.status}`);
+                }
 
-            cache.keys.set(cacheKey, keys);
-            return keys;
-        } catch (error) {
-            console.error('Error fetching keys from Taginfo:', error);
-            return [];
-        }
-    }
-
-    // Fetch values for a specific key from Taginfo API
-    async function fetchValues(key, query = '', limit = 10) {
-        const bbox = getCurrentMapExtent();
-        if (!bbox) return [];
-
-        const elementTypes = getElementTypes();
-        const cacheKey = `${key}_${query}_${elementTypes.join(',')}_${bbox.minLon}_${bbox.minLat}_${bbox.maxLon}_${bbox.maxLat}`;
-
-        if (cache.values.has(cacheKey)) {
-            return cache.values.get(cacheKey);
-        }
-
-        try {
-            const params = new URLSearchParams({
-                key: key,
-                query: query,
-                minLon: bbox.minLon,
-                minLat: bbox.minLat,
-                maxLon: bbox.maxLon,
-                maxLat: bbox.maxLat,
-                sortname: 'count',
-                sortorder: 'desc',
-                page: '1',
-                rp: limit.toString()
-            });
-
-            // Add element type filters if not all types
-            if (elementTypes.length < 3) {
-                elementTypes.forEach(type => {
-                    params.append('type', type);
-                });
+                const data = await response.json();
+                return {
+                    data: data.data || [],
+                    total: data.total || 0,
+                    url: url
+                };
+            } catch (error) {
+                console.error('Taginfo API request failed:', error);
+                return {
+                    data: [],
+                    total: 0,
+                    error: error.message
+                };
             }
+        }
 
-            const response = await fetch(`${TAGINFO_API_BASE}/key/values?${params}`);
-            const data = await response.json();
+        // Get current map bbox for filtering results
+        getCurrentBbox() {
+            if (window.map && window.map.getView) {
+                const view = window.map.getView();
+                const extent = view.calculateExtent();
+                const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
+                return `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
+            }
+            return null;
+        }
 
-            const values = data.data.map(item => ({
-                value: item.value,
-                count: item.count,
-                fraction: item.fraction,
-                inWiki: item.in_wiki,
-                description: item.description || ''
-            }));
-
-            cache.values.set(cacheKey, values);
-            return values;
-        } catch (error) {
-            console.error('Error fetching values from Taginfo:', error);
-            return [];
+        // Get current zoom level for relevance filtering
+        getCurrentZoom() {
+            if (window.map && window.map.getView) {
+                return Math.round(window.map.getView().getZoom());
+            }
+            return 10;
         }
     }
 
-    // Clear cache when map moves significantly
-    function clearCache() {
-        cache.keys.clear();
-        cache.values.clear();
+    // Create global instance
+    window.taginfoAPI = new TaginfoAPI();
+
+    // Export for use in other modules
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = TaginfoAPI;
     }
-
-    // Debounced version for map move events
-    const debouncedClearCache = debounce(clearCache, 1000);
-
-    // Listen for map move events to clear cache
-    if (typeof window !== 'undefined') {
-        window.addEventListener('mapMoveEnd', debouncedClearCache);
-    }
-
-    // Public API
-    window.TaginfoAPI = {
-        fetchKeys,
-        fetchValues,
-        clearCache,
-        getCurrentMapExtent,
-        getElementTypes
-    };
 
 })();

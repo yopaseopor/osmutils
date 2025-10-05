@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.fbcdn.net https://*.facebook.com https://unpkg.com https://cdnjs.cloudflare.com https://api.mapillary.com https://graph.mapillary.com https://overpass-api.de https://overpass.kumi.systems https://nominatim.openstreetmap.org https://*.openstreetmap.org https://*.mapillary.com https://cors-anywhere.herokuapp.com https://api.allorigins.win https://api.maptiler.com; style-src 'self' 'unsafe-inline' https://*.fbcdn.net https://*.facebook.com; img-src 'self' data: https:; connect-src 'self' https://*.fbcdn.net https://*.facebook.com https://api.mapillary.com https://graph.mapillary.com https://overpass-api.de https://overpass.kumi.systems https://nominatim.openstreetmap.org https://*.openstreetmap.org https://*.mapillary.com https://cors-anywhere.herokuapp.com https://api.allorigins.win https://api.maptiler.com; font-src 'self' https://*.fbcdn.net https://*.facebook.com https://fonts.gstatic.com https://fonts.googleapis.com;">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.fbcdn.net https://*.facebook.com https://unpkg.com https://cdnjs.cloudflare.com https://api.mapillary.com https://graph.mapillary.com https://overpass-api.de https://overpass.kumi.systems https://nominatim.openstreetmap.org https://*.openstreetmap.org https://*.mapillary.com https://cors-anywhere.herokuapp.com https://api.allorigins.win https://api.maptiler.com https://taginfo.openstreetmap.org; style-src 'self' 'unsafe-inline' https://*.fbcdn.net https://*.facebook.com; img-src 'self' data: https:; connect-src 'self' https://*.fbcdn.net https://*.facebook.com https://api.mapillary.com https://graph.mapillary.com https://overpass-api.de https://overpass.kumi.systems https://nominatim.openstreetmap.org https://*.openstreetmap.org https://*.mapillary.com https://cors-anywhere.herokuapp.com https://api.allorigins.win https://api.maptiler.com https://taginfo.openstreetmap.org; font-src 'self' https://*.fbcdn.net https://*.facebook.com https://fonts.gstatic.com https://fonts.googleapis.com;">
 	<!--@@ Título a modificar -->
 	<title>OSM Utils</title>
 	<!--@@ Título a modificar para la descripción -->
@@ -24,14 +24,28 @@
 		<div id="menu" class="menu">
 			<!-- Language Selector -->
 			<div id="language-selector-container" class="language-selector-wrapper"></div>
-			<!-- Layer Searcher (original) -->
+			<!-- Taginfo Key-Value Searchers (NEW) -->
+			<div class="taginfo-search-section" style="margin: 10px 0; padding: 10px; background: #f9f9f9; border-radius: 5px;">
+				<h4 style="margin: 0 0 10px 0; color: #333;">Taginfo Search</h4>
+				<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+					<div style="flex: 1; position: relative;">
+						<input type="text" id="key-search" placeholder="Search OSM keys..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px;">
+						<div id="key-search-dropdown" class="search-dropdown"></div>
+					</div>
+					<div style="flex: 1; position: relative;">
+						<input type="text" id="value-search" placeholder="Search values for selected key..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px;">
+						<div id="value-search-dropdown" class="search-dropdown"></div>
+					</div>
+				</div>
+				<button id="clear-taginfo-results" style="padding: 5px 10px; background: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">Clear Results</button>
+			</div>
+			<!-- Layer Searcher (CLASSIC - preserved) -->
 			<div id="layer-search-container" style="margin: 10px 0;">
 			  <input type="text" id="layer-search" data-i18n="layersLabel" placeholder="Search layers..." style="width: 100%; padding: 5px;">
 			  <div id="layer-search-dropdown"></div>
 			</div>
 			<!-- Layers section -->
-			<div id="layer-list"></div>
-			<!-- Overlay Searcher (original) -->
+			<!-- Overlay Searcher (between Layers and Overlays) -->
 			<div id="overlay-search-container" style="margin: 10px 0;">
 			  <input type="text" id="overlay-search" data-i18n="overlaysLabel" placeholder="Search overlays..." style="width: 100%; padding: 5px;">
 			  <div id="overlay-search-dropdown"></div>
@@ -39,24 +53,6 @@
 			</div>
 			<!-- Overlays section -->
 			<div id="overlay-list"></div>
-			<!-- Taginfo Key Searcher (additional) -->
-			<div id="taginfo-search-container" style="margin: 10px 0; padding: 15px; background: #f8f9fa; border-radius: 5px; border-top: 3px solid #007bff;">
-			  <div style="font-weight: bold; margin-bottom: 10px; font-size: 1em; color: #007bff;">🔍 Taginfo Searchers</div>
-			  <div style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Search OSM keys and values using Taginfo API</div>
-			  <div id="key-search-container" style="margin-bottom: 10px;">
-			    <input type="text" id="key-search" placeholder="Search OSM keys..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px;">
-			    <div id="key-search-dropdown"></div>
-			  </div>
-			  <div id="value-search-container">
-			    <input type="text" id="value-search" placeholder="Select a key first, then search values..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px;">
-			    <div id="value-search-dropdown"></div>
-			  </div>
-			</div>
-			<!-- Query Results section -->
-			<div id="query-results" style="margin: 10px 0; padding: 12px; background: #e8f4fd; border-radius: 5px; border-left: 4px solid #007bff;">
-				<div id="query-results-header" style="font-weight: bold; margin-bottom: 8px; color: #007bff;">📊 Tag Query Results</div>
-				<div id="query-results-content" style="color: #555;">Select a key and value to see results on the map</div>
-			</div>
 		</div>
 	</div>
 	<!-- Core Libraries -->
@@ -74,17 +70,14 @@
 	<!-- ol-mapbox-style for MapTiler styles -->
 	<script src="https://unpkg.com/ol-mapbox-style@6.1.3/dist/olms.js"></script>
 
-	<!-- New Taginfo Integration -->
-	<script src="src/taginfo_api.js"></script>
-	<script src="src/key_searcher.js"></script>
-	<script src="src/value_searcher.js"></script>
-	<script src="src/tag_query_results.js"></script>
+	<!-- Configuration -->
+	<script src="src/config.js"></script>
 
 	<!-- Modules -->
 	<script type="module" src="src/components/LanguageSelector.js"></script>
 	<script type="module" src="src/language_init.js"></script>
 	<script type="module" src="src/overlays/translated_overlays.js"></script>
-	<script type="module" src="src/overlays/external/loader.js"></script>
+	<!--<script type="module" src="src/overlays/external/loader.js"></script>-->
 	<script type="module" src="src/overlays/index.js"></script>
 	<script type="module" src="src/overlay_integration.js"></script>
 	<script type="module" src="src/init.js"></script>
@@ -92,10 +85,12 @@
 	<!-- Application Logic -->
 	<script src="src/layer_search.js"></script>
 	<script src="src/overlay_search.js"></script>
+	<script src="src/taginfo_api.js"></script>
+	<script src="src/key_value_search.js"></script>
 	<script src="src/nominatim_search.js"></script>
 	<script src="src/panoramax_viewer.js"></script>
 	<script src="src/mapillary_viewer.js"></script>
 	<script src="src/router.js"></script>
-	<script src="src/index_simple.js"></script>
+	<script src="src/index.js"></script>
 </body>
 </html>

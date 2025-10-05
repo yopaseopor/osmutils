@@ -23,6 +23,5 @@ window.dispatchEvent(new CustomEvent('overlaySearchUpdate', {
 
 // Initialize map when document is ready
 $(document).ready(function() {
-    // Map initialization will be handled by index_simple.js
-    console.log('OSM Utils init.js loaded - both original and Taginfo searchers enabled');
+    // Map initialization will be handled by index.js
 }); 
