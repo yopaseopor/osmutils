@@ -131,14 +131,10 @@
                 dropdown.innerHTML = '<div class="search-loading">Searching...</div>';
                 dropdown.style.display = 'block';
 
-                // Get current bbox for filtering
-                const bbox = window.taginfoAPI ? window.taginfoAPI.getCurrentBbox() : null;
-
                 const result = await window.taginfoAPI.searchKeys(query, {
                     limit: 20,
                     sortname: 'count_all',
-                    sortorder: 'desc',
-                    ...(bbox && { bbox: bbox })
+                    sortorder: 'desc'
                 });
 
                 renderKeyDropdown(result.data, query);

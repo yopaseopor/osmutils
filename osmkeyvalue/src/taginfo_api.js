@@ -47,7 +47,10 @@
                 return this.pendingRequests.get(cacheKey);
             }
 
-            const requestPromise = this._makeRequest(cacheKey, 'keys', query, options);
+            // Remove bbox from options for keys endpoint (not supported)
+            const { bbox, ...cleanOptions } = options;
+
+            const requestPromise = this._makeRequest(cacheKey, 'keys', query, cleanOptions);
             this.pendingRequests.set(cacheKey, requestPromise);
 
             try {
