@@ -145,6 +145,7 @@
 
                 const result = await searchKeysAPI(query);
 
+                console.log('Key search result:', result); // Debug log
                 renderKeyDropdown(result.data || [], query);
             } catch (error) {
                 console.error('Key search error:', error);
@@ -213,6 +214,7 @@
 
         searchInput.addEventListener('input', function() {
             const query = this.value.trim();
+            console.log('Key input changed:', query); // Debug log
             if (searchTimeout) {
                 clearTimeout(searchTimeout);
             }
@@ -263,6 +265,7 @@
 
                 const result = await searchValuesAPI(key, query);
 
+                console.log('Value search result:', result); // Debug log
                 renderValueDropdown(result.data || [], query, key);
             } catch (error) {
                 console.error('Value search error:', error);
@@ -324,6 +327,7 @@
 
         searchInput.addEventListener('input', function() {
             const query = this.value.trim();
+            console.log('Value input changed:', query, 'for key:', searchInput.dataset.selectedKey); // Debug log
             if (searchTimeout) {
                 clearTimeout(searchTimeout);
             }
@@ -342,7 +346,7 @@
         });
     }
 
-    // Simplified API functions
+    // Simplified API functions using XMLHttpRequest
     async function searchKeysAPI(query) {
         const cacheKey = `keys:${query}`;
 
@@ -351,27 +355,49 @@
             return cache.keys.get(cacheKey);
         }
 
-        const url = `https://taginfo.openstreetmap.org/api/4/keys?q=${encodeURIComponent(query)}&limit=20&sortname=count_all&sortorder=desc`;
+        return new Promise((resolve, reject) => {
+            const url = `https://taginfo.openstreetmap.org/api/4/keys?q=${encodeURIComponent(query)}&limit=20&sortname=count_all&sortorder=desc`;
 
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
-            }
+            console.log('Making keys API request:', url); // Debug log
 
-            const data = await response.json();
-            const result = {
-                data: data.data || [],
-                total: data.total || 0,
-                url: url
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+
+            xhr.onload = function() {
+                console.log('Keys API response:', xhr.status, xhr.responseText.substring(0, 200)); // Debug log
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        const result = {
+                            data: data.data || [],
+                            total: data.total || 0,
+                            url: url
+                        };
+                        cache.keys.set(cacheKey, result);
+                        resolve(result);
+                    } catch (e) {
+                        console.error('Error parsing keys response:', e);
+                        resolve({ data: [], total: 0, error: 'Parse error' });
+                    }
+                } else {
+                    console.error('Keys API error:', xhr.status, xhr.statusText);
+                    resolve({ data: [], total: 0, error: `HTTP ${xhr.status}` });
+                }
             };
 
-            cache.keys.set(cacheKey, result);
-            return result;
-        } catch (error) {
-            console.error('Taginfo API request failed:', error);
-            return { data: [], total: 0, error: error.message };
-        }
+            xhr.onerror = function() {
+                console.error('Keys API network error');
+                resolve({ data: [], total: 0, error: 'Network error' });
+            };
+
+            xhr.timeout = 10000; // 10 second timeout
+            xhr.ontimeout = function() {
+                console.error('Keys API timeout');
+                resolve({ data: [], total: 0, error: 'Timeout' });
+            };
+
+            xhr.send();
+        });
     }
 
     async function searchValuesAPI(key, query) {
@@ -382,27 +408,49 @@
             return cache.values.get(cacheKey);
         }
 
-        const url = `https://taginfo.openstreetmap.org/api/4/key/values?key=${encodeURIComponent(key)}&q=${encodeURIComponent(query)}&limit=20&sortname=count_all&sortorder=desc`;
+        return new Promise((resolve, reject) => {
+            const url = `https://taginfo.openstreetmap.org/api/4/key/values?key=${encodeURIComponent(key)}&q=${encodeURIComponent(query)}&limit=20&sortname=count_all&sortorder=desc`;
 
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
-            }
+            console.log('Making values API request:', url); // Debug log
 
-            const data = await response.json();
-            const result = {
-                data: data.data || [],
-                total: data.total || 0,
-                url: url
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+
+            xhr.onload = function() {
+                console.log('Values API response:', xhr.status, xhr.responseText.substring(0, 200)); // Debug log
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        const result = {
+                            data: data.data || [],
+                            total: data.total || 0,
+                            url: url
+                        };
+                        cache.values.set(cacheKey, result);
+                        resolve(result);
+                    } catch (e) {
+                        console.error('Error parsing values response:', e);
+                        resolve({ data: [], total: 0, error: 'Parse error' });
+                    }
+                } else {
+                    console.error('Values API error:', xhr.status, xhr.statusText);
+                    resolve({ data: [], total: 0, error: `HTTP ${xhr.status}` });
+                }
             };
 
-            cache.values.set(cacheKey, result);
-            return result;
-        } catch (error) {
-            console.error('Taginfo API request failed:', error);
-            return { data: [], total: 0, error: error.message };
-        }
+            xhr.onerror = function() {
+                console.error('Values API network error');
+                resolve({ data: [], total: 0, error: 'Network error' });
+            };
+
+            xhr.timeout = 10000; // 10 second timeout
+            xhr.ontimeout = function() {
+                console.error('Values API timeout');
+                resolve({ data: [], total: 0, error: 'Timeout' });
+            };
+
+            xhr.send();
+        });
     }
 
     // Utility function to format numbers
