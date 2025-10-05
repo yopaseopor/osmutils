@@ -45,16 +45,16 @@ export function osmbabymapOverlays() {
             title: getTranslation('baby_feeding_no'),
             query: '(nwr["baby_feeding"="no"]({{bbox}});node(w););out meta;',
             iconSrc: 'src/img/base/circle.svg',
-            iconStyle: 'background-color:rgba( 206, 9, 9 ,1)',
+            iconStyle: 'background-color:rgba(206,9,9,1)',
             style: function (feature) {
                 const key_regex = /^name$/
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba( 206, 9, 9 ,0.4)'
+                    color: 'rgba(206,9,9,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
-                    color: 'rgba( 206, 9, 9 ,1)',
+                    color: 'rgba(206,9,9,1)',
                     width: 1
                 });
                 const style = new ol.style.Style({
@@ -156,16 +156,16 @@ export function osmbabymapOverlays() {
             title: getTranslation('baby_feeding_no_info'),
             query: '(nwr[amenity][!"baby_feeding"]({{bbox}});node(w);nwr[shop][!"baby_feeding"]({{bbox}});node(w);nwr[office][!"baby_feeding"]({{bbox}});node(w);nwr[tourism][!"baby_feeding"]({{bbox}});node(w););out meta;',
             iconSrc: 'src/img/base/circle.svg',
-            iconStyle: 'background-color:rgba( 0, 0, 0 ,1)',
+            iconStyle: 'background-color:rgba(0,0,0,1)',
             style: function (feature) {
                 const key_regex = /^name$/
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba( 0, 0, 0 ,0.4)'
+                    color: 'rgba(0,0,0,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
-                    color: 'rgba( 0, 0, 0 ,1)',
+                    color: 'rgba(0,0,0,1)',
                     width: 1
                 });
                 const style = new ol.style.Style({
@@ -275,7 +275,7 @@ export function osmbabymapOverlays() {
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba( 37, 180, 2 ,0.4)'
+                    color: 'rgba(37,180,2,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
                     color: 'rgba( 37, 180, 2 ,1)',
@@ -349,7 +349,7 @@ export function osmbabymapOverlays() {
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba( 175, 122, 197  ,0.4)'
+                    color: 'rgba(175,122,197,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
                     color: 'rgba( 175, 122, 197  ,1)',
@@ -386,7 +386,7 @@ export function osmbabymapOverlays() {
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba( 142, 68, 173  ,0.4)'
+                    color: 'rgba(142,68,173,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
                     color: 'rgba( 142, 68, 173  ,1)',
@@ -417,16 +417,16 @@ export function osmbabymapOverlays() {
             title: getTranslation('kids_area_supervised'),
             query: '(nwr["kids_area:supervised"="yes"]({{bbox}});node(w););out meta;',
             iconSrc: 'src/img/base/circle.svg',
-            iconStyle: 'background-color:rgba( 84, 153, 199 ,1)',
+            iconStyle: 'background-color:rgba(84,153,199,1)',
             style: function (feature) {
                 const key_regex = /^name$/
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba(84, 153, 199 ,0.4)'
+                    color: 'rgba(84,153,199,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
-                    color: 'rgba(84, 153, 199 ,1)',
+                    color: 'rgba(84,153,199,1)',
                     width: 1
                 });
                 const style = new ol.style.Style({
@@ -454,16 +454,16 @@ export function osmbabymapOverlays() {
             title: getTranslation('kids_area_fee'),
             query: '(nwr["kids_area:fee"="yes"]({{bbox}});node(w););out meta;',
             iconSrc: 'src/img/base/circle.svg',
-            iconStyle: 'background-color:rgba( 72, 201, 176 ,1)',
+            iconStyle: 'background-color:rgba(72,201,176,1)',
             style: function (feature) {
                 const key_regex = /^name$/
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba( 72, 201, 176  ,0.4)'
+                    color: 'rgba(72,201,176,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
-                    color: 'rgba( 72, 201, 176  ,1)',
+                    color: 'rgba(72,201,176,1)',
                     width: 1
                 });
                 const style = new ol.style.Style({
@@ -534,7 +534,7 @@ export function osmbabymapOverlays() {
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba(22, 160, 133 ,0.4)'
+                    color: 'rgba(22,160,133,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
                     color: 'rgba(22, 160, 133 ,1)',
@@ -639,16 +639,16 @@ export function osmbabymapOverlays() {
             title: getTranslation('infant_bed_yes'),
             query: '(nwr["infant_bed"]({{bbox}});node(w););out meta;',
             iconSrc: 'src/img/base/circle.svg',
-            iconStyle: 'background-color:rgba( 82, 190, 128 ,1)',
+            iconStyle: 'background-color:rgba(82,190,128,1)',
             style: function (feature) {
                 const key_regex = /^name$/
                 const name_key = feature.getKeys().filter(function(t){return t.match(key_regex)}).pop() || "name"
                 const name = feature.get(name_key) || '';
                 const fill = new ol.style.Fill({
-                    color: 'rgba( 82, 190, 128  ,0.4)'
+                    color: 'rgba(82,190,128,0.4)'
                 });
                 const stroke = new ol.style.Stroke({
-                    color: 'rgba( 82, 190, 128  ,1)',
+                    color: 'rgba(82,190,128,1)',
                     width: 1
                 });
                 const style = new ol.style.Style({
