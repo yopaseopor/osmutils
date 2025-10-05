@@ -5,8 +5,16 @@ import { animalOverlays } from './groups/animal.js';
 //import { economyOverlays } from './groups/economy.js';
 import {governmentOverlays } from './groups/government.js';
 //import { leisureOverlays } from './groups/leisure.js';
-import { osmaccessibilitymapOverlays } from './groups/osmaccessibilitymap.js';
-import { osmbabymapOverlays } from './groups/osmbabymap.js';
+//import { logisticsOverlays } from './groups/logistics.js';
+//import { mobilityOverlays } from './groups/mobility.js';
+//import { cultureOverlays } from './groups/culture.js';
+//import { officeOverlays } from './groups/office.js';
+//import { othersOverlays } from './groups/others.js';
+//import { transportOverlays } from './groups/transport.js';
+//import { sportOverlays } from './groups/sport.js';
+//import { healthOverlays } from './groups/health.js';
+//import { educationOverlays } from './groups/education.js';
+//import { loadExternalOverlays } from './external/loader.js';
 //import { translatedOverlays } from './translated_overlays.js';
 
 console.log('Initializing overlays system...');
@@ -31,8 +39,6 @@ export function getAllOverlays() {
 		//others: othersOverlays(),
         //transport: transportOverlays,
         //translated: translatedOverlays || [],
-        osmaccessibilitymap: osmaccessibilitymapOverlays(),
-        osmbabymap: osmbabymapOverlays(),
         external: []
     };
 }
