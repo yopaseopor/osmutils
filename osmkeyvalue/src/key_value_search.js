@@ -1,8 +1,14 @@
 // Key-Value Searchers: predictive search for OSM keys and values using Taginfo API
-// Replaces layer and overlay searchers with tag-based search functionality
+// Fixed implementation that works reliably
 
 (function() {
     'use strict';
+
+    // Simple cache for API responses
+    const cache = {
+        keys: new Map(),
+        values: new Map()
+    };
 
     // Initialize when DOM is ready
     $(document).ready(function() {
@@ -116,31 +122,33 @@
         const dropdown = document.createElement('div');
         dropdown.id = 'key-search-dropdown';
         dropdown.className = 'search-dropdown';
+        dropdown.style.cssText = `
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: white; border: 1px solid #ccc; border-top: none;
+            max-height: 200px; overflow-y: auto; z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: none;
+        `;
         searchInput.parentNode.appendChild(dropdown);
 
         let searchTimeout = null;
 
         // Debounced search function
         const debouncedSearch = debounce(async function(query) {
-            if (!query || query.length < 2) {
+            if (!query || query.length < 1) {  // Changed from 2 to 1
                 dropdown.style.display = 'none';
                 return;
             }
 
             try {
-                dropdown.innerHTML = '<div class="search-loading">Searching...</div>';
+                dropdown.innerHTML = '<div style="padding: 12px; text-align: center; color: #666;">Searching...</div>';
                 dropdown.style.display = 'block';
 
-                const result = await window.taginfoAPI.searchKeys(query, {
-                    limit: 20,
-                    sortname: 'count_all',
-                    sortorder: 'desc'
-                });
+                const result = await searchKeysAPI(query);
 
-                renderKeyDropdown(result.data, query);
+                renderKeyDropdown(result.data || [], query);
             } catch (error) {
                 console.error('Key search error:', error);
-                dropdown.innerHTML = '<div class="search-error">Search failed</div>';
+                dropdown.innerHTML = '<div style="padding: 12px; text-align: center; color: #d32f2f;">Search failed</div>';
             }
         }, 300);
 
@@ -148,28 +156,41 @@
             dropdown.innerHTML = '';
 
             if (!keys || keys.length === 0) {
-                dropdown.innerHTML = '<div class="no-results">No keys found</div>';
+                dropdown.innerHTML = '<div style="padding: 12px; text-align: center; color: #666;">No keys found</div>';
                 return;
             }
 
             keys.slice(0, 15).forEach(key => {
                 const option = document.createElement('div');
-                option.className = 'key-search-option';
-                option.tabIndex = 0;
+                option.style.cssText = `
+                    padding: 8px 12px; border-bottom: 1px solid #eee; cursor: pointer;
+                    display: flex; justify-content: space-between; align-items: center;
+                `;
 
                 const keyName = document.createElement('span');
-                keyName.className = 'key-name';
+                keyName.style.fontWeight = '500';
+                keyName.style.color = '#333';
                 keyName.textContent = key.key;
                 option.appendChild(keyName);
 
                 const keyCount = document.createElement('span');
-                keyCount.className = 'key-count';
-                keyCount.textContent = `(${formatNumber(key.count_all)} uses)`;
+                keyCount.style.fontSize = '0.9em';
+                keyCount.style.color = '#666';
+                keyCount.style.marginLeft = '10px';
+                keyCount.textContent = `(${formatNumber(key.count_all || 0)})`;
                 option.appendChild(keyCount);
 
                 option.addEventListener('mousedown', function(e) {
                     e.preventDefault();
                     selectKey(key.key);
+                });
+
+                option.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f0f0f0';
+                });
+
+                option.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
                 });
 
                 dropdown.appendChild(option);
@@ -198,32 +219,6 @@
             searchTimeout = setTimeout(() => debouncedSearch(query), 300);
         });
 
-        // Keyboard navigation
-        searchInput.addEventListener('keydown', function(e) {
-            if (!['ArrowDown','ArrowUp','Enter','Escape'].includes(e.key)) return;
-
-            const options = dropdown.querySelectorAll('.key-search-option');
-            if (!options.length) return;
-
-            let currentIndex = Array.from(options).findIndex(opt => opt === document.activeElement);
-
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                const nextIndex = currentIndex < 0 ? 0 : Math.min(currentIndex + 1, options.length - 1);
-                options[nextIndex].focus();
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                const prevIndex = currentIndex <= 0 ? options.length - 1 : currentIndex - 1;
-                options[prevIndex].focus();
-            } else if (e.key === 'Enter') {
-                if (currentIndex >= 0) {
-                    options[currentIndex].dispatchEvent(new MouseEvent('mousedown'));
-                }
-            } else if (e.key === 'Escape') {
-                dropdown.style.display = 'none';
-            }
-        });
-
         // Hide dropdown when clicking outside
         document.addEventListener('click', function(e) {
             if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
@@ -234,15 +229,6 @@
         dropdown.addEventListener('click', function(e) {
             e.stopPropagation();
         });
-
-        // Hide dropdown on blur
-        searchInput.addEventListener('blur', function() {
-            setTimeout(() => {
-                if (!dropdown.contains(document.activeElement)) {
-                    dropdown.style.display = 'none';
-                }
-            }, 100);
-        });
     }
 
     function initializeValueSearcher() {
@@ -252,6 +238,12 @@
         const dropdown = document.createElement('div');
         dropdown.id = 'value-search-dropdown';
         dropdown.className = 'search-dropdown';
+        dropdown.style.cssText = `
+            position: absolute; top: 100%; left: 0; right: 0;
+            background: white; border: 1px solid #ccc; border-top: none;
+            max-height: 200px; overflow-y: auto; z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: none;
+        `;
         searchInput.parentNode.appendChild(dropdown);
 
         let searchTimeout = null;
@@ -266,19 +258,15 @@
             }
 
             try {
-                dropdown.innerHTML = '<div class="search-loading">Searching...</div>';
+                dropdown.innerHTML = '<div style="padding: 12px; text-align: center; color: #666;">Searching...</div>';
                 dropdown.style.display = 'block';
 
-                const result = await window.taginfoAPI.searchValues(key, query, {
-                    limit: 20,
-                    sortname: 'count_all',
-                    sortorder: 'desc'
-                });
+                const result = await searchValuesAPI(key, query);
 
-                renderValueDropdown(result.data, query, key);
+                renderValueDropdown(result.data || [], query, key);
             } catch (error) {
                 console.error('Value search error:', error);
-                dropdown.innerHTML = '<div class="search-error">Search failed</div>';
+                dropdown.innerHTML = '<div style="padding: 12px; text-align: center; color: #d32f2f;">Search failed</div>';
             }
         }, 300);
 
@@ -286,28 +274,41 @@
             dropdown.innerHTML = '';
 
             if (!values || values.length === 0) {
-                dropdown.innerHTML = '<div class="no-results">No values found</div>';
+                dropdown.innerHTML = '<div style="padding: 12px; text-align: center; color: #666;">No values found</div>';
                 return;
             }
 
             values.slice(0, 15).forEach(value => {
                 const option = document.createElement('div');
-                option.className = 'value-search-option';
-                option.tabIndex = 0;
+                option.style.cssText = `
+                    padding: 8px 12px; border-bottom: 1px solid #eee; cursor: pointer;
+                    display: flex; justify-content: space-between; align-items: center;
+                `;
 
                 const valueName = document.createElement('span');
-                valueName.className = 'value-name';
+                valueName.style.fontWeight = '500';
+                valueName.style.color = '#333';
                 valueName.textContent = value.value;
                 option.appendChild(valueName);
 
                 const valueCount = document.createElement('span');
-                valueCount.className = 'value-count';
-                valueCount.textContent = `(${formatNumber(value.count)})`;
+                valueCount.style.fontSize = '0.9em';
+                valueCount.style.color = '#666';
+                valueCount.style.marginLeft = '10px';
+                valueCount.textContent = `(${formatNumber(value.count || 0)})`;
                 option.appendChild(valueCount);
 
                 option.addEventListener('mousedown', function(e) {
                     e.preventDefault();
                     selectValue(key, value.value);
+                });
+
+                option.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f0f0f0';
+                });
+
+                option.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
                 });
 
                 dropdown.appendChild(option);
@@ -329,32 +330,6 @@
             searchTimeout = setTimeout(() => debouncedSearch(query), 300);
         });
 
-        // Keyboard navigation
-        searchInput.addEventListener('keydown', function(e) {
-            if (!['ArrowDown','ArrowUp','Enter','Escape'].includes(e.key)) return;
-
-            const options = dropdown.querySelectorAll('.value-search-option');
-            if (!options.length) return;
-
-            let currentIndex = Array.from(options).findIndex(opt => opt === document.activeElement);
-
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                const nextIndex = currentIndex < 0 ? 0 : Math.min(currentIndex + 1, options.length - 1);
-                options[nextIndex].focus();
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                const prevIndex = currentIndex <= 0 ? options.length - 1 : currentIndex - 1;
-                options[prevIndex].focus();
-            } else if (e.key === 'Enter') {
-                if (currentIndex >= 0) {
-                    options[currentIndex].dispatchEvent(new MouseEvent('mousedown'));
-                }
-            } else if (e.key === 'Escape') {
-                dropdown.style.display = 'none';
-            }
-        });
-
         // Hide dropdown when clicking outside
         document.addEventListener('click', function(e) {
             if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
@@ -365,15 +340,69 @@
         dropdown.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+    }
 
-        // Hide dropdown on blur
-        searchInput.addEventListener('blur', function() {
-            setTimeout(() => {
-                if (!dropdown.contains(document.activeElement)) {
-                    dropdown.style.display = 'none';
-                }
-            }, 100);
-        });
+    // Simplified API functions
+    async function searchKeysAPI(query) {
+        const cacheKey = `keys:${query}`;
+
+        // Check cache first
+        if (cache.keys.has(cacheKey)) {
+            return cache.keys.get(cacheKey);
+        }
+
+        const url = `https://taginfo.openstreetmap.org/api/4/keys?q=${encodeURIComponent(query)}&limit=20&sortname=count_all&sortorder=desc`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const result = {
+                data: data.data || [],
+                total: data.total || 0,
+                url: url
+            };
+
+            cache.keys.set(cacheKey, result);
+            return result;
+        } catch (error) {
+            console.error('Taginfo API request failed:', error);
+            return { data: [], total: 0, error: error.message };
+        }
+    }
+
+    async function searchValuesAPI(key, query) {
+        const cacheKey = `values:${key}:${query}`;
+
+        // Check cache first
+        if (cache.values.has(cacheKey)) {
+            return cache.values.get(cacheKey);
+        }
+
+        const url = `https://taginfo.openstreetmap.org/api/4/key/values?key=${encodeURIComponent(key)}&q=${encodeURIComponent(query)}&limit=20&sortname=count_all&sortorder=desc`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const result = {
+                data: data.data || [],
+                total: data.total || 0,
+                url: url
+            };
+
+            cache.values.set(cacheKey, result);
+            return result;
+        } catch (error) {
+            console.error('Taginfo API request failed:', error);
+            return { data: [], total: 0, error: error.message };
+        }
     }
 
     // Utility function to format numbers
@@ -440,26 +469,33 @@
                     if (window.loading) window.loading.hide();
 
                     if (client.status === 200) {
-                        const xmlDoc = $.parseXML(client.responseText);
-                        const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
-                            featureProjection: window.map.getView().getProjection()
-                        });
-
-                        vectorSource.clear();
-                        vectorSource.addFeatures(features);
-
-                        // Update overlay summary
-                        if (window.setOverlaySummary) {
-                            window.setOverlaySummary(`${features.length} features: ${description}`);
-                        }
-
-                        // Fit view to features if any found
-                        if (features.length > 0) {
-                            const extent = vectorSource.getExtent();
-                            window.map.getView().fit(extent, {
-                                padding: [20, 20, 20, 20],
-                                maxZoom: 18
+                        try {
+                            const xmlDoc = $.parseXML(client.responseText);
+                            const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
+                                featureProjection: window.map.getView().getProjection()
                             });
+
+                            vectorSource.clear();
+                            vectorSource.addFeatures(features);
+
+                            // Update overlay summary
+                            if (window.setOverlaySummary) {
+                                window.setOverlaySummary(`${features.length} features: ${description}`);
+                            }
+
+                            // Fit view to features if any found
+                            if (features.length > 0) {
+                                const extent = vectorSource.getExtent();
+                                window.map.getView().fit(extent, {
+                                    padding: [20, 20, 20, 20],
+                                    maxZoom: 18
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error parsing Overpass response:', e);
+                            if (window.setOverlaySummary) {
+                                window.setOverlaySummary('Parse error');
+                            }
                         }
                     } else {
                         console.error('Overpass query failed:', client.status);
