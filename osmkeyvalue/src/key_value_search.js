@@ -9,6 +9,7 @@
         initializeKeySearcher();
         initializeValueSearcher();
         initializeClearResultsButton();
+        initializeExecuteButton();
     });
 
     function initializeClearResultsButton() {
@@ -62,6 +63,52 @@
         });
     }
 
+    function initializeExecuteButton() {
+        // Check if execute button exists, if not create it
+        let executeButton = document.getElementById('execute-taginfo-search');
+        if (!executeButton) {
+            const searchSection = document.querySelector('.taginfo-search-section');
+            if (searchSection) {
+                const button = document.createElement('button');
+                button.id = 'execute-taginfo-search';
+                button.textContent = 'Search on Map';
+                button.style.cssText = 'padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 3px; cursor: pointer; margin-left: 10px;';
+                button.title = 'Execute search query on the current map view';
+
+                const container = searchSection.querySelector('div');
+                if (container) {
+                    container.appendChild(button);
+                }
+            }
+        }
+
+        executeButton = document.getElementById('execute-taginfo-search');
+        if (executeButton) {
+            executeButton.addEventListener('click', function() {
+                executeCurrentSearch();
+            });
+        }
+    }
+
+    function executeCurrentSearch() {
+        const keyInput = document.getElementById('key-search');
+        const valueInput = document.getElementById('value-search');
+
+        const key = keyInput ? keyInput.value.trim() : '';
+        const value = valueInput ? valueInput.value.trim() : '';
+
+        if (!key) {
+            alert('Please select a key first');
+            return;
+        }
+
+        if (value) {
+            executeKeyValueQuery(key, value);
+        } else {
+            executeKeyQuery(key);
+        }
+    }
+
     function initializeKeySearcher() {
         const searchInput = document.getElementById('key-search');
         if (!searchInput) return;
@@ -71,19 +118,13 @@
         dropdown.className = 'search-dropdown';
         searchInput.parentNode.appendChild(dropdown);
 
-        let currentRequest = null;
-        let lastQuery = '';
+        let searchTimeout = null;
 
         // Debounced search function
         const debouncedSearch = debounce(async function(query) {
             if (!query || query.length < 2) {
                 dropdown.style.display = 'none';
                 return;
-            }
-
-            // Cancel previous request if still pending
-            if (currentRequest) {
-                currentRequest.abort();
             }
 
             try {
@@ -93,15 +134,14 @@
                 // Get current bbox for filtering
                 const bbox = window.taginfoAPI ? window.taginfoAPI.getCurrentBbox() : null;
 
-                currentRequest = await window.taginfoAPI.searchKeys(query, {
+                const result = await window.taginfoAPI.searchKeys(query, {
                     limit: 20,
                     sortname: 'count_all',
                     sortorder: 'desc',
                     ...(bbox && { bbox: bbox })
                 });
 
-                renderKeyDropdown(currentRequest.data, query);
-                lastQuery = query;
+                renderKeyDropdown(result.data, query);
             } catch (error) {
                 console.error('Key search error:', error);
                 dropdown.innerHTML = '<div class="search-error">Search failed</div>';
@@ -149,33 +189,17 @@
             // Trigger value search for this key
             const valueInput = document.getElementById('value-search');
             if (valueInput) {
-                valueInput.focus();
-                // The value searcher will handle the key context
                 valueInput.dataset.selectedKey = key;
+                valueInput.placeholder = `Search values for key: ${key}...`;
             }
-
-            // Generate and execute query for this key
-            executeKeyQuery(key);
-        }
-
-        function executeKeyQuery(key) {
-            if (!window.map || !window.config) return;
-
-            // Get current bbox
-            const view = window.map.getView();
-            const extent = view.calculateExtent();
-            const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
-            const bboxString = `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
-
-            // Create Overpass query for this key
-            const query = `[bbox:${bboxString}];(node[~"${key}"~"."];way[~"${key}"~"."];relation[~"${key}"~"."];);out;`;
-
-            executeOverpassQuery(query, `Features with key: ${key}`);
         }
 
         searchInput.addEventListener('input', function() {
             const query = this.value.trim();
-            debouncedSearch(query);
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            searchTimeout = setTimeout(() => debouncedSearch(query), 300);
         });
 
         // Keyboard navigation
@@ -234,22 +258,15 @@
         dropdown.className = 'search-dropdown';
         searchInput.parentNode.appendChild(dropdown);
 
-        let currentRequest = null;
-        let lastQuery = '';
-        let selectedKey = null;
+        let searchTimeout = null;
 
         // Debounced search function
         const debouncedSearch = debounce(async function(query) {
             const key = searchInput.dataset.selectedKey || '';
 
-            if (!query || query.length < 1) {
+            if (!key || !query || query.length < 1) {
                 dropdown.style.display = 'none';
                 return;
-            }
-
-            // Cancel previous request if still pending
-            if (currentRequest) {
-                currentRequest.abort();
             }
 
             try {
@@ -259,15 +276,14 @@
                 // Get current bbox for filtering
                 const bbox = window.taginfoAPI ? window.taginfoAPI.getCurrentBbox() : null;
 
-                currentRequest = await window.taginfoAPI.searchValues(key, query, {
+                const result = await window.taginfoAPI.searchValues(key, query, {
                     limit: 20,
                     sortname: 'count_all',
                     sortorder: 'desc',
                     ...(bbox && { bbox: bbox })
                 });
 
-                renderValueDropdown(currentRequest.data, query, key);
-                lastQuery = query;
+                renderValueDropdown(result.data, query, key);
             } catch (error) {
                 console.error('Value search error:', error);
                 dropdown.innerHTML = '<div class="search-error">Search failed</div>';
@@ -311,29 +327,14 @@
         function selectValue(key, value) {
             searchInput.value = value;
             dropdown.style.display = 'none';
-
-            // Execute query for key=value combination
-            executeKeyValueQuery(key, value);
-        }
-
-        function executeKeyValueQuery(key, value) {
-            if (!window.map || !window.config) return;
-
-            // Get current bbox
-            const view = window.map.getView();
-            const extent = view.calculateExtent();
-            const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
-            const bboxString = `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
-
-            // Create Overpass query for key=value
-            const query = `[bbox:${bboxString}];(node[~"${key}"~"^${value}$"];way[~"${key}"~"^${value}$"];relation[~"${key}"~"^${value}$"];);out;`;
-
-            executeOverpassQuery(query, `Features with ${key}=${value}`);
         }
 
         searchInput.addEventListener('input', function() {
             const query = this.value.trim();
-            debouncedSearch(query);
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            searchTimeout = setTimeout(() => debouncedSearch(query), 300);
         });
 
         // Keyboard navigation
@@ -391,6 +392,37 @@
             return (num / 1000).toFixed(1) + 'K';
         }
         return num.toString();
+    }
+
+    // Execute Overpass query and display results on map
+    function executeKeyQuery(key) {
+        if (!window.map || !window.config) return;
+
+        // Get current bbox
+        const view = window.map.getView();
+        const extent = view.calculateExtent();
+        const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
+        const bboxString = `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
+
+        // Create Overpass query for this key
+        const query = `[bbox:${bboxString}];(node[~"${key}"~"."];way[~"${key}"~"."];relation[~"${key}"~"."];);out;`;
+
+        executeOverpassQuery(query, `Features with key: ${key}`);
+    }
+
+    function executeKeyValueQuery(key, value) {
+        if (!window.map || !window.config) return;
+
+        // Get current bbox
+        const view = window.map.getView();
+        const extent = view.calculateExtent();
+        const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
+        const bboxString = `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
+
+        // Create Overpass query for key=value
+        const query = `[bbox:${bboxString}];(node[~"${key}"~"^${value}$"];way[~"${key}"~"^${value}$"];relation[~"${key}"~"^${value}$"];);out;`;
+
+        executeOverpassQuery(query, `Features with ${key}=${value}`);
     }
 
     // Execute Overpass query and display results on map
