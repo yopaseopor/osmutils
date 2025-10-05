@@ -4,8 +4,8 @@
 (function() {
     'use strict';
 
-    const searchInput = document.getElementById('layer-search');
-    const dropdown = document.getElementById('layer-search-dropdown');
+    const searchInput = document.getElementById('key-search');
+    const dropdown = document.getElementById('key-search-dropdown');
 
     let currentQuery = '';
     let searchTimeout = null;

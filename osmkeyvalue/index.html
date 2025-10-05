@@ -24,21 +24,38 @@
 		<div id="menu" class="menu">
 			<!-- Language Selector -->
 			<div id="language-selector-container" class="language-selector-wrapper"></div>
-			<!-- Key Searcher (replaces layer searcher) -->
-			<div id="key-search-container" style="margin: 10px 0;">
-			  <input type="text" id="layer-search" data-i18n="keysLabel" placeholder="Search OSM keys..." style="width: 100%; padding: 5px;">
+			<!-- Layer Searcher (original) -->
+			<div id="layer-search-container" style="margin: 10px 0;">
+			  <input type="text" id="layer-search" data-i18n="layersLabel" placeholder="Search layers..." style="width: 100%; padding: 5px;">
 			  <div id="layer-search-dropdown"></div>
 			</div>
-			<!-- Value Searcher (replaces overlay searcher) -->
-			<div id="value-search-container" style="margin: 10px 0;">
-			  <input type="text" id="overlay-search" data-i18n="valuesLabel" placeholder="Select a key first, then search values..." style="width: 100%; padding: 5px;">
+			<!-- Layers section -->
+			<div id="layer-list"></div>
+			<!-- Overlay Searcher (original) -->
+			<div id="overlay-search-container" style="margin: 10px 0;">
+			  <input type="text" id="overlay-search" data-i18n="overlaysLabel" placeholder="Search overlays..." style="width: 100%; padding: 5px;">
 			  <div id="overlay-search-dropdown"></div>
 			  <div id="overlay-search-spinner" style="display:none;position:absolute;right:16px;top:50%;transform:translateY(-50%);z-index:10;"><div class="spinner"></div></div>
 			</div>
+			<!-- Overlays section -->
+			<div id="overlay-list"></div>
+			<!-- Taginfo Key Searcher (additional) -->
+			<div id="taginfo-search-container" style="margin: 10px 0; padding: 15px; background: #f8f9fa; border-radius: 5px; border-top: 3px solid #007bff;">
+			  <div style="font-weight: bold; margin-bottom: 10px; font-size: 1em; color: #007bff;">🔍 Taginfo Searchers</div>
+			  <div style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Search OSM keys and values using Taginfo API</div>
+			  <div id="key-search-container" style="margin-bottom: 10px;">
+			    <input type="text" id="key-search" placeholder="Search OSM keys..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px;">
+			    <div id="key-search-dropdown"></div>
+			  </div>
+			  <div id="value-search-container">
+			    <input type="text" id="value-search" placeholder="Select a key first, then search values..." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px;">
+			    <div id="value-search-dropdown"></div>
+			  </div>
+			</div>
 			<!-- Query Results section -->
-			<div id="query-results" style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 4px;">
-				<div id="query-results-header" style="font-weight: bold; margin-bottom: 5px;">Tag Query Results</div>
-				<div id="query-results-content">Select a key and value to see results on the map</div>
+			<div id="query-results" style="margin: 10px 0; padding: 12px; background: #e8f4fd; border-radius: 5px; border-left: 4px solid #007bff;">
+				<div id="query-results-header" style="font-weight: bold; margin-bottom: 8px; color: #007bff;">📊 Tag Query Results</div>
+				<div id="query-results-content" style="color: #555;">Select a key and value to see results on the map</div>
 			</div>
 		</div>
 	</div>
@@ -66,16 +83,15 @@
 	<!-- Modules -->
 	<script type="module" src="src/components/LanguageSelector.js"></script>
 	<script type="module" src="src/language_init.js"></script>
-	<!-- Overlay modules disabled - replaced by taginfo searchers -->
-	<!--<script type="module" src="src/overlays/translated_overlays.js"></script>-->
-	<!--<script type="module" src="src/overlays/external/loader.js"></script>-->
-	<!--<script type="module" src="src/overlays/index.js"></script>-->
-	<!--<script type="module" src="src/overlay_integration.js"></script>-->
+	<script type="module" src="src/overlays/translated_overlays.js"></script>
+	<script type="module" src="src/overlays/external/loader.js"></script>
+	<script type="module" src="src/overlays/index.js"></script>
+	<script type="module" src="src/overlay_integration.js"></script>
 	<script type="module" src="src/init.js"></script>
 
-	<!-- Application Logic (old searchers disabled - replaced by taginfo searchers) -->
-	<!--<script src="src/layer_search.js"></script>-->
-	<!--<script src="src/overlay_search.js"></script>-->
+	<!-- Application Logic -->
+	<script src="src/layer_search.js"></script>
+	<script src="src/overlay_search.js"></script>
 	<script src="src/nominatim_search.js"></script>
 	<script src="src/panoramax_viewer.js"></script>
 	<script src="src/mapillary_viewer.js"></script>

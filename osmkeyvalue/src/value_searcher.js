@@ -4,8 +4,8 @@
 (function() {
     'use strict';
 
-    const searchInput = document.getElementById('overlay-search');
-    const dropdown = document.getElementById('overlay-search-dropdown');
+    const searchInput = document.getElementById('value-search');
+    const dropdown = document.getElementById('value-search-dropdown');
 
     let currentQuery = '';
     let currentKey = null;
@@ -99,6 +99,12 @@
                 selectedValue = valueData.value;
                 searchInput.value = `${currentKey}=${valueData.value}`;
                 dropdown.style.display = 'none';
+
+                // Focus on value search if available
+                const valueSearchInput = document.getElementById('value-search');
+                if (valueSearchInput) {
+                    valueSearchInput.focus();
+                }
 
                 // Trigger value selection event
                 const event = new CustomEvent('valueSelected', {
