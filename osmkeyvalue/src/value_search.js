@@ -8,9 +8,11 @@ function initValueSearch() {
 
     if (!searchInput.length) return;
 
-    let searchTimeout;
     let currentKey = null;
+    let currentValue = null;
     let currentResults = [];
+
+    // Initialize search input
 
     // Initialize search input
     searchInput.on('input', function() {
@@ -37,6 +39,14 @@ function initValueSearch() {
     resultsContainer.on('click', '.value-search-result', function() {
         const result = $(this).data('result');
         selectValueResult(result);
+    });
+
+    // Handle execute button click
+    $('#execute-query-btn').on('click', function() {
+        if (currentKey && currentValue) {
+            executeTagQuery(currentKey, currentValue);
+            $(this).prop('disabled', true).text('Executing...');
+        }
     });
 
     // Handle keyboard navigation
