@@ -41,12 +41,14 @@ function initValueSearch() {
         selectValueResult(result);
     });
 
-    // Handle execute button click
-    $('#execute-query-btn').on('click', function() {
-        if (currentKey && currentValue) {
-            executeTagQuery(currentKey, currentValue);
-            $(this).prop('disabled', true).text('Executing...');
-        }
+    // Handle clear button click
+    $('#clear-search-btn').on('click', function() {
+        currentKey = null;
+        currentValue = null;
+        searchInput.val('');
+        resultsContainer.empty().hide();
+        $('#execute-query-btn').hide();
+        $(this).hide();
     });
 
     // Handle keyboard navigation
@@ -134,11 +136,19 @@ function initValueSearch() {
     function selectValueResult(result) {
         if (result.key && result.value) {
             // Key-value pair selected
+            currentKey = result.key;
+            currentValue = result.value;
             searchInput.val(result.value);
             resultsContainer.empty().hide();
 
-            // Execute query for this key-value combination
-            executeTagQuery(result.key, result.value);
+            // Show execute button with the selected key-value pair
+            $('#execute-query-btn')
+                .show()
+                .prop('disabled', false)
+                .text('Execute Query: ' + currentKey + '=' + currentValue);
+
+            // Show clear button
+            $('#clear-search-btn').show();
 
             // Trigger custom event
             searchInput.trigger('valueSelected', [result]);
@@ -160,6 +170,9 @@ function initValueSearch() {
 
         // Generate Overpass query
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
+
+        // Update button state
+        $('#execute-query-btn').prop('disabled', true).text('Executing...');
 
         // Create overlay for results
         createTagOverlay(key, value, query);
@@ -262,6 +275,11 @@ function initValueSearch() {
 
         // Trigger overlay update event to refresh the UI
         window.dispatchEvent(new Event('overlaysUpdated'));
+
+        // Reset button state
+        $('#execute-query-btn').prop('disabled', false).text('Query Executed');
+        $('#clear-search-btn').show();
+    }
     }
 
     function findOrCreateTagOverlaysGroup() {
@@ -328,7 +346,6 @@ function initValueSearch() {
         performValueSearch(query, key);
     };
 }
-
 // Initialize when DOM is ready
 $(document).ready(function() {
     initValueSearch();
