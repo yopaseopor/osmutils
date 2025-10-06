@@ -41,17 +41,13 @@ function initValueSearch() {
         selectValueResult(result);
     });
 
-    // Handle clear button click
-    $('#clear-search-btn').on('click', function() {
-        currentKey = null;
-        currentValue = null;
-        searchInput.val('');
-        resultsContainer.empty().hide();
-        $('#execute-query-btn').hide();
-        $(this).hide();
+    // Handle execute button click
+    $('#execute-query-btn').on('click', function() {
+        if (currentKey && currentValue) {
+            executeTagQuery(currentKey, currentValue);
+            $(this).prop('disabled', true).text('Executing...');
+        }
     });
-
-    // Handle keyboard navigation
     searchInput.on('keydown', function(e) {
         const highlighted = resultsContainer.find('.highlighted');
 
@@ -280,7 +276,6 @@ function initValueSearch() {
         $('#execute-query-btn').prop('disabled', false).text('Query Executed');
         $('#clear-search-btn').show();
     }
-    }
 
     function findOrCreateTagOverlaysGroup() {
         // First, try to find existing Tag Queries group
@@ -349,6 +344,7 @@ function initValueSearch() {
 // Initialize when DOM is ready
 $(document).ready(function() {
     initValueSearch();
+    console.log('Value search initialized');
 });
 
 // Export for use in other modules
