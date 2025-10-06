@@ -244,9 +244,18 @@ function searchValues(query, key = null, limit = 20) {
         // Search all values
         for (const [value, valueData] of window.taginfoData.values) {
             if (value.toLowerCase().includes(queryLower)) {
+                // Find keys that use this value
+                const keysWithValue = [];
+                for (const [key, keyData] of window.taginfoData.keys) {
+                    if (keyData.values.has(value)) {
+                        keysWithValue.push(key);
+                    }
+                }
+
                 results.push({
                     value: value,
                     totalCount: valueData.totalCount,
+                    keys: keysWithValue, // Add array of keys that use this value
                     type: 'value'
                 });
 

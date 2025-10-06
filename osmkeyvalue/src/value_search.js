@@ -82,15 +82,23 @@ function initValueSearch() {
     });
 
     function performValueSearch(query, key) {
+        console.log('🔍 performValueSearch called with query:', query, 'key:', key);
+
         if (!window.taginfoData.loaded) {
+            console.log('🔍 Taginfo data not loaded, initializing...');
             // Load taginfo data if not already loaded
             window.initTaginfoAPI().then(() => {
+                console.log('🔍 Taginfo data loaded, retrying search');
                 performValueSearch(query, key);
             });
             return;
         }
 
+        console.log('🔍 Taginfo data loaded, searching...');
         const results = window.searchValues(query, key, 10);
+        console.log('🔍 Value search results:', results.length, 'results');
+        console.log('🔍 First few results:', results.slice(0, 3));
+
         currentResults = results;
         displayValueResults(results);
 
@@ -126,36 +134,48 @@ function initValueSearch() {
     }
 
     function selectValueResult(result) {
-        console.log('selectValueResult called with:', result);
+        console.log('🔍 selectValueResult called with:', result);
+        console.log('🔍 result.key:', result.key, 'result.value:', result.value, 'result.keys:', result.keys);
+
         if (result.key && result.value) {
-            // Key-value pair selected
+            // Key-value pair selected (from specific key search)
             currentKey = result.key;
             currentValue = result.value;
             searchInput.val(result.value);
             resultsContainer.empty().hide();
 
-            // Show execute button with the selected key-value pair
-            const executeBtn = $('#execute-query-btn');
-            const clearBtn = $('#clear-search-btn');
+            showExecuteButton(currentKey, currentValue);
+        } else if (result.keys && result.keys.length > 0 && result.value) {
+            // Value with multiple possible keys - use the first one
+            currentKey = result.keys[0];
+            currentValue = result.value;
+            searchInput.val(result.value);
+            resultsContainer.empty().hide();
 
-            console.log('Buttons found:', executeBtn.length, clearBtn.length);
-
-            executeBtn
-                .show()
-                .prop('disabled', false)
-                .text('Execute Query: ' + currentKey + '=' + currentValue);
-
-            clearBtn.show();
-
-            console.log('Buttons should be visible now');
-
-            // Trigger custom event
-            searchInput.trigger('valueSelected', [result]);
+            showExecuteButton(currentKey, currentValue);
         } else {
             // Just a value selected (no specific key)
+            console.log('🔍 Just a value selected (no key)');
             searchInput.val(result.value);
             resultsContainer.empty().hide();
         }
+    }
+
+    function showExecuteButton(key, value) {
+        const executeBtn = $('#execute-query-btn');
+        const clearBtn = $('#clear-search-btn');
+
+        console.log('🔍 Showing execute button for:', key + '=' + value);
+        console.log('🔍 Buttons found - Execute:', executeBtn.length, 'Clear:', clearBtn.length);
+
+        executeBtn
+            .show()
+            .prop('disabled', false)
+            .text('Execute Query: ' + key + '=' + value);
+
+        clearBtn.show();
+
+        console.log('🔍 Buttons should be visible now');
     }
 
     function executeTagQuery(key, value) {

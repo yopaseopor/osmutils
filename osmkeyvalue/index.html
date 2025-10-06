@@ -24,11 +24,6 @@
 		<div id="menu" class="menu">
 			<!-- Language Selector -->
 			<div id="language-selector-container" class="language-selector-wrapper"></div>
-			<!-- Layer Searcher (at the top) -->
-			<div id="layer-search-container" style="margin: 10px 0;">
-			  <input type="text" id="layer-search" data-i18n="layersLabel" placeholder="Search layers..." style="width: 100%; padding: 5px;">
-			  <div id="layer-search-dropdown"></div>
-			</div>
 			<!-- Key Searcher -->
 			<div id="key-search-container" style="margin: 10px 0;">
 			  <input type="text" id="key-search" placeholder="Search OSM keys..." style="width: 100%; padding: 5px;">
@@ -47,13 +42,6 @@
 			  <label><input type="checkbox" class="element-type-checkbox" value="way" checked> Ways</label>
 			  <label><input type="checkbox" class="element-type-checkbox" value="relation" checked> Relations</label>
 			</div>
-			<!-- Overlay Searcher (between Layers and Overlays) -->
-			<div id="overlay-search-container" style="margin: 10px 0;">
-			  <input type="text" id="overlay-search" data-i18n="overlaysLabel" placeholder="Search overlays..." style="width: 100%; padding: 5px;">
-			  <div id="overlay-search-dropdown"></div>
-			  <div id="overlay-search-spinner" style="display:none;position:absolute;right:16px;top:50%;transform:translateY(-50%);z-index:10;"><div class="spinner"></div></div>
-			</div>
-			<!-- Layers section -->
 			<!-- Overlays section -->
 			<div id="overlay-list"></div>
 		</div>
@@ -89,8 +77,6 @@
 	<script src="src/taginfo_api.js"></script>
 	<script src="src/key_search.js"></script>
 	<script src="src/value_search.js"></script>
-	<script src="src/layer_search.js"></script>
-	<script src="src/overlay_search.js"></script>
 	<script src="src/nominatim_search.js"></script>
 	<script src="src/panoramax_viewer.js"></script>
 	<script src="src/mapillary_viewer.js"></script>
