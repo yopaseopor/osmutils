@@ -17,13 +17,19 @@ function loadTaginfoDefinitions() {
     return new Promise((resolve, reject) => {
         // Check if already loaded
         if (window.taginfoData.loaded) {
+            console.log('Taginfo data already loaded');
             resolve();
             return;
         }
 
+        console.log('Loading taginfo definitions...');
         fetch('taginfo_definitions.csv')
-            .then(response => response.text())
+            .then(response => {
+                console.log('CSV response status:', response.status);
+                return response.text();
+            })
             .then(csvText => {
+                console.log('CSV loaded, length:', csvText.length);
                 parseCSVData(csvText);
                 window.taginfoData.loaded = true;
                 console.log('Taginfo definitions loaded successfully');

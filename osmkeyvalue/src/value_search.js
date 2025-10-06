@@ -130,6 +130,7 @@ function initValueSearch() {
     }
 
     function selectValueResult(result) {
+        console.log('selectValueResult called with:', result);
         if (result.key && result.value) {
             // Key-value pair selected
             currentKey = result.key;
@@ -138,13 +139,19 @@ function initValueSearch() {
             resultsContainer.empty().hide();
 
             // Show execute button with the selected key-value pair
-            $('#execute-query-btn')
+            const executeBtn = $('#execute-query-btn');
+            const clearBtn = $('#clear-search-btn');
+
+            console.log('Buttons found:', executeBtn.length, clearBtn.length);
+
+            executeBtn
                 .show()
                 .prop('disabled', false)
                 .text('Execute Query: ' + currentKey + '=' + currentValue);
 
-            // Show clear button
-            $('#clear-search-btn').show();
+            clearBtn.show();
+
+            console.log('Buttons should be visible now');
 
             // Trigger custom event
             searchInput.trigger('valueSelected', [result]);
@@ -343,8 +350,14 @@ function initValueSearch() {
 }
 // Initialize when DOM is ready
 $(document).ready(function() {
+    console.log('DOM ready, initializing value search...');
     initValueSearch();
     console.log('Value search initialized');
+
+    // Test if buttons exist
+    console.log('Execute button found:', $('#execute-query-btn').length);
+    console.log('Clear button found:', $('#clear-search-btn').length);
+    console.log('Value search input found:', $('#value-search').length);
 });
 
 // Export for use in other modules

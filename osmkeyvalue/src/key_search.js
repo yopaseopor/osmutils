@@ -74,15 +74,20 @@ function initKeySearch() {
     });
 
     function performKeySearch(query) {
+        console.log('Performing key search for:', query);
         if (!window.taginfoData.loaded) {
+            console.log('Taginfo data not loaded, initializing...');
             // Load taginfo data if not already loaded
             window.initTaginfoAPI().then(() => {
+                console.log('Taginfo data loaded, retrying search');
                 performKeySearch(query);
             });
             return;
         }
 
+        console.log('Taginfo data loaded, searching...');
         const results = window.searchKeys(query, 10);
+        console.log('Key search results:', results.length, 'results');
 
         displayKeyResults(results);
 
