@@ -8,11 +8,7 @@ function initValueSearch() {
 
     if (!searchInput.length) return;
 
-    let currentKey = null;
-    let currentValue = null;
-    let currentResults = [];
-
-    // Initialize search input
+    let searchTimeout;
 
     // Initialize search input
     searchInput.on('input', function() {
