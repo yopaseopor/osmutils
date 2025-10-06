@@ -246,23 +246,23 @@ function initValueSearch() {
             })
         });
 
-        // Add to overlays group if it exists
-        const overlaysGroup = findOrCreateOverlaysGroup();
+        // Add to overlays group if it exists, otherwise create one
+        const overlaysGroup = findOrCreateTagOverlaysGroup();
         overlaysGroup.getLayers().push(vectorLayer);
 
-        // Trigger overlay update event
+        // Trigger overlay update event to refresh the UI
         window.dispatchEvent(new Event('overlaysUpdated'));
     }
 
-    function findOrCreateOverlaysGroup() {
-        // Find existing overlays group or create new one
+    function findOrCreateTagOverlaysGroup() {
+        // First, try to find existing Tag Queries group
         for (const layer of config.layers) {
-            if (layer.get('type') === 'overlay') {
+            if (layer.get && layer.get('type') === 'overlay' && layer.get('title') === 'Tag Queries') {
                 return layer;
             }
         }
 
-        // Create new overlays group if none exists
+        // Create new Tag Queries group if none exists
         const overlaysGroup = new ol.layer.Group({
             title: 'Tag Queries',
             type: 'overlay',

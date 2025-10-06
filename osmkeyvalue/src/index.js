@@ -585,14 +585,27 @@ $(function () {
 		view: view
 	});
 
-	// Initialize Nominatim search
-	initNominatimSearch(map);
+    // Initialize Nominatim search
+    initNominatimSearch(map);
 
-	// Initialize PanoraMax viewer
-	initPanoraMaxViewer(map);
+    // Initialize Taginfo API
+    initTaginfoAPI().then(() => {
+        console.log('Taginfo API initialized');
+        // Initialize search modules after taginfo is ready
+        initKeySearch();
+        initValueSearch();
+    }).catch(error => {
+        console.error('Failed to initialize Taginfo API:', error);
+        // Still initialize search modules even if taginfo fails
+        initKeySearch();
+        initValueSearch();
+    });
 
-	// Initialize Mapillary viewer
-	initMapillaryViewer(map);
+    // Initialize PanoraMax viewer
+    initPanoraMaxViewer(map);
+
+    // Initialize Mapillary viewer
+    initMapillaryViewer(map);
 
     // Ensure window.initRouter is set after router.js loads
     if (typeof window.initRouter !== 'function' && typeof initRouter === 'function') {
