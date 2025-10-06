@@ -17,26 +17,38 @@ function loadTaginfoDefinitions() {
     return new Promise((resolve, reject) => {
         // Check if already loaded
         if (window.taginfoData.loaded) {
-            console.log('Taginfo data already loaded');
+            console.log('✅ Taginfo data already loaded');
             resolve();
             return;
         }
 
-        console.log('Loading taginfo definitions...');
+        console.log('📂 Loading taginfo definitions from CSV...');
         fetch('taginfo_definitions.csv')
             .then(response => {
-                console.log('CSV response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                console.log('📄 CSV response status:', response.status);
                 return response.text();
             })
             .then(csvText => {
-                console.log('CSV loaded, length:', csvText.length);
+                console.log('📊 CSV loaded, length:', csvText.length, 'characters');
+                console.log('📝 First few lines:', csvText.split('\n').slice(0, 3));
+
+                const startTime = Date.now();
                 parseCSVData(csvText);
+                const endTime = Date.now();
+
                 window.taginfoData.loaded = true;
-                console.log('Taginfo definitions loaded successfully');
+                console.log('✅ Taginfo definitions loaded successfully in', endTime - startTime, 'ms');
+                console.log('📋 Keys loaded:', window.taginfoData.keys.size);
+                console.log('📋 Values loaded:', window.taginfoData.values.size);
+                console.log('📋 Definitions loaded:', window.taginfoData.definitions.size);
+
                 resolve();
             })
             .catch(error => {
-                console.error('Error loading taginfo definitions:', error);
+                console.error('❌ Error loading taginfo definitions:', error);
                 reject(error);
             });
     });
@@ -183,10 +195,13 @@ function parseCSVLine(line) {
  * Search for keys matching a query string
  */
 function searchKeys(query, limit = 20) {
+    console.log('🔍 Searching keys for query:', query);
     if (!query || query.length < 1) return [];
 
     const results = [];
     const queryLower = query.toLowerCase();
+
+    console.log('📋 Available keys:', window.taginfoData.keys.size);
 
     for (const [key, keyData] of window.taginfoData.keys) {
         if (key.toLowerCase().includes(queryLower) ||
@@ -203,6 +218,7 @@ function searchKeys(query, limit = 20) {
         }
     }
 
+    console.log('🔍 Key search results:', results.length, 'found');
     // Sort by total count (most popular first)
     results.sort((a, b) => b.totalCount - a.totalCount);
 
@@ -213,14 +229,18 @@ function searchKeys(query, limit = 20) {
  * Search for values matching a query string for a specific key
  */
 function searchValues(query, key = null, limit = 20) {
+    console.log('🔍 Searching values for query:', query, 'key:', key);
     if (!query || query.length < 1) return [];
 
     const results = [];
     const queryLower = query.toLowerCase();
 
     if (key && window.taginfoData.keys.has(key)) {
+        console.log('🔍 Searching values for specific key:', key);
         // Search values for specific key
         const keyData = window.taginfoData.keys.get(key);
+        console.log('📋 Key data values count:', keyData.values.size);
+
         for (const [value, valueData] of keyData.values) {
             if (value.toLowerCase().includes(queryLower) ||
                 (valueData.definition && valueData.definition.toLowerCase().includes(queryLower))) {
@@ -240,15 +260,17 @@ function searchValues(query, key = null, limit = 20) {
                 if (results.length >= limit) break;
             }
         }
+        console.log('🔍 Specific key value results:', results.length);
     } else {
+        console.log('🔍 Searching all values');
         // Search all values
         for (const [value, valueData] of window.taginfoData.values) {
             if (value.toLowerCase().includes(queryLower)) {
                 // Find keys that use this value
                 const keysWithValue = [];
-                for (const [key, keyData] of window.taginfoData.keys) {
+                for (const [keyItem, keyData] of window.taginfoData.keys) {
                     if (keyData.values.has(value)) {
-                        keysWithValue.push(key);
+                        keysWithValue.push(keyItem);
                     }
                 }
 
@@ -262,11 +284,13 @@ function searchValues(query, key = null, limit = 20) {
                 if (results.length >= limit) break;
             }
         }
+        console.log('🔍 All values results:', results.length);
     }
 
     // Sort by count (most popular first)
     results.sort((a, b) => (b.countAll || b.totalCount) - (a.countAll || a.totalCount));
 
+    console.log('🔍 Final sorted results:', results.length);
     return results;
 }
 
@@ -303,3 +327,30 @@ window.searchValues = searchValues;
 window.getTagDefinition = getTagDefinition;
 window.generateOverpassQuery = generateOverpassQuery;
 window.initTaginfoAPI = initTaginfoAPI;
+
+// Test function for debugging
+window.testTaginfoData = function() {
+    console.log('🧪 Testing taginfo data...');
+    console.log('📋 Keys loaded:', window.taginfoData.keys.size);
+    console.log('📋 Values loaded:', window.taginfoData.values.size);
+    console.log('📋 Definitions loaded:', window.taginfoData.definitions.size);
+    console.log('📋 Data loaded:', window.taginfoData.loaded);
+
+    if (window.taginfoData.keys.size > 0) {
+        const firstKey = Array.from(window.taginfoData.keys.keys())[0];
+        console.log('🔍 First key:', firstKey);
+        console.log('🔍 Key data:', window.taginfoData.keys.get(firstKey));
+    }
+
+    // Test search
+    console.log('🔍 Testing key search for "building"...');
+    const keyResults = searchKeys('building', 5);
+    console.log('🏗️ Building key results:', keyResults);
+
+    return {
+        keys: window.taginfoData.keys.size,
+        values: window.taginfoData.values.size,
+        definitions: window.taginfoData.definitions.size,
+        loaded: window.taginfoData.loaded
+    };
+};

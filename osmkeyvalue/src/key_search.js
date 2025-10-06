@@ -163,7 +163,9 @@ function initKeySearch() {
 
 // Initialize when DOM is ready
 $(document).ready(function() {
+    console.log('🔧 Initializing key search...');
     initKeySearch();
+    console.log('✅ Key search initialized');
 });
 
 // Export for use in other modules
