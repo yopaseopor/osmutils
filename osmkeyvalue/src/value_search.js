@@ -349,7 +349,14 @@ function initValueSearch() {
 
         // Add to overlays group if it exists, otherwise create one
         const overlaysGroup = findOrCreateTagOverlaysGroup();
+        console.log('🔍 Adding vector layer to group');
         overlaysGroup.getLayers().push(vectorLayer);
+
+        // Make sure the overlay group is visible
+        overlaysGroup.setVisible(true);
+        vectorLayer.setVisible(true);
+
+        console.log('🔍 Vector layer added, group layers count:', overlaysGroup.getLayers().getLength());
 
         // Trigger overlay update event to refresh the UI
         window.dispatchEvent(new Event('overlaysUpdated'));
@@ -360,14 +367,17 @@ function initValueSearch() {
     }
 
     function findOrCreateTagOverlaysGroup() {
+        console.log('🔍 Looking for Tag Queries group');
         // First, try to find existing Tag Queries group
         for (const layer of config.layers) {
             if (layer.get && layer.get('type') === 'overlay' && layer.get('title') === 'Tag Queries') {
+                console.log('🔍 Found existing Tag Queries group');
                 return layer;
             }
         }
 
         // Create new Tag Queries group if none exists
+        console.log('🔍 Creating new Tag Queries group');
         const overlaysGroup = new ol.layer.Group({
             title: 'Tag Queries',
             type: 'overlay',
@@ -375,6 +385,7 @@ function initValueSearch() {
         });
 
         config.layers.push(overlaysGroup);
+        console.log('🔍 Added Tag Queries group to config.layers');
         return overlaysGroup;
     }
 
