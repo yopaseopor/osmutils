@@ -415,8 +415,19 @@ function initValueSearch() {
 // Initialize when DOM is ready
 $(document).ready(function() {
     console.log('DOM ready, initializing value search...');
-    initValueSearch();
-    console.log('Value search initialized');
+
+    // Wait for map to be ready
+    const waitForMap = () => {
+        if (window.map && typeof window.map.getView === 'function') {
+            initValueSearch();
+            console.log('✅ Value search initialized');
+        } else {
+            console.log('⏳ Waiting for map to be ready...');
+            setTimeout(waitForMap, 100);
+        }
+    };
+
+    waitForMap();
 
     // Test if buttons exist
     console.log('Execute button found:', $('#execute-query-btn').length);

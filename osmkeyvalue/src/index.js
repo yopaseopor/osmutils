@@ -585,6 +585,9 @@ $(function () {
 		view: view
 	});
 
+	// Export map to global scope for other modules
+	window.map = map;
+
     // Initialize Nominatim search
     initNominatimSearch(map);
 
