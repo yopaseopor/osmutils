@@ -54,12 +54,28 @@ function initValueSearch() {
 
     // Handle result selection
     resultsContainer.on('click', '.value-search-result', function() {
-        const result = $(this).data('result');
+        let result = $(this).data('result');
+
+        // If jQuery data didn't work, try the attribute
+        if (!result) {
+            const attrData = $(this).attr('data-result');
+            if (attrData) {
+                try {
+                    result = JSON.parse(attrData);
+                } catch (e) {
+                    console.error('🔍 Failed to parse result attribute:', e);
+                }
+            }
+        }
+
         console.log('🔍 Clicked result data:', result);
         if (result) {
             selectValueResult(result);
         } else {
             console.error('🔍 No result data found on clicked element');
+            console.log('🔍 Element HTML:', $(this).html());
+            console.log('🔍 Element data:', $(this).data());
+            console.log('🔍 Element attributes:', $(this).attr());
         }
     });
 
@@ -195,12 +211,15 @@ function initValueSearch() {
 
             const resultElement = $('<div>')
                 .addClass('value-search-result')
+                .attr('data-result', JSON.stringify(result))  // Store as attribute as well
                 .data('result', result)
                 .html(html);
 
             // Debug: check if data was stored correctly
             const storedData = resultElement.data('result');
+            const attrData = resultElement.attr('data-result');
             console.log('🔍 Stored result data check:', storedData);
+            console.log('🔍 Attribute data check:', attrData);
 
             resultsContainer.append(resultElement);
         });

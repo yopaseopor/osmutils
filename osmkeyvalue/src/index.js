@@ -98,12 +98,40 @@ $(function () {
         if (window.updateTranslations) window.updateTranslations();
         updateWindowOverlays(); // Refresh overlays for searcher
         if (window.renderOverlayList && window.overlays) window.renderOverlayList(window.overlays);
-        
-        // Rebuild the layers control to update group titles
-        $('.osmcat-menu').remove();
-        $('#menu').prepend(layersControlBuild());
+
+        // Instead of completely rebuilding the menu, just update the overlay sections
+        const $existingMenu = $('.osmcat-menu');
+        if ($existingMenu.length) {
+            // Update existing menu without removing it entirely
+            const overlaySelect = $existingMenu.find('.osmcat-select');
+            if (overlaySelect.length) {
+                // Update the overlay selector options if it exists
+                updateOverlaySelector(overlaySelect);
+            }
+        } else {
+            // Rebuild the layers control only if it doesn't exist
+            $('#menu').prepend(layersControlBuild());
+        }
     });
-    
+
+    function updateOverlaySelector(overlaySelect) {
+        // Update the overlay selector options
+        overlaySelect.empty();
+        let overlayIndex = 0;
+
+        config.layers.forEach(layer => {
+            if (layer.get('type') === 'overlay') {
+                const originalTitle = layer.get('originalTitle') || layer.get('title');
+                const title = window.getTranslation ? window.getTranslation(originalTitle) : originalTitle;
+
+                overlaySelect.append($('<option>').val('overlay' + overlayIndex).text(title));
+                overlayIndex++;
+            }
+        });
+
+        overlaySelect.trigger('change');
+    }
+
     // Store the current UI state
     function getUIState() {
         const state = {
