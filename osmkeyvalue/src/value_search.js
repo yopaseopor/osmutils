@@ -109,23 +109,14 @@ function initValueSearch() {
     });
 
     function performValueSearch(query, key) {
-        console.log('🔍 performValueSearch called with query:', query, 'key:', key);
-
         if (!window.taginfoData.loaded) {
-            console.log('🔍 Taginfo data not loaded, initializing...');
-            // Load taginfo data if not already loaded
             window.initTaginfoAPI().then(() => {
-                console.log('🔍 Taginfo data loaded, retrying search');
                 performValueSearch(query, key);
             });
             return;
         }
 
-        console.log('🔍 Taginfo data loaded, searching...');
         const results = window.searchValues(query, key, 10);
-        console.log('🔍 Value search results:', results.length, 'results');
-        console.log('🔍 First few results:', results.slice(0, 3));
-
         currentResults = results;
         displayValueResults(results);
 
@@ -161,9 +152,6 @@ function initValueSearch() {
     }
 
     function selectValueResult(result) {
-        console.log('🔍 selectValueResult called with:', result);
-        console.log('🔍 result.key:', result.key, 'result.value:', result.value, 'result.keys:', result.keys);
-
         if (result.key && result.value) {
             // Key-value pair selected (from specific key search)
             currentKey = result.key;
@@ -182,7 +170,6 @@ function initValueSearch() {
             showExecuteButton(currentKey, currentValue);
         } else {
             // Just a value selected (no specific key)
-            console.log('🔍 Just a value selected (no key)');
             searchInput.val(result.value);
             resultsContainer.empty().hide();
         }
@@ -192,51 +179,36 @@ function initValueSearch() {
         const executeBtn = $('#execute-query-btn');
         const clearBtn = $('#clear-search-btn');
 
-        console.log('🔍 Showing execute button for:', key + '=' + value);
-        console.log('🔍 Buttons found - Execute:', executeBtn.length, 'Clear:', clearBtn.length);
-
         executeBtn
             .show()
             .prop('disabled', false)
             .text('Execute Query: ' + key + '=' + value);
 
         clearBtn.show();
-
-        console.log('🔍 Buttons should be visible now');
     }
 
     function executeTagQuery(key, value) {
-        console.log('🚀 executeTagQuery called with:', key, '=', value);
-
         // Check if map is ready with retry mechanism
         if (!window.map) {
-            console.log('⏳ Map not defined yet, waiting...');
             setTimeout(() => executeTagQuery(key, value), 500);
             return;
         }
 
         if (typeof window.map.getView !== 'function') {
-            console.log('⏳ Map.getView not available yet, waiting...');
             setTimeout(() => executeTagQuery(key, value), 500);
             return;
         }
-
-        console.log('✅ Map is ready, executing query');
 
         // Get current map bbox
         const view = window.map.getView();
         const extent = view.calculateExtent();
         const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
 
-        console.log('🗺️ Map bbox:', bbox);
-
         // Get element types from UI (default to all)
         const elementTypes = getSelectedElementTypes();
 
         // Generate Overpass query
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
-
-        console.log('🔍 Generated query:', query);
 
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text('Executing...');
@@ -414,25 +386,16 @@ function initValueSearch() {
 }
 // Initialize when DOM is ready
 $(document).ready(function() {
-    console.log('DOM ready, initializing value search...');
-
     // Wait for map to be ready
     const waitForMap = () => {
         if (window.map && typeof window.map.getView === 'function') {
             initValueSearch();
-            console.log('✅ Value search initialized');
         } else {
-            console.log('⏳ Waiting for map to be ready...');
             setTimeout(waitForMap, 100);
         }
     };
 
     waitForMap();
-
-    // Test if buttons exist
-    console.log('Execute button found:', $('#execute-query-btn').length);
-    console.log('Clear button found:', $('#clear-search-btn').length);
-    console.log('Value search input found:', $('#value-search').length);
 });
 
 // Export for use in other modules

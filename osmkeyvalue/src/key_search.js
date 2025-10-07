@@ -74,25 +74,14 @@ function initKeySearch() {
     });
 
     function performKeySearch(query) {
-        console.log('🔍 performKeySearch called with query:', query);
-
         if (!window.taginfoData.loaded) {
-            console.log('❌ Taginfo data not loaded, initializing...');
-            // Load taginfo data if not already loaded
             window.initTaginfoAPI().then(() => {
-                console.log('✅ Taginfo data loaded, retrying search');
                 performKeySearch(query);
-            }).catch(error => {
-                console.error('❌ Error loading taginfo data:', error);
             });
             return;
         }
 
-        console.log('✅ Taginfo data loaded, searching...');
         const results = window.searchKeys(query, 10);
-        console.log('🔍 Key search results:', results.length, 'results');
-        console.log('🔍 Sample results:', results.slice(0, 3));
-
         displayKeyResults(results);
 
         // Trigger custom event for other components
@@ -170,9 +159,7 @@ function initKeySearch() {
 
 // Initialize when DOM is ready
 $(document).ready(function() {
-    console.log('🔧 Initializing key search...');
     initKeySearch();
-    console.log('✅ Key search initialized');
 });
 
 // Export for use in other modules
