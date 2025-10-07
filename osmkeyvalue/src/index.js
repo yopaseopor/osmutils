@@ -94,7 +94,7 @@ $(function () {
     // Update overlays when they change
     window.addEventListener('overlaysUpdated', function() {
         // Overlays are updated by overlays/index.js
-        updateTranslatedOverlayGroup();
+        // updateTranslatedOverlayGroup(); // Function doesn't exist, removed
         if (window.updateTranslations) window.updateTranslations();
         updateWindowOverlays(); // Refresh overlays for searcher
         if (window.renderOverlayList && window.overlays) window.renderOverlayList(window.overlays);
