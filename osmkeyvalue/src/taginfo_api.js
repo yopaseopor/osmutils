@@ -202,7 +202,11 @@ function searchKeys(query, limit = 20) {
     }
 
     // Sort by total count (most popular first)
-    results.sort((a, b) => b.totalCount - a.totalCount);
+    results.sort((a, b) => {
+        const aCount = a.totalCount || 0;
+        const bCount = b.totalCount || 0;
+        return bCount - aCount;
+    });
 
     console.log('🔍 Found', results.length, 'key results from', matchCount, 'matches');
     return results;
@@ -255,7 +259,12 @@ function searchValues(query, key = null, limit = 20) {
                     value: value,
                     totalCount: valueData.totalCount,
                     keys: keysWithValue,
-                    type: 'value'
+                    type: 'value',
+                    // Add default values for consistency
+                    key: keysWithValue.length > 0 ? keysWithValue[0] : null,
+                    tag: null,
+                    definition: '',
+                    countAll: valueData.totalCount
                 });
 
                 if (results.length >= limit) break;
@@ -264,7 +273,11 @@ function searchValues(query, key = null, limit = 20) {
     }
 
     // Sort by count (most popular first)
-    results.sort((a, b) => (b.countAll || b.totalCount) - (a.countAll || a.totalCount));
+    results.sort((a, b) => {
+        const aCount = a.countAll || a.totalCount || 0;
+        const bCount = b.countAll || b.totalCount || 0;
+        return bCount - aCount;
+    });
 
     return results;
 }

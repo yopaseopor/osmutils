@@ -55,7 +55,12 @@ function initValueSearch() {
     // Handle result selection
     resultsContainer.on('click', '.value-search-result', function() {
         const result = $(this).data('result');
-        selectValueResult(result);
+        console.log('🔍 Clicked result data:', result);
+        if (result) {
+            selectValueResult(result);
+        } else {
+            console.error('🔍 No result data found on clicked element');
+        }
     });
 
     // Handle execute button click
@@ -110,9 +115,15 @@ function initValueSearch() {
                 e.preventDefault();
                 if (highlighted.length) {
                     const result = highlighted.data('result');
-                    selectValueResult(result);
+                    console.log('🔍 Enter key value result data:', result);
+                    if (result) {
+                        selectValueResult(result);
+                    } else {
+                        console.error('🔍 No result data found on highlighted value element');
+                    }
                 } else if (currentResults.length > 0) {
                     // Select first result if none highlighted
+                    console.log('🔍 Enter key selecting first result:', currentResults[0]);
                     selectValueResult(currentResults[0]);
                 }
                 break;
@@ -187,6 +198,10 @@ function initValueSearch() {
                 .data('result', result)
                 .html(html);
 
+            // Debug: check if data was stored correctly
+            const storedData = resultElement.data('result');
+            console.log('🔍 Stored result data check:', storedData);
+
             resultsContainer.append(resultElement);
         });
 
@@ -195,6 +210,13 @@ function initValueSearch() {
     }
 
     function selectValueResult(result) {
+        console.log('🔍 selectValueResult called with:', result);
+
+        if (!result) {
+            console.error('🔍 selectValueResult: result is undefined or null');
+            return;
+        }
+
         if (result.key && result.value) {
             // Key-value pair selected (from specific key search)
             currentKey = result.key;
@@ -211,10 +233,14 @@ function initValueSearch() {
             resultsContainer.empty().hide();
 
             showExecuteButton(currentKey, currentValue);
-        } else {
+        } else if (result.value) {
             // Just a value selected (no specific key)
+            currentKey = null;
+            currentValue = result.value;
             searchInput.val(result.value);
             resultsContainer.empty().hide();
+        } else {
+            console.error('🔍 selectValueResult: result missing required properties:', result);
         }
     }
 

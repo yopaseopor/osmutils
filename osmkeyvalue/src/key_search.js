@@ -49,7 +49,12 @@ function initKeySearch() {
     // Handle result selection
     resultsContainer.on('click', '.key-search-result', function() {
         const result = $(this).data('result');
-        selectKeyResult(result);
+        console.log('🔑 Clicked key result data:', result);
+        if (result) {
+            selectKeyResult(result);
+        } else {
+            console.error('🔑 No result data found on clicked key element');
+        }
     });
 
     // Handle keyboard navigation
@@ -77,7 +82,12 @@ function initKeySearch() {
                 e.preventDefault();
                 if (highlighted.length) {
                     const result = highlighted.data('result');
-                    selectKeyResult(result);
+                    console.log('🔑 Enter key result data:', result);
+                    if (result) {
+                        selectKeyResult(result);
+                    } else {
+                        console.error('🔑 No result data found on highlighted key element');
+                    }
                 }
                 break;
             case 27: // Escape
@@ -146,6 +156,11 @@ function initKeySearch() {
     function selectKeyResult(result) {
         console.log('🔑 selectKeyResult called with:', result);
 
+        if (!result) {
+            console.error('🔑 selectKeyResult: result is undefined or null');
+            return;
+        }
+
         if (result.key) {
             searchInput.val(result.key);
             resultsContainer.empty().hide();
@@ -161,6 +176,8 @@ function initKeySearch() {
             }
 
             console.log('✅ Key selected:', result.key);
+        } else {
+            console.error('🔑 selectKeyResult: result missing key property:', result);
         }
     }
 
