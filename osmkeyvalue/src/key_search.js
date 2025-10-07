@@ -74,20 +74,24 @@ function initKeySearch() {
     });
 
     function performKeySearch(query) {
-        console.log('Performing key search for:', query);
+        console.log('🔍 performKeySearch called with query:', query);
+
         if (!window.taginfoData.loaded) {
-            console.log('Taginfo data not loaded, initializing...');
+            console.log('❌ Taginfo data not loaded, initializing...');
             // Load taginfo data if not already loaded
             window.initTaginfoAPI().then(() => {
-                console.log('Taginfo data loaded, retrying search');
+                console.log('✅ Taginfo data loaded, retrying search');
                 performKeySearch(query);
+            }).catch(error => {
+                console.error('❌ Error loading taginfo data:', error);
             });
             return;
         }
 
-        console.log('Taginfo data loaded, searching...');
+        console.log('✅ Taginfo data loaded, searching...');
         const results = window.searchKeys(query, 10);
-        console.log('Key search results:', results.length, 'results');
+        console.log('🔍 Key search results:', results.length, 'results');
+        console.log('🔍 Sample results:', results.slice(0, 3));
 
         displayKeyResults(results);
 
@@ -121,21 +125,24 @@ function initKeySearch() {
     }
 
     function selectKeyResult(result) {
-        searchInput.val(result.key);
-        resultsContainer.empty().hide();
+        console.log('🔑 selectKeyResult called with:', result);
 
-        // Focus on value search if it exists
-        const valueSearchInput = $('#value-search');
-        if (valueSearchInput.length) {
-            valueSearchInput.focus();
-            // Trigger value search for this key
-            if (window.searchValuesForKey) {
-                window.searchValuesForKey(result.key, '');
+        if (result.key) {
+            searchInput.val(result.key);
+            resultsContainer.empty().hide();
+
+            // Communicate with value search - set the selected key
+            const valueSearchInput = $('#value-search');
+            if (valueSearchInput.length) {
+                console.log('🔗 Setting key for value search:', result.key);
+                valueSearchInput.data('selectedKey', result.key);
+
+                // Trigger event for value search to know a key was selected
+                valueSearchInput.trigger('keySelected', [result]);
             }
-        }
 
-        // Trigger custom event
-        searchInput.trigger('keySelected', [result]);
+            console.log('✅ Key selected:', result.key);
+        }
     }
 
     function escapeHtml(text) {

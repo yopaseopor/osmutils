@@ -17,6 +17,9 @@ function initValueSearch() {
     searchInput.on('input', function() {
         const query = $(this).val().trim();
 
+        // Get the selected key from key search
+        const selectedKey = $(this).data('selectedKey');
+
         // Clear previous timeout
         if (searchTimeout) {
             clearTimeout(searchTimeout);
@@ -28,9 +31,9 @@ function initValueSearch() {
             return;
         }
 
-        // Debounce search
+        // Debounce search - use selected key if available
         searchTimeout = setTimeout(() => {
-            performValueSearch(query, currentKey);
+            performValueSearch(query, selectedKey);
         }, 300);
     });
 
@@ -47,6 +50,27 @@ function initValueSearch() {
             $(this).prop('disabled', true).text('Executing...');
         }
     });
+
+    // Handle clear button click
+    $('#clear-search-btn').on('click', function() {
+        console.log('🧹 Clear button clicked');
+
+        currentKey = null;
+        currentValue = null;
+        currentResults = [];
+
+        searchInput.val('');
+        resultsContainer.empty().hide();
+
+        $('#execute-query-btn').hide().prop('disabled', false).text('Execute Query');
+        $(this).hide();
+
+        // Clear the selected key from value search
+        searchInput.removeData('selectedKey');
+
+        console.log('✅ Search cleared');
+    });
+
     searchInput.on('keydown', function(e) {
         const highlighted = resultsContainer.find('.highlighted');
 
@@ -182,16 +206,37 @@ function initValueSearch() {
     }
 
     function executeTagQuery(key, value) {
+        console.log('🚀 executeTagQuery called with:', key, '=', value);
+
+        // Check if map is ready with retry mechanism
+        if (!window.map) {
+            console.log('⏳ Map not defined yet, waiting...');
+            setTimeout(() => executeTagQuery(key, value), 500);
+            return;
+        }
+
+        if (typeof window.map.getView !== 'function') {
+            console.log('⏳ Map.getView not available yet, waiting...');
+            setTimeout(() => executeTagQuery(key, value), 500);
+            return;
+        }
+
+        console.log('✅ Map is ready, executing query');
+
         // Get current map bbox
         const view = window.map.getView();
         const extent = view.calculateExtent();
         const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
+
+        console.log('🗺️ Map bbox:', bbox);
 
         // Get element types from UI (default to all)
         const elementTypes = getSelectedElementTypes();
 
         // Generate Overpass query
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
+
+        console.log('🔍 Generated query:', query);
 
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text('Executing...');

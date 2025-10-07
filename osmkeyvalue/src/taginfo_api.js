@@ -58,102 +58,82 @@ function loadTaginfoDefinitions() {
  * Parse CSV data and organize it for fast searching
  */
 function parseCSVData(csvText) {
+    console.log('🔄 Starting CSV parsing...');
     const lines = csvText.split('\n');
+    console.log('📊 Total lines in CSV:', lines.length);
+
+    if (lines.length === 0) {
+        console.error('❌ CSV file is empty!');
+        return;
+    }
+
+    // Parse header
     const headers = lines[0].split(',');
+    console.log('📋 CSV Headers:', headers);
 
-    // Find column indices
-    const keyIndex = headers.indexOf('key');
-    const valueIndex = headers.indexOf('value');
-    const tagIndex = headers.indexOf('tag');
-    const definitionEnIndex = headers.indexOf('definition_en');
-    const countAllIndex = headers.indexOf('count_all');
-    const countNodesIndex = headers.indexOf('count_nodes');
-    const countWaysIndex = headers.indexOf('count_ways');
-    const countRelationsIndex = headers.indexOf('count_relations');
+    if (headers.length < 5) {
+        console.error('❌ CSV headers incomplete:', headers);
+        return;
+    }
 
-    // Parse each line (skip header)
-    for (let i = 1; i < lines.length; i++) {
-        const values = parseCSVLine(lines[i]);
-        if (values.length < headers.length) continue;
+    const expectedHeaders = ['key', 'value', 'tag', 'definition', 'countAll'];
+    const hasExpectedHeaders = expectedHeaders.every(h => headers.includes(h));
 
-        const key = values[keyIndex];
-        const value = values[valueIndex];
-        const tag = values[tagIndex];
-        const definition = values[definitionEnIndex];
-        const countAll = parseInt(values[countAllIndex]) || 0;
-        const countNodes = parseInt(values[countNodesIndex]) || 0;
-        const countWays = parseInt(values[countWaysIndex]) || 0;
-        const countRelations = parseInt(values[countRelationsIndex]) || 0;
+    if (!hasExpectedHeaders) {
+        console.warn('⚠️ CSV headers don\'t match expected format:', headers);
+    }
 
-        if (!key) continue;
+    console.log('🔄 Processing', Math.min(1000, lines.length - 1), 'rows for testing...');
 
-        // Store key data
-        if (!window.taginfoData.keys.has(key)) {
-            window.taginfoData.keys.set(key, {
-                key: key,
-                totalCount: 0,
-                values: new Map(),
-                definition: definition
+    // Process data rows
+    for (let i = 1; i < lines.length && i < 1001; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        const values = parseCSVLine(line);
+        if (values.length >= 5) {
+            const [key, value, tag, definition, countAll] = values;
+
+            // Add to keys map
+            if (!window.taginfoData.keys.has(key)) {
+                window.taginfoData.keys.set(key, {
+                    definition: '',
+                    totalCount: 0,
+                    values: new Map()
+                });
+            }
+
+            const keyData = window.taginfoData.keys.get(key);
+            keyData.values.set(value, {
+                tag: tag,
+                definition: definition,
+                countAll: parseInt(countAll) || 0,
+                countNodes: 0,
+                countWays: 0,
+                countRelations: 0
             });
-        }
-        const keyData = window.taginfoData.keys.get(key);
-        keyData.totalCount += countAll;
 
-        // Store value data if it exists
-        if (value) {
+            keyData.totalCount += parseInt(countAll) || 0;
+
+            // Add to values map (for global value search)
             if (!window.taginfoData.values.has(value)) {
                 window.taginfoData.values.set(value, {
-                    value: value,
-                    totalCount: 0,
-                    keys: new Map()
+                    totalCount: 0
                 });
             }
-            const valueData = window.taginfoData.values.get(value);
-            valueData.totalCount += countAll;
+            window.taginfoData.values.get(value).totalCount += parseInt(countAll) || 0;
 
-            // Store key-value relationship
-            if (!valueData.keys.has(key)) {
-                valueData.keys.set(key, {
-                    key: key,
-                    value: value,
-                    tag: tag,
-                    definition: definition,
-                    countAll: countAll,
-                    countNodes: countNodes,
-                    countWays: countWays,
-                    countRelations: countRelations
-                });
+            // Add to definitions
+            if (tag) {
+                window.taginfoData.definitions.set(tag, definition);
             }
-
-            // Store in key's values
-            if (!keyData.values.has(value)) {
-                keyData.values.set(value, {
-                    key: key,
-                    value: value,
-                    tag: tag,
-                    definition: definition,
-                    countAll: countAll,
-                    countNodes: countNodes,
-                    countWays: countWays,
-                    countRelations: countRelations
-                });
-            }
-        }
-
-        // Store tag definition
-        if (tag) {
-            window.taginfoData.definitions.set(tag, {
-                tag: tag,
-                key: key,
-                value: value,
-                definition: definition,
-                countAll: countAll,
-                countNodes: countNodes,
-                countWays: countWays,
-                countRelations: countRelations
-            });
         }
     }
+
+    console.log('✅ CSV parsing completed');
+    console.log('📋 Keys loaded:', window.taginfoData.keys.size);
+    console.log('📋 Values loaded:', window.taginfoData.values.size);
+    console.log('📋 Definitions loaded:', window.taginfoData.definitions.size);
 }
 
 /**
