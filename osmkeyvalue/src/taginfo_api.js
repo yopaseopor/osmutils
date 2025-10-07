@@ -69,13 +69,16 @@ function parseCSVData(csvText) {
         if (!line) continue;
 
         const values = parseCSVLine(line);
-        if (values.length >= 9) {  // Updated to match CSV structure
-            const [key, value, tag, definition, countAll, countNodes, countWays, countRelations, definition_en] = values;
+        if (values.length >= 13) {  // Updated to match actual CSV structure
+            const [
+                key, value, tag, definition, countAll, countNodes, countWays, countRelations,
+                definition_en, in_wiki, description, icon, osm_key, osm_value
+            ] = values;
 
             // Add to keys map
             if (!window.taginfoData.keys.has(key)) {
                 window.taginfoData.keys.set(key, {
-                    definition: definition_en || definition || '',  // Use definition_en if available
+                    definition: definition_en || description || definition || '',  // Try multiple description fields
                     totalCount: 0,
                     values: new Map()
                 });
@@ -84,7 +87,7 @@ function parseCSVData(csvText) {
             const keyData = window.taginfoData.keys.get(key);
             keyData.values.set(value, {
                 tag: tag,
-                definition: definition_en || definition || '',  // Use definition_en if available
+                definition: definition_en || description || definition || '',  // Try multiple description fields
                 countAll: parseInt(countAll) || 0,
                 countNodes: parseInt(countNodes) || 0,
                 countWays: parseInt(countWays) || 0,
@@ -103,12 +106,19 @@ function parseCSVData(csvText) {
 
             // Add to definitions
             if (tag) {
-                window.taginfoData.definitions.set(tag, definition_en || definition || '');
+                window.taginfoData.definitions.set(tag, definition_en || description || definition || '');
             }
 
             // Debug first few entries
             if (i <= 3) {
-                console.log('📊 Sample entry:', { key, value, countAll: parseInt(countAll) || 0, definition_en: definition_en ? 'present' : 'empty' });
+                console.log('📊 Sample entry:', {
+                    key,
+                    value,
+                    countAll: parseInt(countAll) || 0,
+                    definition_en: definition_en ? 'present' : 'empty',
+                    description: description ? 'present' : 'empty',
+                    definition: definition ? 'present' : 'empty'
+                });
             }
         }
     }

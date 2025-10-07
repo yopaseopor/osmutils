@@ -153,6 +153,10 @@ function initValueSearch() {
         console.log('🔍 Displaying results...');
         results.forEach((result, index) => {
             console.log('🔍 Result', index, ':', result.value || result.key);
+            console.log('🔍 Result definition:', result.definition);
+            console.log('🔍 Result countAll:', result.countAll);
+            console.log('🔍 Result totalCount:', result.totalCount);
+
             const resultElement = $('<div>')
                 .addClass('value-search-result')
                 .data('result', result)
