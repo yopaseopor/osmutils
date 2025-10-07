@@ -1061,11 +1061,6 @@ CLEAR ACTIVE OVERLAY BUTTON
   box-sizing: border-box;
 }
 .overlay-search-dropdown, #layer-search-dropdown {
-  position: absolute;
-  left: 0; right: 0;
-  top: 100%;
-  z-index: 100;
-  background: #fff;
   border: 1px solid #bbb;
   border-top: none;
   max-height: 200px;

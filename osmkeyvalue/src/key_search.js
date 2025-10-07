@@ -3,17 +3,30 @@
  */
 
 function initKeySearch() {
+    console.log('🔑 initKeySearch called');
     const searchInput = $('#key-search');
     const resultsContainer = $('#key-search-dropdown');
 
-    if (!searchInput.length) return;
+    console.log('🔑 Key search input found:', searchInput.length);
+    console.log('🔑 Key search dropdown found:', resultsContainer.length);
+
+    if (!searchInput.length) {
+        console.error('🔑 Key search input not found!');
+        return;
+    }
+
+    if (!resultsContainer.length) {
+        console.error('🔑 Key search dropdown not found!');
+        return;
+    }
 
     let searchTimeout;
     let currentResults = [];
 
-    // Initialize search input
+    // Initialize search input with debugging
     searchInput.on('input', function() {
         const query = $(this).val().trim();
+        console.log('🔑 Key search input:', query);
 
         // Clear previous timeout
         if (searchTimeout) {
@@ -28,6 +41,7 @@ function initKeySearch() {
 
         // Debounce search
         searchTimeout = setTimeout(() => {
+            console.log('🔑 Performing key search for:', query);
             performKeySearch(query);
         }, 300);
     });
@@ -74,14 +88,25 @@ function initKeySearch() {
     });
 
     function performKeySearch(query) {
+        console.log('🔑 performKeySearch called with:', query);
+        console.log('🔑 taginfoData.loaded:', window.taginfoData.loaded);
+
         if (!window.taginfoData.loaded) {
+            console.log('🔑 Taginfo data not loaded, initializing...');
             window.initTaginfoAPI().then(() => {
+                console.log('🔑 Taginfo API initialized, retrying search');
                 performKeySearch(query);
+            }).catch(error => {
+                console.error('🔑 Failed to initialize taginfo API:', error);
             });
             return;
         }
 
+        console.log('🔑 Searching for keys with query:', query);
+        console.log('🔑 Available keys in map:', window.taginfoData.keys.size);
+
         const results = window.searchKeys(query, 10);
+        console.log('🔑 Key search results:', results);
         displayKeyResults(results);
 
         // Trigger custom event for other components
@@ -89,15 +114,19 @@ function initKeySearch() {
     }
 
     function displayKeyResults(results) {
+        console.log('🔑 displayKeyResults called with:', results.length, 'results');
         resultsContainer.empty();
 
         if (results.length === 0) {
+            console.log('🔑 No results to display');
             resultsContainer.append('<div class="no-results">No keys found</div>');
             resultsContainer.show();
             return;
         }
 
+        console.log('🔑 Displaying results...');
         results.forEach((result, index) => {
+            console.log('🔑 Result', index, ':', result.key);
             const resultElement = $('<div>')
                 .addClass('key-search-result')
                 .data('result', result)
@@ -110,6 +139,7 @@ function initKeySearch() {
             resultsContainer.append(resultElement);
         });
 
+        console.log('🔑 Results displayed, showing container');
         resultsContainer.show();
     }
 
@@ -159,6 +189,7 @@ function initKeySearch() {
 
 // Initialize when DOM is ready
 $(document).ready(function() {
+    console.log('🔑 DOM ready, initializing key search');
     initKeySearch();
 });
 

@@ -17,24 +17,29 @@ function loadTaginfoDefinitions() {
     return new Promise((resolve, reject) => {
         // Check if already loaded
         if (window.taginfoData.loaded) {
+            console.log('📊 Taginfo data already loaded');
             resolve();
             return;
         }
 
+        console.log('📊 Loading taginfo definitions from CSV...');
         fetch('taginfo_definitions.csv')
             .then(response => {
+                console.log('📊 CSV fetch response:', response.status);
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 return response.text();
             })
             .then(csvText => {
+                console.log('📊 CSV loaded, length:', csvText.length);
                 parseCSVData(csvText);
                 window.taginfoData.loaded = true;
+                console.log('📊 Taginfo data loaded successfully');
                 resolve();
             })
             .catch(error => {
-                console.error('Error loading taginfo definitions:', error);
+                console.error('❌ Error loading taginfo definitions:', error);
                 reject(error);
             });
     });
@@ -44,15 +49,19 @@ function loadTaginfoDefinitions() {
  * Parse CSV data and organize it for fast searching
  */
 function parseCSVData(csvText) {
+    console.log('📊 Parsing CSV data...');
     const lines = csvText.split('\n');
 
     if (lines.length === 0) {
-        console.error('CSV file is empty!');
+        console.error('❌ CSV file is empty!');
         return;
     }
 
+    console.log('📊 CSV has', lines.length, 'lines');
+
     // Parse header
     const headers = lines[0].split(',');
+    console.log('📊 CSV headers:', headers);
 
     // Process data rows (limit for performance)
     for (let i = 1; i < lines.length && i < 50000; i++) {
@@ -98,6 +107,9 @@ function parseCSVData(csvText) {
             }
         }
     }
+
+    console.log('📊 Parsed keys:', window.taginfoData.keys.size);
+    console.log('📊 Parsed values:', window.taginfoData.values.size);
 }
 
 /**
@@ -139,14 +151,26 @@ function parseCSVLine(line) {
  * Search for keys matching a query string
  */
 function searchKeys(query, limit = 20) {
-    if (!query || query.length < 1) return [];
+    console.log('🔍 searchKeys called with:', query, 'limit:', limit);
+    console.log('🔍 Available keys count:', window.taginfoData.keys.size);
+
+    if (!query || query.length < 1) {
+        console.log('🔍 Empty query, returning empty results');
+        return [];
+    }
 
     const results = [];
     const queryLower = query.toLowerCase();
 
+    console.log('🔍 Searching through keys...');
+    let matchCount = 0;
     for (const [key, keyData] of window.taginfoData.keys) {
-        if (key.toLowerCase().includes(queryLower) ||
-            (keyData.definition && keyData.definition.toLowerCase().includes(queryLower))) {
+        const keyLower = key.toLowerCase();
+        const defLower = (keyData.definition || '').toLowerCase();
+
+        if (keyLower.includes(queryLower) || defLower.includes(queryLower)) {
+            matchCount++;
+            console.log('🔍 Match found:', key, 'count:', keyData.totalCount);
 
             results.push({
                 key: key,
@@ -155,13 +179,17 @@ function searchKeys(query, limit = 20) {
                 type: 'key'
             });
 
-            if (results.length >= limit) break;
+            if (results.length >= limit) {
+                console.log('🔍 Reached limit, stopping search');
+                break;
+            }
         }
     }
 
     // Sort by total count (most popular first)
     results.sort((a, b) => b.totalCount - a.totalCount);
 
+    console.log('🔍 Found', results.length, 'key results from', matchCount, 'matches');
     return results;
 }
 

@@ -3,10 +3,22 @@
  */
 
 function initValueSearch() {
+    console.log('🔍 initValueSearch called');
     const searchInput = $('#value-search');
     const resultsContainer = $('#value-search-dropdown');
 
-    if (!searchInput.length) return;
+    console.log('🔍 Value search input found:', searchInput.length);
+    console.log('🔍 Value search dropdown found:', resultsContainer.length);
+
+    if (!searchInput.length) {
+        console.error('🔍 Value search input not found!');
+        return;
+    }
+
+    if (!resultsContainer.length) {
+        console.error('🔍 Value search dropdown not found!');
+        return;
+    }
 
     let searchTimeout;
     let currentKey = null;
@@ -16,9 +28,11 @@ function initValueSearch() {
     // Initialize search input
     searchInput.on('input', function() {
         const query = $(this).val().trim();
+        console.log('🔍 Value search input:', query);
 
         // Get the selected key from key search
         const selectedKey = $(this).data('selectedKey');
+        console.log('🔍 Selected key:', selectedKey);
 
         // Clear previous timeout
         if (searchTimeout) {
@@ -33,6 +47,7 @@ function initValueSearch() {
 
         // Debounce search - use selected key if available
         searchTimeout = setTimeout(() => {
+            console.log('🔍 Performing value search for:', query, 'with key:', selectedKey);
             performValueSearch(query, selectedKey);
         }, 300);
     });
@@ -125,20 +140,24 @@ function initValueSearch() {
     }
 
     function displayValueResults(results) {
+        console.log('🔍 displayValueResults called with:', results.length, 'results');
         resultsContainer.empty();
 
         if (results.length === 0) {
+            console.log('🔍 No results to display');
             resultsContainer.append('<div class="no-results">No values found</div>');
             resultsContainer.show();
             return;
         }
 
+        console.log('🔍 Displaying results...');
         results.forEach((result, index) => {
+            console.log('🔍 Result', index, ':', result.value || result.key);
             const resultElement = $('<div>')
                 .addClass('value-search-result')
                 .data('result', result)
                 .html(`
-                    <div class="value-name">${escapeHtml(result.value)}</div>
+                    <div class="value-name">${escapeHtml(result.value || result.key)}</div>
                     ${result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : ''}
                     ${result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : ''}
                     <div class="value-definition">${escapeHtml(result.definition || 'No description available')}</div>
@@ -148,6 +167,7 @@ function initValueSearch() {
             resultsContainer.append(resultElement);
         });
 
+        console.log('🔍 Results displayed, showing container');
         resultsContainer.show();
     }
 
@@ -188,27 +208,37 @@ function initValueSearch() {
     }
 
     function executeTagQuery(key, value) {
+        console.log('🚀 executeTagQuery called with:', key, value);
+
         // Check if map is ready with retry mechanism
         if (!window.map) {
+            console.log('🚀 Map not ready, retrying in 500ms');
             setTimeout(() => executeTagQuery(key, value), 500);
             return;
         }
 
         if (typeof window.map.getView !== 'function') {
+            console.log('🚀 Map view not ready, retrying in 500ms');
             setTimeout(() => executeTagQuery(key, value), 500);
             return;
         }
+
+        console.log('🚀 Map is ready, getting bbox');
 
         // Get current map bbox
         const view = window.map.getView();
         const extent = view.calculateExtent();
         const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
 
+        console.log('🚀 Map bbox:', bbox);
+
         // Get element types from UI (default to all)
         const elementTypes = getSelectedElementTypes();
+        console.log('🚀 Element types:', elementTypes);
 
         // Generate Overpass query
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
+        console.log('🚀 Generated query:', query);
 
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text('Executing...');
@@ -218,34 +248,42 @@ function initValueSearch() {
     }
 
     function createTagOverlay(key, value, query) {
+        console.log('🎯 createTagOverlay called with:', key, value);
+        console.log('🎯 Query:', query);
+
         // Create a unique overlay for this tag query
         const overlayId = `tag_${key}_${value}_${Date.now()}`;
         const overlayTitle = `${key}=${value}`;
+
+        console.log('🎯 Creating overlay:', overlayId, overlayTitle);
 
         // Create vector source for the query
         const vectorSource = new ol.source.Vector({
             format: new ol.format.OSMXML2(),
             loader: function (extent, resolution, projection) {
+                console.log('🎯 Vector loader called');
                 // Show loading indicator
                 if (window.loading) window.loading.show();
 
                 const client = new XMLHttpRequest();
                 client.open('POST', config.overpassApi());
                 client.onloadend = function () {
+                    console.log('🎯 Request ended');
                     if (window.loading) window.loading.hide();
                 };
                 client.onerror = function () {
-                    console.error('[' + client.status + '] Error loading tag data.');
+                    console.error('🎯 Error loading tag data:', client.status);
                     if (window.loading) window.loading.hide();
                 };
                 client.onload = function () {
+                    console.log('🎯 Request loaded, status:', client.status);
                     if (client.status === 200) {
                         const xmlDoc = $.parseXML(client.responseText);
                         const xml = $(xmlDoc);
                         const remark = xml.find('remark');
 
                         if (remark.length !== 0) {
-                            console.error('Error:', remark.text());
+                            console.error('🎯 Overpass error:', remark.text());
                             $('<div>').html(remark.text()).dialog({
                                 modal: true,
                                 title: 'Error',
@@ -258,6 +296,7 @@ function initValueSearch() {
                                 featureProjection: window.map.getView().getProjection()
                             });
 
+                            console.log('🎯 Features loaded:', features.length);
                             this.addFeatures(features);
 
                             // Update overlay summary if function exists
@@ -365,6 +404,7 @@ function initValueSearch() {
 
     // Listen for key selection from key search
     searchInput.on('keySelected', function(e, keyResult) {
+        console.log('🔗 Key selected event received:', keyResult);
         currentKey = keyResult.key;
         // Clear value search and results
         searchInput.val('');
