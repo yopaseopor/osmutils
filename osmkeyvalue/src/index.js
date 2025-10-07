@@ -423,7 +423,8 @@ $(function () {
 			}
 		}
 	};
-	loading.init();
+	// Export loading to global scope for other modules
+	window.loading = loading;
 
 	var overlaysTemp = {};
 	$.each(config.overlays, function (index, overlay) {

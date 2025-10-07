@@ -124,14 +124,27 @@ function initValueSearch() {
     });
 
     function performValueSearch(query, key) {
+        console.log('🔍 performValueSearch called with:', query, 'key:', key);
+        console.log('🔍 taginfoData.loaded:', window.taginfoData.loaded);
+
         if (!window.taginfoData.loaded) {
+            console.log('🔍 Taginfo data not loaded, initializing...');
             window.initTaginfoAPI().then(() => {
+                console.log('🔍 Taginfo API initialized, retrying search');
                 performValueSearch(query, key);
+            }).catch(error => {
+                console.error('🔍 Failed to initialize taginfo API:', error);
             });
             return;
         }
 
+        console.log('🔍 Available values count:', window.taginfoData.values.size);
+        console.log('🔍 Available keys count:', window.taginfoData.keys.size);
+
         const results = window.searchValues(query, key, 10);
+        console.log('🔍 Value search results:', results);
+        console.log('🔍 Results length:', results.length);
+
         currentResults = results;
         displayValueResults(results);
 
@@ -152,21 +165,27 @@ function initValueSearch() {
 
         console.log('🔍 Displaying results...');
         results.forEach((result, index) => {
-            console.log('🔍 Result', index, ':', result.value || result.key);
+            console.log('🔍 Result', index, ':', result);
             console.log('🔍 Result definition:', result.definition);
             console.log('🔍 Result countAll:', result.countAll);
             console.log('🔍 Result totalCount:', result.totalCount);
+            console.log('🔍 Result keys:', result.keys);
+            console.log('🔍 Result value:', result.value);
+
+            // Debug the HTML structure
+            const html = `
+                <div class="value-name">${escapeHtml(result.value || result.key || 'No value')}</div>
+                ${result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : ''}
+                ${result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : ''}
+                <div class="value-definition">${escapeHtml(result.definition || 'No description available')}</div>
+                <div class="value-count">${formatNumber(result.countAll || result.totalCount || 0)} uses</div>
+            `;
+            console.log('🔍 Generated HTML:', html);
 
             const resultElement = $('<div>')
                 .addClass('value-search-result')
                 .data('result', result)
-                .html(`
-                    <div class="value-name">${escapeHtml(result.value || result.key)}</div>
-                    ${result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : ''}
-                    ${result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : ''}
-                    <div class="value-definition">${escapeHtml(result.definition || 'No description available')}</div>
-                    <div class="value-count">${formatNumber(result.countAll || result.totalCount)} uses</div>
-                `);
+                .html(html);
 
             resultsContainer.append(resultElement);
         });
@@ -312,6 +331,9 @@ function initValueSearch() {
                             window.dispatchEvent(new CustomEvent('tagOverlayLoaded', {
                                 detail: { key, value, overlayId, featureCount: features.length }
                             }));
+
+                            // Trigger the overlay features loaded event
+                            window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
                         }
                     } else {
                         client.onerror.call(this);
@@ -351,6 +373,10 @@ function initValueSearch() {
             })
         });
 
+        // Set additional properties for overlay system integration
+        vectorLayer.set('group', 'Tag Queries');
+        vectorLayer.set('type', 'overlay');
+
         // Add to overlays group if it exists, otherwise create one
         const overlaysGroup = findOrCreateTagOverlaysGroup();
         console.log('🔍 Adding vector layer to group');
@@ -364,6 +390,9 @@ function initValueSearch() {
 
         // Trigger overlay update event to refresh the UI
         window.dispatchEvent(new Event('overlaysUpdated'));
+
+        // Also trigger a more specific event for the overlay system
+        window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
 
         // Reset button state
         $('#execute-query-btn').prop('disabled', false).text('Query Executed');
@@ -387,6 +416,10 @@ function initValueSearch() {
             type: 'overlay',
             layers: []
         });
+
+        // Set additional properties to match the expected overlay structure
+        overlaysGroup.set('originalTitle', 'Tag Queries');
+        overlaysGroup.set('id', 'tag-queries-group');
 
         config.layers.push(overlaysGroup);
         console.log('🔍 Added Tag Queries group to config.layers');

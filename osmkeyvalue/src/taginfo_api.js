@@ -69,7 +69,7 @@ function parseCSVData(csvText) {
         if (!line) continue;
 
         const values = parseCSVLine(line);
-        if (values.length >= 13) {  // Updated to match actual CSV structure
+        if (values.length >= 14) {  // Updated to match actual CSV structure (14 columns)
             const [
                 key, value, tag, definition, countAll, countNodes, countWays, countRelations,
                 definition_en, in_wiki, description, icon, osm_key, osm_value
