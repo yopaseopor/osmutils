@@ -202,18 +202,24 @@ function initValueSearch() {
         results.forEach((result, index) => {
             console.log('🔍 Result', index, ':', result);
             console.log('🔍 Result definition:', result.definition);
+            console.log('🔍 Result definition_en:', result.definition_en);
             console.log('🔍 Result countAll:', result.countAll);
             console.log('🔍 Result totalCount:', result.totalCount);
             console.log('🔍 Result keys:', result.keys);
             console.log('🔍 Result value:', result.value);
+
+            const countToUse = result.countAll || result.totalCount || 0;
+            const definitionToUse = result.definition_en || result.definition;
+            console.log('🔍 Count to use for formatting:', countToUse);
+            console.log('🔍 Definition to use for formatting:', definitionToUse);
 
             // Debug the HTML structure
             const html = `
                 <div class="value-name">${escapeHtml(result.value || result.key || 'No value')}</div>
                 ${result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : ''}
                 ${result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : ''}
-                <div class="value-definition">${escapeHtml(result.definition || 'No description available')}</div>
-                <div class="value-count">${formatValueCount(result.countAll || result.totalCount || 0, result.definition)}</div>
+                <div class="value-definition">${escapeHtml(definitionToUse || 'No description available')}</div>
+                <div class="value-count">${formatValueCount(countToUse, definitionToUse)}</div>
             `;
             console.log('🔍 Generated HTML:', html);
 
@@ -769,11 +775,15 @@ function initValueSearch() {
     }
 
     function formatValueCount(count, definition) {
+        console.log('🔍 formatValueCount called with count:', count, 'definition:', definition);
         if (count > 0) {
-            return `${formatNumber(count)} uses`;
+            const formatted = `${formatNumber(count)} uses`;
+            console.log('🔍 formatValueCount returning:', formatted);
+            return formatted;
         } else {
             // For values with 0 uses, show a brief description instead
             const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : 'No description available';
+            console.log('🔍 formatValueCount returning description:', shortDesc);
             return shortDesc;
         }
     }

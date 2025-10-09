@@ -142,8 +142,8 @@ function initKeySearch() {
                 .data('result', result)
                 .html(`
                     <div class="key-name">${escapeHtml(result.key)}</div>
-                    <div class="key-definition">${escapeHtml(result.definition || 'No description available')}</div>
-                    <div class="key-count">${formatKeyCount(result.totalCount, result.definition)}</div>
+                    <div class="key-definition">${escapeHtml(result.definition_en || result.definition || 'No description available')}</div>
+                    <div class="key-count">${formatKeyCount(result.totalCount, result.definition_en || result.definition)}</div>
                 `);
 
             resultsContainer.append(resultElement);
@@ -188,11 +188,15 @@ function initKeySearch() {
     }
 
     function formatKeyCount(count, definition) {
+        console.log('🔑 formatKeyCount called with count:', count, 'definition:', definition);
         if (count > 0) {
-            return `${formatNumber(count)} uses`;
+            const formatted = `${formatNumber(count)} uses`;
+            console.log('🔑 formatKeyCount returning:', formatted);
+            return formatted;
         } else {
             // For keys with 0 uses, show a brief description instead
             const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : 'No description available';
+            console.log('🔑 formatKeyCount returning description:', shortDesc);
             return shortDesc;
         }
     }
