@@ -91,6 +91,8 @@ function initValueSearch() {
     $('#clear-search-btn').on('click', function() {
         console.log('🧹 Clear button clicked');
         console.log('🧹 Current map layers before clear:', window.map ? window.map.getLayers().getLength() : 'No map');
+        console.log('🧹 Current key:', currentKey);
+        console.log('🧹 Current value:', currentValue);
 
         // Clear map layers first
         clearMapLayers();
@@ -282,63 +284,58 @@ function initValueSearch() {
     }
 
     function clearMapLayers() {
-        console.log('🗑️ Clearing map layers');
+        console.log('🗑️ clearMapLayers CALLED');
+        console.log('🗑️ Map exists:', !!window.map);
 
-        // Check if map exists first
         if (!window.map) {
             console.log('🗑️ No map available');
             return;
         }
 
-        console.log('🗑️ Map exists, getting layers...');
+        console.log('🗑️ Map layers before clear:', window.map.getLayers().getLength());
 
         // Find the Tag Queries group
         const tagQueriesGroup = findOrCreateTagOverlaysGroup();
         if (!tagQueriesGroup) {
-            console.log('🗑️ No Tag Queries group found to clear');
+            console.log('🗑️ No Tag Queries group found');
             return;
         }
 
         console.log('🗑️ Found Tag Queries group:', tagQueriesGroup.get('title'));
+        console.log('🗑️ Group layers count:', tagQueriesGroup.getLayers().getLength());
 
         // Check if group is in map
         const mapLayers = window.map.getLayers();
         const existingLayers = mapLayers.getArray();
+        console.log('🗑️ Map layers array length:', existingLayers.length);
+
+        // Log all layers in the map
+        console.log('🗑️ All layers in map:');
+        existingLayers.forEach((layer, index) => {
+            console.log(`  Layer ${index}:`, {
+                title: layer.get ? layer.get('title') : 'no title',
+                type: layer.get ? layer.get('type') : 'no type',
+                id: layer.get ? layer.get('id') : 'no id',
+                visible: layer.getVisible ? layer.getVisible() : 'no visible'
+            });
+        });
+
         const groupInMap = existingLayers.some(layer => layer === tagQueriesGroup);
         console.log('🗑️ Group in map:', groupInMap);
-        console.log('🗑️ Map layers count:', existingLayers.length);
 
         if (!groupInMap) {
             console.log('🗑️ Group not in map, nothing to remove');
             return;
         }
 
-        // Clear all layers from the group
-        const layersCollection = tagQueriesGroup.getLayers();
-        console.log('🗑️ Clearing', layersCollection.getLength(), 'layers from Tag Queries group');
-
-        // Clear features from each vector source
-        layersCollection.forEach(layer => {
-            if (layer instanceof ol.layer.Vector) {
-                const source = layer.getSource();
-                if (source && typeof source.clear === 'function') {
-                    console.log('🗑️ Clearing features from layer:', layer.get('title'));
-                    source.clear();
-                }
-            }
-        });
-
-        // Clear the layers collection
-        layersCollection.clear();
-        console.log('🗑️ All layers cleared from Tag Queries group');
-
-        // Remove the group from the map
-        console.log('🗑️ Removing Tag Queries group from map');
+        // Try to remove the group
         try {
-            mapLayers.remove(tagQueriesGroup);
-            console.log('🗑️ Successfully removed group from map');
+            console.log('🗑️ Attempting to remove group from map...');
+            const removed = mapLayers.remove(tagQueriesGroup);
+            console.log('🗑️ Remove result:', removed);
+            console.log('🗑️ Map layers after remove attempt:', window.map.getLayers().getLength());
         } catch (error) {
-            console.error('🗑️ Error removing group from map:', error);
+            console.error('🗑️ Error removing group:', error);
         }
 
         // Trigger overlay update event to refresh the UI
