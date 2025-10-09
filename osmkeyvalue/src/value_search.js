@@ -314,6 +314,11 @@ function initValueSearch() {
         const elementTypes = getSelectedElementTypes();
         console.log('🚀 Element types:', elementTypes);
 
+        // Debug: Check current key and value
+        console.log('🚀 Current key:', currentKey, 'length:', currentKey ? currentKey.length : 'null');
+        console.log('🚀 Current value:', value, 'length:', value ? value.length : 'null');
+        console.log('🚀 Parameters - key:', key, 'value:', value);
+
         // Generate Overpass query
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
         console.log('🚀 Generated query:', query);

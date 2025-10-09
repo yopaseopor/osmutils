@@ -294,7 +294,8 @@ function getTagDefinition(tag) {
  */
 function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 'relation']) {
     console.log('🔧 generateOverpassQuery called with:');
-    console.log('🔧 key:', key, 'value:', value);
+    console.log('🔧 key:', JSON.stringify(key), 'value:', JSON.stringify(value));
+    console.log('🔧 key length:', key ? key.length : 'null', 'value length:', value ? value.length : 'null');
     console.log('🔧 bbox:', bbox);
     console.log('🔧 elementTypes:', elementTypes);
 
@@ -307,6 +308,8 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
     // Trim whitespace from key and value
     key = key.trim();
     value = value.trim();
+
+    console.log('🔧 After trimming - key:', JSON.stringify(key), 'value:', JSON.stringify(value));
 
     if (!key || !value) {
         console.error('🔧 Key or value is empty after trimming:', {key, value});
@@ -330,6 +333,8 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
     const query = `[out:xml][timeout:25];\n(${elementQueries});\nout meta;`;
 
     console.log('🔧 Generated query:', query);
+    console.log('🔧 Query length:', query.length);
+    console.log('🔧 Query lines:', query.split('\n').length);
     return query;
 }
 
