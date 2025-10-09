@@ -308,6 +308,13 @@ function initValueSearch() {
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
         console.log('🚀 Generated query:', query);
 
+        // Check if query generation failed
+        if (!query) {
+            console.error('🚀 Failed to generate query - check key, value, and bbox');
+            $('#execute-query-btn').prop('disabled', false).text('Query Failed');
+            return;
+        }
+
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text('Executing...');
         console.log('🚀 Button state updated to executing');

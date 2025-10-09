@@ -293,11 +293,25 @@ function getTagDefinition(tag) {
  * Generate Overpass query for a key-value combination with bbox and element type filtering
  */
 function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 'relation']) {
-    const elements = elementTypes.join('|');
-    const query = `[out:xml][timeout:25];
-(${elements}["${key}"="${value}"](${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]});
-);out meta;`;
+    console.log('🔧 generateOverpassQuery called with:');
+    console.log('🔧 key:', key, 'value:', value);
+    console.log('🔧 bbox:', bbox);
+    console.log('🔧 elementTypes:', elementTypes);
 
+    // Validate inputs
+    if (!key || !value) {
+        console.error('🔧 Invalid key or value:', {key, value});
+        return null;
+    }
+
+    if (!bbox || bbox.length !== 4 || bbox.some(isNaN)) {
+        console.error('🔧 Invalid bbox:', bbox);
+        return null;
+    }
+
+    const query = `[out:xml][timeout:25];\n(${elementTypes.map(type => `${type}["${key}"="${value}"](${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]})`).join(';\n')});\nout meta;`;
+
+    console.log('🔧 Generated query:', query);
     return query;
 }
 
