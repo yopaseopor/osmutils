@@ -342,95 +342,67 @@ function initValueSearch() {
         const groupToRemove = groupInMap ? tagQueriesGroup : groupByTitle;
         console.log('🗑️ Using group for removal:', groupToRemove.get ? groupToRemove.get('title') : 'no title');
 
-        // Try to remove the group
-        try {
-            console.log('🗑️ Attempting to remove group from map...');
-            const removed = mapLayers.remove(groupToRemove);
-            console.log('🗑️ Remove result:', removed);
-            console.log('🗑️ Remove result type:', typeof removed);
-            console.log('🗑️ Remove result === groupToRemove:', removed === groupToRemove);
+        // Try a completely different approach - hide and clear instead of remove
+        console.log('🗑️ Using alternative approach: hide and clear...');
 
-            // Check if removal actually worked
-            const afterLayers = window.map.getLayers().getArray();
-            const stillExists = afterLayers.some(layer => layer === groupToRemove);
-            console.log('🗑️ Group still exists in map after removal:', stillExists);
-            console.log('🗑️ Map layers after remove attempt:', window.map.getLayers().getLength());
+        // Find all Tag Queries layers and hide them
+        const allLayers = window.map.getLayers().getArray();
+        const tagQueryLayers = allLayers.filter(layer =>
+            layer.get && (
+                layer.get('title') === 'Tag Queries' ||
+                layer.get('title')?.includes('Tag Queries') ||
+                layer.get('group') === 'Tag Queries'
+            )
+        );
 
-            // If removal didn't work, try removing by title
-            if (stillExists) {
-                console.log('🗑️ Direct removal failed, trying alternative methods...');
+        console.log('🗑️ Found', tagQueryLayers.length, 'Tag Queries layers to hide');
 
-                // Try to find and remove all layers with "Tag Queries" in title
-                const layersToRemove = afterLayers.filter(layer =>
-                    layer.get && (
-                        layer.get('title') === 'Tag Queries' ||
-                        layer.get('title')?.includes('Tag Queries') ||
-                        layer.get('group') === 'Tag Queries'
-                    )
-                );
+        // Hide all Tag Queries layers
+        tagQueryLayers.forEach((layer, index) => {
+            console.log('🗑️ Hiding layer', index, ':', layer.get ? layer.get('title') : 'no title');
+            layer.setVisible(false);
 
-                console.log('🗑️ Found', layersToRemove.length, 'layers to remove by title');
-
-                layersToRemove.forEach(layer => {
-                    try {
-                        const removeResult = mapLayers.remove(layer);
-                        console.log('🗑️ Removed layer by title:', layer.get ? layer.get('title') : 'no title', 'Result:', removeResult);
-                    } catch (error) {
-                        console.error('🗑️ Error removing layer by title:', error);
-                    }
-                });
-
-                console.log('🗑️ Map layers after title-based removal:', window.map.getLayers().getLength());
-            }
-
-            // Final verification and cleanup
-            const finalLayers = window.map.getLayers().getArray();
-            const finalCount = finalLayers.length;
-            console.log('🗑️ Final map layers count:', finalCount);
-
-            // Check if any Tag Queries layers still exist and remove them
-            const remainingTagLayers = finalLayers.filter(layer =>
-                layer.get && (
-                    layer.get('title') === 'Tag Queries' ||
-                    layer.get('title')?.includes('Tag Queries') ||
-                    layer.get('group') === 'Tag Queries'
-                )
-            );
-            console.log('🗑️ Remaining Tag Queries layers:', remainingTagLayers.length);
-
-            // Remove any remaining Tag Queries layers
-            if (remainingTagLayers.length > 0) {
-                console.log('🗑️ Removing remaining Tag Queries layers...');
-                remainingTagLayers.forEach(layer => {
-                    try {
-                        const removeResult = mapLayers.remove(layer);
-                        console.log('🗑️ Removed remaining layer:', layer.get ? layer.get('title') : 'no title');
-                    } catch (error) {
-                        console.error('🗑️ Error removing remaining layer:', error);
-                    }
-                });
-                console.log('🗑️ Map layers after cleanup:', window.map.getLayers().getLength());
-            }
-
-            // Also try to clear any vector sources directly
-            console.log('🗑️ Clearing vector sources directly...');
-            finalLayers.forEach((layer, index) => {
-                if (layer instanceof ol.layer.Vector && layer.getSource) {
-                    const source = layer.getSource();
-                    if (source && typeof source.clear === 'function') {
-                        console.log('🗑️ Clearing source for layer', index, ':', layer.get ? layer.get('title') : 'no title');
-                        source.clear();
-                    }
+            // Also clear the vector source if it's a vector layer
+            if (layer instanceof ol.layer.Vector) {
+                const source = layer.getSource();
+                if (source && typeof source.clear === 'function') {
+                    console.log('🗑️ Clearing source for hidden layer');
+                    source.clear();
                 }
-            });
+            }
+        });
 
-        } catch (error) {
-            console.error('🗑️ Error removing group:', error);
-        }
+        // Also try to find and hide any vector layers that might contain query results
+        const vectorLayers = allLayers.filter(layer =>
+            layer instanceof ol.layer.Vector && layer.getSource
+        );
 
-        // Force map re-render immediately to ensure visual update
+        console.log('🗑️ Found', vectorLayers.length, 'vector layers to check');
+
+        vectorLayers.forEach((layer, index) => {
+            const source = layer.getSource();
+            if (source && source.getFeatures) {
+                const featureCount = source.getFeatures().length;
+                console.log('🗑️ Vector layer', index, 'has', featureCount, 'features');
+
+                // If this layer has features and might be from our queries, clear it
+                if (featureCount > 0 && (
+                    layer.get('title')?.includes('=') ||
+                    layer.get('group') === 'Tag Queries' ||
+                    layer.get('id')?.startsWith('tag_')
+                )) {
+                    console.log('🗑️ Clearing query result layer:', layer.get ? layer.get('title') : 'no title');
+                    source.clear();
+                    layer.setVisible(false);
+                }
+            }
+        });
+
+        console.log('🗑️ Map layers after hiding and clearing:', window.map.getLayers().getLength());
+
+        // Force immediate map re-render
         if (window.map) {
-            console.log('🗑️ Forcing immediate map render...');
+            console.log('🗑️ Forcing immediate map render after hiding...');
             window.map.renderSync();
         }
 
