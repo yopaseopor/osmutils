@@ -356,7 +356,7 @@ function initValueSearch() {
                 // Show loading indicator
                 if (window.loading) window.loading.show();
 
-                makeRequestWithRetry(query, 3, 2000); // 3 retries, 2 second delay
+                makeRequestWithRetry.call(this, query, 3, 2000); // 3 retries, 2 second delay
 
                 function makeRequestWithRetry(queryData, maxRetries, delayMs) {
                     const client = new XMLHttpRequest();
@@ -370,27 +370,27 @@ function initValueSearch() {
                         console.error('🎯 Request timed out after 15 seconds');
                         if (maxRetries > 0) {
                             console.log('🎯 Retrying request in', delayMs, 'ms...');
-                            setTimeout(() => makeRequestWithRetry(queryData, maxRetries - 1, delayMs), delayMs);
+                            setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
                         } else {
                             if (window.loading) window.loading.hide();
                             $('#execute-query-btn').prop('disabled', false).text('Query Timeout');
                         }
-                    };
+                    }.bind(this);
 
                     client.onloadend = function () {
                         console.log('🎯 Request ended, status:', client.status);
                         if (window.loading) window.loading.hide();
-                    };
+                    }.bind(this);
 
                     client.onerror = function () {
                         console.error('🎯 Error loading tag data:', client.status, client.statusText);
                         if (maxRetries > 0) {
                             console.log('🎯 Retrying request in', delayMs, 'ms...');
-                            setTimeout(() => makeRequestWithRetry(queryData, maxRetries - 1, delayMs), delayMs);
+                            setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
                         } else {
                             $('#execute-query-btn').prop('disabled', false).text('Query Failed');
                         }
-                    };
+                    }.bind(this);
 
                     client.onload = function () {
                         console.log('🎯 Request loaded, status:', client.status);
@@ -460,7 +460,7 @@ function initValueSearch() {
                             console.error('🎯 Response text:', client.responseText);
                             $('#execute-query-btn').prop('disabled', false).text('Request Failed');
                         }
-                    };
+                    }.bind(this);
                     client.send(queryData);
                 }
             },
