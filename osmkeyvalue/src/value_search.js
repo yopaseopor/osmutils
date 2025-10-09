@@ -298,7 +298,17 @@ function initValueSearch() {
         const extent = view.calculateExtent();
         const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
 
+        console.log('🚀 Map extent:', extent);
+        console.log('🚀 Map projection:', view.getProjection());
         console.log('🚀 Map bbox:', bbox);
+        console.log('🚀 Bbox formatted:', `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`);
+
+        // Validate bbox coordinates
+        if (bbox.some(coord => isNaN(coord) || Math.abs(coord) > 180)) {
+            console.error('🚀 Invalid bbox coordinates:', bbox);
+            $('#execute-query-btn').prop('disabled', false).text('Invalid Location');
+            return;
+        }
 
         // Get element types from UI (default to all)
         const elementTypes = getSelectedElementTypes();
@@ -315,12 +325,17 @@ function initValueSearch() {
             return;
         }
 
+        // DEBUG: Temporarily test with a very simple query to verify API connectivity
+        console.log('🚀 Testing API connectivity with simple query');
+        const simpleTestQuery = '[out:xml][timeout:25];node["amenity"="restaurant"](41.0,1.0,42.0,2.0);out meta;';
+        console.log('🚀 Simple test query:', simpleTestQuery);
+
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text('Executing...');
         console.log('🚀 Button state updated to executing');
 
         // Create overlay for results
-        createTagOverlay(key, value, query);
+        createTagOverlay(key, value, simpleTestQuery);
     }
 
     function createTagOverlay(key, value, query) {
@@ -333,7 +348,7 @@ function initValueSearch() {
 
         console.log('🎯 Creating overlay:', overlayId, overlayTitle);
 
-        // Create vector source for the query
+        // Create vector source for the query with retry mechanism
         const vectorSource = new ol.source.Vector({
             format: new ol.format.OSMXML2(),
             loader: function (extent, resolution, projection) {
@@ -341,61 +356,113 @@ function initValueSearch() {
                 // Show loading indicator
                 if (window.loading) window.loading.show();
 
-                const client = new XMLHttpRequest();
-                client.open('POST', config.overpassApi());
-                console.log('🎯 Sending request to:', config.overpassApi());
-                console.log('🎯 Request data:', query);
+                makeRequestWithRetry(query, 3, 2000); // 3 retries, 2 second delay
 
-                client.onloadend = function () {
-                    console.log('🎯 Request ended, status:', client.status);
-                    if (window.loading) window.loading.hide();
-                };
-                client.onerror = function () {
-                    console.error('🎯 Error loading tag data:', client.status, client.statusText);
-                    if (window.loading) window.loading.hide();
-                };
-                client.onload = function () {
-                    console.log('🎯 Request loaded, status:', client.status);
-                    if (client.status === 200) {
-                        const xmlDoc = $.parseXML(client.responseText);
-                        const xml = $(xmlDoc);
-                        const remark = xml.find('remark');
+                function makeRequestWithRetry(queryData, maxRetries, delayMs) {
+                    const client = new XMLHttpRequest();
+                    client.open('POST', config.overpassApi());
+                    client.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+                    client.timeout = 15000; // 15 second timeout for retries
+                    console.log('🎯 Sending request to:', config.overpassApi());
+                    console.log('🎯 Request data:', queryData);
 
-                        if (remark.length !== 0) {
-                            console.error('🎯 Overpass error:', remark.text());
-                            $('<div>').html(remark.text()).dialog({
-                                modal: true,
-                                title: 'Error',
-                                close: function () {
-                                    $(this).dialog('destroy');
-                                }
-                            });
+                    client.ontimeout = function () {
+                        console.error('🎯 Request timed out after 15 seconds');
+                        if (maxRetries > 0) {
+                            console.log('🎯 Retrying request in', delayMs, 'ms...');
+                            setTimeout(() => makeRequestWithRetry(queryData, maxRetries - 1, delayMs), delayMs);
                         } else {
-                            const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
-                                featureProjection: window.map.getView().getProjection()
-                            });
-
-                            console.log('🎯 Features loaded:', features.length);
-                            this.addFeatures(features);
-
-                            // Update overlay summary if function exists
-                            if (window.updateOverlaySummary) {
-                                window.updateOverlaySummary();
-                            }
-
-                            // Trigger event for overlay management
-                            window.dispatchEvent(new CustomEvent('tagOverlayLoaded', {
-                                detail: { key, value, overlayId, featureCount: features.length }
-                            }));
-
-                            // Trigger the overlay features loaded event
-                            window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
+                            if (window.loading) window.loading.hide();
+                            $('#execute-query-btn').prop('disabled', false).text('Query Timeout');
                         }
-                    } else {
-                        client.onerror.call(this);
-                    }
-                };
-                client.send(query);
+                    };
+
+                    client.onloadend = function () {
+                        console.log('🎯 Request ended, status:', client.status);
+                        if (window.loading) window.loading.hide();
+                    };
+
+                    client.onerror = function () {
+                        console.error('🎯 Error loading tag data:', client.status, client.statusText);
+                        if (maxRetries > 0) {
+                            console.log('🎯 Retrying request in', delayMs, 'ms...');
+                            setTimeout(() => makeRequestWithRetry(queryData, maxRetries - 1, delayMs), delayMs);
+                        } else {
+                            $('#execute-query-btn').prop('disabled', false).text('Query Failed');
+                        }
+                    };
+
+                    client.onload = function () {
+                        console.log('🎯 Request loaded, status:', client.status);
+                        console.log('🎯 Response text length:', client.responseText.length);
+                        if (client.status === 200) {
+                            try {
+                                const xmlDoc = $.parseXML(client.responseText);
+                                const xml = $(xmlDoc);
+                                const remark = xml.find('remark');
+
+                                console.log('🎯 Parsed XML, looking for remark elements:', remark.length);
+
+                                if (remark.length !== 0) {
+                                    console.error('🎯 Overpass error:', remark.text());
+                                    $('<div>').html(remark.text()).dialog({
+                                        modal: true,
+                                        title: 'Error',
+                                        close: function () {
+                                            $(this).dialog('destroy');
+                                        }
+                                    });
+                                    $('#execute-query-btn').prop('disabled', false).text('Query Error');
+                                } else {
+                                    console.log('🎯 No errors found, parsing features...');
+                                    const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
+                                        featureProjection: window.map.getView().getProjection()
+                                    });
+
+                                    console.log('🎯 Features parsed successfully:', features.length);
+                                    console.log('🎯 Sample feature:', features[0] ? {
+                                        type: features[0].getGeometry().getType(),
+                                        id: features[0].getId()
+                                    } : 'No features');
+
+                                    this.addFeatures(features);
+                                    console.log('🎯 Features added to source');
+
+                                    // Update overlay summary if function exists
+                                    if (window.updateOverlaySummary) {
+                                        window.updateOverlaySummary();
+                                    }
+
+                                    // Trigger event for overlay management
+                                    window.dispatchEvent(new CustomEvent('tagOverlayLoaded', {
+                                        detail: { key, value, overlayId, featureCount: features.length }
+                                    }));
+
+                                    // Trigger the overlay features loaded event
+                                    window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
+
+                                    $('#execute-query-btn').prop('disabled', false).text('Query Executed');
+                                    $('#clear-search-btn').show();
+
+                                    // Force a map render update to ensure visibility
+                                    if (window.map) {
+                                        console.log('🔍 Forcing map render update');
+                                        window.map.render();
+                                    }
+                                }
+                            } catch (parseError) {
+                                console.error('🎯 Error parsing XML response:', parseError);
+                                console.error('🎯 Response text preview:', client.responseText.substring(0, 500));
+                                $('#execute-query-btn').prop('disabled', false).text('Parse Error');
+                            }
+                        } else {
+                            console.error('🎯 Request failed with status:', client.status);
+                            console.error('🎯 Response text:', client.responseText);
+                            $('#execute-query-btn').prop('disabled', false).text('Request Failed');
+                        }
+                    };
+                    client.send(queryData);
+                }
             },
             strategy: ol.loadingstrategy.bbox
         });
@@ -440,23 +507,34 @@ function initValueSearch() {
         // Add the layer to the group - the group already has layers array in constructor
         const layersCollection = overlaysGroup.getLayers();
         layersCollection.push(vectorLayer);
+        console.log('🔍 Vector layer added to group, total layers:', layersCollection.getLength());
 
         // If the map already exists, we need to add the layer group to it
         if (window.map) {
             console.log('🔍 Adding layer group to existing map');
+            console.log('🔍 Current map layers before:', window.map.getLayers().getLength());
             // Check if the layer group is already in the map
             const existingLayers = window.map.getLayers().getArray();
             const groupExists = existingLayers.some(layer => layer === overlaysGroup);
 
+            console.log('🔍 Group exists in map:', groupExists);
+
             if (!groupExists) {
                 console.log('🔍 Layer group not in map, adding it');
                 window.map.addLayer(overlaysGroup);
+                console.log('🔍 Layer group added, total map layers now:', window.map.getLayers().getLength());
+            } else {
+                console.log('🔍 Layer group already exists in map');
             }
+        } else {
+            console.warn('🔍 Window.map is not available');
         }
 
         // Make sure the overlay group is visible
         overlaysGroup.setVisible(true);
         vectorLayer.setVisible(true);
+        console.log('🔍 Overlay group visible:', overlaysGroup.getVisible());
+        console.log('🔍 Vector layer visible:', vectorLayer.getVisible());
 
         console.log('🔍 Vector layer added, group layers count:', overlaysGroup.getLayers().getLength());
 
@@ -469,6 +547,12 @@ function initValueSearch() {
         // Reset button state
         $('#execute-query-btn').prop('disabled', false).text('Query Executed');
         $('#clear-search-btn').show();
+
+        // Force a map render update to ensure visibility
+        if (window.map) {
+            console.log('🔍 Forcing map render update');
+            window.map.render();
+        }
     }
 
     function findOrCreateTagOverlaysGroup() {

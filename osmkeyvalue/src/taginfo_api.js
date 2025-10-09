@@ -309,6 +309,12 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
         return null;
     }
 
+    // Ensure bbox coordinates are within valid ranges
+    if (bbox.some(coord => Math.abs(coord) > 180)) {
+        console.error('🔧 Bbox coordinates out of range:', bbox);
+        return null;
+    }
+
     const query = `[out:xml][timeout:25];\n(${elementTypes.map(type => `${type}["${key}"="${value}"](${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]})`).join(';\n')});\nout meta;`;
 
     console.log('🔧 Generated query:', query);
