@@ -327,10 +327,9 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
         return null;
     }
 
-    // Build the query properly
+    // Build the query properly - simplified for single element type
     const bboxStr = `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
-    const elementQueries = elementTypes.map(type => `${type}["${key}"="${value}"](${bboxStr})`).join(';\n');
-    const query = `[out:xml][timeout:25];\n(${elementQueries});\nout meta;`;
+    const query = `[out:xml][timeout:25];\n${elementTypes[0]}["${key}"="${value}"](${bboxStr});\nout meta;`;
 
     console.log('🔧 Generated query:', query);
     console.log('🔧 Query length:', query.length);
