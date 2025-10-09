@@ -91,6 +91,10 @@ function initValueSearch() {
     $('#clear-search-btn').on('click', function() {
         console.log('🧹 Clear button clicked');
 
+        // Clear map layers first
+        clearMapLayers();
+
+        // Clear UI state
         currentKey = null;
         currentValue = null;
         currentResults = [];
@@ -273,6 +277,64 @@ function initValueSearch() {
             .text('Execute Query: ' + key + '=' + value);
 
         clearBtn.show();
+    }
+
+    function clearMapLayers() {
+        console.log('🗑️ Clearing map layers');
+
+        // Check if map exists first
+        if (!window.map) {
+            console.log('🗑️ No map available');
+            return;
+        }
+
+        // Find the Tag Queries group
+        const tagQueriesGroup = findOrCreateTagOverlaysGroup();
+        if (!tagQueriesGroup) {
+            console.log('🗑️ No Tag Queries group found to clear');
+            return;
+        }
+
+        console.log('🗑️ Found Tag Queries group:', tagQueriesGroup.get('title'));
+
+        // Check if group is in map
+        const mapLayers = window.map.getLayers();
+        const existingLayers = mapLayers.getArray();
+        const groupInMap = existingLayers.some(layer => layer === tagQueriesGroup);
+        console.log('🗑️ Group in map:', groupInMap);
+
+        // Clear all layers from the group
+        const layersCollection = tagQueriesGroup.getLayers();
+        console.log('🗑️ Clearing', layersCollection.getLength(), 'layers from Tag Queries group');
+
+        // Clear features from each vector source
+        layersCollection.forEach(layer => {
+            if (layer instanceof ol.layer.Vector) {
+                const source = layer.getSource();
+                if (source && typeof source.clear === 'function') {
+                    console.log('🗑️ Clearing features from layer:', layer.get('title'));
+                    source.clear();
+                }
+            }
+        });
+
+        // Clear the layers collection
+        layersCollection.clear();
+        console.log('🗑️ All layers cleared from Tag Queries group');
+
+        // Remove the group from the map if it exists
+        if (groupInMap) {
+            console.log('🗑️ Removing Tag Queries group from map');
+            mapLayers.remove(tagQueriesGroup);
+        }
+
+        // Trigger overlay update event to refresh the UI
+        window.dispatchEvent(new Event('overlaysUpdated'));
+
+        // Force map re-render
+        if (window.map) {
+            window.map.renderSync();
+        }
     }
 
     function executeTagQuery(key, value) {
