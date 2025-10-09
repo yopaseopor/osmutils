@@ -203,13 +203,23 @@ function initValueSearch() {
             console.log('🔍 Result', index, ':', result);
             console.log('🔍 Result definition:', result.definition);
             console.log('🔍 Result definition_en:', result.definition_en);
-            console.log('🔍 Result countAll:', result.countAll);
-            console.log('🔍 Result totalCount:', result.totalCount);
-            console.log('🔍 Result keys:', result.keys);
-            console.log('🔍 Result value:', result.value);
-
             const countToUse = result.countAll || result.totalCount || 0;
-            const definitionToUse = result.definition_en || result.definition;
+            let definitionToUse = result.definition_en || result.definition || '';
+
+            // For global value search results, we need to get the definition from the keys that use this value
+            if (result.keys && result.keys.length > 0 && !definitionToUse) {
+                // Try to get definition from the first key that uses this value
+                const firstKey = result.keys[0];
+                if (window.taginfoData.keys.has(firstKey)) {
+                    const keyData = window.taginfoData.keys.get(firstKey);
+                    if (keyData.values.has(result.value)) {
+                        const valueData = keyData.values.get(result.value);
+                        definitionToUse = valueData.definition || '';
+                        console.log('🔍 Got definition from key data:', definitionToUse);
+                    }
+                }
+            }
+
             console.log('🔍 Count to use for formatting:', countToUse);
             console.log('🔍 Definition to use for formatting:', definitionToUse);
 
