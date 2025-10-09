@@ -90,6 +90,7 @@ function initValueSearch() {
     // Handle clear button click
     $('#clear-search-btn').on('click', function() {
         console.log('🧹 Clear button clicked');
+        console.log('🧹 Current map layers before clear:', window.map ? window.map.getLayers().getLength() : 'No map');
 
         // Clear map layers first
         clearMapLayers();
@@ -109,6 +110,7 @@ function initValueSearch() {
         searchInput.removeData('selectedKey');
 
         console.log('✅ Search cleared');
+        console.log('🧹 Current map layers after clear:', window.map ? window.map.getLayers().getLength() : 'No map');
     });
 
     searchInput.on('keydown', function(e) {
@@ -704,11 +706,8 @@ function initValueSearch() {
         }
     });
 
-    // Expose function for external use
-    window.searchValuesForKey = function(key, query) {
-        currentKey = key;
-        performValueSearch(query, key);
-    };
+    // Expose clearMapLayers globally for use by overlay system
+    window.clearMapLayers = clearMapLayers;
 }
 // Initialize when DOM is ready
 $(document).ready(function() {
