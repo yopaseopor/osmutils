@@ -143,7 +143,7 @@ function initKeySearch() {
                 .html(`
                     <div class="key-name">${escapeHtml(result.key)}</div>
                     <div class="key-definition">${escapeHtml(result.definition || 'No description available')}</div>
-                    <div class="key-count">${formatNumber(result.totalCount)} uses</div>
+                    <div class="key-count">${formatKeyCount(result.totalCount, result.definition)}</div>
                 `);
 
             resultsContainer.append(resultElement);
@@ -187,13 +187,14 @@ function initKeySearch() {
         return div.innerHTML;
     }
 
-    function formatNumber(num) {
-        if (num >= 1000000) {
-            return (num / 1000000).toFixed(1) + 'M';
-        } else if (num >= 1000) {
-            return (num / 1000).toFixed(1) + 'K';
+    function formatKeyCount(count, definition) {
+        if (count > 0) {
+            return `${formatNumber(count)} uses`;
+        } else {
+            // For keys with 0 uses, show a brief description instead
+            const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : 'No description available';
+            return shortDesc;
         }
-        return num.toString();
     }
 
     // Hide results when clicking outside

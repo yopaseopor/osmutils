@@ -213,7 +213,7 @@ function initValueSearch() {
                 ${result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : ''}
                 ${result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : ''}
                 <div class="value-definition">${escapeHtml(result.definition || 'No description available')}</div>
-                <div class="value-count">${formatNumber(result.countAll || result.totalCount || 0)} uses</div>
+                <div class="value-count">${formatValueCount(result.countAll || result.totalCount || 0, result.definition)}</div>
             `;
             console.log('🔍 Generated HTML:', html);
 
@@ -768,13 +768,14 @@ function initValueSearch() {
         return div.innerHTML;
     }
 
-    function formatNumber(num) {
-        if (num >= 1000000) {
-            return (num / 1000000).toFixed(1) + 'M';
-        } else if (num >= 1000) {
-            return (num / 1000).toFixed(1) + 'K';
+    function formatValueCount(count, definition) {
+        if (count > 0) {
+            return `${formatNumber(count)} uses`;
+        } else {
+            // For values with 0 uses, show a brief description instead
+            const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : 'No description available';
+            return shortDesc;
         }
-        return num.toString();
     }
 
     // Listen for key selection from key search
