@@ -200,10 +200,21 @@ function initValueSearch() {
 
         console.log('🔍 Displaying results...');
         results.forEach((result, index) => {
-            console.log('🔍 Result', index, ':', result);
-            console.log('🔍 Result definition:', result.definition);
-            console.log('🔍 Result definition_en:', result.definition_en);
-            const countToUse = result.countAll || result.totalCount || 0;
+            console.log('🔍 result.countAll:', result.countAll, 'type:', typeof result.countAll);
+            console.log('🔍 result.totalCount:', result.totalCount, 'type:', typeof result.totalCount);
+            console.log('🔍 result.tag:', result.tag);
+            console.log('🔍 Result definition_en exists:', !!result.definition_en);
+            console.log('🔍 Result definition_en value:', result.definition_en);
+            console.log('🔍 Result definition exists:', !!result.definition);
+            console.log('🔍 Result definition value:', result.definition);
+            let countToUse = result.countAll || result.totalCount || 0;
+            if (typeof countToUse === 'string') {
+                countToUse = parseInt(countToUse) || 0;
+            }
+            console.log('🔍 Count to use for formatting:', countToUse, 'type:', typeof countToUse, 'is > 0:', countToUse > 0);
+            if (typeof countToUse !== 'number' || countToUse <= 0) {
+                countToUse = 0;
+            }
             let definitionToUse = result.definition_en || result.definition || '';
 
             // For global value search results, we need to get the definition from the keys that use this value
@@ -231,7 +242,7 @@ function initValueSearch() {
                 <div class="value-definition">${escapeHtml(definitionToUse || 'No description available')}</div>
                 <div class="value-count">${formatValueCount(countToUse, definitionToUse)}</div>
             `;
-            console.log('🔍 Generated HTML:', html);
+            console.log('🔍 Generated HTML structure:', html);
 
             const resultElement = $('<div>')
                 .addClass('value-search-result')
@@ -786,14 +797,16 @@ function initValueSearch() {
 
     function formatValueCount(count, definition) {
         console.log('🔍 formatValueCount called with count:', count, 'definition:', definition);
+        console.log('🔍 formatValueCount - count > 0:', count > 0);
+
         if (count > 0) {
             const formatted = `${formatNumber(count)} uses`;
-            console.log('🔍 formatValueCount returning:', formatted);
+            console.log('🔍 formatValueCount - returning formatted count:', formatted);
             return formatted;
         } else {
             // For values with 0 uses, show a brief description instead
             const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : 'No description available';
-            console.log('🔍 formatValueCount returning description:', shortDesc);
+            console.log('🔍 formatValueCount - returning description:', shortDesc);
             return shortDesc;
         }
     }
