@@ -434,12 +434,12 @@ $(function () {
 	
 	//Object to manage the spinner layer
 	var loading = {
-		init: function () {
-			this.count = 0;
-			this.spinner = $('<div>').addClass('ol-control osmcat-loading').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
-			$('#map').append(this.spinner);
-		},
+		count: 0,
+		spinner: $('<div>').addClass('ol-control osmcat-loading').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>'),
 		show: function () {
+			if (!this.spinner.parent().length) {
+				$('#map').append(this.spinner);
+			}
 			this.spinner.show();
 			++this.count;
 		},
