@@ -849,6 +849,12 @@ $(function () {
 						});
 					}
 				});
+
+				// Also clear Tag Queries layers if the function exists
+				if (window.clearMapLayers) {
+					window.clearMapLayers();
+				}
+
 				if (window.renderOverlayList) window.renderOverlayList([], '');
 				$('#overlay-search').val('');
                     if (window.updateOverlaySummary) window.updateOverlaySummary();

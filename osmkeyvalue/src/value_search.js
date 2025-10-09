@@ -290,6 +290,8 @@ function initValueSearch() {
             return;
         }
 
+        console.log('🗑️ Map exists, getting layers...');
+
         // Find the Tag Queries group
         const tagQueriesGroup = findOrCreateTagOverlaysGroup();
         if (!tagQueriesGroup) {
@@ -304,6 +306,12 @@ function initValueSearch() {
         const existingLayers = mapLayers.getArray();
         const groupInMap = existingLayers.some(layer => layer === tagQueriesGroup);
         console.log('🗑️ Group in map:', groupInMap);
+        console.log('🗑️ Map layers count:', existingLayers.length);
+
+        if (!groupInMap) {
+            console.log('🗑️ Group not in map, nothing to remove');
+            return;
+        }
 
         // Clear all layers from the group
         const layersCollection = tagQueriesGroup.getLayers();
@@ -324,10 +332,13 @@ function initValueSearch() {
         layersCollection.clear();
         console.log('🗑️ All layers cleared from Tag Queries group');
 
-        // Remove the group from the map if it exists
-        if (groupInMap) {
-            console.log('🗑️ Removing Tag Queries group from map');
+        // Remove the group from the map
+        console.log('🗑️ Removing Tag Queries group from map');
+        try {
             mapLayers.remove(tagQueriesGroup);
+            console.log('🗑️ Successfully removed group from map');
+        } catch (error) {
+            console.error('🗑️ Error removing group from map:', error);
         }
 
         // Trigger overlay update event to refresh the UI
@@ -567,6 +578,8 @@ function initValueSearch() {
         // Add to overlays group if it exists, otherwise create one
         const overlaysGroup = findOrCreateTagOverlaysGroup();
         console.log('🔍 Adding vector layer to group');
+        console.log('🔍 Overlays group title:', overlaysGroup.get('title'));
+        console.log('🔍 Overlays group type:', overlaysGroup.get('type'));
 
         // Add the layer to the group - the group already has layers array in constructor
         const layersCollection = overlaysGroup.getLayers();
@@ -621,16 +634,25 @@ function initValueSearch() {
 
     function findOrCreateTagOverlaysGroup() {
         console.log('🔍 Looking for Tag Queries group');
+
         // First, try to find existing Tag Queries group
-        for (const layer of config.layers) {
+        console.log('🔍 Checking config.layers for Tag Queries group');
+        console.log('🔍 Total layers in config:', config.layers.length);
+
+        for (let i = 0; i < config.layers.length; i++) {
+            const layer = config.layers[i];
+            console.log('🔍 Checking layer', i, ':', layer.get ? layer.get('title') : 'no title', layer.get ? layer.get('type') : 'no type');
+
             if (layer.get && layer.get('type') === 'overlay' && layer.get('title') === 'Tag Queries') {
-                console.log('🔍 Found existing Tag Queries group');
+                console.log('🔍 Found existing Tag Queries group at index', i);
+                console.log('🔍 Group layers count:', layer.getLayers().getLength());
 
                 // If the map already exists, make sure the layer group is in it
                 if (window.map) {
                     console.log('🔍 Checking if layer group is in map');
                     const existingLayers = window.map.getLayers().getArray();
                     const groupExists = existingLayers.some(existingLayer => existingLayer === layer);
+                    console.log('🔍 Group exists in map:', groupExists);
 
                     if (!groupExists) {
                         console.log('🔍 Layer group not in map, adding it');
