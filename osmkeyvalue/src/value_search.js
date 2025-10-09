@@ -325,17 +325,12 @@ function initValueSearch() {
             return;
         }
 
-        // DEBUG: Temporarily test with a very simple query to verify API connectivity
-        console.log('🚀 Testing API connectivity with simple query');
-        const simpleTestQuery = '[out:xml][timeout:25];node["amenity"="restaurant"](41.0,1.0,42.0,2.0);out meta;';
-        console.log('🚀 Simple test query:', simpleTestQuery);
-
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text('Executing...');
         console.log('🚀 Button state updated to executing');
 
         // Create overlay for results
-        createTagOverlay(key, value, simpleTestQuery);
+        createTagOverlay(key, value, query);
     }
 
     function createTagOverlay(key, value, query) {
