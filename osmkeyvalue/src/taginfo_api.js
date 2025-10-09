@@ -304,6 +304,15 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
         return null;
     }
 
+    // Trim whitespace from key and value
+    key = key.trim();
+    value = value.trim();
+
+    if (!key || !value) {
+        console.error('🔧 Key or value is empty after trimming:', {key, value});
+        return null;
+    }
+
     if (!bbox || bbox.length !== 4 || bbox.some(isNaN)) {
         console.error('🔧 Invalid bbox:', bbox);
         return null;
@@ -315,7 +324,10 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
         return null;
     }
 
-    const query = `[out:xml][timeout:25];\n(${elementTypes.map(type => `${type}["${key}"="${value}"](${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]})`).join(';\n')});\nout meta;`;
+    // Build the query properly
+    const bboxStr = `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
+    const elementQueries = elementTypes.map(type => `${type}["${key}"="${value}"](${bboxStr})`).join(';\n');
+    const query = `[out:xml][timeout:25];\n(${elementQueries});\nout meta;`;
 
     console.log('🔧 Generated query:', query);
     return query;
