@@ -321,30 +321,121 @@ function initValueSearch() {
         });
 
         const groupInMap = existingLayers.some(layer => layer === tagQueriesGroup);
-        console.log('🗑️ Group in map:', groupInMap);
+        console.log('🗑️ Group in map (=== comparison):', groupInMap);
 
-        if (!groupInMap) {
+        // Also check if group is in map by title (in case object references don't match)
+        const groupByTitle = existingLayers.find(layer =>
+            layer.get && layer.get('title') === 'Tag Queries' && layer.get('type') === 'overlay'
+        );
+        console.log('🗑️ Group in map (by title):', !!groupByTitle);
+        if (groupByTitle) {
+            console.log('🗑️ Found group by title, using it instead');
+        }
+
+        // Try to find and remove by title if direct comparison fails
+        if (!groupInMap && !groupByTitle) {
             console.log('🗑️ Group not in map, nothing to remove');
             return;
         }
 
+        // Use either the original group or the title-based group for removal
+        const groupToRemove = groupInMap ? tagQueriesGroup : groupByTitle;
+        console.log('🗑️ Using group for removal:', groupToRemove.get ? groupToRemove.get('title') : 'no title');
+
         // Try to remove the group
         try {
             console.log('🗑️ Attempting to remove group from map...');
-            const removed = mapLayers.remove(tagQueriesGroup);
+            const removed = mapLayers.remove(groupToRemove);
             console.log('🗑️ Remove result:', removed);
+            console.log('🗑️ Remove result type:', typeof removed);
+            console.log('🗑️ Remove result === groupToRemove:', removed === groupToRemove);
+
+            // Check if removal actually worked
+            const afterLayers = window.map.getLayers().getArray();
+            const stillExists = afterLayers.some(layer => layer === groupToRemove);
+            console.log('🗑️ Group still exists in map after removal:', stillExists);
             console.log('🗑️ Map layers after remove attempt:', window.map.getLayers().getLength());
+
+            // If removal didn't work, try removing by title
+            if (stillExists) {
+                console.log('🗑️ Direct removal failed, trying alternative methods...');
+
+                // Try to find and remove all layers with "Tag Queries" in title
+                const layersToRemove = afterLayers.filter(layer =>
+                    layer.get && (
+                        layer.get('title') === 'Tag Queries' ||
+                        layer.get('title')?.includes('Tag Queries') ||
+                        layer.get('group') === 'Tag Queries'
+                    )
+                );
+
+                console.log('🗑️ Found', layersToRemove.length, 'layers to remove by title');
+
+                layersToRemove.forEach(layer => {
+                    try {
+                        const removeResult = mapLayers.remove(layer);
+                        console.log('🗑️ Removed layer by title:', layer.get ? layer.get('title') : 'no title', 'Result:', removeResult);
+                    } catch (error) {
+                        console.error('🗑️ Error removing layer by title:', error);
+                    }
+                });
+
+                console.log('🗑️ Map layers after title-based removal:', window.map.getLayers().getLength());
+            }
+
+            // Final verification and cleanup
+            const finalLayers = window.map.getLayers().getArray();
+            const finalCount = finalLayers.length;
+            console.log('🗑️ Final map layers count:', finalCount);
+
+            // Check if any Tag Queries layers still exist and remove them
+            const remainingTagLayers = finalLayers.filter(layer =>
+                layer.get && (
+                    layer.get('title') === 'Tag Queries' ||
+                    layer.get('title')?.includes('Tag Queries') ||
+                    layer.get('group') === 'Tag Queries'
+                )
+            );
+            console.log('🗑️ Remaining Tag Queries layers:', remainingTagLayers.length);
+
+            // Remove any remaining Tag Queries layers
+            if (remainingTagLayers.length > 0) {
+                console.log('🗑️ Removing remaining Tag Queries layers...');
+                remainingTagLayers.forEach(layer => {
+                    try {
+                        const removeResult = mapLayers.remove(layer);
+                        console.log('🗑️ Removed remaining layer:', layer.get ? layer.get('title') : 'no title');
+                    } catch (error) {
+                        console.error('🗑️ Error removing remaining layer:', error);
+                    }
+                });
+                console.log('🗑️ Map layers after cleanup:', window.map.getLayers().getLength());
+            }
+
+            // Also try to clear any vector sources directly
+            console.log('🗑️ Clearing vector sources directly...');
+            finalLayers.forEach((layer, index) => {
+                if (layer instanceof ol.layer.Vector && layer.getSource) {
+                    const source = layer.getSource();
+                    if (source && typeof source.clear === 'function') {
+                        console.log('🗑️ Clearing source for layer', index, ':', layer.get ? layer.get('title') : 'no title');
+                        source.clear();
+                    }
+                }
+            });
+
         } catch (error) {
             console.error('🗑️ Error removing group:', error);
         }
 
-        // Trigger overlay update event to refresh the UI
-        window.dispatchEvent(new Event('overlaysUpdated'));
-
-        // Force map re-render
+        // Force map re-render immediately to ensure visual update
         if (window.map) {
+            console.log('🗑️ Forcing immediate map render...');
             window.map.renderSync();
         }
+
+        // Don't trigger overlay update event immediately to prevent re-integration
+        // The overlay system will update itself if needed
     }
 
     function executeTagQuery(key, value) {
@@ -597,6 +688,11 @@ function initValueSearch() {
                 console.log('🔍 Layer group not in map, adding it');
                 window.map.addLayer(overlaysGroup);
                 console.log('🔍 Layer group added, total map layers now:', window.map.getLayers().getLength());
+
+                // Verify the group was actually added
+                const verifyLayers = window.map.getLayers().getArray();
+                const verifyGroupExists = verifyLayers.some(layer => layer === overlaysGroup);
+                console.log('🔍 Verification - Group exists in map after add:', verifyGroupExists);
             } else {
                 console.log('🔍 Layer group already exists in map');
             }
