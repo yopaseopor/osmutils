@@ -310,6 +310,7 @@ function initValueSearch() {
 
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text('Executing...');
+        console.log('🚀 Button state updated to executing');
 
         // Create overlay for results
         createTagOverlay(key, value, query);
@@ -335,12 +336,15 @@ function initValueSearch() {
 
                 const client = new XMLHttpRequest();
                 client.open('POST', config.overpassApi());
+                console.log('🎯 Sending request to:', config.overpassApi());
+                console.log('🎯 Request data:', query);
+
                 client.onloadend = function () {
-                    console.log('🎯 Request ended');
+                    console.log('🎯 Request ended, status:', client.status);
                     if (window.loading) window.loading.hide();
                 };
                 client.onerror = function () {
-                    console.error('🎯 Error loading tag data:', client.status);
+                    console.error('🎯 Error loading tag data:', client.status, client.statusText);
                     if (window.loading) window.loading.hide();
                 };
                 client.onload = function () {
@@ -425,7 +429,23 @@ function initValueSearch() {
         // Add to overlays group if it exists, otherwise create one
         const overlaysGroup = findOrCreateTagOverlaysGroup();
         console.log('🔍 Adding vector layer to group');
-        overlaysGroup.getLayers().push(vectorLayer);
+
+        // Add the layer to the group - the group already has layers array in constructor
+        const layersCollection = overlaysGroup.getLayers();
+        layersCollection.push(vectorLayer);
+
+        // If the map already exists, we need to add the layer group to it
+        if (window.map) {
+            console.log('🔍 Adding layer group to existing map');
+            // Check if the layer group is already in the map
+            const existingLayers = window.map.getLayers().getArray();
+            const groupExists = existingLayers.some(layer => layer === overlaysGroup);
+
+            if (!groupExists) {
+                console.log('🔍 Layer group not in map, adding it');
+                window.map.addLayer(overlaysGroup);
+            }
+        }
 
         // Make sure the overlay group is visible
         overlaysGroup.setVisible(true);
@@ -450,6 +470,19 @@ function initValueSearch() {
         for (const layer of config.layers) {
             if (layer.get && layer.get('type') === 'overlay' && layer.get('title') === 'Tag Queries') {
                 console.log('🔍 Found existing Tag Queries group');
+
+                // If the map already exists, make sure the layer group is in it
+                if (window.map) {
+                    console.log('🔍 Checking if layer group is in map');
+                    const existingLayers = window.map.getLayers().getArray();
+                    const groupExists = existingLayers.some(existingLayer => existingLayer === layer);
+
+                    if (!groupExists) {
+                        console.log('🔍 Layer group not in map, adding it');
+                        window.map.addLayer(layer);
+                    }
+                }
+
                 return layer;
             }
         }
@@ -467,6 +500,13 @@ function initValueSearch() {
         overlaysGroup.set('id', 'tag-queries-group');
 
         config.layers.push(overlaysGroup);
+
+        // If the map already exists, add the new layer group to it
+        if (window.map) {
+            console.log('🔍 Adding new layer group to existing map');
+            window.map.addLayer(overlaysGroup);
+        }
+
         console.log('🔍 Added Tag Queries group to config.layers');
         return overlaysGroup;
     }
