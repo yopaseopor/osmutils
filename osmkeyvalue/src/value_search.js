@@ -235,14 +235,29 @@ function initValueSearch() {
             console.log('🔍 Definition to use for formatting:', definitionToUse);
 
             // Debug the HTML structure
+            const valueNameHtml = `<div class="value-name">${escapeHtml(result.value || result.key || 'No value')}</div>`;
+            const valueKeyHtml = result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : '';
+            const valueTagHtml = result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : '';
+            const valueDefHtml = `<div class="value-definition">${escapeHtml(definitionToUse || 'No description available')}</div>`;
+            const valueCountHtml = `<div class="value-count">${formatValueCount(countToUse, definitionToUse)}</div>`;
+
+            console.log('🔍 HTML parts:');
+            console.log('  - valueNameHtml:', valueNameHtml);
+            console.log('  - valueKeyHtml:', valueKeyHtml);
+            console.log('  - valueTagHtml:', valueTagHtml);
+            console.log('  - valueDefHtml:', valueDefHtml);
+            console.log('  - valueCountHtml:', valueCountHtml);
+
             const html = `
-                <div class="value-name">${escapeHtml(result.value || result.key || 'No value')}</div>
-                ${result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : ''}
-                ${result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : ''}
-                <div class="value-definition">${escapeHtml(definitionToUse || 'No description available')}</div>
-                <div class="value-count">${formatValueCount(countToUse, definitionToUse)}</div>
+                ${valueNameHtml}
+                ${valueKeyHtml}
+                ${valueTagHtml}
+                ${valueDefHtml}
+                ${valueCountHtml}
             `;
-            console.log('🔍 Generated HTML structure:', html);
+
+            console.log('🔍 Complete HTML structure:', html);
+            console.log('🔍 HTML length:', html.length);
 
             const resultElement = $('<div>')
                 .addClass('value-search-result')
@@ -789,6 +804,15 @@ function initValueSearch() {
         return ['node', 'way', 'relation'];
     }
 
+    function formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K';
+        }
+        return num.toString();
+    }
+
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -800,7 +824,9 @@ function initValueSearch() {
         console.log('🔍 formatValueCount - count > 0:', count > 0);
 
         if (count > 0) {
-            const formatted = `${formatNumber(count)} uses`;
+            const numberPart = formatNumber(count);
+            const formatted = `${numberPart} uses`;
+            console.log('🔍 formatValueCount - numberPart:', numberPart);
             console.log('🔍 formatValueCount - returning formatted count:', formatted);
             return formatted;
         } else {

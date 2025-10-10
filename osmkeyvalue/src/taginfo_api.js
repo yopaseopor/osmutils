@@ -69,16 +69,18 @@ function parseCSVData(csvText) {
         if (!line) continue;
 
         const values = parseCSVLine(line);
-        if (values.length >= 14) {  // Updated to match actual CSV structure (14 columns)
+        if (values.length >= 16) {  // Updated to match actual CSV structure (16 columns)
             const [
-                key, value, tag, definition, countAll, countNodes, countWays, countRelations,
-                definition_en, in_wiki, description, icon, osm_key, osm_value
+                key, value, tag, definition_en, definition_ca, definition_es,
+                count_all, count_all_fraction, count_nodes, count_nodes_fraction,
+                count_ways, count_ways_fraction, count_relations, count_relations_fraction,
+                in_wiki, projects
             ] = values;
 
             // Add to keys map
             if (!window.taginfoData.keys.has(key)) {
                 window.taginfoData.keys.set(key, {
-                    definition: definition_en || description || definition || '',  // Try multiple description fields
+                    definition: definition_en || definition_ca || definition_es || '',  // Try multiple description fields
                     totalCount: 0,
                     values: new Map()
                 });
@@ -87,14 +89,14 @@ function parseCSVData(csvText) {
             const keyData = window.taginfoData.keys.get(key);
             keyData.values.set(value, {
                 tag: tag,
-                definition: definition_en || description || definition || '',  // Try multiple description fields
-                countAll: parseInt(countAll) || 0,
-                countNodes: parseInt(countNodes) || 0,
-                countWays: parseInt(countWays) || 0,
-                countRelations: parseInt(countRelations) || 0
+                definition: definition_en || definition_ca || definition_es || '',  // Try multiple description fields
+                countAll: parseInt(count_all) || 0,
+                countNodes: parseInt(count_nodes) || 0,
+                countWays: parseInt(count_ways) || 0,
+                countRelations: parseInt(count_relations) || 0
             });
 
-            keyData.totalCount += parseInt(countAll) || 0;
+            keyData.totalCount += parseInt(count_all) || 0;
 
             // Add to values map (for global value search)
             if (!window.taginfoData.values.has(value)) {
@@ -102,11 +104,11 @@ function parseCSVData(csvText) {
                     totalCount: 0
                 });
             }
-            window.taginfoData.values.get(value).totalCount += parseInt(countAll) || 0;
+            window.taginfoData.values.get(value).totalCount += parseInt(count_all) || 0;
 
             // Add to definitions
             if (tag) {
-                window.taginfoData.definitions.set(tag, definition_en || description || definition || '');
+                window.taginfoData.definitions.set(tag, definition_en || definition_ca || definition_es || '');
             }
 
             // Debug first few entries
@@ -114,10 +116,11 @@ function parseCSVData(csvText) {
                 console.log('📊 Sample entry:', {
                     key,
                     value,
-                    countAll: parseInt(countAll) || 0,
+                    count_all: parseInt(count_all) || 0,
+                    count_ways: parseInt(count_ways) || 0,
                     definition_en: definition_en ? 'present' : 'empty',
-                    description: description ? 'present' : 'empty',
-                    definition: definition ? 'present' : 'empty'
+                    definition_ca: definition_ca ? 'present' : 'empty',
+                    definition_es: definition_es ? 'present' : 'empty'
                 });
             }
         }
@@ -233,6 +236,7 @@ function searchValues(query, key = null, limit = 20) {
                     value: value,
                     tag: valueData.tag,
                     definition: valueData.definition || '',
+                    definition_en: valueData.definition || '', // Add definition_en field
                     countAll: valueData.countAll,
                     countNodes: valueData.countNodes,
                     countWays: valueData.countWays,
@@ -264,6 +268,7 @@ function searchValues(query, key = null, limit = 20) {
                     key: keysWithValue.length > 0 ? keysWithValue[0] : null,
                     tag: null,
                     definition: '',
+                    definition_en: '', // Add empty definition_en for global search
                     countAll: valueData.totalCount
                 });
 

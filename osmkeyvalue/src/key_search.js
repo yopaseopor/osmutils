@@ -187,6 +187,15 @@ function initKeySearch() {
         return div.innerHTML;
     }
 
+    function formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K';
+        }
+        return num.toString();
+    }
+
     function formatKeyCount(count, definition) {
         console.log('🔑 formatKeyCount called with count:', count, 'definition:', definition);
         if (count > 0) {
