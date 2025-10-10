@@ -1,6 +1,237 @@
 /**
- * Value Search Implementation for OSM Tags
+ * Generate a unique color for a key-value pair using a simple hash function
  */
+function generateUniqueColor(key, value) {
+    // Create a simple hash from the key-value combination
+    const combined = `${key}:${value}`;
+    let hash = 0;
+
+    for (let i = 0; i < combined.length; i++) {
+        const char = combined.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+
+    // Convert hash to RGB values
+    const r = Math.abs(hash) % 255;
+    const g = Math.abs(hash >> 8) % 255;
+    const b = Math.abs(hash >> 16) % 255;
+
+    // Ensure good contrast and visibility by adjusting values
+    const adjustedR = Math.max(50, Math.min(200, r));
+    const adjustedG = Math.max(50, Math.min(200, g));
+    const adjustedB = Math.max(50, Math.min(200, b));
+
+    return [adjustedR, adjustedG, adjustedB];
+}
+
+/**
+ * Generate a unique color for a key-value pair using a simple hash function
+ */
+function generateUniqueColor(key, value) {
+    // Create a simple hash from the key-value combination
+    const combined = `${key}:${value}`;
+    let hash = 0;
+
+    for (let i = 0; i < combined.length; i++) {
+        const char = combined.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+
+    // Convert hash to RGB values
+    const r = Math.abs(hash) % 255;
+    const g = Math.abs(hash >> 8) % 255;
+    const b = Math.abs(hash >> 16) % 255;
+
+    // Ensure good contrast and visibility by adjusting values
+    const adjustedR = Math.max(50, Math.min(200, r));
+    const adjustedG = Math.max(50, Math.min(200, g));
+    const adjustedB = Math.max(50, Math.min(200, b));
+
+    return [adjustedR, adjustedG, adjustedB];
+}
+
+/**
+ * Legend data structure for active queries
+ */
+window.tagQueryLegend = {
+    queries: new Map(), // Maps overlayId -> {key, value, color, count, visible}
+
+    /**
+     * Add or update a query in the legend
+     */
+    addQuery(overlayId, key, value, color, count = 0, visible = true) {
+        this.queries.set(overlayId, {
+            key,
+            value,
+            color,
+            count,
+            visible,
+            timestamp: Date.now()
+        });
+        this.updateLegendDisplay();
+    },
+
+    /**
+     * Remove a query from the legend
+     */
+    removeQuery(overlayId) {
+        this.queries.delete(overlayId);
+        this.updateLegendDisplay();
+    },
+
+    /**
+     * Update the count for a query
+     */
+    updateCount(overlayId, count) {
+        if (this.queries.has(overlayId)) {
+            this.queries.get(overlayId).count = count;
+            this.updateLegendDisplay();
+        }
+    },
+
+    /**
+     * Update visibility for a query
+     */
+    updateVisibility(overlayId, visible) {
+        if (this.queries.has(overlayId)) {
+            this.queries.get(overlayId).visible = visible;
+            this.updateLegendDisplay();
+        }
+    },
+
+    /**
+     * Get all visible queries
+     */
+    getVisibleQueries() {
+        return Array.from(this.queries.values()).filter(query => query.visible);
+    },
+
+    /**
+     * Generate and display the legend
+     */
+    updateLegendDisplay() {
+        const legendContainer = $('#tag-query-legend');
+        if (!legendContainer.length) {
+            this.createLegendContainer();
+        }
+
+        const visibleQueries = this.getVisibleQueries();
+        if (visibleQueries.length === 0) {
+            legendContainer.hide();
+            return;
+        }
+
+        legendContainer.show();
+        legendContainer.empty();
+
+        // Add title
+        legendContainer.append('<div class="legend-title">📊 Consultes Actives</div>');
+
+        // Add each query
+        visibleQueries.forEach(query => {
+            const colorStyle = `background-color: rgb(${query.color.join(',')})`;
+            const countText = query.count > 0 ? `${query.count} resultats` : 'Carregant...';
+
+            const queryItem = `
+                <div class="legend-item">
+                    <div class="legend-color" style="${colorStyle}"></div>
+                    <div class="legend-info">
+                        <div class="legend-tag">${query.key}=${query.value}</div>
+                        <div class="legend-count">${countText}</div>
+                    </div>
+                </div>
+            `;
+            legendContainer.append(queryItem);
+        });
+    },
+
+    /**
+     * Create the legend container if it doesn't exist
+     */
+    createLegendContainer() {
+        if ($('#tag-query-legend').length) return;
+
+        const legendHtml = `
+            <div id="tag-query-legend" class="tag-query-legend" style="display: none;">
+                <div class="legend-title">📊 Consultes Actives</div>
+            </div>
+        `;
+
+        // Add to the map menu area
+        $('#menu').append(legendHtml);
+
+        // Add CSS styles
+        this.addLegendStyles();
+    },
+
+    /**
+     * Add CSS styles for the legend
+     */
+    addLegendStyles() {
+        if ($('#tag-query-legend-styles').length) return;
+
+        const styles = `
+            <style id="tag-query-legend-styles">
+                .tag-query-legend {
+                    position: fixed;
+                    bottom: 10px;
+                    right: 10px;
+                    background: white;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    padding: 10px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                    max-width: 250px;
+                    font-family: Arial, sans-serif;
+                    font-size: 12px;
+                }
+
+                .legend-title {
+                    font-weight: bold;
+                    margin-bottom: 8px;
+                    text-align: center;
+                    color: #333;
+                }
+
+                .legend-item {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 5px;
+                    padding: 3px;
+                    border-radius: 3px;
+                }
+
+                .legend-color {
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 2px;
+                    margin-right: 8px;
+                    border: 1px solid #999;
+                }
+
+                .legend-info {
+                    flex: 1;
+                }
+
+                .legend-tag {
+                    font-weight: bold;
+                    color: #333;
+                    margin-bottom: 2px;
+                }
+
+                .legend-count {
+                    color: #666;
+                    font-size: 11px;
+                }
+            </style>
+        `;
+
+        $('head').append(styles);
+    }
+};
 
 function initValueSearch() {
     console.log('🔍 initValueSearch called');
@@ -97,6 +328,10 @@ function initValueSearch() {
         // Clear map layers first
         clearMapLayers();
 
+        // Clear legend
+        window.tagQueryLegend.queries.clear();
+        window.tagQueryLegend.updateLegendDisplay();
+
         // Clear UI state
         currentKey = null;
         currentValue = null;
@@ -176,18 +411,18 @@ function initValueSearch() {
         console.log('🔍 Available values count:', window.taginfoData.values.size);
         console.log('🔍 Available keys count:', window.taginfoData.keys.size);
 
-        const results = window.searchValues(query, key, 10);
+        const results = window.searchValues(query, key, 25);
         console.log('🔍 Value search results:', results);
         console.log('🔍 Results length:', results.length);
 
         currentResults = results;
-        displayValueResults(results);
+        displayValueResults(results, query);
 
         // Trigger custom event for other components
         searchInput.trigger('valueSearchResults', [results, key]);
     }
 
-    function displayValueResults(results) {
+    function displayValueResults(results, query) {
         console.log('🔍 displayValueResults called with:', results.length, 'results');
         resultsContainer.empty();
 
@@ -215,7 +450,7 @@ function initValueSearch() {
             if (typeof countToUse !== 'number' || countToUse <= 0) {
                 countToUse = 0;
             }
-            let definitionToUse = result.definition_en || result.definition || '';
+            let definitionToUse = result.definition_en || result.definition_ca || result.definition_es || result.definition || '';
 
             // For global value search results, we need to get the definition from the keys that use this value
             if (result.keys && result.keys.length > 0 && !definitionToUse) {
@@ -225,7 +460,7 @@ function initValueSearch() {
                     const keyData = window.taginfoData.keys.get(firstKey);
                     if (keyData.values.has(result.value)) {
                         const valueData = keyData.values.get(result.value);
-                        definitionToUse = valueData.definition || '';
+                        definitionToUse = valueData.definition_en || valueData.definition_ca || valueData.definition_es || valueData.definition || '';
                         console.log('🔍 Got definition from key data:', definitionToUse);
                     }
                 }
@@ -234,25 +469,43 @@ function initValueSearch() {
             console.log('🔍 Count to use for formatting:', countToUse);
             console.log('🔍 Definition to use for formatting:', definitionToUse);
 
+            // Apply highlighting to search query
+            const highlightedValue = highlightText(result.value || result.key || 'No value', query);
+            const highlightedKey = result.key ? highlightText(result.key, query) : '';
+
+            // Apply highlighting to all definition columns
+            const highlightedDefEn = highlightText(result.definition_en || '', query);
+            const highlightedDefCa = highlightText(result.definition_ca || '', query);
+            const highlightedDefEs = highlightText(result.definition_es || '', query);
+
             // Debug the HTML structure
-            const valueNameHtml = `<div class="value-name">${escapeHtml(result.value || result.key || 'No value')}</div>`;
-            const valueKeyHtml = result.key ? `<div class="value-key">for key: ${escapeHtml(result.key)}</div>` : '';
+            const valueNameHtml = `<div class="value-name">${highlightedValue}</div>`;
+            const valueKeyHtml = result.key ? `<div class="value-key">for key: ${highlightedKey}</div>` : '';
             const valueTagHtml = result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : '';
-            const valueDefHtml = `<div class="value-definition">${escapeHtml(definitionToUse || 'No description available')}</div>`;
+
+            // Show all definition columns with highlighting
+            const defEnHtml = result.definition_en ? `<div class="value-definition-en">EN: ${highlightedDefEn}</div>` : '';
+            const defCaHtml = result.definition_ca ? `<div class="value-definition-ca">CA: ${highlightedDefCa}</div>` : '';
+            const defEsHtml = result.definition_es ? `<div class="value-definition-es">ES: ${highlightedDefEs}</div>` : '';
+
             const valueCountHtml = `<div class="value-count">${formatValueCount(countToUse, definitionToUse)}</div>`;
 
             console.log('🔍 HTML parts:');
             console.log('  - valueNameHtml:', valueNameHtml);
             console.log('  - valueKeyHtml:', valueKeyHtml);
             console.log('  - valueTagHtml:', valueTagHtml);
-            console.log('  - valueDefHtml:', valueDefHtml);
+            console.log('  - defEnHtml:', defEnHtml);
+            console.log('  - defCaHtml:', defCaHtml);
+            console.log('  - defEsHtml:', defEsHtml);
             console.log('  - valueCountHtml:', valueCountHtml);
 
             const html = `
                 ${valueNameHtml}
                 ${valueKeyHtml}
                 ${valueTagHtml}
-                ${valueDefHtml}
+                ${defEnHtml}
+                ${defCaHtml}
+                ${defEsHtml}
                 ${valueCountHtml}
             `;
 
@@ -454,8 +707,16 @@ function initValueSearch() {
 
     function executeTagQuery(key, value) {
         console.log('🚀 executeTagQuery called with:', key, value);
+        console.log('🚀 Current legend queries before execution:', window.tagQueryLegend.queries.size);
 
-        // Check if map is ready with retry mechanism
+        // Check if this exact query is already running or exists
+        const existingQuery = Array.from(window.tagQueryLegend.queries.entries())
+            .find(([id, query]) => query.key === key && query.value === value);
+
+        if (existingQuery) {
+            console.log('🚀 Query already exists, skipping duplicate execution');
+            return;
+        }
         if (!window.map) {
             console.log('🚀 Map not ready, retrying in 500ms');
             setTimeout(() => executeTagQuery(key, value), 500);
@@ -519,11 +780,18 @@ function initValueSearch() {
         console.log('🎯 createTagOverlay called with:', key, value);
         console.log('🎯 Query:', query);
 
+        // Generate unique color for this key-value pair
+        const uniqueColor = generateUniqueColor(key, value);
+        console.log('🎯 Generated unique color:', uniqueColor);
+
         // Create a unique overlay for this tag query
         const overlayId = `tag_${key}_${value}_${Date.now()}`;
         const overlayTitle = `${key}=${value}`;
 
         console.log('🎯 Creating overlay:', overlayId, overlayTitle);
+
+        // Add to legend before creating the overlay
+        window.tagQueryLegend.addQuery(overlayId, key, value, uniqueColor, 0, true);
 
         // Create vector source for the query with retry mechanism
         const vectorSource = new ol.source.Vector({
@@ -605,6 +873,9 @@ function initValueSearch() {
                                     this.addFeatures(features);
                                     console.log('🎯 Features added to source');
 
+                                    // Update legend with actual count
+                                    window.tagQueryLegend.updateCount(overlayId, features.length);
+
                                     // Update overlay summary if function exists
                                     if (window.updateOverlaySummary) {
                                         window.updateOverlaySummary();
@@ -656,19 +927,19 @@ function initValueSearch() {
                 image: new ol.style.Circle({
                     radius: 4,
                     fill: new ol.style.Fill({
-                        color: [255, 0, 255, 0.7]
+                        color: [...uniqueColor, 0.7]
                     }),
                     stroke: new ol.style.Stroke({
-                        color: [255, 0, 255, 1],
+                        color: [...uniqueColor, 1],
                         width: 1
                     })
                 }),
                 stroke: new ol.style.Stroke({
-                    color: [255, 0, 255, 1],
+                    color: [...uniqueColor, 1],
                     width: 2
                 }),
                 fill: new ol.style.Fill({
-                    color: [255, 0, 255, 0.3]
+                    color: [...uniqueColor, 0.3]
                 })
             })
         });
@@ -685,6 +956,17 @@ function initValueSearch() {
 
         // Add the layer to the group - the group already has layers array in constructor
         const layersCollection = overlaysGroup.getLayers();
+
+        // Check if this overlay already exists in the group
+        const existingLayer = layersCollection.getArray().find(layer =>
+            layer.get && layer.get('id') === overlayId
+        );
+
+        if (existingLayer) {
+            console.log('🔍 Overlay already exists in group, skipping duplicate');
+            return;
+        }
+
         layersCollection.push(vectorLayer);
         console.log('🔍 Vector layer added to group, total layers:', layersCollection.getLength());
 
@@ -694,6 +976,21 @@ function initValueSearch() {
             console.log('🔍 Current map layers before:', window.map.getLayers().getLength());
             // Check if the layer group is already in the map
             const existingLayers = window.map.getLayers().getArray();
+            const existingTagGroups = existingLayers.filter(layer =>
+                layer.get && layer.get('title') === 'Tag Queries' && layer.get('type') === 'overlay'
+            );
+
+            console.log('🔍 Found existing Tag Queries groups:', existingTagGroups.length);
+
+            if (existingTagGroups.length > 1) {
+                console.log('🔍 Multiple Tag Queries groups found, removing extras');
+                // Remove extra groups
+                existingTagGroups.slice(1).forEach(group => {
+                    window.map.removeLayer(group);
+                    console.log('🔍 Removed extra Tag Queries group');
+                });
+            }
+
             const groupExists = existingLayers.some(layer => layer === overlaysGroup);
 
             console.log('🔍 Group exists in map:', groupExists);
@@ -817,6 +1114,38 @@ function initValueSearch() {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    function highlightText(text, query) {
+        if (!query || !text) return escapeHtml(text);
+
+        const queryLower = query.toLowerCase();
+        const textLower = text.toLowerCase();
+
+        // Find all occurrences of the query in the text
+        const parts = [];
+        let lastIndex = 0;
+        let index = textLower.indexOf(queryLower);
+
+        while (index !== -1) {
+            // Add text before the match
+            if (index > lastIndex) {
+                parts.push(escapeHtml(text.substring(lastIndex, index)));
+            }
+
+            // Add highlighted match
+            parts.push(`<mark>${escapeHtml(text.substring(index, index + query.length))}</mark>`);
+
+            lastIndex = index + query.length;
+            index = textLower.indexOf(queryLower, lastIndex);
+        }
+
+        // Add remaining text
+        if (lastIndex < text.length) {
+            parts.push(escapeHtml(text.substring(lastIndex)));
+        }
+
+        return parts.join('');
     }
 
     function formatValueCount(count, definition) {
