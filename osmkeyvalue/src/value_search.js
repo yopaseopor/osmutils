@@ -265,6 +265,17 @@ function initValueSearch() {
         const selectedKey = $(this).data('selectedKey');
         console.log('🔍 Selected key:', selectedKey);
 
+        // Update current value and key for potential execution
+        currentValue = query;
+
+        // Show execute button if we have both key and value
+        if (selectedKey && query) {
+            showExecuteButton(selectedKey, query);
+        } else {
+            $('#execute-query-btn').hide();
+            $('#clear-search-btn').hide();
+        }
+
         // Clear previous timeout
         if (searchTimeout) {
             clearTimeout(searchTimeout);
@@ -299,6 +310,19 @@ function initValueSearch() {
             }
         }
 
+        // Check if this is a custom value option
+        const customValue = $(this).attr('data-custom-value');
+        if (customValue) {
+            console.log('🔍 Custom value clicked:', customValue);
+            // Set current value and show execute button
+            currentValue = customValue;
+            if (currentKey) {
+                showExecuteButton(currentKey, currentValue);
+            }
+            resultsContainer.empty().hide();
+            return;
+        }
+
         console.log('🔍 Clicked result data:', result);
         if (result) {
             selectValueResult(result);
@@ -312,42 +336,35 @@ function initValueSearch() {
 
     // Handle execute button click
     $('#execute-query-btn').on('click', function() {
-        if (currentKey && currentValue) {
-            executeTagQuery(currentKey, currentValue);
+        // Get key and value directly from input fields instead of global variables
+        const selectedKey = $('#value-search').data('selectedKey');
+        const valueInput = $('#value-search').val().trim();
+
+        if (selectedKey && valueInput) {
+            executeTagQuery(selectedKey, valueInput);
             $(this).prop('disabled', true).text('Executing...');
+        } else {
+            console.error('❌ Execute button clicked but missing key or value');
+            console.log('Selected key:', selectedKey);
+            console.log('Value input:', valueInput);
         }
     });
 
     // Handle clear button click
     $('#clear-search-btn').on('click', function() {
         console.log('🧹 Clear button clicked');
-        console.log('🧹 Current map layers before clear:', window.map ? window.map.getLayers().getLength() : 'No map');
-        console.log('🧹 Current key:', currentKey);
-        console.log('🧹 Current value:', currentValue);
-
-        // Clear map layers first
-        clearMapLayers();
-
-        // Clear legend
-        window.tagQueryLegend.queries.clear();
-        window.tagQueryLegend.updateLegendDisplay();
 
         // Clear UI state
-        currentKey = null;
-        currentValue = null;
-        currentResults = [];
-
-        searchInput.val('');
-        resultsContainer.empty().hide();
+        $('#value-search').val('');
+        $('#value-search-dropdown').empty().hide();
 
         $('#execute-query-btn').hide().prop('disabled', false).text('Execute Query');
         $(this).hide();
 
         // Clear the selected key from value search
-        searchInput.removeData('selectedKey');
+        $('#value-search').removeData('selectedKey');
 
         console.log('✅ Search cleared');
-        console.log('🧹 Current map layers after clear:', window.map ? window.map.getLayers().getLength() : 'No map');
     });
 
     searchInput.on('keydown', function(e) {
@@ -428,7 +445,15 @@ function initValueSearch() {
 
         if (results.length === 0) {
             console.log('🔍 No results to display');
-            resultsContainer.append('<div class="no-results">No values found</div>');
+            // Show option to execute custom value
+            const customValueOption = `
+                <div class="value-search-result custom-value-option" data-custom-value="${escapeHtml(query)}">
+                    <div class="value-name">🔍 "${escapeHtml(query)}"</div>
+                    <div class="value-definition">Valor personalitzat - executar query directa</div>
+                    <div class="value-count">Fer clic per executar</div>
+                </div>
+            `;
+            resultsContainer.append(customValueOption);
             resultsContainer.show();
             return;
         }
@@ -483,10 +508,16 @@ function initValueSearch() {
             const valueKeyHtml = result.key ? `<div class="value-key">for key: ${highlightedKey}</div>` : '';
             const valueTagHtml = result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : '';
 
-            // Show all definition columns with highlighting
-            const defEnHtml = result.definition_en ? `<div class="value-definition-en">EN: ${highlightedDefEn}</div>` : '';
-            const defCaHtml = result.definition_ca ? `<div class="value-definition-ca">CA: ${highlightedDefCa}</div>` : '';
-            const defEsHtml = result.definition_es ? `<div class="value-definition-es">ES: ${highlightedDefEs}</div>` : '';
+            // Show only definition columns that contain the search term
+            const defEnHtml = result.definition_en && (result.definition_en.toLowerCase().includes(query.toLowerCase()))
+                ? `<div class="value-definition-en">EN: ${highlightedDefEn}</div>`
+                : '';
+            const defCaHtml = result.definition_ca && (result.definition_ca.toLowerCase().includes(query.toLowerCase()))
+                ? `<div class="value-definition-ca">CA: ${highlightedDefCa}</div>`
+                : '';
+            const defEsHtml = result.definition_es && (result.definition_es.toLowerCase().includes(query.toLowerCase()))
+                ? `<div class="value-definition-es">ES: ${highlightedDefEs}</div>`
+                : '';
 
             const valueCountHtml = `<div class="value-count">${formatValueCount(countToUse, definitionToUse)}</div>`;
 
@@ -540,27 +571,30 @@ function initValueSearch() {
         }
 
         if (result.key && result.value) {
-            // Key-value pair selected (from specific key search)
-            currentKey = result.key;
-            currentValue = result.value;
-            searchInput.val(result.value);
+            // Key-value pair selected (from specific key search) - use the selected values
+            $('#value-search').val(result.value);
+            $('#value-search').data('selectedKey', result.key);
             resultsContainer.empty().hide();
 
-            showExecuteButton(currentKey, currentValue);
+            showExecuteButton(result.key, result.value);
         } else if (result.keys && result.keys.length > 0 && result.value) {
-            // Value with multiple possible keys - use the first one
-            currentKey = result.keys[0];
-            currentValue = result.value;
-            searchInput.val(result.value);
+            // Value with multiple possible keys - use the first one and the selected value
+            $('#value-search').val(result.value);
+            $('#value-search').data('selectedKey', result.keys[0]);
             resultsContainer.empty().hide();
 
-            showExecuteButton(currentKey, currentValue);
+            showExecuteButton(result.keys[0], result.value);
         } else if (result.value) {
-            // Just a value selected (no specific key)
-            currentKey = null;
-            currentValue = result.value;
-            searchInput.val(result.value);
+            // Just a value selected (no specific key) - use current key if available
+            const currentKey = $('#value-search').data('selectedKey');
+            if (!currentKey) {
+                console.warn('🔍 No key available for value selection');
+                return;
+            }
+            $('#value-search').val(result.value);
             resultsContainer.empty().hide();
+
+            showExecuteButton(currentKey, result.value);
         } else {
             console.error('🔍 selectValueResult: result missing required properties:', result);
         }
@@ -714,8 +748,9 @@ function initValueSearch() {
             .find(([id, query]) => query.key === key && query.value === value);
 
         if (existingQuery) {
-            console.log('🚀 Query already exists, skipping duplicate execution');
-            return;
+            console.log('🚀 Query already exists, replacing existing overlay');
+            // Remove the existing query from legend
+            window.tagQueryLegend.removeQuery(existingQuery[0]);
         }
         if (!window.map) {
             console.log('🚀 Map not ready, retrying in 500ms');
@@ -740,6 +775,11 @@ function initValueSearch() {
         console.log('🚀 Map projection:', view.getProjection());
         console.log('🚀 Map bbox:', bbox);
         console.log('🚀 Bbox formatted:', `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`);
+
+        // Log zoom level and area info
+        const zoom = view.getZoom();
+        const area = (extent[2] - extent[0]) * (extent[3] - extent[1]);
+        console.log('🚀 Zoom level:', zoom, 'Area:', area.toFixed(2), 'square units');
 
         // Validate bbox coordinates
         if (bbox.some(coord => isNaN(coord) || Math.abs(coord) > 180)) {
@@ -870,11 +910,202 @@ function initValueSearch() {
                                         id: features[0].getId()
                                     } : 'No features');
 
-                                    this.addFeatures(features);
+                                    // Log detailed information about each feature
+                                    features.forEach((feature, index) => {
+                                        const geometry = feature.getGeometry();
+                                        const geometryType = geometry.getType();
+                                        const extent = geometry.getExtent();
+
+                                        console.log(`🎯 Feature ${index}:`, {
+                                            type: geometryType,
+                                            id: feature.getId(),
+                                            extent: extent,
+                                            area: geometryType.includes('Polygon') ? geometry.getArea() : 'N/A',
+                                            length: geometryType === 'LineString' ? geometry.getLength() : 'N/A'
+                                        });
+
+                                        // Special logging for different geometry types
+                                        if (geometryType === 'Point') {
+                                            console.log(`  📍 Point coordinates: ${JSON.stringify(geometry.getCoordinates())}`);
+                                        } else if (geometryType === 'LineString') {
+                                            console.log(`  📏 LineString length: ${geometry.getLength().toFixed(2)} units`);
+                                            console.log(`  📏 LineString coordinates: ${geometry.getCoordinates().length} points`);
+                                        } else if (geometryType.includes('Polygon')) {
+                                            console.log(`  🔷 Polygon area: ${geometry.getArea().toFixed(2)} sq units`);
+                                            console.log(`  🔷 Polygon rings: ${geometry.getCoordinates().length}`);
+                                        }
+                                    });
+
+                                    // Fix invalid LineString geometries to make them renderable
+                                    const fixedFeatures = features.map((feature, index) => {
+                                        const geometry = feature.getGeometry();
+                                        const geometryType = geometry.getType();
+
+                                        // For invalid LineStrings, fix them properly
+                                        if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
+                                            try {
+                                                const coords = geometry.getCoordinates();
+
+                                                // Check if LineString has invalid geometry
+                                                if (!coords || coords.length < 2) {
+                                                    console.log(`🎯 Fixing invalid LineString ${index}:`, {
+                                                        id: feature.getId(),
+                                                        coordsLength: coords ? coords.length : 'null',
+                                                        geometryType: geometryType
+                                                    });
+
+                                                    // If no coordinates or only 1 point, create a minimal valid line
+                                                    if (!coords || coords.length === 0) {
+                                                        // Create a tiny line at origin if no coordinates
+                                                        const tinyLine = new ol.geom.LineString([
+                                                            [0, 0],
+                                                            [0.001, 0.001]
+                                                        ]);
+                                                        feature.setGeometry(tinyLine);
+                                                        feature.set('fixedGeometry', true);
+                                                    } else if (coords.length === 1) {
+                                                        // Duplicate the single point to create a minimal line
+                                                        const point = coords[0];
+                                                        const fixedCoords = [point, [point[0] + 0.001, point[1] + 0.001]];
+                                                        const fixedLine = new ol.geom.LineString(fixedCoords);
+                                                        feature.setGeometry(fixedLine);
+                                                        feature.set('fixedGeometry', true);
+                                                    }
+                                                } else {
+                                                    // Validate that all coordinates are valid numbers
+                                                    const hasInvalidCoords = coords.some(point =>
+                                                        !Array.isArray(point) ||
+                                                        point.length < 2 ||
+                                                        typeof point[0] !== 'number' ||
+                                                        typeof point[1] !== 'number' ||
+                                                        isNaN(point[0]) ||
+                                                        isNaN(point[1])
+                                                    );
+
+                                                    if (hasInvalidCoords) {
+                                                        console.log(`🎯 Fixing LineString with invalid coordinates ${index}:`, feature.getId());
+                                                        // Filter out invalid coordinates and ensure minimum 2 points
+                                                        const validCoords = coords.filter(point =>
+                                                            Array.isArray(point) &&
+                                                            point.length >= 2 &&
+                                                            typeof point[0] === 'number' &&
+                                                            typeof point[1] === 'number' &&
+                                                            !isNaN(point[0]) &&
+                                                            !isNaN(point[1])
+                                                        );
+
+                                                        if (validCoords.length >= 2) {
+                                                            const fixedLine = new ol.geom.LineString(validCoords);
+                                                            feature.setGeometry(fixedLine);
+                                                            feature.set('fixedGeometry', true);
+                                                        } else if (validCoords.length === 1) {
+                                                            // Duplicate the single valid point
+                                                            const point = validCoords[0];
+                                                            const fixedCoords = [point, [point[0] + 0.001, point[1] + 0.001]];
+                                                            const fixedLine = new ol.geom.LineString(fixedCoords);
+                                                            feature.setGeometry(fixedLine);
+                                                            feature.set('fixedGeometry', true);
+                                                        } else {
+                                                            // Create a tiny line if no valid coordinates
+                                                            const tinyLine = new ol.geom.LineString([
+                                                                [0, 0],
+                                                                [0.001, 0.001]
+                                                            ]);
+                                                            feature.setGeometry(tinyLine);
+                                                            feature.set('fixedGeometry', true);
+                                                        }
+                                                    }
+                                                }
+                                            } catch (error) {
+                                                console.warn(`🎯 Error fixing LineString ${index}:`, error);
+                                                // Create a minimal valid line as fallback
+                                                try {
+                                                    const tinyLine = new ol.geom.LineString([
+                                                        [0, 0],
+                                                        [0.001, 0.001]
+                                                    ]);
+                                                    feature.setGeometry(tinyLine);
+                                                    feature.set('fixedGeometry', true);
+                                                } catch (fallbackError) {
+                                                    console.error(`🎯 Fallback failed for LineString ${index}:`, fallbackError);
+                                                }
+                                            }
+                                        }
+
+                                        return feature;
+                                    });
+
+                                    // Filter valid features (should include all fixed LineStrings)
+                                    const validFeatures = fixedFeatures.filter((feature, index) => {
+                                        const geometry = feature.getGeometry();
+                                        if (!geometry || !geometry.getType()) {
+                                            console.warn(`🎯 Feature ${index} has invalid geometry after fixing:`, feature);
+                                            return false;
+                                        }
+                                        return true;
+                                    });
+
+                                    // Filter to count only top-level complete elements
+                                    const taggedFeatures = validFeatures.filter((feature, index) => {
+                                        const geometryType = feature.getGeometry().getType();
+                                        const properties = feature.getProperties();
+
+                                        // Check if this element is a component of a larger geometry
+                                        const isComponent = properties.members || properties.memberOf ||
+                                                           properties.member || properties.membership;
+
+                                        // For complete geometries (ways and relations), count them if they're not components
+                                        if ((geometryType === 'LineString' || geometryType === 'MultiLineString' ||
+                                             geometryType === 'Polygon' || geometryType === 'MultiPolygon') && !isComponent) {
+                                            console.log(`🎯 Top-level geometry ${index}:`, feature.getId(), geometryType);
+                                            return true;
+                                        }
+
+                                        // For nodes, only count standalone nodes with tags (not nodes that are part of ways/relations)
+                                        if (geometryType === 'Point' && !isComponent) {
+                                            // Check if this is a standalone node with tags
+                                            const hasStandaloneTags = Object.keys(properties).some(prop =>
+                                                prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
+                                                prop !== 'originalType' && prop !== 'fixedGeometry' &&
+                                                prop !== 'members' && prop !== 'memberOf' &&
+                                                prop !== 'member' && prop !== 'membership'
+                                            );
+
+                                            if (hasStandaloneTags) {
+                                                console.log(`🎯 Standalone node ${index}:`, feature.getId(), 'has standalone tags');
+                                                return true;
+                                            } else {
+                                                console.log(`🎯 Node component ${index}:`, feature.getId(), 'part of larger geometry');
+                                                return false;
+                                            }
+                                        }
+
+                                        console.log(`🎯 Skipping ${index}:`, feature.getId(), geometryType, 'is component or no tags');
+                                        return false;
+                                    });
+
+                                    console.log(`🎯 Tagged features: ${taggedFeatures.length}/${validFeatures.length}`);
+
+                                    // Log detailed summary of tagged features by type
+                                    const detailedSummary = taggedFeatures.reduce((acc, feature) => {
+                                        const type = feature.getGeometry().getType();
+                                        acc[type] = (acc[type] || 0) + 1;
+                                        return acc;
+                                    }, {});
+
+                                    console.log('🎯 Detailed tagged features summary:', detailedSummary);
+                                    console.log('🎯 Tagged features by type:');
+                                    taggedFeatures.forEach((feature, index) => {
+                                        const geometry = feature.getGeometry();
+                                        const geometryType = geometry.getType();
+                                        console.log(`  ${index}: ${geometryType} - ${feature.getId()}`);
+                                    });
+
+                                    this.addFeatures(validFeatures);
                                     console.log('🎯 Features added to source');
 
-                                    // Update legend with actual count
-                                    window.tagQueryLegend.updateCount(overlayId, features.length);
+                                    // Update legend with tagged count
+                                    window.tagQueryLegend.updateCount(overlayId, taggedFeatures.length);
 
                                     // Update overlay summary if function exists
                                     if (window.updateOverlaySummary) {
@@ -883,13 +1114,13 @@ function initValueSearch() {
 
                                     // Trigger event for overlay management
                                     window.dispatchEvent(new CustomEvent('tagOverlayLoaded', {
-                                        detail: { key, value, overlayId, featureCount: features.length }
+                                        detail: { key, value, overlayId, featureCount: taggedFeatures.length }
                                     }));
 
                                     // Trigger the overlay features loaded event
                                     window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
 
-                                    $('#execute-query-btn').prop('disabled', false).text('Query Executed');
+                                    $('#execute-query-btn').prop('disabled', false).text(`Query Executed (${formatDetailedCount(detailedSummary)}) - Click to Repeat`);
                                     $('#clear-search-btn').show();
 
                                     // Force a map render update to ensure visibility
@@ -906,13 +1137,35 @@ function initValueSearch() {
                         } else {
                             console.error('🎯 Request failed with status:', client.status);
                             console.error('🎯 Response text:', client.responseText);
-                            $('#execute-query-btn').prop('disabled', false).text('Request Failed');
+
+                            // Handle different error types
+                            if (client.status === 504) {
+                                console.error('🎯 Overpass API timeout - server is too busy');
+                                $('#execute-query-btn').prop('disabled', false).text('Server Timeout');
+                                if (window.loading) window.loading.hide();
+
+                                // Show user-friendly error message
+                                alert('The Overpass API server is currently too busy to handle your request. Please try again in a few minutes.');
+                            } else if (client.status === 400) {
+                                console.error('🎯 Bad request - possibly invalid query');
+                                $('#execute-query-btn').prop('disabled', false).text('Invalid Query');
+                                if (window.loading) window.loading.hide();
+
+                                alert('The query appears to be invalid. Please check your search terms and try again.');
+                            } else {
+                                console.error('🎯 Request failed with status:', client.status);
+                                $('#execute-query-btn').prop('disabled', false).text('No Features - Click to Retry');
+                                if (window.loading) window.loading.hide();
+
+                                alert('The request failed. Please check your internet connection and try again.');
+                            }
                         }
                     }.bind(this);
                     client.send(queryData);
                 }
             },
-            strategy: ol.loadingstrategy.bbox
+            // Remove loading strategy to prevent automatic queries on map move/zoom
+            // strategy: ol.loadingstrategy.bbox
         });
 
         // Create vector layer
@@ -923,101 +1176,273 @@ function initValueSearch() {
             iconSrc: 'src/img/icones_web/tag_icon.png',
             iconStyle: 'filter: hue-rotate(120deg);',
             visible: true,
-            style: new ol.style.Style({
-                image: new ol.style.Circle({
-                    radius: 4,
-                    fill: new ol.style.Fill({
-                        color: [...uniqueColor, 0.7]
-                    }),
-                    stroke: new ol.style.Stroke({
-                        color: [...uniqueColor, 1],
-                        width: 1
-                    })
-                }),
-                stroke: new ol.style.Stroke({
-                    color: [...uniqueColor, 1],
-                    width: 2
-                }),
-                fill: new ol.style.Fill({
-                    color: [...uniqueColor, 0.3]
-                })
-            })
+            style: function(feature) {
+                const geometry = feature.getGeometry();
+                const geometryType = geometry.getType();
+
+                console.log('🎨 Styling feature:', {
+                    type: geometryType,
+                    id: feature.getId()
+                });
+
+                // Style for nodes (Point geometries) - ORIGINAL ELEGANT STYLE
+                if (geometryType === 'Point') {
+                    const originalType = feature.get('originalType');
+
+                    // Check if this point was originally a LineString
+                    if (originalType === 'LineString') {
+                        return new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 5,
+                                fill: new ol.style.Fill({
+                                    color: generateQueryColor(vectorLayer.get('id'), true) // Use same color as fixed lines
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: generateQueryColor(vectorLayer.get('id'), true),
+                                    width: 2
+                                })
+                            })
+                        });
+                    }
+
+                    // Check if this point was originally a Polygon
+                    if (originalType === 'Polygon') {
+                        return new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 6,
+                                fill: new ol.style.Fill({
+                                    color: [...generateQueryColor(vectorLayer.get('id'), false), 0.4] // Reduced transparency for consistency
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: generateQueryColor(vectorLayer.get('id'), false),
+                                    width: 2
+                                })
+                            })
+                        });
+                    }
+
+                    // Regular point styling (nodes)
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 4,
+                            fill: new ol.style.Fill({
+                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.6] // Reduced transparency for consistency
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: generateQueryColor(vectorLayer.get('id'), false),
+                                width: 1
+                            })
+                        })
+                    });
+                }
+
+                // Style for LineString geometries (ways) - show as lines
+                if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
+                    const isFixed = feature.get('fixedGeometry');
+
+                    // Generate consistent random color based on overlay ID
+                    const overlayId = vectorLayer.get('id');
+                    const color = generateQueryColor(overlayId, isFixed);
+
+                    return new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: color,
+                            width: isFixed ? 3 : 4 // Thicker lines for better visibility
+                        })
+                    });
+                }
+
+                // Style for Polygon geometries (areas) - show as filled areas
+                if (geometryType === 'Polygon' || geometryType === 'MultiPolygon') {
+                    try {
+                        const area = geometry.getArea();
+                        if (isNaN(area) || area <= 0) {
+                            // Invalid polygon - show as point at centroid
+                            console.warn('Invalid polygon, showing as point:', feature.getId());
+                            const centroid = ol.extent.getCenter(geometry.getExtent());
+                            return new ol.style.Style({
+                                image: new ol.style.Circle({
+                                    radius: 6,
+                                    fill: new ol.style.Fill({
+                                        color: [...generateQueryColor(vectorLayer.get('id'), false), 0.8] // Use query color for invalid polygons
+                                    }),
+                                    stroke: new ol.style.Stroke({
+                                        color: generateQueryColor(vectorLayer.get('id'), false),
+                                        width: 2
+                                    })
+                                }),
+                                geometry: new ol.geom.Point(centroid)
+                            });
+                        }
+
+                        // Valid polygon - show as filled area
+                        return new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: generateQueryColor(vectorLayer.get('id'), false), // Use same color as lines
+                                width: 2
+                            }),
+                            fill: new ol.style.Fill({
+                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.08] // Even more transparent for better visibility
+                            })
+                        });
+                    } catch (error) {
+                        console.warn('Error styling polygon, showing as point:', error);
+                        // Show as point at centroid as fallback
+                        const centroid = ol.extent.getCenter(geometry.getExtent());
+                        return new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 6,
+                                fill: new ol.style.Fill({
+                                    color: [...generateQueryColor(vectorLayer.get('id'), false), 0.4]
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: generateQueryColor(vectorLayer.get('id'), false),
+                                    width: 2
+                                })
+                            }),
+                            geometry: new ol.geom.Point(centroid)
+                        });
+                    }
+                }
+
+                // Fallback for any other geometry type - show as point
+                console.warn('Unknown geometry type, showing as point:', geometryType);
+                try {
+                    const centroid = ol.extent.getCenter(geometry.getExtent());
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 6,
+                            fill: new ol.style.Fill({
+                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.4]
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: generateQueryColor(vectorLayer.get('id'), false),
+                                width: 2
+                            })
+                        }),
+                        geometry: new ol.geom.Point(centroid)
+                    });
+                } catch (error) {
+                    console.error('Error creating fallback point:', error);
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 4,
+                            fill: new ol.style.Fill({
+                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.6]
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: generateQueryColor(vectorLayer.get('id'), false),
+                                width: 1
+                            })
+                        })
+                    });
+                }
+            }
         });
 
         // Set additional properties for overlay system integration
         vectorLayer.set('group', 'Tag Queries');
-        vectorLayer.set('type', 'overlay');
+        vectorLayer.set('type', 'overlay');  // Changed from 'tag-query' to 'overlay' to integrate with overlay system
+        vectorLayer.set('title', overlayTitle);
+        vectorLayer.set('id', overlayId);
+        vectorLayer.set('iconSrc', 'src/img/icones_web/tag_icon.png');
+        vectorLayer.set('iconStyle', 'filter: hue-rotate(120deg);');
 
-        // Add to overlays group if it exists, otherwise create one
-        const overlaysGroup = findOrCreateTagOverlaysGroup();
-        console.log('🔍 Adding vector layer to group');
-        console.log('🔍 Overlays group title:', overlaysGroup.get('title'));
-        console.log('🔍 Overlays group type:', overlaysGroup.get('type'));
+        // Add directly to the main config.layers as an overlay instead of creating a separate group
+        console.log('🔍 Adding vector layer as overlay to config.layers');
+        console.log('🔍 Current config.layers length before:', config.layers.length);
 
-        // Add the layer to the group - the group already has layers array in constructor
-        const layersCollection = overlaysGroup.getLayers();
-
-        // Check if this overlay already exists in the group
-        const existingLayer = layersCollection.getArray().find(layer =>
+        // Check if this overlay already exists and allow replacement
+        const existingOverlayIndex = config.layers.findIndex(layer =>
             layer.get && layer.get('id') === overlayId
         );
 
-        if (existingLayer) {
-            console.log('🔍 Overlay already exists in group, skipping duplicate');
-            return;
+        if (existingOverlayIndex !== -1) {
+            console.log('🔍 Replacing existing overlay');
+            // Remove the existing overlay
+            const existingOverlay = config.layers[existingOverlayIndex];
+            config.layers.splice(existingOverlayIndex, 1);
+
+            // Also remove from map if it exists
+            if (window.map) {
+                window.map.getLayers().remove(existingOverlay);
+            }
         }
 
-        layersCollection.push(vectorLayer);
-        console.log('🔍 Vector layer added to group, total layers:', layersCollection.getLength());
+        config.layers.push(vectorLayer);
+        console.log('🔍 Vector layer added as overlay, total layers:', config.layers.length);
 
-        // If the map already exists, we need to add the layer group to it
+        // If the map already exists, add the layer to it
         if (window.map) {
-            console.log('🔍 Adding layer group to existing map');
-            console.log('🔍 Current map layers before:', window.map.getLayers().getLength());
-            // Check if the layer group is already in the map
-            const existingLayers = window.map.getLayers().getArray();
-            const existingTagGroups = existingLayers.filter(layer =>
-                layer.get && layer.get('title') === 'Tag Queries' && layer.get('type') === 'overlay'
-            );
+            console.log('🔍 Adding overlay to existing map');
+            console.log('🔍 Map layers before:', window.map.getLayers().getLength());
 
-            console.log('🔍 Found existing Tag Queries groups:', existingTagGroups.length);
+            // Check if already in map (but allow replacement since we may have replaced it above)
+            const mapLayers = window.map.getLayers().getArray();
+            const layerExists = mapLayers.some(layer => layer === vectorLayer);
 
-            if (existingTagGroups.length > 1) {
-                console.log('🔍 Multiple Tag Queries groups found, removing extras');
-                // Remove extra groups
-                existingTagGroups.slice(1).forEach(group => {
-                    window.map.removeLayer(group);
-                    console.log('🔍 Removed extra Tag Queries group');
-                });
-            }
+            if (!layerExists) {
+                window.map.addLayer(vectorLayer);
+                console.log('🔍 Overlay added to map, total map layers now:', window.map.getLayers().getLength());
 
-            const groupExists = existingLayers.some(layer => layer === overlaysGroup);
+                // Force render after adding layer
+                setTimeout(() => {
+                    console.log('🔍 Forcing render after layer addition');
+                    window.map.render();
 
-            console.log('🔍 Group exists in map:', groupExists);
+                    // Check if layer is in map after addition
+                    const checkLayers = window.map.getLayers().getArray();
+                    const layerFound = checkLayers.some(layer => layer === vectorLayer);
+                    console.log('🔍 Layer found in map after addition:', layerFound);
 
-            if (!groupExists) {
-                console.log('🔍 Layer group not in map, adding it');
-                window.map.addLayer(overlaysGroup);
-                console.log('🔍 Layer group added, total map layers now:', window.map.getLayers().getLength());
+                    // Log layer properties
+                    console.log('🔍 Layer properties:', {
+                        id: vectorLayer.get('id'),
+                        title: vectorLayer.get('title'),
+                        visible: vectorLayer.getVisible(),
+                        opacity: vectorLayer.getOpacity()
+                    });
 
-                // Verify the group was actually added
-                const verifyLayers = window.map.getLayers().getArray();
-                const verifyGroupExists = verifyLayers.some(layer => layer === overlaysGroup);
-                console.log('🔍 Verification - Group exists in map after add:', verifyGroupExists);
+                    // Check source features after adding
+                    const source = vectorLayer.getSource();
+                    if (source) {
+                        const sourceFeatures = source.getFeatures();
+                        console.log('🔍 Source features after adding:', sourceFeatures.length);
+
+                        // Log detailed info about each source feature
+                        sourceFeatures.forEach((feature, index) => {
+                            const geometry = feature.getGeometry();
+                            const geometryType = geometry.getType();
+                            const extent = geometry.getExtent();
+
+                            console.log(`🔍 Source feature ${index}:`, {
+                                id: feature.getId(),
+                                geometryType: geometryType,
+                                extent: extent,
+                                area: geometryType.includes('Polygon') ? geometry.getArea() : 'N/A',
+                                coordinates: geometryType === 'Point' ? geometry.getCoordinates() :
+                                           geometryType === 'LineString' ? geometry.getCoordinates() : 'N/A'
+                            });
+
+                            // Check coordinate validity
+                            if (geometryType === 'Point') {
+                                const coords = geometry.getCoordinates();
+                                console.log(`🔍 Point coordinates: [${coords[0]}, ${coords[1]}]`);
+                                console.log(`🔍 Coordinate validity: lon=${coords[0]}, lat=${coords[1]}, valid=${Math.abs(coords[0]) <= 180 && Math.abs(coords[1]) <= 90}`);
+                            }
+                        });
+                    }
+                }, 100);
             } else {
-                console.log('🔍 Layer group already exists in map');
+                console.log('🔍 Overlay already exists in map');
             }
-        } else {
-            console.warn('🔍 Window.map is not available');
         }
 
-        // Make sure the overlay group is visible
-        overlaysGroup.setVisible(true);
+        // Make sure the overlay is visible
         vectorLayer.setVisible(true);
-        console.log('🔍 Overlay group visible:', overlaysGroup.getVisible());
         console.log('🔍 Vector layer visible:', vectorLayer.getVisible());
 
-        console.log('🔍 Vector layer added, group layers count:', overlaysGroup.getLayers().getLength());
+        console.log('🔍 Overlay layer added successfully');
 
         // Trigger overlay update event to refresh the UI
         window.dispatchEvent(new Event('overlaysUpdated'));
@@ -1026,13 +1451,44 @@ function initValueSearch() {
         window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
 
         // Reset button state
-        $('#execute-query-btn').prop('disabled', false).text('Query Executed');
+        $('#execute-query-btn').prop('disabled', false).text('Query Executed - Click to Repeat');
         $('#clear-search-btn').show();
 
         // Force a map render update to ensure visibility
         if (window.map) {
             console.log('🔍 Forcing map render update');
             window.map.render();
+
+            // Additional render check
+            setTimeout(() => {
+                console.log('🔍 Additional render check');
+                window.map.render();
+
+                // Check if the map has any layers
+                const allLayers = window.map.getLayers().getArray();
+                console.log('🔍 Total map layers:', allLayers.length);
+
+                // Find our layer specifically
+                const ourLayer = allLayers.find(layer => layer.get('id') === overlayId);
+                if (ourLayer) {
+                    console.log('🔍 Our layer found in map:', {
+                        id: ourLayer.get('id'),
+                        title: ourLayer.get('title'),
+                        visible: ourLayer.getVisible(),
+                        opacity: ourLayer.getOpacity()
+                    });
+
+                    // Force the layer to be visible and render
+                    ourLayer.setVisible(true);
+                    ourLayer.setOpacity(1.0);
+
+                    // Final render
+                    window.map.render();
+                    console.log('🔍 Final render completed');
+                } else {
+                    console.warn('🔍 Our layer not found in map layers');
+                }
+            }, 200);
         }
     }
 
@@ -1047,7 +1503,7 @@ function initValueSearch() {
             const layer = config.layers[i];
             console.log('🔍 Checking layer', i, ':', layer.get ? layer.get('title') : 'no title', layer.get ? layer.get('type') : 'no type');
 
-            if (layer.get && layer.get('type') === 'overlay' && layer.get('title') === 'Tag Queries') {
+            if (layer.get && layer.get('type') === 'tag-query' && layer.get('title') === 'Tag Queries') {
                 console.log('🔍 Found existing Tag Queries group at index', i);
                 console.log('🔍 Group layers count:', layer.getLayers().getLength());
 
@@ -1072,7 +1528,7 @@ function initValueSearch() {
         console.log('🔍 Creating new Tag Queries group');
         const overlaysGroup = new ol.layer.Group({
             title: 'Tag Queries',
-            type: 'overlay',
+            type: 'tag-query',
             layers: []
         });
 
@@ -1090,6 +1546,67 @@ function initValueSearch() {
 
         console.log('🔍 Added Tag Queries group to config.layers');
         return overlaysGroup;
+    }
+
+    function generateQueryColor(overlayId, isFixed = false) {
+        // Generate a consistent color based on overlay ID hash
+        let hash = 0;
+        for (let i = 0; i < overlayId.length; i++) {
+            const char = overlayId.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32-bit integer
+        }
+
+        // Generate vibrant colors using HSL color space
+        const hue = Math.abs(hash) % 360;
+        const saturation = 70 + (Math.abs(hash * 7) % 20); // 70-90%
+        const lightness = isFixed ? 45 : 55; // Slightly darker for fixed geometries
+
+        // Convert HSL to RGB
+        const hslToRgb = (h, s, l) => {
+            h /= 360;
+            s /= 100;
+            l /= 100;
+
+            const hue2rgb = (p, q, t) => {
+                if (t < 0) t += 1;
+                if (t > 1) t -= 1;
+                if (t < 1/6) return p + (q - p) * 6 * t;
+                if (t < 1/2) return q;
+                if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                return p;
+            };
+
+            let r, g, b;
+            if (s === 0) {
+                r = g = b = l; // Achromatic
+            } else {
+                const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                const p = 2 * l - q;
+                r = hue2rgb(p, q, h + 1/3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1/3);
+            }
+
+            return [
+                Math.round(r * 255),
+                Math.round(g * 255),
+                Math.round(b * 255),
+                isFixed ? 0.9 : 0.8 // Semi-transparent for better visibility
+            ];
+        };
+
+        return hslToRgb(hue, saturation, lightness);
+    }
+
+    function formatDetailedCount(summary) {
+        const parts = [];
+        if (summary.Point) parts.push(`${summary.Point} nodes`);
+        if (summary.LineString) parts.push(`${summary.LineString} ways`);
+        if (summary.Polygon) parts.push(`${summary.Polygon} relations`);
+
+        if (parts.length === 0) return '0 features';
+        return parts.join(', ');
     }
 
     function getSelectedElementTypes() {
@@ -1169,7 +1686,8 @@ function initValueSearch() {
     // Listen for key selection from key search
     searchInput.on('keySelected', function(e, keyResult) {
         console.log('🔗 Key selected event received:', keyResult);
-        currentKey = keyResult.key;
+        // Store the selected key in the input field data
+        searchInput.data('selectedKey', keyResult.key);
         // Clear value search and results
         searchInput.val('');
         resultsContainer.empty().hide();

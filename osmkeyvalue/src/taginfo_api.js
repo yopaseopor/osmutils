@@ -69,12 +69,12 @@ function parseCSVData(csvText) {
         if (!line) continue;
 
         const values = parseCSVLine(line);
-        if (values.length >= 16) {  // Updated to match actual CSV structure (16 columns)
+        if (values.length >= 20) {  // Updated to match actual CSV structure (20 columns)
             const [
                 key, value, tag, definition_en, definition_ca, definition_es,
                 count_all, count_all_fraction, count_nodes, count_nodes_fraction,
                 count_ways, count_ways_fraction, count_relations, count_relations_fraction,
-                in_wiki, projects
+                in_wiki, projects, key_ca, value_ca, key_es, value_es
             ] = values;
 
             // Add to keys map
@@ -84,6 +84,8 @@ function parseCSVData(csvText) {
                     definition_en: definition_en || '',
                     definition_ca: definition_ca || '',
                     definition_es: definition_es || '',
+                    key_ca: key_ca || '',
+                    key_es: key_es || '',
                     totalCount: 0,
                     values: new Map()
                 });
@@ -96,6 +98,8 @@ function parseCSVData(csvText) {
                 definition_en: definition_en || '',
                 definition_ca: definition_ca || '',
                 definition_es: definition_es || '',
+                value_ca: value_ca || '',
+                value_es: value_es || '',
                 countAll: parseInt(count_all) || 0,
                 countNodes: parseInt(count_nodes) || 0,
                 countWays: parseInt(count_ways) || 0,
@@ -172,6 +176,13 @@ function parseCSVLine(line) {
 }
 
 /**
+ * Remove diacritics from a string for better Unicode search compatibility
+ */
+function removeDiacritics(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+/**
  * Search for keys matching a query string
  */
 function searchKeys(query, limit = 20) {
@@ -185,6 +196,7 @@ function searchKeys(query, limit = 20) {
 
     const results = [];
     const queryLower = query.toLowerCase();
+    const queryNormalized = removeDiacritics(queryLower);
 
     console.log('🔍 Searching through keys...');
     let matchCount = 0;
@@ -193,22 +205,24 @@ function searchKeys(query, limit = 20) {
         const searchTexts = [];
 
         // Prioritize key name much higher than descriptions
-        searchTexts.push(`${key}`.toLowerCase());  // Key name gets highest weight
+        searchTexts.push(removeDiacritics(`${key}`.toLowerCase()));  // Key name gets highest weight
 
         // Add definition columns with lower weight
-        searchTexts.push(`${keyData.definition_en || ''}`.toLowerCase());
-        searchTexts.push(`${keyData.definition_ca || ''}`.toLowerCase());
-        searchTexts.push(`${keyData.definition_es || ''}`.toLowerCase());
+        searchTexts.push(removeDiacritics(`${keyData.definition_en || ''}`.toLowerCase()));
+        searchTexts.push(removeDiacritics(`${keyData.definition_ca || ''}`.toLowerCase()));
+        searchTexts.push(removeDiacritics(`${keyData.definition_es || ''}`.toLowerCase()));
+        searchTexts.push(removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()));
+        searchTexts.push(removeDiacritics(`${keyData.key_es || ''}`.toLowerCase()));
 
         let matchFound = false;
         let matchScore = 0;
 
         for (const searchText of searchTexts) {
-            if (searchText.includes(queryLower)) {
+            if (searchText.includes(queryNormalized)) {
                 matchFound = true;
                 // Give much higher scores to key names vs descriptions
-                if (searchText === `${key}`.toLowerCase()) matchScore += 1000;  // Exact key match
-                else if (searchText.startsWith(queryLower)) matchScore += 100;  // Starts with query
+                if (searchText === removeDiacritics(`${key}`.toLowerCase())) matchScore += 1000;  // Exact key match
+                else if (searchText.startsWith(queryNormalized)) matchScore += 100;  // Starts with query
                 else matchScore += 1;  // Description match (lowest priority)
             }
         }
@@ -266,6 +280,7 @@ function searchValues(query, key = null, limit = 25) {
 
     const results = [];
     const queryLower = query.toLowerCase();
+    const queryNormalized = removeDiacritics(queryLower);
 
     if (key && window.taginfoData.keys.has(key)) {
         // Search values for specific key
@@ -275,24 +290,26 @@ function searchValues(query, key = null, limit = 25) {
             const searchTexts = [];
 
             // Prioritize value name much higher than descriptions
-            searchTexts.push(`${value}`.toLowerCase());  // Value name gets highest weight
-            searchTexts.push(`${key}`.toLowerCase());     // Key name gets high weight
+            searchTexts.push(removeDiacritics(`${value}`.toLowerCase()));  // Value name gets highest weight
+            searchTexts.push(removeDiacritics(`${key}`.toLowerCase()));     // Key name gets high weight
 
             // Add definition columns with lower weight
-            searchTexts.push(`${valueData.definition_en || ''}`.toLowerCase());
-            searchTexts.push(`${valueData.definition_ca || ''}`.toLowerCase());
-            searchTexts.push(`${valueData.definition_es || ''}`.toLowerCase());
+            searchTexts.push(removeDiacritics(`${valueData.definition_en || ''}`.toLowerCase()));
+            searchTexts.push(removeDiacritics(`${valueData.definition_ca || ''}`.toLowerCase()));
+            searchTexts.push(removeDiacritics(`${valueData.definition_es || ''}`.toLowerCase()));
+            searchTexts.push(removeDiacritics(`${valueData.value_ca || ''}`.toLowerCase()));
+            searchTexts.push(removeDiacritics(`${valueData.value_es || ''}`.toLowerCase()));
 
             let matchFound = false;
             let matchScore = 0;
 
             for (const searchText of searchTexts) {
-                if (searchText.includes(queryLower)) {
+                if (searchText.includes(queryNormalized)) {
                     matchFound = true;
                     // Give much higher scores to value/key names vs descriptions
-                    if (searchText === `${value}`.toLowerCase()) matchScore += 1000;  // Exact value match
-                    else if (searchText === `${key}`.toLowerCase()) matchScore += 500;   // Key name match
-                    else if (searchText.startsWith(queryLower)) matchScore += 100;      // Starts with query
+                    if (searchText === removeDiacritics(`${value}`.toLowerCase())) matchScore += 1000;  // Exact value match
+                    else if (searchText === removeDiacritics(`${key}`.toLowerCase())) matchScore += 500;   // Key name match
+                    else if (searchText.startsWith(queryNormalized)) matchScore += 100;      // Starts with query
                     else matchScore += 1;  // Description match (lowest priority)
                 }
             }
@@ -339,8 +356,8 @@ function searchValues(query, key = null, limit = 25) {
             const searchTexts = [];
 
             // Prioritize value and key names much higher than descriptions
-            searchTexts.push(`${value}`.toLowerCase());  // Value name gets highest weight
-            searchTexts.push(`${keysWithValue.join(' ')}`.toLowerCase());  // Key names get high weight
+            searchTexts.push(removeDiacritics(`${value}`.toLowerCase()));  // Value name gets highest weight
+            searchTexts.push(removeDiacritics(`${keysWithValue.join(' ')}`.toLowerCase()));  // Key names get high weight
 
             // Add definition columns with lower weight
             for (const valueKey of keysWithValue) {
@@ -348,24 +365,42 @@ function searchValues(query, key = null, limit = 25) {
                 if (keyData && keyData.values.has(value)) {
                     const valueDataForKey = keyData.values.get(value);
                     // Definition columns get much lower weight
-                    searchTexts.push(`${valueDataForKey.definition_en || ''}`.toLowerCase());
-                    searchTexts.push(`${valueDataForKey.definition_ca || ''}`.toLowerCase());
-                    searchTexts.push(`${valueDataForKey.definition_es || ''}`.toLowerCase());
+                    searchTexts.push(removeDiacritics(`${valueDataForKey.definition_en || ''}`.toLowerCase()));
+                    searchTexts.push(removeDiacritics(`${valueDataForKey.definition_ca || ''}`.toLowerCase()));
+                    searchTexts.push(removeDiacritics(`${valueDataForKey.definition_es || ''}`.toLowerCase()));
+                    searchTexts.push(removeDiacritics(`${valueDataForKey.value_ca || ''}`.toLowerCase()));
+                    searchTexts.push(removeDiacritics(`${valueDataForKey.value_es || ''}`.toLowerCase()));
+                    // Key translation columns also get lower weight
+                    searchTexts.push(removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()));
+                    searchTexts.push(removeDiacritics(`${keyData.key_es || ''}`.toLowerCase()));
                 }
             }
 
             for (const searchText of searchTexts) {
-                if (searchText.includes(queryLower)) {
+                if (searchText.includes(queryNormalized)) {
                     matchFound = true;
-                    // Give much higher scores to value/key names vs descriptions
-                    if (searchText === `${value}`.toLowerCase()) matchScore += 1000;  // Exact value match
-                    else if (searchText === `${keysWithValue.join(' ')}`.toLowerCase()) matchScore += 500;  // Key name match
-                    else if (searchText.startsWith(queryLower)) matchScore += 100;  // Starts with query
-                    else matchScore += 1;  // Description or partial match (lowest priority)
+                    // Give much higher scores to exact matches vs partial matches
+                    if (searchText === removeDiacritics(`${value}`.toLowerCase())) {
+                        matchScore += 1000;  // Exact value match gets highest priority
+                    } else if (searchText === removeDiacritics(`${keysWithValue.join(' ')}`.toLowerCase())) {
+                        matchScore += 500;   // Exact key name match
+                    } else if (searchText.startsWith(queryNormalized)) {
+                        // Prioritize starts-with matches, but not for very common values
+                        if (value === 'yes' || value === 'no') {
+                            matchScore += 10;  // Lower priority for yes/no in descriptions
+                        } else {
+                            matchScore += 100; // Higher priority for other values that start with query
+                        }
+                    } else {
+                        // Description or partial matches - only include for non-common values
+                        if (value !== 'yes' && value !== 'no') {
+                            matchScore += 1;   // Very low priority for description matches
+                        }
+                    }
                 }
             }
 
-            if (matchFound && matchScore >= 10) {  // Higher threshold for relevance
+            if (matchFound && matchScore >= 10) {  // Increased minimum threshold
                 // For each key that uses this value, create a result
                 for (const valueKey of keysWithValue) {
                     const resultKey = `${valueKey}=${value}`;
@@ -406,26 +441,28 @@ function searchValues(query, key = null, limit = 25) {
 
                 // Search in key and all definition columns
                 const searchTexts = [
-                    `${keyItem}`.toLowerCase(),
-                    `${keyData.definition_en || ''}`.toLowerCase(),
-                    `${keyData.definition_ca || ''}`.toLowerCase(),
-                    `${keyData.definition_es || ''}`.toLowerCase()
+                    removeDiacritics(`${keyItem}`.toLowerCase()),
+                    removeDiacritics(`${keyData.definition_en || ''}`.toLowerCase()),
+                    removeDiacritics(`${keyData.definition_ca || ''}`.toLowerCase()),
+                    removeDiacritics(`${keyData.definition_es || ''}`.toLowerCase()),
+                    removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()),
+                    removeDiacritics(`${keyData.key_es || ''}`.toLowerCase())
                 ];
 
                 let matchFound = false;
                 let matchScore = 0;
 
                 for (const searchText of searchTexts) {
-                    if (searchText.includes(queryLower)) {
+                    if (searchText.includes(queryNormalized)) {
                         matchFound = true;
                         // Give higher score to exact matches
-                        if (searchText === queryLower) matchScore += 100;
-                        else if (searchText.startsWith(queryLower)) matchScore += 50;
+                        if (searchText === queryNormalized) matchScore += 100;
+                        else if (searchText.startsWith(queryNormalized)) matchScore += 50;
                         else matchScore += 10;
                     }
                 }
 
-                if (matchFound && matchScore >= 50) {  // Higher threshold for key search
+                if (matchFound && matchScore >= 20) {  // Higher threshold for key search
                     // Get the most popular value for this key
                     let popularValue = null;
                     let maxCount = 0;
@@ -488,8 +525,12 @@ function getTagDefinition(tag) {
 
 /**
  * Generate Overpass query for a key-value combination with bbox and element type filtering
+ * @param {string} key - The OSM key to search for
+ * @param {string|null} value - The OSM value to search for (optional for generic key search)
+ * @param {Array<number>} bbox - The bounding box [minLon, minLat, maxLon, maxLat]
+ * @param {Array<string>} elementTypes - Array of element types to search ['node', 'way', 'relation']
  */
-function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 'relation']) {
+function generateOverpassQuery(key, value = null, bbox, elementTypes = ['node', 'way', 'relation']) {
     console.log('🔧 generateOverpassQuery called with:');
     console.log('🔧 key:', JSON.stringify(key), 'value:', JSON.stringify(value));
     console.log('🔧 key length:', key ? key.length : 'null', 'value length:', value ? value.length : 'null');
@@ -497,19 +538,19 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
     console.log('🔧 elementTypes:', elementTypes);
 
     // Validate inputs
-    if (!key || !value) {
-        console.error('🔧 Invalid key or value:', {key, value});
+    if (!key) {
+        console.error('🔧 Invalid key:', key);
         return null;
     }
 
     // Trim whitespace from key and value
     key = key.trim();
-    value = value.trim();
+    if (value) value = value.trim();
 
     console.log('🔧 After trimming - key:', JSON.stringify(key), 'value:', JSON.stringify(value));
 
-    if (!key || !value) {
-        console.error('🔧 Key or value is empty after trimming:', {key, value});
+    if (!key) {
+        console.error('🔧 Key is empty after trimming:', key);
         return null;
     }
 
@@ -524,14 +565,50 @@ function generateOverpassQuery(key, value, bbox, elementTypes = ['node', 'way', 
         return null;
     }
 
-    // Build the query properly - simplified for single element type
+    // Build the query - handle both specific value queries and generic key queries
     const bboxStr = `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`;
-    const query = `[out:xml][timeout:25];\n${elementTypes[0]}["${key}"="${value}"](${bboxStr});\nout meta;`;
 
-    console.log('🔧 Generated query:', query);
-    console.log('🔧 Query length:', query.length);
-    console.log('🔧 Query lines:', query.split('\n').length);
-    return query;
+    if (value) {
+        // Specific key=value query - include all selected element types
+        let queryParts = [];
+        elementTypes.forEach(elementType => {
+            if (elementType === 'way') {
+                // For ways, also get their nodes to reconstruct geometry
+                queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
+                queryParts.push(`  node(w)`); // Get nodes of the ways
+            } else if (elementType === 'relation') {
+                // For relations, get the relations and their members
+                queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
+                queryParts.push(`  way(r)`); // Get ways that are members of these relations
+                queryParts.push(`  node(w)`); // Get nodes of those ways
+            } else {
+                queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
+            }
+        });
+        const query = `[out:xml][timeout:40];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
+        console.log('🔧 Generated multi-element query:', query);
+        return query;
+    } else {
+        // Generic key query (all values for this key) - include all selected element types
+        let queryParts = [];
+        elementTypes.forEach(elementType => {
+            if (elementType === 'way') {
+                // For ways, also get their nodes to reconstruct geometry
+                queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
+                queryParts.push(`  node(w)`); // Get nodes of the ways
+            } else if (elementType === 'relation') {
+                // For relations, get the relations and their members
+                queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
+                queryParts.push(`  way(r)`); // Get ways that are members of these relations
+                queryParts.push(`  node(w)`); // Get nodes of those ways
+            } else {
+                queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
+            }
+        });
+        const query = `[out:xml][timeout:40];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
+        console.log('🔧 Generated multi-element generic query:', query);
+        return query;
+    }
 }
 
 /**
