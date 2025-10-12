@@ -1061,21 +1061,21 @@ function initValueSearch() {
                                             return true;
                                         }
 
-                                        // For nodes, only count standalone nodes with tags (not nodes that are part of ways/relations)
-                                        if (geometryType === 'Point' && !isComponent) {
-                                            // Check if this is a standalone node with tags
-                                            const hasStandaloneTags = Object.keys(properties).some(prop =>
+                                        // For nodes, count standalone nodes with tags OR nodes that are members but have their own tags
+                                        if (geometryType === 'Point') {
+                                            // Check if this node has any tags beyond basic properties
+                                            const hasTags = Object.keys(properties).some(prop =>
                                                 prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
                                                 prop !== 'originalType' && prop !== 'fixedGeometry' &&
                                                 prop !== 'members' && prop !== 'memberOf' &&
                                                 prop !== 'member' && prop !== 'membership'
                                             );
 
-                                            if (hasStandaloneTags) {
-                                                console.log(`🎯 Standalone node ${index}:`, feature.getId(), 'has standalone tags');
+                                            if (hasTags) {
+                                                console.log(`🎯 Node with tags ${index}:`, feature.getId(), 'has standalone tags');
                                                 return true;
                                             } else {
-                                                console.log(`🎯 Node component ${index}:`, feature.getId(), 'part of larger geometry');
+                                                console.log(`🎯 Node without tags ${index}:`, feature.getId(), 'no standalone tags');
                                                 return false;
                                             }
                                         }
@@ -1101,6 +1101,15 @@ function initValueSearch() {
                                         console.log(`  ${index}: ${geometryType} - ${feature.getId()}`);
                                     });
 
+                                    // Show detailed summary in a prominent way
+                                    const summaryText = formatDetailedCount(detailedSummary);
+                                    console.log(`🎯 📊 SUMMARY: Found ${summaryText} with tags "${key}=${value}"`);
+
+                                    // Also show in alert for immediate visibility
+                                    if (taggedFeatures.length > 0) {
+                                        alert(`Query completed!\n\nFound: ${summaryText}\n\nCheck console for detailed logs.`);
+                                    }
+
                                     this.addFeatures(validFeatures);
                                     console.log('🎯 Features added to source');
 
@@ -1120,7 +1129,7 @@ function initValueSearch() {
                                     // Trigger the overlay features loaded event
                                     window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
 
-                                    $('#execute-query-btn').prop('disabled', false).text(`Query Executed (${formatDetailedCount(detailedSummary)}) - Click to Repeat`);
+                                    $('#execute-query-btn').prop('disabled', false).text('Query Executed - Click to Repeat');
                                     $('#clear-search-btn').show();
 
                                     // Force a map render update to ensure visibility
@@ -1282,7 +1291,7 @@ function initValueSearch() {
                                 width: 2
                             }),
                             fill: new ol.style.Fill({
-                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.08] // Even more transparent for better visibility
+                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.05] // Ultra transparent for maximum visibility
                             })
                         });
                     } catch (error) {
