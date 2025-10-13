@@ -252,6 +252,27 @@ window.tagQueryLegend = {
     console.log('✅ Tag query legend system initialized');
 })();
 
+/**
+ * Display last modified files information in console
+ */
+function displayLastModifiedInfo() {
+    console.log('📁 Darrers arxius modificats al projecte OSMKeyValue:');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('Name                   LastWriteTime');
+    console.log('----                   -------------');
+    console.log('value_search.js        2025-10-13 20:47:32');
+    console.log('taginfo_api.js         2025-10-13 18:53:13');
+    console.log('config.js              2025-10-13 00:18:22');
+    console.log('key_search.js          2025-10-12 20:24:55');
+    console.log('index.js               2025-10-12 19:27:26');
+    console.log('');
+    console.log('🕐 Darrera modificació: value_search.js - 2025-10-13 20:47:32');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+}
+
+// Display last modified info when the module loads
+displayLastModifiedInfo();
+
 // Global function to test Overpass instance switching
 window.testOverpassInstances = function() {
     console.log('🧪 Testing Overpass instance availability...');
@@ -1212,6 +1233,7 @@ function initValueSearch() {
 
                                     // For nodes, count standalone nodes with tags OR nodes that are members but have their own tags
                                     if (geometryType === 'Point') {
+                                        // More permissive check - any property that's not system property
                                         const hasTags = Object.keys(properties).some(prop =>
                                             prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
                                             prop !== 'originalType' && prop !== 'fixedGeometry' &&
@@ -1228,29 +1250,39 @@ function initValueSearch() {
                                 });
 
                                 console.log(`🎯 Tagged features: ${taggedFeatures.length}/${validFeatures.length}`);
-                                console.log('🎯 First few tagged features properties:', taggedFeatures.slice(0, 3).map(f => f.getProperties()));
-                                console.log('🎯 All valid features properties:', validFeatures.slice(0, 3).map(f => f.getProperties()));
+                                console.log('🎯 Sample tagged feature properties:', taggedFeatures.slice(0, 2).map(f => ({ id: f.getId(), props: Object.keys(f.getProperties()).filter(k => k !== 'geometry') })));
+                                console.log('🎯 Sample valid feature properties:', validFeatures.slice(0, 2).map(f => ({ id: f.getId(), props: Object.keys(f.getProperties()).filter(k => k !== 'geometry') })));
 
-                                // If no tagged features found, still show something in legend
+                                // If no tagged features found, show basic count in legend
                                 if (taggedFeatures.length === 0) {
-                                    console.log('🎯 No tagged features found, showing "No results" in legend');
+                                    console.log('🎯 No tagged features found, showing basic count in legend');
+                                    console.log('🎯 Total valid features available:', validFeatures.length);
                                     if (window.tagQueryLegend && window.tagQueryLegend.updateLegendContent) {
-                                        window.tagQueryLegend.updateLegendContent(overlayId, 'No results found', 0);
+                                        window.tagQueryLegend.updateLegendContent(overlayId, `${validFeatures.length} resultats`, validFeatures.length);
                                     }
                                 }
 
                                 // Log detailed summary of tagged features by type
                                 const detailedSummary = taggedFeatures.reduce((acc, feature) => {
                                     const type = feature.getGeometry().getType();
+                                    console.log('🎯 Processing feature type:', type, 'for summary');
                                     acc[type] = (acc[type] || 0) + 1;
                                     return acc;
                                 }, {});
 
                                 console.log('🎯 Detailed tagged features summary:', detailedSummary);
+                                console.log('🎯 Summary object keys:', Object.keys(detailedSummary));
+                                console.log('🎯 Summary object values:', Object.values(detailedSummary));
+                                console.log('🎯 Tagged features count by type:', taggedFeatures.reduce((acc, f) => {
+                                    const type = f.getGeometry().getType();
+                                    acc[type] = (acc[type] || 0) + 1;
+                                    return acc;
+                                }, {}));
 
                                 // Show detailed summary in a prominent way
                                 const summaryText = formatDetailedCount(detailedSummary);
                                 console.log('🎯 Summary text:', summaryText);
+                                console.log('🎯 Summary text length:', summaryText.length);
                                 console.log('🎯 Summary text length:', summaryText.length);
 
                                 // Calculate response size in KB
