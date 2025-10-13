@@ -624,13 +624,28 @@ $(function () {
     initTaginfoAPI().then(() => {
         console.log('Taginfo API initialized');
         // Initialize search modules after taginfo is ready
-        initKeySearch();
-        initValueSearch();
+        // Wait for modules to be loaded before initializing
+        const waitForModules = () => {
+            if (typeof window.initKeySearch === 'function' && typeof window.initValueSearch === 'function') {
+                initKeySearch();
+                initValueSearch();
+            } else {
+                setTimeout(waitForModules, 100);
+            }
+        };
+        waitForModules();
     }).catch(error => {
         console.error('Failed to initialize Taginfo API:', error);
         // Still initialize search modules even if taginfo fails
-        initKeySearch();
-        initValueSearch();
+        const waitForModules = () => {
+            if (typeof window.initKeySearch === 'function' && typeof window.initValueSearch === 'function') {
+                initKeySearch();
+                initValueSearch();
+            } else {
+                setTimeout(waitForModules, 100);
+            }
+        };
+        waitForModules();
     });
 
     // Initialize PanoraMax viewer
