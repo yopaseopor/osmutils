@@ -304,12 +304,28 @@ function searchValues(query, key = null, limit = 25) {
             let matchScore = 0;
 
             for (const searchText of searchTexts) {
+                // For 'yes' values, only process if query contains at least one letter from 'yes'
+                if (value === 'yes' && !/[yes]/i.test(queryNormalized)) {
+                    continue;
+                }
+
                 if (searchText.includes(queryNormalized)) {
                     matchFound = true;
                     // Give much higher scores to value/key names vs descriptions
                     if (searchText === removeDiacritics(`${value}`.toLowerCase())) matchScore += 1000;  // Exact value match
                     else if (searchText === removeDiacritics(`${key}`.toLowerCase())) matchScore += 500;   // Key name match
-                    else if (searchText.startsWith(queryNormalized)) matchScore += 100;      // Starts with query
+                    else if (searchText.startsWith(queryNormalized)) {
+                        // For 'yes' and 'no', require exact match
+                        if (value === 'yes' || value === 'no') {
+                            if (queryNormalized === 'yes' || queryNormalized === 'no') {
+                                matchScore += 100;  // Higher priority only for exact matches
+                            } else {
+                                matchScore += 1;   // Very low priority for partial matches
+                            }
+                        } else {
+                            matchScore += 100; // Higher priority for other values that start with query
+                        }
+                    }
                     else matchScore += 1;  // Description match (lowest priority)
                 }
             }
@@ -377,6 +393,11 @@ function searchValues(query, key = null, limit = 25) {
             }
 
             for (const searchText of searchTexts) {
+                // For 'yes' values, only process if query contains at least one letter from 'yes'
+                if (value === 'yes' && !/[yes]/i.test(queryNormalized)) {
+                    continue;
+                }
+
                 if (searchText.includes(queryNormalized)) {
                     matchFound = true;
                     // Give much higher scores to exact matches vs partial matches
@@ -387,7 +408,12 @@ function searchValues(query, key = null, limit = 25) {
                     } else if (searchText.startsWith(queryNormalized)) {
                         // Prioritize starts-with matches, but not for very common values
                         if (value === 'yes' || value === 'no') {
-                            matchScore += 10;  // Lower priority for yes/no in descriptions
+                            // For 'yes' and 'no', only show when user types the exact word
+                            if (queryNormalized === 'yes' || queryNormalized === 'no') {
+                                matchScore += 100;  // High priority only for exact matches
+                            } else {
+                                matchScore += 1;   // Very low priority for partial matches
+                            }
                         } else {
                             matchScore += 100; // Higher priority for other values that start with query
                         }
@@ -585,7 +611,7 @@ function generateOverpassQuery(key, value = null, bbox, elementTypes = ['node', 
                 queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
             }
         });
-        const query = `[out:xml][timeout:40];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
+        const query = `[out:xml][timeout:60];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
         console.log('🔧 Generated multi-element query:', query);
         return query;
     } else {
@@ -605,7 +631,7 @@ function generateOverpassQuery(key, value = null, bbox, elementTypes = ['node', 
                 queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
             }
         });
-        const query = `[out:xml][timeout:40];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
+        const query = `[out:xml][timeout:60];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
         console.log('🔧 Generated multi-element generic query:', query);
         return query;
     }

@@ -353,7 +353,7 @@ function initKeySearch() {
         console.log('🎯 Generated unique color:', uniqueColor);
 
         // Create a unique overlay for this generic key query
-        const overlayId = `key_${key}_${Date.now()}`;
+        const overlayId = `key_${key}`;
         const overlayTitle = `Key: ${key}`;
 
         console.log('🎯 Creating generic key overlay:', overlayId, overlayTitle);
@@ -480,7 +480,8 @@ function initKeySearch() {
                     client.send(queryData);
                 }
             },
-            strategy: ol.loadingstrategy.bbox
+            // Remove loading strategy to prevent automatic queries on map move/zoom
+            // strategy: ol.loadingstrategy.bbox
         });
 
         // Create vector layer
@@ -531,7 +532,8 @@ function initKeySearch() {
         );
 
         if (existingLayer) {
-            console.log('🔍 Overlay already exists in group, skipping duplicate');
+            console.log('🔍 Overlay already exists in group, skipping creation');
+            // Don't update count here - it will be updated when features are loaded
             return;
         }
 

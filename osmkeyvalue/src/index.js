@@ -1139,7 +1139,18 @@ window.addEventListener('overlayToggled', function(e) {
                 if (layer.getVisible() && layer.getSource && typeof layer.getSource === 'function') {
                     var source = layer.getSource();
                     if (source && typeof source.getFeatures === 'function') {
-                        var count = source.getFeatures().length;
+                        var allFeatures = source.getFeatures();
+
+                        // Count only tagged features
+                        var taggedFeatures = allFeatures.filter(function(feature) {
+                            var properties = feature.getProperties();
+                            var basicProperties = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry'];
+                            return Object.keys(properties).some(function(prop) {
+                                return !basicProperties.includes(prop);
+                            });
+                        });
+
+                        var count = taggedFeatures.length;
                         if (count > 0) overlaysActive++;
                         total += count;
                     }
@@ -1148,7 +1159,7 @@ window.addEventListener('overlayToggled', function(e) {
         }
     });
     if (overlaysActive > 0) {
-        window.setOverlaySummary(overlaysActive + ' overlay' + (overlaysActive > 1 ? 's' : '') + ', ' + total + ' feature' + (total !== 1 ? 's' : ''));
+        window.setOverlaySummary(overlaysActive + ' overlay' + (overlaysActive > 1 ? 's' : '') + ', ' + total + ' tagged feature' + (total !== 1 ? 's' : ''));
     } else {
         window.setOverlaySummary('');
     }
@@ -1164,7 +1175,18 @@ function updateOverlaySummary() {
                 if (layer.getVisible() && layer.getSource && typeof layer.getSource === 'function') {
                     var source = layer.getSource();
                     if (source && typeof source.getFeatures === 'function') {
-                        var count = source.getFeatures().length;
+                        var allFeatures = source.getFeatures();
+
+                        // Count only tagged features (features with properties beyond basic OSM properties)
+                        var taggedFeatures = allFeatures.filter(function(feature) {
+                            var properties = feature.getProperties();
+                            var basicProperties = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry'];
+                            return Object.keys(properties).some(function(prop) {
+                                return !basicProperties.includes(prop);
+                            });
+                        });
+
+                        var count = taggedFeatures.length;
                         if (count > 0) overlaysActive++;
                         total += count;
                     }
@@ -1173,7 +1195,7 @@ function updateOverlaySummary() {
         }
     });
     if (overlaysActive > 0) {
-        window.setOverlaySummary(overlaysActive + ' overlay' + (overlaysActive > 1 ? 's' : '') + ', ' + total + ' feature' + (total !== 1 ? 's' : ''));
+        window.setOverlaySummary(overlaysActive + ' overlay' + (overlaysActive > 1 ? 's' : '') + ', ' + total + ' tagged feature' + (total !== 1 ? 's' : ''));
     } else {
         window.setOverlaySummary('');
     }
