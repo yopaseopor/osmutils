@@ -4,6 +4,14 @@
 
 function initKeySearch() {
     console.log('🔑 initKeySearch called');
+
+    // Wait for translations to be available
+    if (typeof window.getTranslation !== 'function') {
+        console.log('🔑 Waiting for translations to be initialized...');
+        setTimeout(initKeySearch, 100);
+        return;
+    }
+
     const searchInput = $('#key-search');
     const resultsContainer = $('#key-search-dropdown');
 
@@ -152,7 +160,7 @@ function initKeySearch() {
 
         if (results.length === 0) {
             console.log('🔑 No results to display');
-            resultsContainer.append('<div class="no-results">No keys found</div>');
+            resultsContainer.append(`<div class="no-results">${window.getTranslation ? window.getTranslation('noKeysFound') : 'No keys found'}</div>`);
             resultsContainer.show();
             return;
         }
@@ -162,7 +170,7 @@ function initKeySearch() {
             console.log('🔑 Result', index, ':', result.key);
 
             // Find which definition contains the search term to show the most relevant one
-            let bestDefinition = result.definition_en || result.definition_ca || result.definition_es || result.definition || 'No description available';
+            let bestDefinition = result.definition_en || result.definition_ca || result.definition_es || result.definition || `${window.getTranslation ? window.getTranslation('noDescriptionAvailable') : 'No description available'}`;
             const queryLower = query.toLowerCase();
 
             if (result.definition_en && result.definition_en.toLowerCase().includes(queryLower)) {
@@ -244,7 +252,7 @@ function initKeySearch() {
             return formatted;
         } else {
             // For keys with 0 uses, show a brief description instead
-            const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : 'No description available';
+            const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : `${window.getTranslation ? window.getTranslation('noDescriptionAvailable') : 'No description available'}`;
             console.log('🔑 formatKeyCount returning description:', shortDesc);
             return shortDesc;
         }
@@ -282,7 +290,7 @@ function initKeySearch() {
         executeBtn
             .show()
             .prop('disabled', false)
-            .text('Execute Key Query: ' + key);
+            .text(`${window.getTranslation ? window.getTranslation('executeKeyQuery') : 'Execute Key Query'}: ${key}`);
 
         clearBtn.show();
     }
@@ -386,7 +394,7 @@ function initKeySearch() {
                             setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
                         } else {
                             if (window.loading) window.loading.hide();
-                            $('#execute-key-query-btn').prop('disabled', false).text('Query Timeout');
+                            $('#execute-key-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryTimeout') : 'Query Timeout'}`);
                         }
                     }.bind(this);
 
@@ -401,7 +409,7 @@ function initKeySearch() {
                             console.log('🎯 Retrying request in', delayMs, 'ms...');
                             setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
                         } else {
-                            $('#execute-key-query-btn').prop('disabled', false).text('Query Failed');
+                            $('#execute-key-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
                         }
                     }.bind(this);
 
@@ -425,7 +433,7 @@ function initKeySearch() {
                                             $(this).dialog('destroy');
                                         }
                                     });
-                                    $('#execute-key-query-btn').prop('disabled', false).text('Query Error');
+                                    $('#execute-key-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryError') : 'Query Error'}`);
                                 } else {
                                     console.log('🎯 No errors found, parsing features...');
                                     const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
@@ -457,7 +465,7 @@ function initKeySearch() {
                                     // Trigger the overlay features loaded event
                                     window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
 
-                                    $('#execute-key-query-btn').prop('disabled', false).text('Query Executed');
+                                    $('#execute-key-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryExecuted') : 'Query Executed'}`);
                                     $('#clear-key-search-btn').show();
 
                                     // Force a map render update to ensure visibility
@@ -469,12 +477,12 @@ function initKeySearch() {
                             } catch (parseError) {
                                 console.error('🎯 Error parsing XML response:', parseError);
                                 console.error('🎯 Response text preview:', client.responseText.substring(0, 500));
-                                $('#execute-key-query-btn').prop('disabled', false).text('Parse Error');
+                                $('#execute-key-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('parseError') : 'Parse Error'}`);
                             }
                         } else {
                             console.error('🎯 Request failed with status:', client.status);
                             console.error('🎯 Response text:', client.responseText);
-                            $('#execute-key-query-btn').prop('disabled', false).text('Request Failed');
+                            $('#execute-key-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('requestFailed') : 'Request Failed'}`);
                         }
                     }.bind(this);
                     client.send(queryData);

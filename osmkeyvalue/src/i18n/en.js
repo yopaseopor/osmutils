@@ -301,5 +301,43 @@ export const en = {
     sports: 'Sports',
     swimming_pool: 'Swimming pool',
     // From transport.js
-    transport: 'Transport'
+    transport: 'Transport',
+    // New translations for search functionality
+    activeQueries: 'Active Queries',
+    results: 'results',
+    loading: 'Loading...',
+    customValueQuery: 'Custom value - execute direct query',
+    clickToExecute: 'Click to execute',
+    executeQuery: 'Execute Query',
+    clearSearch: 'Clear Search',
+    queryFailed: 'Query Failed',
+    queryTimeout: 'Query Timeout',
+    invalidLocation: 'Invalid Location',
+    nodes: 'nodes',
+    ways: 'ways',
+    relations: 'relations',
+    features: 'features',
+    noKeysFound: 'No keys found',
+    noDescriptionAvailable: 'No description available',
+    executeKeyQuery: 'Execute Key Query',
+    queryExecuted: 'Query Executed',
+    queryError: 'Query Error',
+    parseError: 'Parse Error',
+    requestFailed: 'Request Failed',
+    uses: 'uses',
+    executing: 'Executing...',
+    // Statistics labels
+    currentQuery: 'Current Query',
+    dataReceived: 'Data received:',
+    nodesLabel: 'Nodes:',
+    waysLabel: 'Ways:',
+    relationsLabel: 'Relations:',
+    polygonsLabel: 'Polygons:',
+    // Element type labels
+    nodesCheckbox: 'Nodes',
+    waysCheckbox: 'Ways',
+    relationsCheckbox: 'Relations',
+    // Button labels
+    clearButton: 'Clear',
+    clickToRepeat: 'Click to Repeat'
 };

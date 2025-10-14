@@ -103,11 +103,16 @@ export function getTranslation(key) {
 }
 
 export function updateTranslations() {
+    console.log('🔄 updateTranslations called');
     // Find all elements with data-i18n attribute
     const elements = document.querySelectorAll('[data-i18n]');
+    console.log('🔄 Found', elements.length, 'elements with data-i18n');
+
     elements.forEach(element => {
         const key = element.getAttribute('data-i18n');
         const translation = getTranslation(key);
+        console.log('🔄 Translating', key, '->', translation);
+
         if (element.tagName === 'INPUT' && element.type === 'text') {
             element.placeholder = translation;
         } else {
@@ -155,11 +160,17 @@ window.addEventListener('popstate', () => {
 // Expose updateTranslations globally for overlays/layers re-render
 window.updateTranslations = updateTranslations;
 
+// Make getTranslation available globally
+window.getTranslation = getTranslation;
+
 // Initialize translations when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🔧 Initializing translations...');
+
     // First check URL for language parameter
     const urlLang = getLanguageFromURL();
     if (urlLang) {
+        console.log('🔧 URL language parameter found:', urlLang);
         setLanguage(urlLang, false);
         return;
     }
@@ -168,5 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const browserLang = navigator.language.split('-')[0];
     const supportedLangs = ['en', 'es', 'ca'];
     const initialLang = supportedLangs.includes(browserLang) ? browserLang : 'en';
+    console.log('🔧 Setting initial language to:', initialLang, 'based on browser language:', browserLang);
     setLanguage(initialLang, true);
+
+    // Dispatch event when translations are initialized
+    window.dispatchEvent(new CustomEvent('translationsInitialized'));
+    console.log('🔧 Translations initialized and event dispatched');
 }); 

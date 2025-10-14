@@ -127,12 +127,12 @@ window.tagQueryLegend = {
         legendContainer.empty();
 
         // Add title
-        legendContainer.append('<div class="legend-title">📊 Consultes Actives</div>');
+        legendContainer.append(`<div class="legend-title">📊 ${window.getTranslation ? window.getTranslation('activeQueries') : 'Active Queries'}</div>`);
 
         // Add each query
         visibleQueries.forEach(query => {
             const colorStyle = `background-color: rgb(${query.color.join(',')})`;
-            const countText = query.count > 0 ? `${query.count} resultats` : 'Carregant...';
+            const countText = query.count > 0 ? `${query.count} ${window.getTranslation ? window.getTranslation('results') : 'results'}` : `${window.getTranslation ? window.getTranslation('loading') : 'Loading...'}`;
 
             const queryItem = `
                 <div class="legend-item">
@@ -155,7 +155,7 @@ window.tagQueryLegend = {
 
         const legendHtml = `
             <div id="tag-query-legend" class="tag-query-legend" style="display: none;">
-                <div class="legend-title">📊 Consultes Actives</div>
+                <div class="legend-title">📊 ${window.getTranslation ? window.getTranslation('activeQueries') : 'Active Queries'}</div>
             </div>
         `;
 
@@ -235,6 +235,14 @@ window.tagQueryLegend = {
 
 function initValueSearch() {
     console.log('🔍 initValueSearch called');
+
+    // Wait for translations to be available
+    if (typeof window.getTranslation !== 'function') {
+        console.log('🔍 Waiting for translations to be initialized...');
+        setTimeout(initValueSearch, 100);
+        return;
+    }
+
     const searchInput = $('#value-search');
     const resultsContainer = $('#value-search-dropdown');
 
@@ -358,7 +366,7 @@ function initValueSearch() {
         $('#value-search').val('');
         $('#value-search-dropdown').empty().hide();
 
-        $('#execute-query-btn').hide().prop('disabled', false).text('Execute Query');
+        $('#execute-query-btn').hide().prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('executeQuery') : 'Execute Query'}`);
         $(this).hide();
 
         // Clear the selected key from value search
@@ -449,8 +457,8 @@ function initValueSearch() {
             const customValueOption = `
                 <div class="value-search-result custom-value-option" data-custom-value="${escapeHtml(query)}">
                     <div class="value-name">🔍 "${escapeHtml(query)}"</div>
-                    <div class="value-definition">Valor personalitzat - executar query directa</div>
-                    <div class="value-count">Fer clic per executar</div>
+                    <div class="value-definition">${window.getTranslation ? window.getTranslation('customValueQuery') : 'Custom value - execute direct query'}</div>
+                    <div class="value-count">${window.getTranslation ? window.getTranslation('clickToExecute') : 'Click to execute'}</div>
                 </div>
             `;
             resultsContainer.append(customValueOption);
@@ -607,7 +615,7 @@ function initValueSearch() {
         executeBtn
             .show()
             .prop('disabled', false)
-            .text('Execute Query: ' + key + '=' + value);
+            .text(`${window.getTranslation ? window.getTranslation('executeQuery') : 'Execute Query'}: ${key}=${value}`);
 
         clearBtn.show();
     }
@@ -784,7 +792,7 @@ function initValueSearch() {
         // Validate bbox coordinates
         if (bbox.some(coord => isNaN(coord) || Math.abs(coord) > 180)) {
             console.error('🚀 Invalid bbox coordinates:', bbox);
-            $('#execute-query-btn').prop('disabled', false).text('Invalid Location');
+            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('invalidLocation') : 'Invalid Location'}`);
             return;
         }
 
@@ -804,12 +812,12 @@ function initValueSearch() {
         // Check if query generation failed
         if (!query) {
             console.error('🚀 Failed to generate query - check key, value, and bbox');
-            $('#execute-query-btn').prop('disabled', false).text('Query Failed');
+            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
             return;
         }
 
         // Update button state
-        $('#execute-query-btn').prop('disabled', true).text('Executing...');
+        $('#execute-query-btn').prop('disabled', true).text(`${window.getTranslation ? window.getTranslation('executing') : 'Executing...'}`);
         console.log('🚀 Button state updated to executing');
 
         // Create overlay for results
@@ -847,24 +855,24 @@ function initValueSearch() {
             // Show loading indicator
             if (window.loading) window.loading.show();
 
-            makeRequestWithRetry.call(this, query, 5, 5000); // 5 retries, 5 second delay
+            makeRequestWithRetry.call(this, query, 5, 6000); // 5 retries, 6 second delay
 
             function makeRequestWithRetry(queryData, maxRetries, delayMs) {
                 const client = new XMLHttpRequest();
                 client.open('POST', config.overpassApi());
                 client.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
-                client.timeout = 30000; // 30 second timeout for retries
+                client.timeout = 35000; // 35 second timeout for retries
                 console.log('🎯 Sending request to:', config.overpassApi());
                 console.log('🎯 Request data:', queryData);
 
                 client.ontimeout = function () {
-                    console.error('🎯 Request timed out after 30 seconds');
+                    console.error('🎯 Request timed out after 35 seconds');
                     if (maxRetries > 0) {
                         console.log('🎯 Retrying request in', delayMs, 'ms...');
                         setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
                     } else {
                         if (window.loading) window.loading.hide();
-                        $('#execute-query-btn').prop('disabled', false).text('Query Timeout');
+                        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryTimeout') : 'Query Timeout'}`);
                     }
                 }.bind(this);
 
@@ -879,7 +887,7 @@ function initValueSearch() {
                         console.log('🎯 Retrying request in', delayMs, 'ms...');
                         setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
                     } else {
-                        $('#execute-query-btn').prop('disabled', false).text('Query Failed');
+                        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
                     }
                 }.bind(this);
 
@@ -896,7 +904,7 @@ function initValueSearch() {
 
                             if (remark.length !== 0) {
                                 console.error('🎯 Overpass error:', remark.text());
-                                $('#execute-query-btn').prop('disabled', false).text('Query Error');
+                                $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryError') : 'Query Error'}`);
                             } else {
                                 console.log('🎯 No errors found, parsing features...');
                                 const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
@@ -1072,7 +1080,7 @@ function initValueSearch() {
                                 // Trigger the overlay features loaded event
                                 window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
 
-                                $('#execute-query-btn').prop('disabled', false).text('Query Executed - Click to Repeat');
+                                $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryExecuted') : 'Query Executed'} - ${window.getTranslation ? window.getTranslation('clickToRepeat') : 'Click to Repeat'}`);
                                 $('#clear-search-btn').show();
 
                                 // Force a map render update to ensure visibility
@@ -1083,7 +1091,7 @@ function initValueSearch() {
                             }
                         } catch (parseError) {
                             console.error('🎯 Error parsing XML response:', parseError);
-                            $('#execute-query-btn').prop('disabled', false).text('Parse Error');
+                            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('parseError') : 'Parse Error'}`);
                         }
                     } else {
                         console.error('🎯 Request failed with status:', client.status);
@@ -1092,15 +1100,15 @@ function initValueSearch() {
                         // Handle different error types
                         if (client.status === 504) {
                             console.error('🎯 Overpass API timeout - server is too busy');
-                            $('#execute-query-btn').prop('disabled', false).text('Server Timeout');
+                            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryTimeout') : 'Query Timeout'}`);
                             if (window.loading) window.loading.hide();
                         } else if (client.status === 400) {
                             console.error('🎯 Bad request - possibly invalid query');
-                            $('#execute-query-btn').prop('disabled', false).text('Invalid Query');
+                            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('invalidLocation') : 'Invalid Location'}`);
                             if (window.loading) window.loading.hide();
                         } else {
                             console.error('🎯 Request failed with status:', client.status);
-                            $('#execute-query-btn').prop('disabled', false).text('No Features - Click to Retry');
+                            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('requestFailed') : 'Request Failed'}`);
                             if (window.loading) window.loading.hide();
                         }
                     }
@@ -1437,11 +1445,11 @@ function initValueSearch() {
 
     function formatDetailedCount(summary) {
         const parts = [];
-        if (summary.Point) parts.push(`${summary.Point} nodes`);
-        if (summary.LineString) parts.push(`${summary.LineString} ways`);
-        if (summary.Polygon) parts.push(`${summary.Polygon} relations`);
+        if (summary.Point) parts.push(`${summary.Point} ${window.getTranslation ? window.getTranslation('nodes') : 'nodes'}`);
+        if (summary.LineString) parts.push(`${summary.LineString} ${window.getTranslation ? window.getTranslation('ways') : 'ways'}`);
+        if (summary.Polygon) parts.push(`${summary.Polygon} ${window.getTranslation ? window.getTranslation('relations') : 'relations'}`);
 
-        if (parts.length === 0) return '0 features';
+        if (parts.length === 0) return `0 ${window.getTranslation ? window.getTranslation('features') : 'features'}`;
         return parts.join(', ');
     }
 
@@ -1507,13 +1515,13 @@ function initValueSearch() {
 
         if (count > 0) {
             const numberPart = formatNumber(count);
-            const formatted = `${numberPart} uses`;
+            const formatted = `${numberPart} ${window.getTranslation ? window.getTranslation('uses') : 'uses'}`;
             console.log('🔍 formatValueCount - numberPart:', numberPart);
             console.log('🔍 formatValueCount - returning formatted count:', formatted);
             return formatted;
         } else {
             // For values with 0 uses, show a brief description instead
-            const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : 'No description available';
+            const shortDesc = definition ? definition.substring(0, 60) + (definition.length > 60 ? '...' : '') : `${window.getTranslation ? window.getTranslation('noDescriptionAvailable') : 'No description available'}`;
             console.log('🔍 formatValueCount - returning description:', shortDesc);
             return shortDesc;
         }

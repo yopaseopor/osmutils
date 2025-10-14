@@ -449,5 +449,43 @@ export const es = {
 	schools: 'Escuelas/Institutos',
     // Brand POIs
     mcdonalds: 'McDonald\'s',
-    starbucks: 'Starbucks'
+    starbucks: 'Starbucks',
+    // New translations for search functionality
+    activeQueries: 'Consultas Activas',
+    results: 'resultados',
+    loading: 'Cargando...',
+    customValueQuery: 'Valor personalizado - ejecutar consulta directa',
+    clickToExecute: 'Hacer clic para ejecutar',
+    executeQuery: 'Ejecutar Consulta',
+    clearSearch: 'Limpiar Búsqueda',
+    queryFailed: 'Consulta Fallida',
+    queryTimeout: 'Tiempo de espera excedido',
+    invalidLocation: 'Ubicación Inválida',
+    nodes: 'nodos',
+    ways: 'vías',
+    relations: 'relaciones',
+    features: 'elementos',
+    noKeysFound: 'No se encontraron claves',
+    noDescriptionAvailable: 'No hay descripción disponible',
+    executeKeyQuery: 'Ejecutar Consulta de Clave',
+    queryExecuted: 'Consulta Ejecutada',
+    queryError: 'Error de Consulta',
+    parseError: 'Error de Análisis',
+    requestFailed: 'Petición Fallida',
+    uses: 'usos',
+    executing: 'Ejecutando...',
+    // Statistics labels
+    currentQuery: 'Consulta Actual',
+    dataReceived: 'Datos recibidos:',
+    nodesLabel: 'Nodos:',
+    waysLabel: 'Vías:',
+    relationsLabel: 'Relaciones:',
+    polygonsLabel: 'Polígonos:',
+    // Element type labels
+    nodesCheckbox: 'Nodos',
+    waysCheckbox: 'Vías',
+    relationsCheckbox: 'Relaciones',
+    // Button labels
+    clearButton: 'Limpiar',
+    clickToRepeat: 'Hacer clic para repetir'
 };

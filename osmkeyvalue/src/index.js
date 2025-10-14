@@ -623,9 +623,20 @@ $(function () {
     // Initialize Taginfo API
     initTaginfoAPI().then(() => {
         console.log('Taginfo API initialized');
-        // Initialize search modules after taginfo is ready
-        initKeySearch();
-        initValueSearch();
+
+        // Wait for translations to be initialized before starting search modules
+        const waitForTranslations = () => {
+            if (typeof window.getTranslation === 'function') {
+                console.log('Translations available, initializing search modules');
+                // Initialize search modules after taginfo is ready AND translations are available
+                initKeySearch();
+                initValueSearch();
+            } else {
+                setTimeout(waitForTranslations, 50);
+            }
+        };
+
+        waitForTranslations();
     }).catch(error => {
         console.error('Failed to initialize Taginfo API:', error);
         // Still initialize search modules even if taginfo fails

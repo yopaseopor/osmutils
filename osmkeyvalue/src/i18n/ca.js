@@ -450,5 +450,43 @@ export const ca = {
 	schools: 'Escoles/Instituts',
     // Brand POIs
     mcdonalds: 'McDonald\'s',
-    starbucks: 'Starbucks'
+    starbucks: 'Starbucks',
+    // New translations for search functionality
+    activeQueries: 'Consultes Actives',
+    results: 'resultats',
+    loading: 'Carregant...',
+    customValueQuery: 'Valor personalitzat - executar query directa',
+    clickToExecute: 'Fer clic per executar',
+    executeQuery: 'Executar Consulta',
+    clearSearch: 'Netejar Cerca',
+    queryFailed: 'Consulta Fallida',
+    queryTimeout: 'Temps d\'espera excedit',
+    invalidLocation: 'Ubicació Invàlida',
+    nodes: 'nodes',
+    ways: 'vies',
+    relations: 'relacions',
+    features: 'elements',
+    noKeysFound: 'No s\'han trobat claus',
+    noDescriptionAvailable: 'No hi ha descripció disponible',
+    executeKeyQuery: 'Executar Consulta de Clau',
+    queryExecuted: 'Consulta Executada',
+    queryError: 'Error de Consulta',
+    parseError: 'Error d\'Anàlisi',
+    requestFailed: 'Petició Fallida',
+    uses: 'usos',
+    executing: 'Executant...',
+    // Statistics labels
+    currentQuery: 'Consulta Actual',
+    dataReceived: 'Dades rebudes:',
+    nodesLabel: 'Nodes:',
+    waysLabel: 'Vies:',
+    relationsLabel: 'Relacions:',
+    polygonsLabel: 'Polígons:',
+    // Element type labels
+    nodesCheckbox: 'Nodes',
+    waysCheckbox: 'Vies',
+    relationsCheckbox: 'Relacions',
+    // Button labels
+    clearButton: 'Netejar',
+    clickToRepeat: 'Fer clic per repetir'
 }; 
