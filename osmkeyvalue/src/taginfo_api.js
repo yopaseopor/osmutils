@@ -611,7 +611,7 @@ function generateOverpassQuery(key, value = null, bbox, elementTypes = ['node', 
                 queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
             }
         });
-        const query = `[out:xml][timeout:60];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
+        const query = `[out:xml][timeout:25];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
         console.log('🔧 Generated multi-element query:', query);
         return query;
     } else {
@@ -631,7 +631,7 @@ function generateOverpassQuery(key, value = null, bbox, elementTypes = ['node', 
                 queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
             }
         });
-        const query = `[out:xml][timeout:60];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
+        const query = `[out:xml][timeout:40];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
         console.log('🔧 Generated multi-element generic query:', query);
         return query;
     }

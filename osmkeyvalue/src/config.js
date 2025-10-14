@@ -32,53 +32,14 @@ var config = {
 		wayLabel: 'Vía:'
 	},
 	overpassApi: function(){
-		//@@ Sistema de múltiples instancias con fallback automático
-		// Lista de servidores Overpass API públicos con diferentes prioridades
-		var overpassInstances = [
-			'https://overpass-api.de/api/interpreter',           // Principal (Alemania)
-			'https://overpass.kumi.systems/api/interpreter',     // Alternativa (Finlandia)
-			'https://overpass.openstreetmap.fr/api/interpreter', // Francia
-			'https://overpass.nchc.org.tw/api/interpreter'       // Taiwán
-		];
-
-		// Configuración manual de instancia preferida (0-3)
-		// Puedes cambiar este valor para usar una instancia específica:
-		// 0 = Alemania (principal)
-		// 1 = Finlandia (rápida)
-		// 2 = Francia (estable)
-		// 3 = Taiwán (asiática)
-		var preferredInstanceIndex = config.getPreferredOverpassInstance();
-
-		// Función para seleccionar la mejor instancia disponible
-		function selectBestOverpassInstance() {
-			// Usa la instancia preferida si está disponible
-			if (overpassInstances[preferredInstanceIndex]) {
-				return overpassInstances[preferredInstanceIndex];
-			}
-			// Fallback a la primera instancia si la preferida no existe
-			return overpassInstances[1];
+		//@@posibilidad de cambiar el servidor de overpass https://overpass-turbo.eu/
+		var proxyOverpassApi = false;  // Changed to false to use main API
+		var overpassApi = 'https://overpass-api.de/api/interpreter';
+		if (proxyOverpassApi)
+		{
+			overpassApi = 'https://overpass.kumi.systems/api/interpreter';
 		}
-
-		return selectBestOverpassInstance();
-	},
-
-	// Función global para cambiar la instancia preferida dinámicamente
-	changeOverpassInstance: function(instanceIndex) {
-		if (instanceIndex >= 0 && instanceIndex < 4) {
-			// Guarda la configuración en localStorage para persistencia
-			localStorage.setItem('preferredOverpassInstance', instanceIndex);
-			console.log('🔄 Overpass instance changed to:', instanceIndex);
-			// Recarga la página para aplicar el cambio
-			location.reload();
-		} else {
-			console.error('❌ Invalid instance index. Use 0-3');
-		}
-	},
-
-	// Obtener la instancia preferida desde localStorage si existe
-	getPreferredOverpassInstance: function() {
-		const saved = localStorage.getItem('preferredOverpassInstance');
-		return saved ? parseInt(saved) : 0;
+		return overpassApi;
 	},
 	//@@ Mapas de fondo
 	layers: [
