@@ -426,7 +426,7 @@ function searchValues(query, key = null, limit = 25) {
                 }
             }
 
-            if (matchFound && matchScore >= 10) {  // Increased minimum threshold
+            if (matchFound && matchScore >= 1) {  // Lower threshold to show more results
                 // For each key that uses this value, create a result
                 for (const valueKey of keysWithValue) {
                     const resultKey = `${valueKey}=${value}`;
