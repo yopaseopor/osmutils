@@ -1465,7 +1465,7 @@ building,house,building=house,A house is a residential building designed for hum
 building,house,,,edifici	=	casa,edificio	=	casa,,,,,,,,,,,edifici,casa,edificio,casa,14376
 building,houseboat,building=houseboat,An OSM building tag with value 'houseboat' used to describe building features,Una etiqueta OSM building amb valor 'houseboat' utilitzada per descriure característiques building,Una etiqueta OSM building con valor 'houseboat' utilizada para describir características building,17292,0.0,18,0.0,17271,0.0,3,0.0,Yes,5,,,,,7928
 building,houseboat,,,edifici	=	casa flotant,edificio	=	casa flotante,,,,,,,,,,,edifici,casa flotant,edificio,casa flotante,14439
-building,hut,,hut of stone,mulassa de pedra seca,casa de piedra seca,,,,,,,,,,,edifici,mulassa,,,
+building,hut,,hut of stone,mulassa de pedra seca,casa de piedra seca,,,,,,,,,,,edifici,refugi mulassa,,,
 building,hut,building=hut,An OSM building tag with value 'hut' used to describe building features,Una etiqueta OSM building amb valor 'hut' utilitzada per descriure característiques building,Una etiqueta OSM building con valor 'hut' utilizada para describir características building,2445264,0.0002,29186,0.0001,2414500,0.0021,1578,0.0001,Yes,9,,,,,140
 building,hut,,,edifici	=	cabana,edificio	=	cabaña,,,,,,,,,,,edifici,cabana,edificio,cabaña,14382
 building,industrial,building=industrial,"An industrial building is a facility designed for manufacturing, production, and industrial operations","Un edifici industrial és una instal·lació dissenyada per a la fabricació, producció i operacions industrials","Un edificio industrial es una instalación diseñada para fabricación, producción y operaciones industriales",2483933,0.0002,5639,0.0,2463586,0.0022,14708,0.0011,Yes,10,,,,,137
