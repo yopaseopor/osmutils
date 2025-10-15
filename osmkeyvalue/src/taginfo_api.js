@@ -223,7 +223,7 @@ function searchKeys(query, limit = 20) {
                 // Give much higher scores to key names vs descriptions
                 if (searchText === removeDiacritics(`${key}`.toLowerCase())) matchScore += 1000;  // Exact key match
                 else if (searchText.startsWith(queryNormalized)) matchScore += 100;  // Starts with query
-                else matchScore += 0.5;  // Description match (lowest priority)
+                else matchScore += 1;  // Description match (lowest priority)
             }
         }
 
@@ -320,13 +320,13 @@ function searchValues(query, key = null, limit = 25) {
                             if (queryNormalized === 'yes' || queryNormalized === 'no') {
                                 matchScore += 100;  // Higher priority only for exact matches
                             } else {
-                                matchScore += 0.5;   // Very low priority for partial matches
+                                matchScore += 1;   // Very low priority for partial matches
                             }
                         } else {
                             matchScore += 100; // Higher priority for other values that start with query
                         }
                     }
-                    else matchScore += 0.5;  // Very low priority for description matches
+                    else matchScore += 1;  // Description match (lowest priority)
                 }
             }
 
@@ -420,13 +420,13 @@ function searchValues(query, key = null, limit = 25) {
                     } else {
                         // Description or partial matches - only include for non-common values
                         if (value !== 'yes' && value !== 'no') {
-                            matchScore += 0.5;   // Very low priority for description matches
+                            matchScore += 1;   // Very low priority for description matches
                         }
                     }
                 }
             }
 
-            if (matchFound && matchScore >= 0.5) {  // Even lower threshold to catch description matches
+            if (matchFound && matchScore >= 10) {  // Increased minimum threshold
                 // For each key that uses this value, create a result
                 for (const valueKey of keysWithValue) {
                     const resultKey = `${valueKey}=${value}`;
@@ -457,64 +457,8 @@ function searchValues(query, key = null, limit = 25) {
             }
         }
 
-        // Also search in value descriptions if no results found in value names
-        if (results.length === 0) {
-            console.log('🔍 No results in value names, searching in descriptions...');
-            for (const [keyItem, keyData] of window.taginfoData.keys) {
-                if (results.length >= limit) break;
-
-                for (const [value, valueData] of keyData.values) {
-                    if (results.length >= limit) break;
-
-                    // Search in all definition columns for this value
-                    const searchTexts = [
-                        removeDiacritics(`${valueData.definition_en || ''}`.toLowerCase()),
-                        removeDiacritics(`${valueData.definition_ca || ''}`.toLowerCase()),
-                        removeDiacritics(`${valueData.definition_es || ''}`.toLowerCase()),
-                        removeDiacritics(`${valueData.value_ca || ''}`.toLowerCase()),
-                        removeDiacritics(`${valueData.value_es || ''}`.toLowerCase()),
-                        removeDiacritics(`${keyData.definition_en || ''}`.toLowerCase()),
-                        removeDiacritics(`${keyData.definition_ca || ''}`.toLowerCase()),
-                        removeDiacritics(`${keyData.definition_es || ''}`.toLowerCase()),
-                        removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()),
-                        removeDiacritics(`${keyData.key_es || ''}`.toLowerCase())
-                    ];
-
-                    let matchFound = false;
-                    let matchScore = 0;
-
-                    for (const searchText of searchTexts) {
-                        if (searchText.includes(queryNormalized)) {
-                            matchFound = true;
-                            // Give lower score to description matches
-                            if (searchText === removeDiacritics(`${value}`.toLowerCase())) matchScore += 1000;
-                            else if (searchText === removeDiacritics(`${keyItem}`.toLowerCase())) matchScore += 500;
-                            else matchScore += 0.1;  // Very low priority for description matches
-                        }
-                    }
-
-                    if (matchFound && matchScore >= 0.1) {
-                        const resultKey = `${keyItem}=${value}`;
-                        if (!results.some(r => `${r.key}=${r.value}` === resultKey)) {
-                            results.push({
-                                value: value,
-                                key: keyItem,
-                                totalCount: valueData.totalCount,
-                                keys: [keyItem],
-                                type: 'value',
-                                tag: null,
-                                definition: valueData.definition || '',
-                                definition_en: valueData.definition_en || '',
-                                definition_ca: valueData.definition_ca || '',
-                                definition_es: valueData.definition_es || '',
-                                countAll: valueData.totalCount,
-                                matchScore: matchScore
-                            });
-                        }
-                    }
-                }
-            }
-        }
+        // Convert Map to array
+        results.push(...Array.from(valueResults.values()));
 
         // If we don't have enough results, also search in key definitions
         if (results.length < limit) {
@@ -544,7 +488,7 @@ function searchValues(query, key = null, limit = 25) {
                     }
                 }
 
-                if (matchFound && matchScore >= 10) {  // Lower threshold for key search
+                if (matchFound && matchScore >= 20) {  // Higher threshold for key search
                     // Get the most popular value for this key
                     let popularValue = null;
                     let maxCount = 0;
