@@ -426,7 +426,7 @@ function searchValues(query, key = null, limit = 25) {
                 }
             }
 
-            if (matchFound && matchScore >= 1) {  // Lowered minimum threshold to allow description matches
+            if (matchFound && matchScore >= 0) {  // Accept any match, even with 0 score
                 // For each key that uses this value, create a result
                 for (const valueKey of keysWithValue) {
                     const resultKey = `${valueKey}=${value}`;
