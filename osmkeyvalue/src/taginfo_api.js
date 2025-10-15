@@ -426,7 +426,7 @@ function searchValues(query, key = null, limit = 25) {
                 }
             }
 
-            if (matchFound && matchScore >= 0) {  // Accept any match, even with 0 score
+            if (matchFound && matchScore >= 10) {  // Increased minimum threshold
                 // For each key that uses this value, create a result
                 for (const valueKey of keysWithValue) {
                     const resultKey = `${valueKey}=${value}`;
@@ -484,8 +484,6 @@ function searchValues(query, key = null, limit = 25) {
                         // Give higher score to exact matches
                         if (searchText === queryNormalized) matchScore += 100;
                         else if (searchText.startsWith(queryNormalized)) matchScore += 50;
-                        else if (searchText === removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase())) matchScore += 80;  // Catalan key translation exact match
-                        else if (searchText === removeDiacritics(`${keyData.key_es || ''}`.toLowerCase())) matchScore += 80;  // Spanish key translation exact match
                         else matchScore += 10;
                     }
                 }
