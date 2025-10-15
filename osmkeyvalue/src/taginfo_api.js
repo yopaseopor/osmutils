@@ -457,8 +457,64 @@ function searchValues(query, key = null, limit = 25) {
             }
         }
 
-        // Convert Map to array
-        results.push(...Array.from(valueResults.values()));
+        // Also search in value descriptions if no results found in value names
+        if (results.length === 0) {
+            console.log('🔍 No results in value names, searching in descriptions...');
+            for (const [keyItem, keyData] of window.taginfoData.keys) {
+                if (results.length >= limit) break;
+
+                for (const [value, valueData] of keyData.values) {
+                    if (results.length >= limit) break;
+
+                    // Search in all definition columns for this value
+                    const searchTexts = [
+                        removeDiacritics(`${valueData.definition_en || ''}`.toLowerCase()),
+                        removeDiacritics(`${valueData.definition_ca || ''}`.toLowerCase()),
+                        removeDiacritics(`${valueData.definition_es || ''}`.toLowerCase()),
+                        removeDiacritics(`${valueData.value_ca || ''}`.toLowerCase()),
+                        removeDiacritics(`${valueData.value_es || ''}`.toLowerCase()),
+                        removeDiacritics(`${keyData.definition_en || ''}`.toLowerCase()),
+                        removeDiacritics(`${keyData.definition_ca || ''}`.toLowerCase()),
+                        removeDiacritics(`${keyData.definition_es || ''}`.toLowerCase()),
+                        removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()),
+                        removeDiacritics(`${keyData.key_es || ''}`.toLowerCase())
+                    ];
+
+                    let matchFound = false;
+                    let matchScore = 0;
+
+                    for (const searchText of searchTexts) {
+                        if (searchText.includes(queryNormalized)) {
+                            matchFound = true;
+                            // Give lower score to description matches
+                            if (searchText === removeDiacritics(`${value}`.toLowerCase())) matchScore += 1000;
+                            else if (searchText === removeDiacritics(`${keyItem}`.toLowerCase())) matchScore += 500;
+                            else matchScore += 0.1;  // Very low priority for description matches
+                        }
+                    }
+
+                    if (matchFound && matchScore >= 0.1) {
+                        const resultKey = `${keyItem}=${value}`;
+                        if (!results.some(r => `${r.key}=${r.value}` === resultKey)) {
+                            results.push({
+                                value: value,
+                                key: keyItem,
+                                totalCount: valueData.totalCount,
+                                keys: [keyItem],
+                                type: 'value',
+                                tag: null,
+                                definition: valueData.definition || '',
+                                definition_en: valueData.definition_en || '',
+                                definition_ca: valueData.definition_ca || '',
+                                definition_es: valueData.definition_es || '',
+                                countAll: valueData.totalCount,
+                                matchScore: matchScore
+                            });
+                        }
+                    }
+                }
+            }
+        }
 
         // If we don't have enough results, also search in key definitions
         if (results.length < limit) {
