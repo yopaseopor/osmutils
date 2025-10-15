@@ -297,8 +297,12 @@ function searchValues(query, key = null, limit = 25) {
             searchTexts.push(removeDiacritics(`${valueData.definition_en || ''}`.toLowerCase()));
             searchTexts.push(removeDiacritics(`${valueData.definition_ca || ''}`.toLowerCase()));
             searchTexts.push(removeDiacritics(`${valueData.definition_es || ''}`.toLowerCase()));
+
+            // Add translation columns with medium weight (between key names and descriptions)
             searchTexts.push(removeDiacritics(`${valueData.value_ca || ''}`.toLowerCase()));
             searchTexts.push(removeDiacritics(`${valueData.value_es || ''}`.toLowerCase()));
+            searchTexts.push(removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()));
+            searchTexts.push(removeDiacritics(`${keyData.key_es || ''}`.toLowerCase()));
 
             let matchFound = false;
             let matchScore = 0;
@@ -314,6 +318,10 @@ function searchValues(query, key = null, limit = 25) {
                     // Give much higher scores to value/key names vs descriptions
                     if (searchText === removeDiacritics(`${value}`.toLowerCase())) matchScore += 1000;  // Exact value match
                     else if (searchText === removeDiacritics(`${key}`.toLowerCase())) matchScore += 500;   // Key name match
+                    else if (searchText === removeDiacritics(`${valueData.value_ca || ''}`.toLowerCase())) matchScore += 200;  // Catalan value translation match
+                    else if (searchText === removeDiacritics(`${valueData.value_es || ''}`.toLowerCase())) matchScore += 200;  // Spanish value translation match
+                    else if (searchText === removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase())) matchScore += 150;    // Catalan key translation match
+                    else if (searchText === removeDiacritics(`${keyData.key_es || ''}`.toLowerCase())) matchScore += 150;    // Spanish key translation match
                     else if (searchText.startsWith(queryNormalized)) {
                         // For 'yes' and 'no', require exact match
                         if (value === 'yes' || value === 'no') {
@@ -384,6 +392,8 @@ function searchValues(query, key = null, limit = 25) {
                     searchTexts.push(removeDiacritics(`${valueDataForKey.definition_en || ''}`.toLowerCase()));
                     searchTexts.push(removeDiacritics(`${valueDataForKey.definition_ca || ''}`.toLowerCase()));
                     searchTexts.push(removeDiacritics(`${valueDataForKey.definition_es || ''}`.toLowerCase()));
+
+                    // Translation columns get medium weight (between key names and descriptions)
                     searchTexts.push(removeDiacritics(`${valueDataForKey.value_ca || ''}`.toLowerCase()));
                     searchTexts.push(removeDiacritics(`${valueDataForKey.value_es || ''}`.toLowerCase()));
                     // Key translation columns also get lower weight
@@ -484,6 +494,8 @@ function searchValues(query, key = null, limit = 25) {
                         // Give higher score to exact matches
                         if (searchText === queryNormalized) matchScore += 100;
                         else if (searchText.startsWith(queryNormalized)) matchScore += 50;
+                        else if (searchText === removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase())) matchScore += 80;  // Catalan key translation exact match
+                        else if (searchText === removeDiacritics(`${keyData.key_es || ''}`.toLowerCase())) matchScore += 80;  // Spanish key translation exact match
                         else matchScore += 10;
                     }
                 }
