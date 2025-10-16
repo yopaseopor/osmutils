@@ -1,15 +1,7 @@
 key,value,tag,definition_en,definition_ca,definition_es,count_all,count_all_fraction,count_nodes,count_nodes_fraction,count_ways,count_ways_fraction,count_relations,count_relations_fraction,in_wiki,projects,key_ca,value_ca,key_es,value_es,number
 4wd_only,recommended,4wd_only=recommended,,,,25165,,21,,25141,,3,,No,3,,,,,5706
 4wd_only,yes,4wd_only=yes,,Només 4x4	=	sí,Sólo 4x4	=	sí,40087,,3502,,36578,,7,,Yes,3,Només 4x4,sí,Sólo 4x4,sí,13420
-CLC:code,112,CLC:code=112,,velocitat màxima: endavant	=	*,CLC: código	=	*,36177,,10,,33667,,2500,0,No,,velocitat màxima: endavant,*,CLC: código,*,14856
-CLC:code,211,CLC:code=211,,,,50690,,1,,46257,,4432,0,No,,,,,,3279
-CLC:code,221,CLC:code=221,,,,17896,,,,17397,,499,,No,,,,,,7700
-CLC:code,231,CLC:code=231,,,,60525,,,,55987,,4538,0,No,,,,,,2884
-CLC:code,242,CLC:code=242,,,,10714,,,,10531,,183,,No,,,,,,12556
-CLC:code,243,CLC:code=243,,,,12441,,,,12176,,265,,No,,,,,,10803
-CLC:code,311,CLC:code=311,,,,49684,,1,,42752,,6931,0,No,,,,,,3329
-CLC:code,312,CLC:code=312,,,,18359,,,,16065,,2294,0,No,,,,,,7538
-CLC:code,313,CLC:code=313,,,,18654,,,,16342,,2312,0,No,,,,,,7425
+CLC:code,112,CLC:code=112,,,CLC: código	=	*,36177,,10,,33667,,2500,0,No,,velocitat màxima: endavant,*,CLC: código,*,14856
 CLC:explanation,See http://wiki.openstreetmap.org/wiki/Romania_CLC_Import.,CLC:explanation=See http://wiki.openstreetmap.org/wiki/Romania_CLC_Import.,,,,97355,,1,,94718,0,2636,0,No,,,,,,2005
 CLC:explanation,See␣http://wiki.openstreetmap.org/wiki/Romania_CLC_Import.,,,CLC:explicació	=	Consulteu␣http://wiki.openstreetmap.org/wiki/Romania_CLC_Import.,CLC:explicación	=	Consulte␣http://wiki.openstreetmap.org/wiki/Romania_CLC_Import.,,,,,,,,,,,CLC:explicació,Consulteu␣http://wiki.openstreetmap.org/wiki/Romania_CLC_Import.,CLC:explicación,Consulte␣http://wiki.openstreetmap.org/wiki/Romania_CLC_Import.,14859
 CLC:year,2006,CLC:year=2006,,,,316094,,12,,288303,0,27779,2,No,,,,,,784
@@ -59,13 +51,6 @@ KSJ2:curve_type,exterior,KSJ2:curve_type=exterior,,KSJ2:corba_tipus	=	exterior,K
 KSJ2:filename,A13-06_01.xml,KSJ2:filename=A13-06_01.xml,,KSJ2: nom de fitxer	=	*,KSJ2: nombre de archivo	=	*,11726,,,,11459,,267,,No,,KSJ2: nom de fitxer,*,KSJ2: nombre de archivo,*,16674
 KSJ2:filename,N03-090320_02_new.xml,KSJ2:filename=N03-090320_02_new.xml,,KSJ2: nom de fitxer	=	N03-090320_02_nou.xml,KSJ2: nombre de archivo	=	N03-090320_02_nuevo.xml,16269,,16253,0,16,,,,No,,KSJ2: nom de fitxer,N03-090320_02_nou.xml,KSJ2: nombre de archivo,N03-090320_02_nuevo.xml,16673
 KSJ2:filename,N03-090320_16_new.xml,,,KSJ2: nom de fitxer	=	N03-090320_16_nou.xml,KSJ2: nombre de archivo	=	N03-090320_16_nuevo.xml,,,,,,,,,,,KSJ2: nom de fitxer,N03-090320_16_nou.xml,KSJ2: nombre de archivo,N03-090320_16_nuevo.xml,16675
-LINZ2OSM:dataset,ac_central,LINZ2OSM:dataset=ac_central,,LINZ2OSM: conjunt de dades	=	ac_central,LINZ2OSM: conjunto de datos	=	ac_central,17907,,,,17896,,11,,No,,LINZ2OSM: conjunt de dades,ac_central,LINZ2OSM: conjunto de datos,ac_central,17033
-LINZ2OSM:dataset,ac_franklin,LINZ2OSM:dataset=ac_franklin,,LINZ2OSM: conjunt de dades	=	ac_franklin,LINZ2OSM: conjunto de datos	=	ac_franklin,17284,,,,17260,,24,,No,,LINZ2OSM: conjunt de dades,ac_franklin,LINZ2OSM: conjunto de datos,ac_franklin,17034
-LINZ2OSM:dataset,ac_hibiscus,LINZ2OSM:dataset=ac_hibiscus,,LINZ2OSM: conjunt de dades	=	ac_hibiscus,LINZ2OSM: conjunto de datos	=	ac_hibiscus,26522,,,,26491,,31,,No,,LINZ2OSM: conjunt de dades,ac_hibiscus,LINZ2OSM: conjunto de datos,ac_hibiscus,17032
-LINZ2OSM:dataset,ac_rodney_east,LINZ2OSM:dataset=ac_rodney_east,,LINZ2OSM: conjunt de dades	=	ac_rodney_est,LINZ2OSM: conjunto de datos	=	ac_rodney_este,14413,,,,14394,,19,,No,,LINZ2OSM: conjunt de dades,ac_rodney_est,LINZ2OSM: conjunto de datos,ac_rodney_este,17035
-LINZ2OSM:dataset,ac_upper_harbour,LINZ2OSM:dataset=ac_upper_harbour,,LINZ2OSM: conjunt de dades	=	ac_upper_harbour,LINZ2OSM: conjunto de datos	=	ac_upper_harbour,39541,,,,39503,,38,,No,,LINZ2OSM: conjunt de dades,ac_upper_harbour,LINZ2OSM: conjunto de datos,ac_upper_harbour,17029
-LINZ2OSM:dataset,ac_waiheke,LINZ2OSM:dataset=ac_waiheke,,LINZ2OSM: conjunt de dades	=	ac_waiheke,LINZ2OSM: conjunto de datos	=	ac_waiheke,10395,,,,10389,,6,,No,,LINZ2OSM: conjunt de dades,ac_waiheke,LINZ2OSM: conjunto de datos,ac_waiheke,17036
-LINZ2OSM:dataset,ac_waitakere,LINZ2OSM:dataset=ac_waitakere,,LINZ2OSM: conjunt de dades	=	ac_esperatakere,LINZ2OSM: conjunto de datos	=	ac_esperatakere,31960,,,,31944,,16,,No,,LINZ2OSM: conjunt de dades,ac_esperatakere,LINZ2OSM: conjunto de datos,ac_esperatakere,17031
 LINZ2OSM:dataset,kx_wellington_city_council,LINZ2OSM:dataset=kx_wellington_city_council,,LINZ2OSM: conjunt de dades	=	kx_wellington_city_consejo,LINZ2OSM: conjunto de datos	=	kx_wellington_city_consejo,44105,,,,44067,,38,,No,,LINZ2OSM: conjunt de dades,kx_wellington_city_consejo,LINZ2OSM: conjunto de datos,kx_wellington_city_consejo,17030
 LINZ2OSM:layer,ac_buildings,LINZ2OSM:layer=ac_buildings,,LINZ2OSM: capa	=	ac_edificis,LINZ2OSM:capa	=	ac_edificios,174780,,,,174620,0,160,,No,,LINZ2OSM: capa,ac_edificis,LINZ2OSM:capa,ac_edificios,17037
 LINZ2OSM:layer,wcc_buildings,LINZ2OSM:layer=wcc_buildings,,LINZ2OSM: capa	=	wcc_edificis,LINZ2OSM:capa	=	wcc_edificios,44105,,,,44067,,38,,No,,LINZ2OSM: capa,wcc_edificis,LINZ2OSM:capa,wcc_edificios,17038
@@ -90,25 +75,6 @@ LandPro08:reviewed,no,LandPro08:reviewed=no,,LandPro08: revisat	=	no,LandPro08:r
 MCC,268,MCC=268,,,,10669,,10669,,,,,,No,,,,,,12612
 NHD:Elevation,0.00000000000,NHD:Elevation=0.00000000000,,,,12546,,,,12406,,140,,No,,,,,,10722
 NHD:FCode,33600,NHD:FCode=33600,,,,96991,,,,96952,0,39,,No,,,,,,2010
-NHD:FCode,39001,NHD:FCode=39001,,,,26614,,,,26518,,96,,No,,,,,,5450
-NHD:FCode,39004,NHD:FCode=39004,,,,406671,,4,,403186,0,3481,0,No,,,,,,645
-NHD:FCode,39010,NHD:FCode=39010,,,,38339,,,,38104,,235,,No,,,,,,4065
-NHD:FCode,46003,NHD:FCode=46003,,,,685456,0,,,685424,0,32,,No,,,,,,441
-NHD:FCode,46006,NHD:FCode=46006,,,,572265,0,3,,571553,0,709,0,No,,,,,,506
-NHD:FCode,46007,NHD:FCode=46007,,,,44020,,,,44020,,,,No,,,,,,3660
-NHD:FCode,46600,NHD:FCode=46600,,,,80076,,4,,75806,0,4266,0,No,,,,,,2341
-NHD:FCode,55800,NHD:FCode=55800,,,,153153,,,,153087,0,66,,No,,,,,,1413
-NHD:FDate,2003/10/01,NHD:FDate=2003/10/01,,,,18325,,,,18226,,99,,No,,,,,,7548
-NHD:FDate,2003/10/14,NHD:FDate=2003/10/14,,,,11966,,,,11960,,6,,No,,,,,,11243
-NHD:FDate,2004/11/11,NHD:FDate=2004/11/11,,,,13448,,,,13419,,29,,No,,,,,,10029
-NHD:FDate,2004/12/17,NHD:FDate=2004/12/17,,,,23696,,,,23552,,144,,No,,,,,,5999
-NHD:FDate,2005/04/02,NHD:FDate=2005/04/02,,,,22385,,,,22346,,39,,No,,,,,,6303
-NHD:FDate,2005/08/26,NHD:FDate=2005/08/26,,,,16143,,,,15917,,226,,No,,,,,,8439
-NHD:FDate,2006/03/28,NHD:FDate=2006/03/28,,,,10871,,,,10870,,1,,No,,,,,,12389
-NHD:FDate,2006/03/29,NHD:FDate=2006/03/29,,,,13481,,,,13382,,99,,No,,,,,,10005
-NHD:FDate,2006/05/04,NHD:FDate=2006/05/04,,,,15055,,,,15033,,22,,No,,,,,,9020
-NHD:FDate,2006/05/17,NHD:FDate=2006/05/17,,,,14732,,,,14702,,30,,No,,,,,,9216
-NHD:FDate,2007/04/29,NHD:FDate=2007/04/29,,,,10048,,,,9882,,166,,No,,,,,,13342
 NHD:FDate,2007/08/08,NHD:FDate=2007/08/08,,NHD: DATA	=	*,NHD: FEcha	=	*,12561,,,,11917,,644,,No,,NHD: DATA,*,NHD: FEcha,*,18164
 NHD:FLOWDIR,With Digitized,NHD:FLOWDIR=With Digitized,,,,51992,,,,51992,,,,No,,,,,,3206
 NHD:FLOWDIR,With␣Digitized,,,NHD:FLUIX DIR	=	Amb␣Digitalitzat,NHD:FLUJO DIR	=	Con␣Digitalizado,,,,,,,,,,,NHD:FLUIX DIR,Amb␣Digitalitzat,NHD:FLUJO DIR,Con␣Digitalizado,18165
@@ -195,19 +161,7 @@ addr.source:housenumber,survey,,,addr.source:nombre de casa	=	enquesta,addr.sour
 addr.source:street,survey,,,direcció.font:carrer	=	enquesta,dirección.fuente:calle	=	encuesta,,,,,,,,,,,direcció.font:carrer,enquesta,dirección.fuente:calle,encuesta,13545
 addr:TW:dataset,120044,addr:TW:dataset=120044,,,,808346,0,808340,3,6,,,,No,,,,,,400
 addr:TW:dataset,137998,addr:TW:dataset=137998,,ngbe: codi	=	*,dirección:TW:conjunto de datos	=	*,1186760,0,1186729,0,31,,,,Yes,,ngbe: codi,*,dirección:TW:conjunto de datos,*,13538
-addr:TW:dataset,155472,addr:TW:dataset=155472,,,,1104203,0,1104202,4,1,,,,No,,,,,,317
-addr:TW:dataset,157463,addr:TW:dataset=157463,,,,93297,,93296,0,1,,,,No,,,,,,2069
-addr:TW:dataset,157547,addr:TW:dataset=157547,,,,207180,,207180,0,,,,,No,,,,,,1113
-addr:TW:dataset,157689,addr:TW:dataset=157689,,,,999883,0,999753,0,130,,,,No,,,,,,341
-addr:TW:dataset,157705,addr:TW:dataset=157705,,,,210649,,210646,0,3,,,,No,,,,,,1089
-addr:TW:dataset,160248,addr:TW:dataset=160248,,,,1222159,0,1222151,0,8,,,,No,,,,,,292
-addr:TW:dataset,166201,addr:TW:dataset=166201,,,,276862,,276859,1,3,,,,No,,,,,,878
-addr:TW:dataset,168887,addr:TW:dataset=168887,,,,1936522,0,1936511,0,11,,,,No,,,,,,188
-addr:TW:dataset,170727,addr:TW:dataset=170727,,,,461703,,461660,0,43,,,,No,,,,,,576
-addr:TW:dataset,170847,addr:TW:dataset=170847,,,,327449,,327445,0,4,,,,No,,,,,,761
-addr:TW:dataset,170852,addr:TW:dataset=170852,,,,39675,,39675,0,,,,,No,,,,,,3948
-addr:TW:dataset,172873,addr:TW:dataset=172873,,,,196980,,196978,0,2,,,,No,,,,,,1158
-addr:block,*,addr:block=*,,espècies	=	*,dirección: bloque	=	*,23666,,100,,23561,,5,,No,,espècies,*,dirección: bloque,*,13474
+addr:block,*,addr:block=*,,,dirección: bloque	=	*,23666,,100,,23561,,5,,No,,espècies,*,dirección: bloque,*,13474
 addr:block:en,Block 1,addr:block:en=Block 1,,,,25255,,2226,,23025,,4,,No,,,,,,5689
 addr:block:en,Block␣1,,,adreça: bloc:	=	Bloc␣1,dirección:bloque:es	=	Bloque␣1,,,,,,,,,,,adreça: bloc:,Bloc␣1,dirección:bloque:es,Bloque␣1,13476
 addr:block_number,1,addr:block_number=1,,sostre:nivells	=	*,dirección:número_de_bloque	=	*,18797,,5888,,12770,,139,,No,,sostre:nivells,*,dirección:número_de_bloque,*,13475
@@ -290,15 +244,7 @@ addr:street:prefix,North,addr:street:prefix=North,,,,130124,,91,,129907,0,126,,N
 addr:street:prefix,South,addr:street:prefix=South,,,,195500,,132,,195297,0,71,,No,,,,,,1162
 addr:street:prefix,West,addr:street:prefix=West,,,,138641,,173,,138350,0,118,,No,,,,,,1541
 addr:street:sym_ul,10898,addr:street:sym_ul=10898,,,,21106,,8122,,12984,,,,No,,,,,,6625
-addr:street:sym_ul,11139,addr:street:sym_ul=11139,,,,11323,,3800,,7522,,1,,No,,,,,,11884
-addr:street:sym_ul,14834,addr:street:sym_ul=14834,,,,15900,,4945,,10954,,1,,No,,,,,,8567
-addr:street:sym_ul,17011,addr:street:sym_ul=17011,,,,18685,,5901,,12783,,1,,No,,,,,,7413
-addr:street:sym_ul,20254,addr:street:sym_ul=20254,,,,18630,,6523,,12107,,,,No,,,,,,7435
-addr:street:sym_ul,21970,addr:street:sym_ul=21970,,voltatge: primari	=	*,dirección:calle:sym_ul	=	*,17616,,6455,,11158,,3,,No,,voltatge: primari,*,dirección:calle:sym_ul,*,13531
-addr:street:sym_ul,3839,addr:street:sym_ul=03839,,,,17489,,5691,,11795,,3,,No,,,,,,7863
-addr:street:sym_ul,5635,addr:street:sym_ul=05635,,,,14625,,6485,,8138,,2,,No,,,,,,9277
-addr:street:sym_ul,8828,addr:street:sym_ul=08828,,,,10651,,3362,,7287,,2,,No,,,,,,12629
-addr:street:sym_ul,9546,addr:street:sym_ul=09546,,,,10761,,3279,,7481,,1,,No,,,,,,12509
+addr:street:sym_ul,21970,addr:street:sym_ul=21970,,,dirección:calle:sym_ul	=	*,17616,,6455,,11158,,3,,No,,voltatge: primari,*,dirección:calle:sym_ul,*,13531
 addr:street:type,Avenue,addr:street:type=Avenue,,adreça:carrer:tipus	=	Avinguda,dirección:calle:tipo	=	Avenida,310639,,5790,,304679,0,170,,No,,adreça:carrer:tipus,Avinguda,dirección:calle:tipo,Avenida,13532
 addr:street:type,Place,addr:street:type=Place,,,,24524,,488,,24023,,13,,No,,,,,,5835
 addr:street:type,Street,addr:street:type=Street,,,,133980,,5017,,128846,0,117,,No,,,,,,1588
@@ -803,19 +749,6 @@ assembly_point:tornado,yes,,,punt de trobada: tornado	=	si,punto de encuentro: t
 assembly_point:tsunami,yes,,,punt de trobada:tsunami	=	si,punto de encuentro:tsunami	=	si,,,,,,,,,,,punt de trobada:tsunami,si,punto de encuentro:tsunami,si,14028
 at_bev:addr_date,*,,,direcció: unitat	=	*,at_bev:dir_fecha	=	*,,,,,,,,,,,direcció: unitat,*,at_bev:dir_fecha,*,14029
 at_bev:addr_date,2016-10-02,at_bev:addr_date=2016-10-02,,,,85642,,1813,,82722,0,1107,0,No,,,,,,2212
-at_bev:addr_date,2017-04-07,at_bev:addr_date=2017-04-07,,,,109443,,4119,,103885,0,1439,0,No,,,,,,1845
-at_bev:addr_date,2017-10-01,at_bev:addr_date=2017-10-01,,,,308746,,71548,0,235161,0,2037,0,No,,,,,,803
-at_bev:addr_date,2018-04-02,at_bev:addr_date=2018-04-02,,,,68618,,19822,0,48620,,176,,No,,,,,,2627
-at_bev:addr_date,2018-10-01,at_bev:addr_date=2018-10-01,,,,137774,,14789,0,121950,0,1035,0,No,,,,,,1550
-at_bev:addr_date,2019-04-01,at_bev:addr_date=2019-04-01,,,,68681,,9850,,58543,0,288,,No,,,,,,2626
-at_bev:addr_date,2019-10-01,at_bev:addr_date=2019-10-01,,,,74927,,10915,,63785,0,227,,No,,,,,,2454
-at_bev:addr_date,2020-04-01,at_bev:addr_date=2020-04-01,,,,21063,,2458,,18499,,106,,No,,,,,,6638
-at_bev:addr_date,2020-10-01,at_bev:addr_date=2020-10-01,,,,81861,,10997,,70622,0,242,,No,,,,,,2295
-at_bev:addr_date,2021-04-01,at_bev:addr_date=2021-04-01,,,,31257,,3637,,27392,,228,,No,,,,,,4789
-at_bev:addr_date,2021-10-01,at_bev:addr_date=2021-10-01,,,,65490,,6034,,57412,0,2044,0,No,,,,,,2730
-at_bev:addr_date,2022-10-01,at_bev:addr_date=2022-10-01,,,,20613,,2447,,17990,,176,,No,,,,,,6767
-at_bev:addr_date,2023-04-15,at_bev:addr_date=2023-04-15,,,,14055,,1889,,12092,,74,,No,,,,,,9616
-at_bev:addr_date,2023-10-01,at_bev:addr_date=2023-10-01,,,,31996,,4220,,27495,,281,,No,,,,,,4696
 athletics,cross_country,,,atletisme	=	a camp entremaliada,atletismo	=	a campo traviesa,,,,,,,,,,,atletisme,a camp entremaliada,atletismo,a campo traviesa,14030
 athletics,discus_throw,,,atletisme	=	llançament de disc,atletismo	=	lanzamiento de disco,,,,,,,,,,,atletisme,llançament de disc,atletismo,lanzamiento de disco,14033
 athletics,hammer_throw,,,atletisme	=	llançament de martell,atletismo	=	lanzamiento de martillo,,,,,,,,,,,atletisme,llançament de martell,atletismo,lanzamiento de martillo,14035
@@ -1112,24 +1045,6 @@ brand:ja,ハローサイクリング,brand:ja=ハローサイクリング,,,,121
 brand:ja,ファミリーマート,brand:ja=ファミリーマート,,,,12806,,9744,,3059,,3,,No,1,,,,,10534
 brand:wikidata,*,,,marca:ja	=	*,marca: wikidata	=	*,,,,,,,,,,,marca:ja,*,marca: wikidata,*,14333
 brand:wikidata,Q1032001,brand:wikidata=Q1032001,,,,10292,,9878,,414,,,,No,1,,,,,13023
-brand:wikidata,Q110716465,brand:wikidata=Q110716465,,,,23933,,11012,,12798,,123,,No,1,,,,,5953
-brand:wikidata,Q110970254,brand:wikidata=Q110970254,,,,14979,,14697,0,282,,,,No,1,,,,,9069
-brand:wikidata,Q145168,brand:wikidata=Q145168,,,,10305,,3390,,6911,,4,,No,1,,,,,13006
-brand:wikidata,Q1465461,brand:wikidata=Q1465461,,,,11313,,7634,,3666,,13,,No,,,,,,11895
-brand:wikidata,Q151954,brand:wikidata=Q151954,,,,12583,,3965,,8579,,39,,No,1,,,,,10702
-brand:wikidata,Q152057,brand:wikidata=Q152057,,,,13200,,6741,,6409,,50,,No,1,,,,,10218
-brand:wikidata,Q1768969,brand:wikidata=Q1768969,,,,15519,,13608,,1843,,68,,No,1,,,,,8754
-brand:wikidata,Q177054,brand:wikidata=Q177054,,,,14920,,7757,,7128,,35,,No,1,,,,,9108
-brand:wikidata,Q2365235,brand:wikidata=Q2365235,,,,31687,,31633,0,45,,9,,No,1,,,,,4733
-brand:wikidata,Q244457,brand:wikidata=Q244457,,,,23398,,19413,0,3961,,24,,No,1,,,,,6061
-brand:wikidata,Q259340,brand:wikidata=Q259340,,,,42419,,29206,0,13172,,41,,No,1,,,,,3737
-brand:wikidata,Q37158,brand:wikidata=Q37158,,,,22166,,17123,0,5019,,24,,No,1,,,,,6354
-brand:wikidata,Q38076,brand:wikidata=Q38076,,,,35145,,16242,0,18826,,77,,No,1,,,,,4368
-brand:wikidata,Q524757,brand:wikidata=Q524757,,,,15742,,10304,,5423,,15,,No,1,,,,,8646
-brand:wikidata,Q638098,brand:wikidata=Q638098,,,,21713,,21620,0,93,,,,No,1,,,,,6467
-brand:wikidata,Q839466,brand:wikidata=Q839466,,,,10438,,8594,,1840,,4,,No,1,,,,,12859
-brand:wikidata,Q91231927,brand:wikidata=Q91231927,,,,12126,,12116,,10,,,,No,1,,,,,11089
-brand:wikidata,Q940518,brand:wikidata=Q940518,,,,10907,,9214,,1651,,42,,No,1,,,,,12345
 brand:wikipedia,en:7-Eleven,brand:wikipedia=en:7-Eleven,,marca: wikipedia	=	és:7-Eleven,marca: wikipedia	=	es:7-Eleven,20006,,16040,0,3961,,5,,No,,marca: wikipedia,és:7-Eleven,marca: wikipedia,es:7-Eleven,14334
 brand:wikipedia,en:Burger␣King,,,marca: wikipedia	=	ca:Burger␣King,marca: wikipedia	=	es:Burger␣King,,,,,,,,,,,marca: wikipedia,ca:Burger␣King,marca: wikipedia,es:Burger␣King,14340
 brand:wikipedia,en:McDonald's,brand:wikipedia=en:McDonald's,,marca: wikipedia	=	ca:McDonald's,marca: wikipedia	=	es:McDonald's,11040,,5346,,5655,,39,,No,,marca: wikipedia,ca:McDonald's,marca: wikipedia,es:McDonald's,14335
@@ -1407,14 +1322,6 @@ building:condition,poor,building:condition=poor,,edifici: condició	=	pobre,edif
 building:fireproof,no,building:fireproof=no,,edifici: incombustible	=	no,edificio: incombustible	=	no,11119,,3,,11114,,2,,No,,edifici: incombustible,no,edificio: incombustible,no,14600
 building:fireproof,yes,building:fireproof=yes,,edifici: incombustible	=	sí,edificio: incombustible	=	sí,189075,,5,,189044,0,26,,No,,edifici: incombustible,sí,edificio: incombustible,sí,14599
 building:flats,0,building:flats=0,,elevació	=	*,edificio:pisos	=	*,10949,,528,,10401,,20,,No,,elevació,*,edificio:pisos,*,14609
-building:flats,1,building:flats=1,,adreça:número_de_bloc	=	*,edificio:pisos	=	*,1704359,0,3342,,1696906,0,4111,0,No,,adreça:número_de_bloc,*,edificio:pisos,*,14601
-building:flats,12,building:flats=12,,font: nivell de zoom	=	*,edificio:pisos	=	*,16330,,392,,15874,,64,,No,,font: nivell de zoom,*,edificio:pisos,*,14607
-building:flats,2,building:flats=2,,nivell_administrador	=	*,edificio:pisos	=	*,290804,,68,,289585,0,1151,0,No,,nivell_administrador,*,edificio:pisos,*,14602
-building:flats,3,building:flats=3,,comptador_de_passos	=	*,edificio:pisos	=	*,39589,,44,,39294,,251,,No,,comptador_de_passos,*,edificio:pisos,*,14603
-building:flats,4,building:flats=4,,nivell_administrador	=	*,edificio:pisos	=	*,38888,,135,,38621,,132,,No,,nivell_administrador,*,edificio:pisos,*,14604
-building:flats,5,building:flats=5,,nivell_administrador	=	*,edificio:pisos	=	*,12212,,18,,12098,,96,,No,,nivell_administrador,*,edificio:pisos,*,14608
-building:flats,6,building:flats=6,,nivell_administrador	=	*,edificio:pisos	=	*,26769,,105,,26571,,93,,No,,nivell_administrador,*,edificio:pisos,*,14605
-building:flats,8,building:flats=8,,nivell_administrador	=	*,edificio:pisos	=	*,22165,,127,,21969,,69,,No,,nivell_administrador,*,edificio:pisos,*,14606
 building:floor,ceramics,building:floor=ceramics,,edifici:pis	=	ceràmica,edificio:piso	=	cerámica,31361,,71,,31101,,189,,No,1,edifici:pis,ceràmica,edificio:piso,cerámica,14610
 building:floor_area,500 - 750,building:floor_area=500 - 750,,,,14489,,,,14488,,1,,No,,,,,,9357
 building:floor_area,500␣-␣750,,,edifici:àrea_pis	=	*,edificio:área_piso	=	*,,,,,,,,,,,edifici:àrea_pis,*,edificio:área_piso,*,14611
@@ -1427,29 +1334,6 @@ building:foundation_height,less_than_1,building:foundation_height=less_than_1,,=
 building:levels,*,,,marca: wikidata	=	*,edificio:niveles	=	*,,,,,,,,,,,marca: wikidata,*,edificio:niveles,*,14617
 building:levels,0,building:levels=0,,,,111365,,1263,,109528,0,574,,No,,,,,,1819
 building:levels,1,building:levels=1,,,,19648183,0,39191,0,19548080,0,60912,0,No,3,,,,,14
-building:levels,1.5,building:levels=1.5,,,,39930,,23,,39805,,102,,No,,,,,,3916
-building:levels,10,building:levels=10,,,,112343,,178,,106319,0,5846,0,No,3,,,,,1807
-building:levels,11,building:levels=11,,,,58049,,79,,55674,,2296,0,No,3,,,,,2978
-building:levels,12,building:levels=12,,,,65518,,194,,62061,0,3263,0,No,,,,,,2729
-building:levels,13,building:levels=13,,,,30466,,34,,29042,,1390,0,No,,,,,,4896
-building:levels,14,building:levels=14,,,,37988,,43,,35673,,2272,0,No,,,,,,4093
-building:levels,15,building:levels=15,,,,41626,,44,,39857,,1725,0,No,,,,,,3784
-building:levels,16,building:levels=16,,,,32847,,29,,30413,,2405,0,No,,,,,,4598
-building:levels,17,building:levels=17,,,,23758,,12,,21370,,2376,0,No,,,,,,5982
-building:levels,18,building:levels=18,,,,20425,,12,,19077,,1336,0,No,,,,,,6819
-building:levels,19,building:levels=19,,,,11502,,10,,10583,,909,0,No,,,,,,11697
-building:levels,2,building:levels=2,,,,10739770,0,16223,0,10670752,0,52795,0,No,3,,,,,32
-building:levels,2.5,building:levels=2.5,,,,14290,,81,,14106,,103,,No,,,,,,9472
-building:levels,20,building:levels=20,,,,19496,,16,,18648,,832,0,No,,,,,,7120
-building:levels,22,building:levels=22,,,,10389,,13,,9641,,735,0,No,,,,,,12912
-building:levels,25,building:levels=25,,,,14032,,7,,12748,,1277,0,No,,,,,,9625
-building:levels,3,building:levels=3,,,,2534511,0,4379,,2494512,0,35620,0,No,3,,,,,135
-building:levels,4,building:levels=4,,,,1235009,0,1998,,1203404,0,29607,0,No,3,,,,,286
-building:levels,5,building:levels=5,,,,986626,0,882,,954463,0,31281,0,No,3,,,,,345
-building:levels,6,building:levels=6,,,,374223,,479,,354398,0,19346,0,No,3,,,,,681
-building:levels,7,building:levels=7,,,,221529,,272,,208731,0,12526,0,No,3,,,,,1042
-building:levels,8,building:levels=8,,,,159623,,270,,151185,0,8168,0,No,3,,,,,1363
-building:levels,9,building:levels=9,,,,211756,,175,,201929,0,9652,0,No,3,,,,,1086
 building:levels:underground,0,building:levels:underground=0,,edifici:pisos	=	*,edificio:niveles:subterraneo	=	*,192598,,87,,190579,0,1932,0,No,,edifici:pisos,*,edificio:niveles:subterraneo,*,14619
 building:levels:underground,1,building:levels:underground=1,,edifici:base_alçada	=	*,edificio:niveles:subterraneo	=	*,339391,,141,,322661,0,16589,0,No,2,edifici:base_alçada,*,edificio:niveles:subterraneo,*,14618
 building:levels:underground,2,building:levels:underground=2,,edifici:pisos	=	*,edificio:niveles:subterraneo	=	*,44253,,27,,41026,,3200,0,No,2,edifici:pisos,*,edificio:niveles:subterraneo,*,14620
@@ -1526,18 +1410,6 @@ building:roof,tin,building:roof=tin,,edifici: sostre	=	estany,edificio: techo	=	
 building:roof,traditional,,,edifici: sostre	=	tradicional,edificio: techo	=	tradicional,,,,,,,,,,,edifici: sostre,tradicional,edificio: techo,tradicional,14681
 building:roof:shape,pitched,,,edifici:sostre:forma	=	inclinat,edificio:techo:forma	=	inclinado,,,,,,,,,,,edifici:sostre:forma,inclinat,edificio:techo:forma,inclinado,14686
 building:ruian:type,1,building:ruian:type=1,,edifici:min_level	=	*,edificio:ruian:tipo	=	*,26571,,,,26500,,71,,No,,edifici:min_level,*,edificio:ruian:tipo,*,14698
-building:ruian:type,12,building:ruian:type=12,,edifici:pisos	=	*,edificio:ruian:tipo	=	*,41157,,,,41046,,111,,No,,edifici:pisos,*,edificio:ruian:tipo,*,14697
-building:ruian:type,13,building:ruian:type=13,,generador:solar:modules	=	*,edificio:ruian:tipo	=	*,158763,,,,158641,0,122,,No,,generador:solar:modules,*,edificio:ruian:tipo,*,14692
-building:ruian:type,15,building:ruian:type=15,,massgis:WETCODE	=	*,edificio:ruian:tipo	=	*,58051,,,,57563,0,488,,No,,massgis:WETCODE,*,edificio:ruian:tipo,*,14695
-building:ruian:type,16,building:ruian:type=16,,edifici:ruian:tipus	=	*,edificio:ruian:tipo	=	*,56491,,2,,56357,,132,,No,,edifici:ruian:tipus,*,edificio:ruian:tipo,*,14696
-building:ruian:type,18,building:ruian:type=18,,generador:solar:modules	=	*,edificio:ruian:tipo	=	*,504913,,1,,504802,0,110,,No,,generador:solar:modules,*,edificio:ruian:tipo,*,14689
-building:ruian:type,19,building:ruian:type=19,,edifici:ruian:tipus	=	*,edificio:ruian:tipo	=	*,365908,,6,,365454,0,448,,No,,edifici:ruian:tipus,*,edificio:ruian:tipo,*,14690
-building:ruian:type,2,building:ruian:type=2,,edifici:min_level	=	*,edificio:ruian:tipo	=	*,23578,,,,23445,,133,,No,,edifici:min_level,*,edificio:ruian:tipo,*,14699
-building:ruian:type,3,building:ruian:type=3,,edifici:pisos	=	*,edificio:ruian:tipo	=	*,759326,0,,,756195,0,3131,0,No,,edifici:pisos,*,edificio:ruian:tipo,*,14688
-building:ruian:type,5,building:ruian:type=5,,edifici:pisos	=	*,edificio:ruian:tipo	=	*,66060,,2,,65392,0,666,,No,,edifici:pisos,*,edificio:ruian:tipo,*,14694
-building:ruian:type,6,building:ruian:type=6,,edifici:pisos	=	*,edificio:ruian:tipo	=	*,100381,,,,100067,0,314,,No,,edifici:pisos,*,edificio:ruian:tipo,*,14693
-building:ruian:type,7,building:ruian:type=7,,nivell_administrador	=	*,edificio:ruian:tipo	=	*,1225208,0,1,,1223107,0,2100,0,No,,nivell_administrador,*,edificio:ruian:tipo,*,14687
-building:ruian:type,8,building:ruian:type=8,,edifici:pisos	=	*,edificio:ruian:tipo	=	*,268811,,2,,268762,0,47,,No,,edifici:pisos,*,edificio:ruian:tipo,*,14691
 building:state_of_the_house,permanent,building:state_of_the_house=permanent,,edifici:estat_de_la_casa	=	permanent,edificio:estado_de_la_casa	=	permanente,41516,,,,41513,,3,,No,,edifici:estat_de_la_casa,permanent,edificio:estado_de_la_casa,permanente,14700
 building:structure,confined_masonary,,,Estructura de construcció	=	confinat_masonari,Estructura de construcción	=	confinado_masonario,,,,,,,,,,,Estructura de construcció,confinat_masonari,Estructura de construcción,confinado_masonario,14701
 building:structure,confined_masonry,building:structure=confined_masonry,,Estructura de construcció	=	maçoneria confinada,Estructura de construcción	=	mampostería confinada,111885,,171,,111363,0,351,,No,1,Estructura de construcció,maçoneria confinada,Estructura de construcción,mampostería confinada,14702
@@ -1548,12 +1420,6 @@ building:type:pl,Przyziemie budynku ognioodpornego,building:type:pl=Przyziemie b
 building:type:pl,Przyziemie␣budynku␣nieognioodpornego,,,edifici:tipus:pl	=	Przyziemie␣budynku␣nieognioodpornego,edificio:tipo:pl	=	Przyziemie␣budynku␣nieognioodpornego,,,,,,,,,,,edifici:tipus:pl,Przyziemie␣budynku␣nieognioodpornego,edificio:tipo:pl,Przyziemie␣budynku␣nieognioodpornego,14706
 building:type:pl,Przyziemie␣budynku␣ognioodpornego,,,edifici:tipus:pl	=	Przyziemie␣budynku␣ognioodpornego,edificio:tipo:pl	=	Przyziemie␣budynku␣ognioodpornego,,,,,,,,,,,edifici:tipus:pl,Przyziemie␣budynku␣ognioodpornego,edificio:tipo:pl,Przyziemie␣budynku␣ognioodpornego,14705
 building:units,1,building:units=1,,edifici:ruian:tipus	=	*,edificio:unidades	=	*,2179707,0,1846,,2168176,0,9685,0,No,,edifici:ruian:tipus,*,edificio:unidades,*,14707
-building:units,2,building:units=2,,,,221885,,3,,221553,0,329,,No,,,,,,1040
-building:units,3,building:units=3,,,,83072,,,,82962,0,110,,No,,,,,,2270
-building:units,4,building:units=4,,,,66641,,4,,66406,0,231,,No,,,,,,2695
-building:units,5,building:units=5,,,,24017,,2,,23953,,62,,No,,,,,,5942
-building:units,6,building:units=6,,,,23182,,2,,23081,,99,,No,,,,,,6115
-building:units,8,building:units=8,,,,16367,,7,,16190,,170,,No,,,,,,8315
 building:usage:pl,Inny niemieszkalny,building:usage:pl=Inny niemieszkalny,,,,20597,,,,20594,,3,,No,,,,,,6773
 building:usage:pl,Inny niemieszkalny lub podziemny,building:usage:pl=Inny niemieszkalny lub podziemny,,,,10605,,,,10585,,20,,No,,,,,,12680
 building:usage:pl,Mieszkalny,building:usage:pl=Mieszkalny,,,,60606,,1,,60554,0,51,,No,,,,,,2882
@@ -1647,10 +1513,6 @@ canal,qanat,canal=qanat,,canal	=	qanat,canal	=	qanat,54733,,2,,54731,,,,Yes,2,ca
 canoe,no,canoe=no,,,,16479,,80,,16079,,320,,No,4,,,,,8262
 canoe,portage,,,canoa	=	porteig,canoa	=	porteo,,,,,,,,,,,canoa,porteig,canoa,porteo,14780
 canoe,yes,canoe=yes,,,,31243,,1863,,28919,,461,,No,9,,,,,4790
-canvec:CODE,1240022,canvec:CODE=1240022,,direcció:ciutat:simc	=	*,canvec:CÓDIGO	=	*,33060,,,,32282,,778,0,No,,direcció:ciutat:simc,*,canvec:CÓDIGO,*,14781
-canvec:CODE,1320042,canvec:CODE=1320042,,canvec:CODI	=	*,canvec:CÓDIGO	=	*,13170,,,,12432,,738,0,No,,canvec:CODI,*,canvec:CÓDIGO,*,14784
-canvec:CODE,1470171,canvec:CODE=1470171,,canvec:CODI	=	*,canvec:CÓDIGO	=	*,35189,,,,35189,,,,No,,canvec:CODI,*,canvec:CÓDIGO,*,14782
-canvec:CODE,1480272,canvec:CODE=1480272,,canvec:CODI	=	*,canvec:CÓDIGO	=	*,15549,,,,14735,,814,0,No,,canvec:CODI,*,canvec:CÓDIGO,*,14783
 canvec:CODE,1760011,canvec:CODE=1760011,,canvec:CODI	=	*,canvec:CÓDIGO	=	*,11059,,,,11059,,,,No,,canvec:CODI,*,canvec:CÓDIGO,*,14785
 canvec:STRUCTYPE,None,,,canvec:TIPUS D'ESTRUCTURA	=	Cap,canvec:TIPO DE ESTRUCTURA	=	Ninguna,,,,,,,,,,,canvec:TIPUS D'ESTRUCTURA,Cap,canvec:TIPO DE ESTRUCTURA,Ninguna,14786
 capacity,*,,,edifici:nivells	=	*,capacidad	=	*,,,,,,,,,,,edifici:nivells,*,capacidad,*,14788
@@ -7486,44 +7348,6 @@ source:addr,interpolation,source:addr=interpolation,,,,15173,,1132,,14039,,2,,No
 source:addr,mapa.um.warszawa.pl,source:addr=mapa.um.warszawa.pl,,,,17342,,1850,,15294,,198,,No,,,,,,7917
 source:addr,mbialapodlaska.e-mapa.net,source:addr=mbialapodlaska.e-mapa.net,,,,12216,,4578,,7637,,1,,No,,,,,,10997
 source:addr,mdabrowagornicza.e-mapa.net,source:addr=mdabrowagornicza.e-mapa.net,,,,11141,,512,,10624,,5,,No,,,,,,12070
-source:addr,minvskaddress 2020-12,source:addr=minvskaddress 2020-12,,,,11446,,141,,11303,,2,,No,,,,,,11747
-source:addr,minvskaddress 2021-02,source:addr=minvskaddress 2021-02,,,,18860,,402,,18455,,3,,No,,,,,,7358
-source:addr,minvskaddress 2021-03,source:addr=minvskaddress 2021-03,,,,18733,,681,,18049,,3,,No,,,,,,7397
-source:addr,minvskaddress 2021-04,source:addr=minvskaddress 2021-04,,,,16357,,316,,16037,,4,,No,,,,,,8320
-source:addr,minvskaddress 2021-07,source:addr=minvskaddress 2021-07,,,,15534,,217,,15315,,2,,No,,,,,,8744
-source:addr,minvskaddress 2021-08,source:addr=minvskaddress 2021-08,,,,13970,,308,,13658,,4,,No,,,,,,9679
-source:addr,minvskaddress 2021-09,source:addr=minvskaddress 2021-09,,,,16832,,258,,16572,,2,,No,,,,,,8096
-source:addr,minvskaddress 2021-10,source:addr=minvskaddress 2021-10,,,,20397,,123,,20271,,3,,No,,,,,,6830
-source:addr,minvskaddress 2021-12,source:addr=minvskaddress 2021-12,,,,11474,,270,,11200,,4,,No,,,,,,11722
-source:addr,minvskaddress 2022-01,source:addr=minvskaddress 2022-01,,,,21120,,890,,20223,,7,,No,,,,,,6620
-source:addr,minvskaddress 2022-02,source:addr=minvskaddress 2022-02,,,,17581,,718,,16857,,6,,No,,,,,,7826
-source:addr,minvskaddress 2022-03,source:addr=minvskaddress 2022-03,,,,13376,,113,,13259,,4,,No,,,,,,10090
-source:addr,minvskaddress 2022-04,source:addr=minvskaddress 2022-04,,,,22330,,559,,21765,,6,,No,,,,,,6320
-source:addr,minvskaddress 2022-06,source:addr=minvskaddress 2022-06,,,,14453,,163,,14289,,1,,No,,,,,,9380
-source:addr,minvskaddress 2022-07,source:addr=minvskaddress 2022-07,,,,30438,,838,,29591,,9,,No,,,,,,4906
-source:addr,minvskaddress 2022-08,source:addr=minvskaddress 2022-08,,,,20774,,867,,19900,,7,,No,,,,,,6713
-source:addr,minvskaddress 2022-09,source:addr=minvskaddress 2022-09,,,,35867,,1265,,34596,,6,,No,,,,,,4285
-source:addr,minvskaddress 2022-10,source:addr=minvskaddress 2022-10,,,,30096,,1028,,29054,,14,,No,,,,,,4959
-source:addr,minvskaddress 2022-11,source:addr=minvskaddress 2022-11,,,,33267,,961,,32284,,22,,No,,,,,,4548
-source:addr,minvskaddress 2022-12,source:addr=minvskaddress 2022-12,,,,51337,,1453,,49873,,11,,No,,,,,,3246
-source:addr,minvskaddress 2023-01,source:addr=minvskaddress 2023-01,,,,39748,,1855,,37874,,19,,No,,,,,,3937
-source:addr,minvskaddress 2023-02,source:addr=minvskaddress 2023-02,,,,45494,,1338,,44143,,13,,No,,,,,,3572
-source:addr,minvskaddress 2023-03,source:addr=minvskaddress 2023-03,,,,46101,,718,,45379,,4,,No,,,,,,3533
-source:addr,minvskaddress 2023-04,source:addr=minvskaddress 2023-04,,,,59116,,3576,,55533,,7,,No,,,,,,2936
-source:addr,minvskaddress 2023-05,source:addr=minvskaddress 2023-05,,,,44546,,1734,,42805,,7,,No,,,,,,3625
-source:addr,minvskaddress 2023-06,source:addr=minvskaddress 2023-06,,,,26494,,921,,25563,,10,,No,,,,,,5472
-source:addr,minvskaddress 2023-07,source:addr=minvskaddress 2023-07,,,,21862,,725,,21124,,13,,No,,,,,,6428
-source:addr,minvskaddress 2023-08,source:addr=minvskaddress 2023-08,,,,44877,,2089,,42787,,1,,No,,,,,,3600
-source:addr,minvskaddress 2023-09,source:addr=minvskaddress 2023-09,,,,20747,,1394,,19335,,18,,No,,,,,,6720
-source:addr,minvskaddress 2023-10,source:addr=minvskaddress 2023-10,,,,22922,,1038,,21881,,3,,No,,,,,,6181
-source:addr,minvskaddress 2023-11,source:addr=minvskaddress 2023-11,,,,38659,,820,,37828,,11,,No,,,,,,4035
-source:addr,minvskaddress 2023-12,source:addr=minvskaddress 2023-12,,,,61850,,1886,,59955,0,9,,No,,,,,,2837
-source:addr,minvskaddress 2024-01,source:addr=minvskaddress 2024-01,,,,63721,,5733,,57974,0,14,,No,,,,,,2781
-source:addr,minvskaddress 2024-02,source:addr=minvskaddress 2024-02,,,,135788,,8402,,127216,0,170,,No,,,,,,1566
-source:addr,minvskaddress 2024-05,source:addr=minvskaddress 2024-05,,,,27530,,1265,,26231,,34,,No,,,,,,5291
-source:addr,minvskaddress 2024-08,source:addr=minvskaddress 2024-08,,,,16092,,651,,15431,,10,,No,,,,,,8469
-source:addr,minvskaddress 2024-09,source:addr=minvskaddress 2024-09,,,,13081,,318,,12759,,4,,No,,,,,,10318
-source:addr,minvskaddress 2024-11,source:addr=minvskaddress 2024-11,,,,10787,,209,,10574,,4,,No,,,,,,12475
 source:addr,minvskaddress 2025-01,source:addr=minvskaddress 2025-01,,,,134744,,2841,,131848,0,55,,No,,,,,,1578
 source:addr,mostrowwielkopolski.e-mapa.net,source:addr=mostrowwielkopolski.e-mapa.net,,,,10699,,1139,,9556,,4,,No,,,,,,12579
 source:addr,rosreestr.ru,source:addr=rosreestr.ru,,,,16203,,733,,15423,,47,,No,,,,,,8404
@@ -7562,276 +7386,6 @@ source:data,cugir.library.cornell.edu & gis.ny.gov/gisdata,source:data=cugir.lib
 source:data,cugir.library.cornell.edu␣&␣gis.ny.gov/gisdata,,,dades font	=	cugir.library.cornell.edu␣&␣gis.ny.gov/gisdata,datos fuente	=	cugir.library.cornell.edu␣&␣gis.ny.gov/gisdata,,,,,,,,,,,dades font,cugir.library.cornell.edu␣&␣gis.ny.gov/gisdata,datos fuente,cugir.library.cornell.edu␣&␣gis.ny.gov/gisdata,20446
 source:data,https://gis.ny.gov/gisdata,source:data=https://gis.ny.gov/gisdata,,dades font	=	https://gis.ny.gov/gisdata,datos fuente	=	https://gis.ny.gov/gisdata,201528,,20,,201489,0,19,,No,,dades font,https://gis.ny.gov/gisdata,datos fuente,https://gis.ny.gov/gisdata,20445
 source:date,*,,,font:data	=	*,fuente:fecha	=	*,,,,,,,,,,,font:data,*,fuente:fecha,*,20447
-source:date,1962-07-01,source:date=1962-07-01,,,,14422,,,,14422,,,,No,,,,,,9399
-source:date,1965-07-01,source:date=1965-07-01,,,,17381,,23,,17345,,13,,No,,,,,,7904
-source:date,1968-07-01,source:date=1968-07-01,,,,12222,,238,,11981,,3,,No,,,,,,10989
-source:date,1971-07-01,source:date=1971-07-01,,,,12614,,38,,12575,,1,,No,,,,,,10682
-source:date,1972-07-01,source:date=1972-07-01,,,,23767,,60,,23704,,3,,No,,,,,,5980
-source:date,1973-01-01,source:date=1973-01-01,,,,16224,,,,16224,,,,No,,,,,,8394
-source:date,1974-07-01,source:date=1974-07-01,,,,35440,,,,35440,,,,No,,,,,,4330
-source:date,1975-07-01,source:date=1975-07-01,,,,35854,,1,,35840,,13,,No,,,,,,4289
-source:date,1976-07-01,source:date=1976-07-01,,,,73402,,15,,73387,0,,,No,,,,,,2495
-source:date,1977-07-01,source:date=1977-07-01,,,,28134,,1974,,26149,,11,,No,,,,,,5195
-source:date,1978-07-01,source:date=1978-07-01,,,,21771,,341,,21428,,2,,No,,,,,,6452
-source:date,1979-07-01,source:date=1979-07-01,,,,26279,,69,,26210,,,,No,,,,,,5510
-source:date,1980-07-01,source:date=1980-07-01,,,,25909,,266,,25513,,130,,No,,,,,,5565
-source:date,1981-07-01,source:date=1981-07-01,,,,15563,,85,,15478,,,,No,,,,,,8725
-source:date,1983-07-01,source:date=1983-07-01,,,,28401,,235,,28164,,2,,No,,,,,,5162
-source:date,1984-07-01,source:date=1984-07-01,,,,55464,,20,,55351,,93,,No,,,,,,3059
-source:date,1985-07-01,source:date=1985-07-01,,,,62654,,45,,62584,0,25,,No,,,,,,2816
-source:date,1986-07-01,source:date=1986-07-01,,,,44072,,19,,44013,,40,,No,,,,,,3656
-source:date,1987-07-01,source:date=1987-07-01,,,,29653,,33,,29618,,2,,No,,,,,,5015
-source:date,1988-07-01,source:date=1988-07-01,,,,63193,,5,,63170,0,18,,No,,,,,,2796
-source:date,1989-07-01,source:date=1989-07-01,,,,263087,,636,,261984,0,467,,No,,,,,,917
-source:date,1990-07-01,source:date=1990-07-01,,,,49214,,48,,49163,,3,,No,,,,,,3358
-source:date,1991-07-01,source:date=1991-07-01,,,,109637,,160,,109439,0,38,,No,,,,,,1844
-source:date,1992-07-01,source:date=1992-07-01,,,,39293,,481,,38800,,12,,No,,,,,,3984
-source:date,1993-07-01,source:date=1993-07-01,,,,48784,,475,,48283,,26,,No,,,,,,3389
-source:date,1994-07-01,source:date=1994-07-01,,,,169438,,3693,,165522,0,223,,No,,,,,,1306
-source:date,1994-08-01,source:date=1994-08-01,,,,13556,,,,13555,,1,,No,,,,,,9961
-source:date,1995-01-01,source:date=1995-01-01,,,,17729,,11790,,5939,,,,No,,,,,,7764
-source:date,1995-07-01,source:date=1995-07-01,,,,181131,,3,,181108,0,20,,No,,,,,,1242
-source:date,1996-07-01,source:date=1996-07-01,,,,126345,,88,,125650,0,607,,No,,,,,,1656
-source:date,1997-07-01,source:date=1997-07-01,,,,47252,,247,,46990,,15,,No,,,,,,3470
-source:date,1998-07-01,source:date=1998-07-01,,,,77982,,570,,77407,0,5,,No,,,,,,2380
-source:date,1999-07-01,source:date=1999-07-01,,,,10722,,9441,,1249,,32,,No,,,,,,12550
-source:date,2/25/2013,source:date=2/25/2013,,,,26800,,20656,0,6138,,6,,No,,,,,,5416
-source:date,2001-08-21,source:date=2001-08-21,,,,10212,,1,,10209,,2,,No,,,,,,13137
-source:date,20010829,source:date=20010829,,,,12616,,1,,12614,,1,,No,,,,,,10679
-source:date,2003-07-01,source:date=2003-07-01,,,,60380,,947,,59426,0,7,,No,,,,,,2890
-source:date,2003-08-04,source:date=2003-08-04,,,,10201,,,,10201,,,,No,,,,,,13151
-source:date,2003-08-12,source:date=2003-08-12,,,,27177,,1,,27176,,,,No,,,,,,5346
-source:date,2004-07-01,source:date=2004-07-01,,,,11895,,1491,,10402,,2,,No,,,,,,11313
-source:date,20040223,source:date=20040223,,,,33710,,1,,33707,,2,,No,,,,,,4505
-source:date,2005-07-01,source:date=2005-07-01,,,,25981,,2223,,23755,,3,,No,,,,,,5553
-source:date,2005-07-04,source:date=2005-07-04,,,,13536,,,,13533,,3,,No,,,,,,9976
-source:date,2006-07-05,source:date=2006-07-05,,,,16331,,1,,16330,,,,No,,,,,,8333
-source:date,2006-08-20,source:date=2006-08-20,,,,25221,,,,25220,,1,,No,,,,,,5697
-source:date,2006-09-16,source:date=2006-09-16,,,,14265,,464,,13800,,1,,No,,,,,,9486
-source:date,2007,source:date=2007,,,,23073,,9166,,13858,,49,,No,1,,,,,6147
-source:date,2008,source:date=2008,,,,39900,,14453,0,25345,,102,,No,1,,,,,3920
-source:date,2008-06-03,source:date=2008-06-03,,,,23334,,1,,23333,,,,No,,,,,,6073
-source:date,2008-08-19,source:date=2008-08-19,,,,17035,,23,,17012,,,,No,,,,,,8018
-source:date,2008-09-10,source:date=2008-09-10,,,,27296,,,,27295,,1,,No,,,,,,5330
-source:date,2008-09-12,source:date=2008-09-12,,,,14089,,8,,14058,,23,,No,,,,,,9591
-source:date,2009,source:date=2009,,,,65252,,7650,,56973,0,629,,No,1,,,,,2738
-source:date,2009-07-04,source:date=2009-07-04,,,,17204,,,,17204,,,,No,,,,,,7957
-source:date,2009-07-19,source:date=2009-07-19,,,,48898,,2,,48896,,,,No,,,,,,3380
-source:date,2009-09-15,source:date=2009-09-15,,,,30607,,1,,30602,,4,,No,,,,,,4872
-source:date,2010,source:date=2010,,,,26789,,2616,,24115,,58,,No,,,,,,5424
-source:date,2010-08-17,source:date=2010-08-17,,,,66690,,,,66689,0,1,,No,,,,,,2692
-source:date,2010-08-18,source:date=2010-08-18,,,,38123,,1,,38122,,,,No,,,,,,4081
-source:date,2010-09-04,source:date=2010-09-04,,,,22639,,1,,22638,,,,No,,,,,,6252
-source:date,2010-09-05,source:date=2010-09-05,,,,27589,,,,27427,,162,,No,,,,,,5280
-source:date,2010-09-07,source:date=2010-09-07,,,,35691,,4,,35684,,3,,No,,,,,,4306
-source:date,2010-09-27,source:date=2010-09-27,,,,10931,,,,10930,,1,,No,,,,,,12322
-source:date,2010-09-28,source:date=2010-09-28,,,,88426,,35,,88381,0,10,,No,,,,,,2160
-source:date,2010..2014,source:date=2010..2014,,,,24297,,23565,0,729,,3,,No,,,,,,5877
-source:date,201011,source:date=201011,,,,320150,,320100,0,44,,6,,No,,,,,,774
-source:date,2011,source:date=2011,,,,29860,,4790,,25055,,15,,No,,,,,,4987
-source:date,2011-03-13,source:date=2011-03-13,,,,101435,,4,,101410,0,21,,No,,,,,,1949
-source:date,2011-06,source:date=2011-06,,,,14835,,14812,0,20,,3,,No,,,,,,9152
-source:date,2011-09-16,source:date=2011-09-16,,,,13957,,2,,13917,,38,,No,,,,,,9691
-source:date,2011-11-06,source:date=2011-11-06,,,,13378,,13038,,27,,313,,No,,,,,,10087
-source:date,2012,source:date=2012,,,,67659,,9003,,55807,,2849,0,No,,,,,,2661
-source:date,2012-07-10,source:date=2012-07-10,,,,20085,,1,,20084,,,,No,,,,,,6920
-source:date,2012-08-08,source:date=2012-08-08,,,,15071,,1694,,13375,,2,,No,,,,,,9007
-source:date,2012-08-27,source:date=2012-08-27,,,,12405,,1,,12404,,,,No,,,,,,10827
-source:date,2012-08-31,source:date=2012-08-31,,,,25229,,16,,25213,,,,No,,,,,,5695
-source:date,2012/10/04,source:date=2012/10/04,,,,28875,,28849,0,26,,,,No,,,,,,5100
-source:date,2013,source:date=2013,,,,51322,,3104,,44610,,3608,0,No,,,,,,3250
-source:date,2013-01,source:date=2013-01,,,,39526,,11565,,27792,,169,,No,,,,,,3964
-source:date,2013-06,source:date=2013-06,,,,11651,,11573,,78,,,,No,,,,,,11538
-source:date,2013-07-11,source:date=2013-07-11,,,,21879,,3,,21872,,4,,No,,,,,,6422
-source:date,2013-07-20,source:date=2013-07-20,,,,20294,,23,,20165,,106,,No,,,,,,6861
-source:date,2013-07-21,source:date=2013-07-21,,,,61793,,31,,61747,0,15,,No,,,,,,2840
-source:date,2013-08-08,source:date=2013-08-08,,,,12143,,8085,,4058,,,,No,,,,,,11061
-source:date,2013-08-24,source:date=2013-08-24,,,,11262,,18,,11244,,,,No,,,,,,11959
-source:date,2013-09-01,source:date=2013-09-01,,,,13387,,61,,13288,,38,,No,,,,,,10078
-source:date,2013-09-08,source:date=2013-09-08,,,,45969,,40728,0,5241,,,,No,,,,,,3540
-source:date,2013-09-10,source:date=2013-09-10,,,,12242,,3,,12238,,1,,No,,,,,,10974
-source:date,2013-11-26,source:date=2013-11-26,,,,441991,,246650,0,195221,0,120,,No,,,,,,601
-source:date,20130720,source:date=20130720,,,,18159,,,,17145,,1014,0,No,,,,,,7600
-source:date,2014,source:date=2014,,,,51473,,9793,,39472,,2208,0,No,,,,,,3240
-source:date,2014-01,source:date=2014-01,,,,42355,,614,,41572,,169,,No,,,,,,3740
-source:date,2014-01-03,source:date=2014-01-03,,,,24151,,45,,24106,,,,No,,,,,,5913
-source:date,2014-01-22,source:date=2014-01-22,,,,227597,,101859,0,125698,0,40,,No,,,,,,1015
-source:date,2014-02-05,source:date=2014-02-05,,,,26545,,13371,,13165,,9,,No,,,,,,5464
-source:date,2014-02-11,source:date=2014-02-11,,,,2852900,0,1549261,0,1302440,0,1199,0,No,,,,,,120
-source:date,2014-03-24,source:date=2014-03-24,,,,7020593,0,3538243,0,3479861,0,2489,0,No,,,,,,50
-source:date,2014-05-01,source:date=2014-05-01,,,,55438,,29809,0,25598,,31,,No,,,,,,3062
-source:date,2014-05-07,source:date=2014-05-07,,,,1648877,0,819660,3,828721,0,496,,No,,,,,,220
-source:date,2014-05-20,source:date=2014-05-20,,,,316477,,155693,0,160712,0,72,,No,,,,,,783
-source:date,2014-05-24,source:date=2014-05-24,,,,227429,,113930,0,113453,0,46,,No,,,,,,1017
-source:date,2014-05-25,source:date=2014-05-25,,,,76052,,36445,0,39593,,14,,No,,,,,,2422
-source:date,2014-05-26,source:date=2014-05-26,,,,63842,,30580,0,33240,,22,,No,,,,,,2778
-source:date,2014-05-27,source:date=2014-05-27,,,,40915,,16551,0,24353,,11,,No,,,,,,3847
-source:date,2014-05-28,source:date=2014-05-28,,,,63700,,32326,0,31348,,26,,No,,,,,,2782
-source:date,2014-05-29,source:date=2014-05-29,,,,50353,,23036,0,27286,,31,,No,,,,,,3293
-source:date,2014-05-30,source:date=2014-05-30,,,,170180,,79944,0,90209,0,27,,No,,,,,,1299
-source:date,2014-05-31,source:date=2014-05-31,,,,89777,,40773,0,48985,,19,,No,,,,,,2138
-source:date,2014-06-01,source:date=2014-06-01,,,,116197,,57860,0,58303,0,34,,No,,,,,,1765
-source:date,2014-06-02,source:date=2014-06-02,,,,103612,,50876,0,52712,,24,,No,,,,,,1917
-source:date,2014-06-03,source:date=2014-06-03,,,,53191,,27833,0,25344,,14,,No,,,,,,3147
-source:date,2014-06-04,source:date=2014-06-04,,,,70139,,32916,0,37201,,22,,No,,,,,,2580
-source:date,2014-06-05,source:date=2014-06-05,,,,57893,,28606,0,29273,,14,,No,,,,,,2982
-source:date,2014-06-06,source:date=2014-06-06,,,,105807,,55701,0,50078,,28,,No,,,,,,1888
-source:date,2014-06-07,source:date=2014-06-07,,,,41895,,21394,0,20485,,16,,No,,,,,,3769
-source:date,2014-06-08,source:date=2014-06-08,,,,63963,,29455,0,34491,,17,,No,,,,,,2775
-source:date,2014-06-09,source:date=2014-06-09,,,,111551,,51405,0,60117,0,29,,No,,,,,,1815
-source:date,2014-06-10,source:date=2014-06-10,,,,100781,,49396,0,51347,,38,,No,,,,,,1958
-source:date,2014-06-11,source:date=2014-06-11,,,,42499,,19120,0,23370,,9,,No,,,,,,3733
-source:date,2014-06-12,source:date=2014-06-12,,,,10144,,5112,,5027,,5,,No,,,,,,13220
-source:date,2014-06-13,source:date=2014-06-13,,,,45479,,21058,0,24411,,10,,No,,,,,,3575
-source:date,2014-06-14,source:date=2014-06-14,,,,26800,,14199,0,12586,,15,,No,,,,,,5417
-source:date,2014-06-15,source:date=2014-06-15,,,,25061,,12145,,12908,,8,,No,,,,,,5722
-source:date,2014-06-16,source:date=2014-06-16,,,,27223,,12243,,14979,,1,,No,,,,,,5339
-source:date,2014-06-17,source:date=2014-06-17,,,,48494,,23156,0,25323,,15,,No,,,,,,3402
-source:date,2014-06-18,source:date=2014-06-18,,,,32319,,17411,0,14879,,29,,No,,,,,,4653
-source:date,2014-06-19,source:date=2014-06-19,,,,23029,,10056,,12973,,,,No,,,,,,6161
-source:date,2014-06-20,source:date=2014-06-20,,,,36527,,18042,0,18467,,18,,No,,,,,,4221
-source:date,2014-06-21,source:date=2014-06-21,,,,29518,,14123,0,15386,,9,,No,,,,,,5028
-source:date,2014-06-22,source:date=2014-06-22,,,,84912,,39156,0,45719,,37,,No,,,,,,2224
-source:date,2014-06-23,source:date=2014-06-23,,,,74970,,37765,0,37179,,26,,No,,,,,,2451
-source:date,2014-06-24,source:date=2014-06-24,,,,13955,,7110,,6838,,7,,No,,,,,,9695
-source:date,2014-06-25,source:date=2014-06-25,,,,32525,,16729,0,15769,,27,,No,,,,,,4633
-source:date,2014-06-27,source:date=2014-06-27,,,,12146,,6240,,5903,,3,,No,,,,,,11058
-source:date,2014-06-28,source:date=2014-06-28,,,,36107,,16737,0,19356,,14,,No,,,,,,4265
-source:date,2014-06-29,source:date=2014-06-29,,,,45089,,21278,0,23799,,12,,No,,,,,,3594
-source:date,2014-06-30,source:date=2014-06-30,,,,31614,,13031,,18577,,6,,No,,,,,,4743
-source:date,2014-07-01,source:date=2014-07-01,,,,36985,,18050,0,18905,,30,,No,,,,,,4178
-source:date,2014-07-02,source:date=2014-07-02,,,,45186,,16734,0,28438,,14,,No,,,,,,3590
-source:date,2014-07-04,source:date=2014-07-04,,,,21554,,10834,,10711,,9,,No,,,,,,6499
-source:date,2014-07-05,source:date=2014-07-05,,,,26351,,13564,,12785,,2,,No,,,,,,5491
-source:date,2014-07-06,source:date=2014-07-06,,,,25782,,12110,,13648,,24,,No,,,,,,5597
-source:date,2014-07-07,source:date=2014-07-07,,,,19560,,11174,,8384,,2,,No,,,,,,7097
-source:date,2014-07-08,source:date=2014-07-08,,,,24952,,13609,,11337,,6,,No,,,,,,5744
-source:date,2014-07-12,source:date=2014-07-12,,,,13815,,1710,,12105,,,,No,,,,,,9791
-source:date,2014-07-13,source:date=2014-07-13,,,,17980,,5113,,12866,,1,,No,,,,,,7667
-source:date,2014-07-14,source:date=2014-07-14,,,,14342,,6109,,8232,,1,,No,,,,,,9438
-source:date,2014-07-16,source:date=2014-07-16,,,,50223,,22499,0,27716,,8,,No,,,,,,3301
-source:date,2014-07-21,source:date=2014-07-21,,,,35217,,16782,0,18417,,18,,No,,,,,,4357
-source:date,2014-07-23,source:date=2014-07-23,,,,22293,,10135,,12156,,2,,No,,,,,,6327
-source:date,2014-07-25,source:date=2014-07-25,,,,37663,,17536,0,20121,,6,,No,,,,,,4122
-source:date,2014-07-27,source:date=2014-07-27,,,,11785,,5877,,5906,,2,,No,,,,,,11414
-source:date,2014-08-02,source:date=2014-08-02,,,,10508,,5389,,5116,,3,,No,,,,,,12779
-source:date,2014-08-03,source:date=2014-08-03,,,,45337,,22630,0,22696,,11,,No,,,,,,3581
-source:date,2014-08-06,source:date=2014-08-06,,,,57594,,26475,0,31108,,11,,No,,,,,,2990
-source:date,2014-08-07,source:date=2014-08-07,,,,49308,,24124,0,25174,,10,,No,,,,,,3351
-source:date,2014-08-08,source:date=2014-08-08,,,,63785,,33493,0,30279,,13,,No,,,,,,2779
-source:date,2014-08-09,source:date=2014-08-09,,,,52838,,16044,0,36780,,14,,No,,,,,,3171
-source:date,2014-08-10,source:date=2014-08-10,,,,35009,,15401,0,19600,,8,,No,,,,,,4384
-source:date,2014-08-11,source:date=2014-08-11,,,,24553,,11865,,12688,,,,No,,,,,,5831
-source:date,2014-08-12,source:date=2014-08-12,,,,25090,,13532,,11551,,7,,No,,,,,,5715
-source:date,2014-08-13,source:date=2014-08-13,,,,57247,,28721,0,28505,,21,,No,,,,,,2999
-source:date,2014-08-14,source:date=2014-08-14,,,,11303,,6945,,4357,,1,,No,,,,,,11912
-source:date,2014-08-15,source:date=2014-08-15,,,,38459,,19696,0,18757,,6,,No,,,,,,4051
-source:date,2014-08-16,source:date=2014-08-16,,,,29982,,13658,,16320,,4,,No,,,,,,4971
-source:date,2014-08-25,source:date=2014-08-25,,,,69926,,39798,0,30092,,36,,No,,,,,,2588
-source:date,2014-09-06,source:date=2014-09-06,,,,55478,,25936,0,29519,,23,,No,,,,,,3057
-source:date,2014-09-07,source:date=2014-09-07,,,,63910,,38735,0,25167,,8,,No,,,,,,2777
-source:date,2014-09-08,source:date=2014-09-08,,,,46769,,26722,0,20032,,15,,No,,,,,,3500
-source:date,2014-09-09,source:date=2014-09-09,,,,11596,,5316,,6280,,,,No,,,,,,11592
-source:date,2014-09-10,source:date=2014-09-10,,,,12918,,2638,,10277,,3,,No,,,,,,10452
-source:date,2014-09-15,source:date=2014-09-15,,,,11125,,28,,11097,,,,No,,,,,,12089
-source:date,2014..2015,source:date=2014..2015,,,,26483,,,,26483,,,,No,,,,,,5475
-source:date,2015,source:date=2015,,,,16184,,7795,,8330,,59,,No,,,,,,8411
-source:date,2015-01,source:date=2015-01,,,,30526,,28,,30355,,143,,No,,,,,,4885
-source:date,2015-03-15,source:date=2015-03-15,,,,10278,,10255,,22,,1,,No,,,,,,13044
-source:date,2015-03-31,source:date=2015-03-31,,,,116253,,111,,107651,0,8491,0,No,1,,,,,1764
-source:date,2015-07-13,source:date=2015-07-13,,,,10151,,1089,,9057,,5,,No,,,,,,13211
-source:date,2015-08-15,source:date=2015-08-15,,,,18876,,315,,18561,,,,No,,,,,,7353
-source:date,2015-08-17,source:date=2015-08-17,,,,16478,,300,,16176,,2,,No,,,,,,8263
-source:date,2015-10-31,source:date=2015-10-31,,,,51331,,229,,47377,,3725,0,No,1,,,,,3247
-source:date,2015-12-31,source:date=2015-12-31,,,,127956,,1662,,115619,0,10675,0,No,1,,,,,1642
-source:date,2016,source:date=2016,,,,14768,,4538,,10103,,127,,No,,,,,,9195
-source:date,2016-01,source:date=2016-01,,,,38893,,62,,38743,,88,,No,,,,,,4013
-source:date,2016-03-03,source:date=2016-03-03,,,,54114,,924,,48886,,4304,0,No,1,,,,,3119
-source:date,2016-03-13,source:date=2016-03-13,,,,88377,,87159,0,1217,,1,,No,,,,,,2162
-source:date,2016-03-31,source:date=2016-03-31,,,,34039,,84,,31363,,2592,0,No,1,,,,,4473
-source:date,2016-04-30,source:date=2016-04-30,,,,33203,,140,,30112,,2951,0,No,1,,,,,4558
-source:date,2016-05-31,source:date=2016-05-31,,,,14509,,1,,13183,,1325,0,No,1,,,,,9349
-source:date,2016-06-30,source:date=2016-06-30,,,,12045,,46,,11017,,982,0,No,1,,,,,11168
-source:date,2016-07-31,source:date=2016-07-31,,,,22697,,206,,20500,,1991,0,No,1,,,,,6240
-source:date,2016-08-31,source:date=2016-08-31,,,,20609,,676,,18140,,1793,0,No,1,,,,,6769
-source:date,2016-09-30,source:date=2016-09-30,,,,15605,,233,,13972,,1400,0,No,1,,,,,8705
-source:date,2016-10-31,source:date=2016-10-31,,,,27221,,544,,24386,,2291,0,No,1,,,,,5340
-source:date,2016-11-30,source:date=2016-11-30,,,,19903,,966,,16958,,1979,0,No,1,,,,,6983
-source:date,2016-12-31,source:date=2016-12-31,,,,15985,,792,,13928,,1265,0,No,1,,,,,8520
-source:date,2017,source:date=2017,,,,58808,,25522,0,31740,,1546,0,No,,,,,,2951
-source:date,2017-01-31,source:date=2017-01-31,,,,36201,,1783,,31084,,3334,0,No,1,,,,,4253
-source:date,2017-02-28,source:date=2017-02-28,,,,44346,,1083,,39111,,4152,0,No,1,,,,,3638
-source:date,2017-03-31,source:date=2017-03-31,,,,25343,,1281,,21469,,2593,0,No,1,,,,,5678
-source:date,2017-04-30,source:date=2017-04-30,,,,30939,,509,,27429,,3001,0,No,1,,,,,4825
-source:date,2017-05-31,source:date=2017-05-31,,,,37370,,152,,33904,,3314,0,No,1,,,,,4145
-source:date,2017-06-08,source:date=2017-06-08,,,,13110,,9974,,3133,,3,,No,,,,,,10295
-source:date,2017-06-30,source:date=2017-06-30,,,,20952,,452,,18820,,1680,0,No,1,,,,,6665
-source:date,2017-08-08,source:date=2017-08-08,,,,10510,,6257,,4248,,5,,No,,,,,,12774
-source:date,2017-08-31,source:date=2017-08-31,,,,12813,,3507,,8479,,827,0,No,1,,,,,10528
-source:date,2017-09-08,source:date=2017-09-08,,,,15594,,7098,,8493,,3,,No,,,,,,8713
-source:date,2017-09-30,source:date=2017-09-30,,,,16748,,190,,15081,,1477,0,No,1,,,,,8139
-source:date,2017-10-31,source:date=2017-10-31,,,,10128,,155,,9167,,806,0,No,1,,,,,13242
-source:date,2017-11-08,source:date=2017-11-08,,,,22544,,15884,0,6650,,10,,No,,,,,,6276
-source:date,2017-12-31,source:date=2017-12-31,,,,13184,,524,,11619,,1041,0,No,1,,,,,10231
-source:date,2018,source:date=2018,,,,103986,,57798,0,45154,,1034,0,No,,,,,,1912
-source:date,2018-01-31,source:date=2018-01-31,,,,12988,,126,,11760,,1102,0,No,1,,,,,10395
-source:date,2018-02-08,source:date=2018-02-08,,,,13621,,7171,,6447,,3,,No,,,,,,9922
-source:date,2018-02-28,source:date=2018-02-28,,,,31333,,7,,28472,,2854,0,No,1,,,,,4779
-source:date,2018-04-08,source:date=2018-04-08,,,,22234,,10984,,11245,,5,,No,,,,,,6345
-source:date,2018-04-30,source:date=2018-04-30,,,,16985,,155,,15272,,1558,0,No,1,,,,,8043
-source:date,2018-05-08,source:date=2018-05-08,,,,17691,,7743,,9948,,,,No,,,,,,7779
-source:date,2018-06-08,source:date=2018-06-08,,,,25463,,12165,,13296,,2,,No,,,,,,5652
-source:date,2018-06-30,source:date=2018-06-30,,,,17144,,5,,15645,,1494,0,No,1,,,,,7977
-source:date,2018-07-08,source:date=2018-07-08,,,,16661,,8123,,8533,,5,,No,,,,,,8175
-source:date,2018-08-08,source:date=2018-08-08,,,,18267,,10425,,7836,,6,,No,,,,,,7564
-source:date,2018-09-08,source:date=2018-09-08,,,,15137,,8428,,6705,,4,,No,,,,,,8965
-source:date,2018-09-30,source:date=2018-09-30,,,,19317,,12,,17571,,1734,0,No,1,,,,,7187
-source:date,2018-11-30,source:date=2018-11-30,,,,19758,,264,,17815,,1679,0,No,1,,,,,7026
-source:date,2018-12-14,source:date=2018-12-14,,,,372190,,364102,0,8023,,65,,No,,,,,,686
-source:date,2019,source:date=2019,,,,103073,,38941,0,62487,0,1645,0,No,,,,,,1921
-source:date,2019-10-03,source:date=2019-10-03,,,,10299,,650,,9648,,1,,No,,,,,,13013
-source:date,2019-10-05,source:date=2019-10-05,,,,10744,,580,,10155,,9,,No,,,,,,12522
-source:date,2019-10-06,source:date=2019-10-06,,,,10184,,649,,9514,,21,,No,,,,,,13172
-source:date,2019-10-14,source:date=2019-10-14,,,,10163,,1314,,8846,,3,,No,,,,,,13192
-source:date,2019-10-17,source:date=2019-10-17,,,,10274,,3566,,6708,,,,No,,,,,,13053
-source:date,2019-10-28,source:date=2019-10-28,,,,12830,,1367,,11462,,1,,No,,,,,,10518
-source:date,2019-11-30,source:date=2019-11-30,,,,10777,,625,,9496,,656,,No,1,,,,,12487
-source:date,2020,source:date=2020,,,,91548,,65983,0,25077,,488,,No,,,,,,2100
-source:date,2020-04-21,source:date=2020-04-21,,,,13475,,1963,,11510,,2,,No,,,,,,10013
-source:date,2020-08-08,source:date=2020-08-08,,,,13388,,712,,12674,,2,,No,,,,,,10076
-source:date,2020-11-08,source:date=2020-11-08,,,,12989,,1102,,11887,,,,No,,,,,,10394
-source:date,2021,source:date=2021,,,,131857,,109670,0,21517,,670,,No,,,,,,1603
-source:date,2021-01-08,source:date=2021-01-08,,,,15458,,6884,,8571,,3,,No,,,,,,8784
-source:date,2021-03-08,source:date=2021-03-08,,,,10768,,853,,9912,,3,,No,,,,,,12499
-source:date,2021-04-08,source:date=2021-04-08,,,,20321,,4170,,16148,,3,,No,,,,,,6850
-source:date,2021-05-08,source:date=2021-05-08,,,,27204,,5761,,21433,,10,,No,,,,,,5342
-source:date,2021-06-08,source:date=2021-06-08,,,,17794,,1617,,16165,,12,,No,,,,,,7743
-source:date,2021-08-08,source:date=2021-08-08,,,,18175,,14077,0,4095,,3,,No,,,,,,7595
-source:date,2021-09-08,source:date=2021-09-08,,,,12954,,6578,,6369,,7,,No,,,,,,10416
-source:date,2021-10-08,source:date=2021-10-08,,,,28988,,3531,,25445,,12,,No,,,,,,5087
-source:date,2021-11-08,source:date=2021-11-08,,,,18518,,1813,,16695,,10,,No,,,,,,7482
-source:date,2021-12-08,source:date=2021-12-08,,,,18315,,1157,,17153,,5,,No,,,,,,7552
-source:date,2022,source:date=2022,,,,132739,,91204,0,41422,,113,,No,,,,,,1595
-source:date,2022-01,source:date=2022-01,,,,17660,,13,,17477,,170,,No,,,,,,7792
-source:date,2022-01-02,source:date=2022-01-02,,,,62733,,62566,0,167,,,,No,,,,,,2810
-source:date,2022-02-08,source:date=2022-02-08,,,,12768,,2225,,10536,,7,,No,,,,,,10560
-source:date,2022-10-10,source:date=2022-10-10,,,,20084,,467,,19614,,3,,No,,,,,,6922
-source:date,2023,source:date=2023,,,,41978,,32546,0,9408,,24,,No,,,,,,3766
-source:date,2023-05-08,source:date=2023-05-08,,,,12131,,797,,11333,,1,,No,,,,,,11081
-source:date,2024,source:date=2024,,,,112650,,78600,0,33792,,258,,No,,,,,,1803
-source:date,2024-02-09,source:date=2024-02-09,,,,13229,,3102,,10123,,4,,No,,,,,,10187
-source:date,2024-03,source:date=2024-03,,,,102760,,102760,0,,,,,No,,,,,,1923
-source:date,2024-04-12,source:date=2024-04-12,,,,16180,,2885,,13293,,2,,No,,,,,,8420
-source:date,2024-05-26,source:date=2024-05-26,,,,13982,,257,,13724,,1,,No,,,,,,9671
-source:date,2024-05-31,source:date=2024-05-31,,,,18696,,183,,18513,,,,No,,,,,,7408
-source:date,2024-06-09,source:date=2024-06-09,,,,16805,,2925,,13880,,,,No,,,,,,8112
-source:date,2024-06-28,source:date=2024-06-28,,,,10800,,3597,,7203,,,,No,,,,,,12462
-source:date,2024-08-18,source:date=2024-08-18,,,,10349,,28,,10321,,,,No,,,,,,12957
-source:date,2024-08-23,source:date=2024-08-23,,,,10378,,1234,,9144,,,,No,,,,,,12926
-source:date,2024-10,source:date=2024-10,,,,16640,,16635,0,5,,,,No,,,,,,8188
-source:date,2024-11-08,source:date=2024-11-08,,,,15651,,4931,,10717,,3,,No,,,,,,8680
-source:date,2025-01-09,source:date=2025-01-09,,,,14087,,3790,,10297,,,,No,,,,,,9593
-source:date,2025-02-13,source:date=2025-02-13,,,,12486,,3055,,9431,,,,No,,,,,,10765
 source:date,2025-08-20,source:date=2025-08-20,,,,12778,,413,,12364,,1,,No,,,,,,10555
 source:date,28/09/2015,source:date=28/09/2015,,,,23111,,22874,0,236,,1,,No,,,,,,6134
 source:description,dadosabertos.cm-lisboa.pt,source:description=dadosabertos.cm-lisboa.pt,,,,10769,,,,10765,,4,,No,,,,,,12494
@@ -8968,78 +8522,6 @@ tiger:county,*,,,tigre: comtat	=	*,tigre: condado	=	*,,,,,,,,,,,tigre: comtat,*,
 tiger:county,"Alameda, CA","tiger:county=Alameda, CA",,,,39845,,,,39844,,1,,No,,,,,,3925
 tiger:mtfcc,S1400,tiger:mtfcc=S1400,,tigre:mtfcc	=	S1400,tigre:mtfcc	=	S1400,21375,,1,,21374,,,,No,,tigre:mtfcc,S1400,tigre:mtfcc,S1400,21177
 tiger:name_base,10th,tiger:name_base=10th,,tigre:nom_base	=	*,tigre:nombre_base	=	*,13713,,,,13713,,,,No,,tigre:nom_base,*,tigre:nombre_base,*,21179
-tiger:name_base,11th,tiger:name_base=11th,,,,11029,,,,11029,,,,No,,,,,,12199
-tiger:name_base,12th,tiger:name_base=12th,,,,10989,,,,10989,,,,No,,,,,,12240
-tiger:name_base,1st,tiger:name_base=1st,,,,27866,,,,27865,,1,,No,,,,,,5242
-tiger:name_base,2nd,tiger:name_base=2nd,,,,30259,,,,30258,,1,,No,,,,,,4933
-tiger:name_base,3rd,tiger:name_base=3rd,,,,28931,,,,28931,,,,No,,,,,,5093
-tiger:name_base,4th,tiger:name_base=4th,,,,26305,,,,26305,,,,No,,,,,,5504
-tiger:name_base,5th,tiger:name_base=5th,,,,23135,,,,23133,,2,,No,,,,,,6127
-tiger:name_base,6th,tiger:name_base=6th,,,,20001,,,,20001,,,,No,,,,,,6949
-tiger:name_base,7th,tiger:name_base=7th,,,,17548,,,,17548,,,,No,,,,,,7842
-tiger:name_base,8th,tiger:name_base=8th,,,,15609,,,,15609,,,,No,,,,,,8703
-tiger:name_base,9th,tiger:name_base=9th,,,,13616,,,,13615,,1,,No,,,,,,9927
-tiger:name_base,Broadway,tiger:name_base=Broadway,,,,10967,,,,10966,,1,,No,,,,,,12266
-tiger:name_base,Cedar,tiger:name_base=Cedar,,,,12063,,,,12063,,,,No,,,,,,11145
-tiger:name_base,Church,tiger:name_base=Church,,,,12523,,,,12523,,,,No,,,,,,10737
-tiger:name_base,Elm,tiger:name_base=Elm,,,,13271,,,,13271,,,,No,,,,,,10153
-tiger:name_base,Lake,tiger:name_base=Lake,,,,10106,,,,10106,,,,No,,,,,,13271
-tiger:name_base,Lincoln,tiger:name_base=Lincoln,,,,11167,,,,11167,,,,No,,,,,,12044
-tiger:name_base,Main,tiger:name_base=Main,,,,49115,,,,49115,,,,No,,,,,,3362
-tiger:name_base,Maple,tiger:name_base=Maple,,,,16334,,,,16334,,,,No,,,,,,8332
-tiger:name_base,Oak,tiger:name_base=Oak,,,,16200,,,,16200,,,,No,,,,,,8405
-tiger:name_base,Park,tiger:name_base=Park,,,,20759,,,,20757,,2,,No,,,,,,6716
-tiger:name_base,Pine,tiger:name_base=Pine,,,,13865,,,,13865,,,,No,,,,,,9756
-tiger:name_base,River,tiger:name_base=River,,,,11443,,,,11443,,,,No,,,,,,11752
-tiger:name_base,Union Pacific Railroad,tiger:name_base=Union Pacific Railroad,,,,13074,,,,13074,,,,No,,,,,,10326
-tiger:name_base,Walnut,tiger:name_base=Walnut,,,,12838,,,,12838,,,,No,,,,,,10510
-tiger:name_base,Washington,tiger:name_base=Washington,,,,17450,,,,17448,,2,,No,,,,,,7881
-tiger:name_direction_prefix,E,tiger:name_direction_prefix=E,,,,280280,,,,280276,0,4,,No,,,,,,867
-tiger:name_direction_prefix,N,tiger:name_direction_prefix=N,,,,285881,,2,,285876,0,3,,No,,,,,,850
-tiger:name_direction_prefix,NE,tiger:name_direction_prefix=NE,,,,33937,,,,33937,,,,No,,,,,,4480
-tiger:name_direction_prefix,NW,tiger:name_direction_prefix=NW,,,,45070,,,,45070,,,,No,,,,,,3595
-tiger:name_direction_prefix,S,tiger:name_direction_prefix=S,,,,271989,,,,271988,0,1,,No,,,,,,894
-tiger:name_direction_prefix,SE,tiger:name_direction_prefix=SE,,,,28646,,,,28646,,,,No,,,,,,5137
-tiger:name_direction_prefix,SW,tiger:name_direction_prefix=SW,,,,40219,,,,40219,,,,No,,,,,,3898
-tiger:name_direction_prefix,W,tiger:name_direction_prefix=W,,,,275575,,1,,275572,0,2,,No,,,,,,886
-tiger:name_direction_prefix_1,E,tiger:name_direction_prefix_1=E,,,,23568,,,,23567,,1,,No,,,,,,6025
-tiger:name_direction_prefix_1,N,tiger:name_direction_prefix_1=N,,,,23144,,,,23144,,,,No,,,,,,6125
-tiger:name_direction_prefix_1,S,tiger:name_direction_prefix_1=S,,,,21892,,,,21892,,,,No,,,,,,6419
-tiger:name_direction_prefix_1,W,tiger:name_direction_prefix_1=W,,,,23514,,1,,23513,,,,No,,,,,,6036
-tiger:name_direction_suffix,E,tiger:name_direction_suffix=E,,,,58390,,,,58390,0,,,No,,,,,,2962
-tiger:name_direction_suffix,N,tiger:name_direction_suffix=N,,,,65903,,,,65903,0,,,No,,,,,,2718
-tiger:name_direction_suffix,NE,tiger:name_direction_suffix=NE,,,,71357,,,,71357,0,,,No,,,,,,2545
-tiger:name_direction_suffix,NW,tiger:name_direction_suffix=NW,,,,65865,,,,65863,0,2,,No,,,,,,2721
-tiger:name_direction_suffix,S,tiger:name_direction_suffix=S,,,,53835,,,,53833,,2,,No,,,,,,3133
-tiger:name_direction_suffix,SE,tiger:name_direction_suffix=SE,,,,64635,,,,64635,0,,,No,,,,,,2761
-tiger:name_direction_suffix,SW,tiger:name_direction_suffix=SW,,,,49787,,,,49787,,,,No,,,,,,3324
-tiger:name_direction_suffix,W,tiger:name_direction_suffix=W,,,,48009,,,,48009,,,,No,,,,,,3421
-tiger:name_direction_suffix_1,E,tiger:name_direction_suffix_1=E,,,,15476,,,,15476,,,,No,,,,,,8780
-tiger:name_direction_suffix_1,N,tiger:name_direction_suffix_1=N,,,,16029,,,,16029,,,,No,,,,,,8499
-tiger:name_type,Aly,tiger:name_type=Aly,,,,12374,,,,12374,,,,No,,,,,,10869
-tiger:name_type,Ave,tiger:name_type=Ave,,,,910419,0,,,910413,0,6,,No,,,,,,368
-tiger:name_type,Blvd,tiger:name_type=Blvd,,,,162869,,,,162869,0,,,No,,,,,,1345
-tiger:name_type,Cir,tiger:name_type=Cir,,,,141424,,1,,141423,0,,,No,,,,,,1519
-tiger:name_type,Ct,tiger:name_type=Ct,,,,389222,,2,,389220,0,,,No,,,,,,662
-tiger:name_type,Cv,tiger:name_type=Cv,,,,14731,,,,14731,,,,No,,,,,,9218
-tiger:name_type,Dr,tiger:name_type=Dr,,,,997094,0,1,,997093,0,,,No,,,,,,343
-tiger:name_type,Hwy,tiger:name_type=Hwy,,,,54572,,,,54572,,,,No,,,,,,3096
-tiger:name_type,Ln,tiger:name_type=Ln,,,,560507,,,,560507,0,,,No,,,,,,517
-tiger:name_type,Loop,tiger:name_type=Loop,,,,16517,,,,16517,,,,No,,,,,,8242
-tiger:name_type,Pike,tiger:name_type=Pike,,,,11552,,,,11552,,,,No,,,,,,11648
-tiger:name_type,Pky,tiger:name_type=Pky,,,,52495,,2,,52493,,,,No,,,,,,3189
-tiger:name_type,Pl,tiger:name_type=Pl,,,,138704,,1,,138703,0,,,No,,,,,,1540
-tiger:name_type,Rd,tiger:name_type=Rd,,,,1823206,0,7,,1823196,0,3,,No,,,,,,199
-tiger:name_type,St,tiger:name_type=St,,,,1523776,0,1,,1523765,0,10,,No,,,,,,232
-tiger:name_type,Ter,tiger:name_type=Ter,,,,40526,,,,40526,,,,No,,,,,,3879
-tiger:name_type,Trl,tiger:name_type=Trl,,,,67385,,1,,67384,0,,,No,,,,,,2669
-tiger:name_type,Way,tiger:name_type=Way,,,,126236,,,,126236,0,,,No,,,,,,1659
-tiger:name_type_1,Ave,tiger:name_type_1=Ave,,,,44302,,,,44301,,1,,No,,,,,,3640
-tiger:name_type_1,Dr,tiger:name_type_1=Dr,,,,32118,,,,32118,,,,No,,,,,,4678
-tiger:name_type_1,Hwy,tiger:name_type_1=Hwy,,,,10843,,,,10843,,,,No,,,,,,12420
-tiger:name_type_1,Ln,tiger:name_type_1=Ln,,,,16417,,,,16417,,,,No,,,,,,8288
-tiger:name_type_1,Rd,tiger:name_type_1=Rd,,,,141738,,,,141738,0,,,No,,,,,,1516
-tiger:name_type_1,St,tiger:name_type_1=St,,,,75407,,1,,75405,0,1,,No,,,,,,2440
 tiger:name_type_2,Rd,tiger:name_type_2=Rd,,tigre:nom_tipus_2	=	Carrer,tigre:nombre_tipo_2	=	Calle,19748,,,,19748,,,,No,,tigre:nom_tipus_2,Carrer,tigre:nombre_tipo_2,Calle,21180
 tiger:reviewed,aerial,tiger:reviewed=aerial,,tigre: revisat	=	aeri,tigre:revisado	=	aéreo,78796,,24,,78772,0,,,No,,tigre: revisat,aeri,tigre:revisado,aéreo,21185
 tiger:reviewed,no,tiger:reviewed=no,,tigre: revisat	=	no,tigre:revisado	=	no,10511384,0,123,,10509082,0,2179,0,No,,tigre: revisat,no,tigre:revisado,no,21183
@@ -9818,3 +9300,4 @@ zoo,petting_zoo,,,zoo	=	zoològic d'animals acariciables,zoo	=	zoológico de ani
 zoo,reptile,,,zoo	=	rèptil,zoo	=	reptil,,,,,,,,,,,zoo,rèptil,zoo,reptil,22000
 zoo,safari_park,,,zoo	=	parc Safari,zoo	=	parque Safari,,,,,,,,,,,zoo,parc Safari,zoo,parque Safari,21998
 zoo,wildlife_park,,,zoo	=	parc de vida silvestre,zoo	=	parque de vida silvestre,,,,,,,,,,,zoo,parc de vida silvestre,zoo,parque de vida silvestre,21997
+building:material,dry_stone,building:material=dry_stone,Dry stone as a material for doing a building,pedra seca com a material de l’edifici,piedra seca como material del edificio,,,,,,,,,,,,,,,
