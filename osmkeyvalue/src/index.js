@@ -564,11 +564,10 @@ $(function () {
 
 	if (window.location.hash !== '') {
 		window.location.hash.replace(/[#?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
-			vars[key] = value;
+			vars[key] = decodeURIComponent(value);
 		});
 		
 		
-
 		// map = zoom, center (lon, lat), [rotation]
 		var mapParam = getUrlParam('map', ''), parts;
 		if (mapParam !== '') {
@@ -583,6 +582,25 @@ $(function () {
 
 		// base = index
 		var baseParam = parseInt(getUrlParam('base', 0), 10);
+		
+		// tag queries from URL
+		var tagQueryParams = [];
+		Object.keys(vars).forEach(function(key) {
+			if (key.startsWith('tag.') || (key === 'tag' && vars[key].includes('='))) {
+				// Handle tag.key=value format
+			if (key.startsWith('tag.')) {
+				const tagKey = key.substring(4); // Remove 'tag.' prefix
+				tagQueryParams.push({key: tagKey, value: vars[key]});
+			} else if (key === 'tag') {
+				// Handle tag=key=value format
+				const tagParts = vars[key].split('=');
+				if (tagParts.length === 2) {
+					tagQueryParams.push({key: tagParts[0], value: tagParts[1]});
+				}
+			}
+		}
+		});
+		
 		$.each(config.layers, function(indexLayer, layer) {
 			if (layer.get('type') === 'overlay') {
 				// overlays
@@ -599,7 +617,11 @@ $(function () {
 				}
 			}
 		});
-
+		
+		// Store tag queries for later execution
+		if (tagQueryParams.length > 0) {
+			window.initialTagQueries = tagQueryParams;
+		}
 	}
 
 	var view = new ol.View({
@@ -620,29 +642,47 @@ $(function () {
     // Initialize Nominatim search
     initNominatimSearch(map);
 
-    // Initialize Taginfo API
-    initTaginfoAPI().then(() => {
-        console.log('Taginfo API initialized');
+	// Initialize Taginfo API
+	initTaginfoAPI().then(() => {
+		console.log('Taginfo API initialized');
 
-        // Wait for translations to be initialized before starting search modules
-        const waitForTranslations = () => {
-            if (typeof window.getTranslation === 'function') {
-                console.log('Translations available, initializing search modules');
-                // Initialize search modules after taginfo is ready AND translations are available
-                initKeySearch();
-                initValueSearch();
-            } else {
-                setTimeout(waitForTranslations, 50);
-            }
-        };
+		// Wait for translations to be initialized before starting search modules
+		const waitForTranslations = () => {
+			if (typeof window.getTranslation === 'function') {
+				console.log('🔍 Translations available, initializing search modules');
+				// Initialize search modules after taginfo is ready AND translations are available
+				initKeySearch();
+				initValueSearch();
 
-        waitForTranslations();
-    }).catch(error => {
-        console.error('Failed to initialize Taginfo API:', error);
-        // Still initialize search modules even if taginfo fails
-        initKeySearch();
-        initValueSearch();
-    });
+				// Execute tag queries from URL if any
+				if (window.initialTagQueries && window.initialTagQueries.length > 0) {
+					console.log('🔍 Executing tag queries from URL:', window.initialTagQueries);
+					window.initialTagQueries.forEach(tagQuery => {
+						if (window.executeTagQuery && typeof window.executeTagQuery === 'function') {
+							window.executeTagQuery(tagQuery.key, tagQuery.value);
+						}
+					});
+					// Clear the stored queries after execution
+					window.initialTagQueries = [];
+				}
+
+				// Set up event listeners for tag query URL updates
+				setupTagQueryEventListeners();
+			} else {
+				setTimeout(waitForTranslations, 50);
+			}
+		};
+
+		waitForTranslations();
+	}).catch(error => {
+		console.error('Failed to initialize Taginfo API:', error);
+		// Still initialize search modules even if taginfo fails
+		initKeySearch();
+		initValueSearch();
+
+		// Set up event listeners even if taginfo fails
+		setupTagQueryEventListeners();
+	});
 
     // Initialize PanoraMax viewer
     initPanoraMaxViewer(map);
@@ -995,75 +1035,102 @@ $(function () {
 		map.getView().setZoom(event.state.zoom);
 		map.getView().setRotation(event.state.rotation);
 
-		$.each(config.layers, function(indexLayer, layer) {
-			if (layer.get('type') === 'overlay') {
-				// overlays
-				var overlayParam = event.state.overlay[layer.get('title')];
-				if (typeof overlayParam === 'undefined') {
-					overlayParam = '';
-				}
-				$.each(layer.getLayers().getArray(), function (overlayIndex, overlayValue) {
-					overlayValue.setVisible(!!parseInt(overlayParam.charAt(overlayIndex)));
+			// Restore tag queries from URL
+			if (event.state.tagQueries && Array.isArray(event.state.tagQueries)) {
+				event.state.tagQueries.forEach(tagQuery => {
+					if (window.executeTagQuery && typeof window.executeTagQuery === 'function') {
+						window.executeTagQuery(tagQuery.key, tagQuery.value);
+					}
 				});
-			} else {
-				// overlays
-				if (indexLayer === event.state.baseLayer) {
-					layer.setVisible(true);
-				} else {
-					layer.setVisible(false);
-				}
 			}
-		});
+
+			$.each(config.layers, function(indexLayer, layer) {
+				if (layer.get('type') === 'overlay') {
+					// overlays
+					var overlayParam = event.state.overlay[layer.get('title')];
+					if (typeof overlayParam === 'undefined') {
+						overlayParam = '';
+					}
+					$.each(layer.getLayers().getArray(), function (overlayIndex, overlayValue) {
+						overlayValue.setVisible(!!parseInt(overlayParam.charAt(overlayIndex)));
+					});
+				} else {
+					// overlays
+					if (indexLayer === event.state.baseLayer) {
+						layer.setVisible(true);
+					} else {
+						layer.setVisible(false);
+					}
+				}
+			});
 
 		shouldUpdate = false;
 	});
 
 	var updatePermalink = function() {
-		if (!shouldUpdate) {
-			// do not update the URL when the view was changed in the 'popstate' handler
-			shouldUpdate = true;
-			return;
-		}
-
-		var zoom = round(view.getZoom(), 3),
-			center = ol.proj.toLonLat(view.getCenter()),
-			rotation = round(view.getRotation(), 2),
-			overlayState = {};
-
-		var hash = '#map=' + zoom + '/' + round(center[1], 5) + '/' + round(center[0], 5) + '/' + rotation;
-		if (baseLayerIndex !== 0) {
-			hash += '&base=' + baseLayerIndex;
-		}
-
-		$.each(config.layers, function(indexLayer, layer) {
-			var hashOverlay = '', addHash = false;
-			if (layer.get('type') === 'overlay') {
-				// overlays
-				$.each(layer.getLayers().getArray(), function (overlayIndex, overlayValue) {
-					if (overlayValue.getVisible()) {
-						hashOverlay += '1';
-						addHash = true;
-					} else {
-						hashOverlay += '0';
-					}
-				});
-				if (addHash) {
-					hash += '&' + layer.get('title') + '=' + hashOverlay;
-				}
-				overlayState[layer.get('title')] = hashOverlay;
+			if (!shouldUpdate) {
+				// do not update the URL when the view was changed in the 'popstate' handler
+				shouldUpdate = true;
+				return;
 			}
-		});
 
-		var state = {
-			zoom: zoom,
-			center: center,
-			rotation: rotation,
-			baseLayer: baseLayerIndex,
-			overlay: overlayState
+			var zoom = round(view.getZoom(), 3),
+				center = ol.proj.toLonLat(view.getCenter()),
+				rotation = round(view.getRotation(), 2),
+				overlayState = {};
+
+			var hash = '#map=' + zoom + '/' + round(center[1], 5) + '/' + round(center[0], 5) + '/' + rotation;
+			if (baseLayerIndex !== 0) {
+				hash += '&base=' + baseLayerIndex;
+			}
+
+			// Add tag queries to URL
+			if (window.tagQueryLegend && window.tagQueryLegend.queries) {
+				const visibleQueries = window.tagQueryLegend.getVisibleQueries();
+				if (visibleQueries.length > 0) {
+					visibleQueries.forEach(query => {
+						hash += '&tag=' + encodeURIComponent(query.key) + '=' + encodeURIComponent(query.value);
+					});
+			}
+			}
+
+			$.each(config.layers, function(indexLayer, layer) {
+				var hashOverlay = '', addHash = false;
+				if (layer.get('type') === 'overlay') {
+					// overlays
+					$.each(layer.getLayers().getArray(), function (overlayIndex, overlayValue) {
+						if (overlayValue.getVisible()) {
+							hashOverlay += '1';
+							addHash = true;
+						} else {
+							hashOverlay += '0';
+						}
+					});
+					if (addHash) {
+						hash += '&' + layer.get('title') + '=' + hashOverlay;
+					}
+					overlayState[layer.get('title')] = hashOverlay;
+				}
+			});
+
+			var state = {
+				zoom: zoom,
+				center: center,
+				rotation: rotation,
+				baseLayer: baseLayerIndex,
+				overlay: overlayState
+			};
+
+			// Add tag queries to state
+			if (window.tagQueryLegend && window.tagQueryLegend.queries) {
+				const visibleQueries = window.tagQueryLegend.getVisibleQueries();
+				if (visibleQueries.length > 0) {
+					state.tagQueries = visibleQueries;
+				}
+			}
+
+			window.history.pushState(state, 'map', hash);
 		};
-
-		window.history.pushState(state, 'map', hash);
-	};
 
 	map.on('moveend', function (evt) {
 		$('#map').css('cursor', 'grab');
@@ -1232,3 +1299,32 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 	return rgb;
 }
 window.addEventListener('overlayFeaturesLoaded', updateOverlaySummary);
+
+	// Export updatePermalink function globally
+	window.updatePermalink = updatePermalink;
+
+	// Set up event listeners for tag query URL updates
+	function setupTagQueryEventListeners() {
+		console.log('🔗 Setting up tag query event listeners');
+
+		// Listen for tag query events and update URL
+		window.addEventListener('tagQueryAdded', function(event) {
+			console.log('🔗 Tag query added event:', event.detail);
+			updatePermalink();
+		});
+
+		window.addEventListener('tagQueryRemoved', function(event) {
+			console.log('🔗 Tag query removed event:', event.detail);
+			updatePermalink();
+		});
+
+		window.addEventListener('tagQueryVisibilityChanged', function(event) {
+			console.log('🔗 Tag query visibility changed event:', event.detail);
+			updatePermalink();
+		});
+
+		window.addEventListener('tagQueryCountUpdated', function(event) {
+			console.log('🔗 Tag query count updated event:', event.detail);
+			updatePermalink();
+		});
+	}

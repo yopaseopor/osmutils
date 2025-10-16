@@ -79,6 +79,11 @@ window.tagQueryLegend = {
     removeQuery(overlayId) {
         this.queries.delete(overlayId);
         this.updateLegendDisplay();
+
+        // Trigger URL update event after query removal
+        window.dispatchEvent(new CustomEvent('tagQueryRemoved', {
+            detail: { overlayId }
+        }));
     },
 
     /**
@@ -88,6 +93,11 @@ window.tagQueryLegend = {
         if (this.queries.has(overlayId)) {
             this.queries.get(overlayId).count = count;
             this.updateLegendDisplay();
+
+            // Trigger URL update event after count update
+            window.dispatchEvent(new CustomEvent('tagQueryCountUpdated', {
+                detail: { overlayId, count }
+            }));
         }
     },
 
@@ -98,6 +108,11 @@ window.tagQueryLegend = {
         if (this.queries.has(overlayId)) {
             this.queries.get(overlayId).visible = visible;
             this.updateLegendDisplay();
+
+            // Trigger URL update event after visibility change
+            window.dispatchEvent(new CustomEvent('tagQueryVisibilityChanged', {
+                detail: { overlayId, visible }
+            }));
         }
     },
 
@@ -841,6 +856,11 @@ function initValueSearch() {
         // Add to legend before creating the overlay
         window.tagQueryLegend.addQuery(overlayId, key, value, uniqueColor, 0, true);
 
+        // Trigger URL update event instead of direct call
+        window.dispatchEvent(new CustomEvent('tagQueryAdded', {
+            detail: { key, value, overlayId }
+        }));
+
         // Create vector source without loader initially to prevent automatic queries
         const vectorSource = new ol.source.Vector({
             format: new ol.format.OSMXML2()
@@ -1066,6 +1086,11 @@ function initValueSearch() {
 
                                 // Update legend with tagged count
                                 window.tagQueryLegend.updateCount(overlayId, taggedFeatures.length);
+
+                                // Trigger URL update event after count update
+                                window.dispatchEvent(new CustomEvent('tagQueryCountUpdated', {
+                                    detail: { key, value, overlayId, count: taggedFeatures.length }
+                                }));
 
                                 // Update overlay summary if function exists
                                 if (window.updateOverlaySummary) {
@@ -1625,3 +1650,31 @@ $(document).ready(function() {
 
 // Export for use in other modules
 window.initValueSearch = initValueSearch;
+window.executeTagQuery = executeTagQuery;
+window.clearMapLayers = clearMapLayers;
+window.tagQueryLegend = tagQueryLegend;
+window.generateUniqueColor = generateUniqueColor; // Export for use in other modules
+window.generateQueryColor = generateQueryColor; // Export for use in other modules
+window.findOrCreateTagOverlaysGroup = findOrCreateTagOverlaysGroup; // Export for use in other modules
+window.createTagOverlay = createTagOverlay; // Export for use in other modules
+window.updateQueryStatistics = updateQueryStatistics; // Export for use in other modules
+window.getSelectedElementTypes = getSelectedElementTypes; // Export for use in other modules
+window.formatDetailedCount = formatDetailedCount; // Export for use in other modules
+window.formatValueCount = formatValueCount; // Export for use in other modules
+window.formatBytes = formatBytes; // Export for use in other modules
+window.escapeHtml = escapeHtml; // Export for use in other modules
+window.highlightText = highlightText; // Export for use in other modules
+window.performValueSearch = performValueSearch; // Export for use in other modules
+window.displayValueResults = displayValueResults; // Export for use in other modules
+window.selectValueResult = selectValueResult; // Export for use in other modules
+window.showExecuteButton = showExecuteButton; // Export for use in other modules
+window.makeRequestWithRetry = makeRequestWithRetry; // Export for use in other modules
+window.generateOverpassQuery = window.generateOverpassQuery; // Re-export for convenience
+window.searchKeys = window.searchKeys; // Re-export for convenience
+window.searchValues = window.searchValues; // Re-export for convenience
+window.getTagDefinition = window.getTagDefinition; // Re-export for convenience
+window.loadTaginfoDefinitions = window.loadTaginfoDefinitions; // Re-export for convenience
+window.initTaginfoAPI = window.initTaginfoAPI; // Re-export for convenience
+window.removeDiacritics = removeDiacritics; // Export for use in other modules
+window.parseCSVLine = parseCSVLine; // Export for use in other modules
+window.parseCSVData = parseCSVData; // Export for use in other modules
