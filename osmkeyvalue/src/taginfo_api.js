@@ -87,12 +87,19 @@ function parseCSVData(csvText) {
                     key_ca: key_ca || '',
                     key_es: key_es || '',
                     totalCount: 0,
-                    values: new Map()
+                    values: new Map() // Map<value, Array<entries>>
                 });
             }
 
             const keyData = window.taginfoData.keys.get(key);
-            keyData.values.set(value, {
+
+            // Allow multiple entries for the same key=value pair
+            if (!keyData.values.has(value)) {
+                keyData.values.set(value, []);
+            }
+
+            // Add this entry to the array for this value
+            keyData.values.get(value).push({
                 tag: tag,
                 definition: definition_en || definition_ca || definition_es || '',  // Try multiple description fields
                 definition_en: definition_en || '',
@@ -285,70 +292,77 @@ function searchValues(query, key = null, limit = 25) {
     if (key && window.taginfoData.keys.has(key)) {
         // Search values for specific key
         const keyData = window.taginfoData.keys.get(key);
-        for (const [value, valueData] of keyData.values) {
-            // Search in value, key, and all definition columns
-            const searchTexts = [];
 
-            // Prioritize value name much higher than descriptions
-            searchTexts.push(removeDiacritics(`${value}`.toLowerCase()));  // Value name gets highest weight
-            searchTexts.push(removeDiacritics(`${key}`.toLowerCase()));     // Key name gets high weight
+        // Iterate over all values for this key
+        for (const [value, valueEntries] of keyData.values) {
+            // valueEntries is now an array of duplicate entries
+            // For each entry, create a result (allowing duplicates if they exist)
+            for (const valueData of valueEntries) {
+                // Search in value, key, and all definition columns
+                const searchTexts = [];
 
-            // Add definition columns with lower weight
-            searchTexts.push(removeDiacritics(`${valueData.definition_en || ''}`.toLowerCase()));
-            searchTexts.push(removeDiacritics(`${valueData.definition_ca || ''}`.toLowerCase()));
-            searchTexts.push(removeDiacritics(`${valueData.definition_es || ''}`.toLowerCase()));
-            searchTexts.push(removeDiacritics(`${valueData.value_ca || ''}`.toLowerCase()));
-            searchTexts.push(removeDiacritics(`${valueData.value_es || ''}`.toLowerCase()));
+                // Prioritize value name much higher than descriptions
+                searchTexts.push(removeDiacritics(`${value}`.toLowerCase()));  // Value name gets highest weight
+                searchTexts.push(removeDiacritics(`${key}`.toLowerCase()));     // Key name gets high weight
 
-            let matchFound = false;
-            let matchScore = 0;
+                // Add definition columns with lower weight
+                searchTexts.push(removeDiacritics(`${valueData.definition_en || ''}`.toLowerCase()));
+                searchTexts.push(removeDiacritics(`${valueData.definition_ca || ''}`.toLowerCase()));
+                searchTexts.push(removeDiacritics(`${valueData.definition_es || ''}`.toLowerCase()));
+                searchTexts.push(removeDiacritics(`${valueData.value_ca || ''}`.toLowerCase()));
+                searchTexts.push(removeDiacritics(`${valueData.value_es || ''}`.toLowerCase()));
 
-            for (const searchText of searchTexts) {
-                // For 'yes' values, only process if query contains at least one letter from 'yes'
-                if (value === 'yes' && !/[yes]/i.test(queryNormalized)) {
-                    continue;
-                }
+                let matchFound = false;
+                let matchScore = 0;
 
-                if (searchText.includes(queryNormalized)) {
-                    matchFound = true;
-                    // Give much higher scores to value/key names vs descriptions
-                    if (searchText === removeDiacritics(`${value}`.toLowerCase())) matchScore += 1000;  // Exact value match
-                    else if (searchText === removeDiacritics(`${key}`.toLowerCase())) matchScore += 500;   // Key name match
-                    else if (searchText.startsWith(queryNormalized)) {
-                        // For 'yes' and 'no', require exact match
-                        if (value === 'yes' || value === 'no') {
-                            if (queryNormalized === 'yes' || queryNormalized === 'no') {
-                                matchScore += 100;  // Higher priority only for exact matches
-                            } else {
-                                matchScore += 1;   // Very low priority for partial matches
-                            }
-                        } else {
-                            matchScore += 100; // Higher priority for other values that start with query
-                        }
+                for (const searchText of searchTexts) {
+                    // For 'yes' values, only process if query contains at least one letter from 'yes'
+                    if (value === 'yes' && !/[yes]/i.test(queryNormalized)) {
+                        continue;
                     }
-                    else matchScore += 1;  // Description match (lowest priority)
+
+                    if (searchText.includes(queryNormalized)) {
+                        matchFound = true;
+                        // Give much higher scores to value/key names vs descriptions
+                        if (searchText === removeDiacritics(`${value}`.toLowerCase())) matchScore += 1000;  // Exact value match
+                        else if (searchText === removeDiacritics(`${key}`.toLowerCase())) matchScore += 500;   // Key name match
+                        else if (searchText.startsWith(queryNormalized)) {
+                            // For 'yes' and 'no', require exact match
+                            if (value === 'yes' || value === 'no') {
+                                if (queryNormalized === 'yes' || queryNormalized === 'no') {
+                                    matchScore += 100;  // Higher priority only for exact matches
+                                } else {
+                                    matchScore += 1;   // Very low priority for partial matches
+                                }
+                            } else {
+                                matchScore += 100; // Higher priority for other values that start with query
+                            }
+                        }
+                        else matchScore += 1;  // Description match (lowest priority)
+                    }
+                }
+
+                if (matchFound) {
+                    results.push({
+                        key: key,
+                        value: value,
+                        tag: valueData.tag,
+                        definition: valueData.definition || '',
+                        definition_en: valueData.definition_en || '',
+                        definition_ca: valueData.definition_ca || '',
+                        definition_es: valueData.definition_es || '',
+                        countAll: valueData.countAll,
+                        countNodes: valueData.countNodes,
+                        countWays: valueData.countWays,
+                        countRelations: valueData.countRelations,
+                        type: 'value',
+                        matchScore: matchScore
+                    });
+
+                    if (results.length >= limit) break;
                 }
             }
-
-            if (matchFound) {
-                results.push({
-                    key: key,
-                    value: value,
-                    tag: valueData.tag,
-                    definition: valueData.definition || '',
-                    definition_en: valueData.definition_en || '',
-                    definition_ca: valueData.definition_ca || '',
-                    definition_es: valueData.definition_es || '',
-                    countAll: valueData.countAll,
-                    countNodes: valueData.countNodes,
-                    countWays: valueData.countWays,
-                    countRelations: valueData.countRelations,
-                    type: 'value',
-                    matchScore: matchScore
-                });
-
-                if (results.length >= limit) break;
-            }
+            if (results.length >= limit) break;
         }
     } else {
         // Global search across all values and keys
@@ -379,16 +393,19 @@ function searchValues(query, key = null, limit = 25) {
             for (const valueKey of keysWithValue) {
                 const keyData = window.taginfoData.keys.get(valueKey);
                 if (keyData && keyData.values.has(value)) {
-                    const valueDataForKey = keyData.values.get(value);
-                    // Definition columns get much lower weight
-                    searchTexts.push(removeDiacritics(`${valueDataForKey.definition_en || ''}`.toLowerCase()));
-                    searchTexts.push(removeDiacritics(`${valueDataForKey.definition_ca || ''}`.toLowerCase()));
-                    searchTexts.push(removeDiacritics(`${valueDataForKey.definition_es || ''}`.toLowerCase()));
-                    searchTexts.push(removeDiacritics(`${valueDataForKey.value_ca || ''}`.toLowerCase()));
-                    searchTexts.push(removeDiacritics(`${valueDataForKey.value_es || ''}`.toLowerCase()));
-                    // Key translation columns also get lower weight
-                    searchTexts.push(removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()));
-                    searchTexts.push(removeDiacritics(`${keyData.key_es || ''}`.toLowerCase()));
+                    // valueData is now an array of entries
+                    const valueEntries = keyData.values.get(value);
+                    for (const valueDataForKey of valueEntries) {
+                        // Definition columns get much lower weight
+                        searchTexts.push(removeDiacritics(`${valueDataForKey.definition_en || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueDataForKey.definition_ca || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueDataForKey.definition_es || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueDataForKey.value_ca || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueDataForKey.value_es || ''}`.toLowerCase()));
+                        // Key translation columns also get lower weight
+                        searchTexts.push(removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${keyData.key_es || ''}`.toLowerCase()));
+                    }
                 }
             }
 
@@ -427,29 +444,38 @@ function searchValues(query, key = null, limit = 25) {
             }
 
             if (matchFound && matchScore >= 10) {  // Increased minimum threshold
-                // For each key that uses this value, create a result
+                // For each key that uses this value, create a result for each duplicate entry
                 for (const valueKey of keysWithValue) {
-                    const resultKey = `${valueKey}=${value}`;
-                    if (!valueResults.has(resultKey)) {
-                        // Get definitions from the key data
-                        const keyData = window.taginfoData.keys.get(valueKey);
-                        const valueDataForKey = keyData ? keyData.values.get(value) : null;
+                    const keyData = window.taginfoData.keys.get(valueKey);
+                    const valueEntries = keyData ? keyData.values.get(value) : null;
 
-                        valueResults.set(resultKey, {
-                            value: value,
-                            key: valueKey,
-                            totalCount: valueData.totalCount,
-                            keys: keysWithValue,
-                            type: 'value',
-                            tag: null,
-                            definition: valueDataForKey ? valueDataForKey.definition || '' : '',
-                            definition_en: valueDataForKey ? valueDataForKey.definition_en || '' : '',
-                            definition_ca: valueDataForKey ? valueDataForKey.definition_ca || '' : '',
-                            definition_es: valueDataForKey ? valueDataForKey.definition_es || '' : '',
-                            countAll: valueData.totalCount,
-                            matchScore: matchScore  // Add relevance score
-                        });
+                    if (valueEntries && valueEntries.length > 0) {
+                        for (let i = 0; i < valueEntries.length; i++) {
+                            const entry = valueEntries[i];
+                            const resultKey = `${valueKey}=${value}_${i}`; // Add index to make unique
 
+                            if (!valueResults.has(resultKey)) {
+                                valueResults.set(resultKey, {
+                                    value: value,
+                                    key: valueKey,
+                                    totalCount: valueData.totalCount,
+                                    keys: keysWithValue,
+                                    type: 'value',
+                                    tag: null,
+                                    definition: entry.definition || '',
+                                    definition_en: entry.definition_en || '',
+                                    definition_ca: entry.definition_ca || '',
+                                    definition_es: entry.definition_es || '',
+                                    countAll: entry.countAll,
+                                    countNodes: entry.countNodes,
+                                    countWays: entry.countWays,
+                                    countRelations: entry.countRelations,
+                                    matchScore: matchScore  // Add relevance score
+                                });
+
+                                if (valueResults.size >= limit) break;
+                            }
+                        }
                         if (valueResults.size >= limit) break;
                     }
                 }
@@ -493,10 +519,14 @@ function searchValues(query, key = null, limit = 25) {
                     let popularValue = null;
                     let maxCount = 0;
 
-                    for (const [value, valueData] of keyData.values) {
-                        const count = valueData.countAll || 0;
-                        if (count > maxCount) {
-                            maxCount = count;
+                    for (const [value, valueEntries] of keyData.values) {
+                        // Sum up all counts for this value across duplicate entries
+                        let totalCountForValue = 0;
+                        for (const entry of valueEntries) {
+                            totalCountForValue += entry.countAll || 0;
+                        }
+                        if (totalCountForValue > maxCount) {
+                            maxCount = totalCountForValue;
                             popularValue = value;
                         }
                     }
