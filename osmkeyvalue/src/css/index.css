@@ -536,8 +536,13 @@ CLEAR ACTIVE OVERLAY BUTTON
         background: white;
     }
 
-    /* Share button position fix for mobile */
-    .osmcat-sharebutton {
+    /* Mobile positioning for router and clear overlay buttons */
+    .osmcat-router {
+        bottom: 200px;
+        right: 8px;
+    }
+
+    .osmcat-clearoverlaybutton {
         bottom: 150px;
         right: 8px;
     }

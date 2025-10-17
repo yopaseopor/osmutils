@@ -827,7 +827,8 @@ $(function () {
 		return container;
 	};
 
-    $('#menu').append(layersControlBuild());
+    // Insert layer selector right after element type filter
+    $('.element-type-filter').after(layersControlBuild());
     // Optionally, re-render layers after layersControl if needed
     if (window.renderLayerList && window.layers) window.renderLayerList(window.layers);
     // Optionally, re-render overlays after overlaysControl if needed
