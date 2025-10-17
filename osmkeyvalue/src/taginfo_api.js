@@ -583,8 +583,8 @@ function searchValues(query, key = null, limit = 25) {
 
     // Sort by relevance score first, then by count (most popular first)
     results.sort((a, b) => {
-        const aScore = (a.matchScore || 0) * 100;  // Give higher weight to relevance
-        const bScore = (b.matchScore || 0) * 100;
+        const aScore = (a.matchScore || 0) * 10;  // Give higher weight to relevance
+        const bScore = (b.matchScore || 0) * 10;
 
         // First sort by relevance score (higher is better)
         if (aScore !== bScore) {
