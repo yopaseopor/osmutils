@@ -34,7 +34,7 @@
 
     /* Reduce space between language selector and key searcher */
     #key-search-container {
-        margin: 2px 0 !important; /* Much smaller margin */
+        margin: 0px 0 !important; /* Minimal margin */
     }
 
     #value-search-container {
