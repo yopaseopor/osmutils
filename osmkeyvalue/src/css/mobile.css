@@ -12,7 +12,7 @@
         height: 100vh;
         position: relative;
         overflow: hidden;
-        margin-top: -20px; /* Move entire page up */
+        /* Remove the problematic margin that cuts off buttons */
     }
 
     .map {
@@ -30,6 +30,20 @@
         display: flex;
         flex-direction: column;
         padding-top: 5px; /* Reduce top padding */
+        /* Move menu content up slightly to compensate for removed buttons */
+        margin-top: -10px;
+    }
+
+    /* Add subtle scroll indicator at bottom of menu */
+    .menu::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
+        pointer-events: none;
     }
 
     /* Reduce space between language selector and key searcher */
@@ -57,6 +71,9 @@
         scroll-behavior: smooth; /* Smooth scrolling animation */
         scrollbar-width: none; /* Hide scrollbar in Firefox */
         -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+        /* Ensure proper scrolling area */
+        min-height: 100%;
+        position: relative;
     }
 
     /* Hide scrollbar in WebKit browsers */
@@ -64,24 +81,28 @@
         display: none;
     }
 
-    /* CSS-only: Layer menu width (not active) */
+    /* Enhanced layer section for better scrolling */
     .osmcat-menu .osmcat-layer {
         width: 260px;
         max-width: 100vw;
-        min-width: 0;
+        min-width: 260px; /* Ensure minimum width for proper scrolling */
         flex: 0 0 260px;
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    /* CSS-only: Overlay menu width (not active) - Full height */
+    /* Enhanced overlay section for better scrolling */
     .osmcat-menu .osmcat-overlay {
         width: 220px;
         max-width: 100vw;
-        min-width: 0;
+        min-width: 220px; /* Ensure minimum width for proper scrolling */
         flex: 0 0 220px;
         height: 100%; /* Use full height */
         overflow-y: auto;
         display: flex;
         flex-direction: column;
+        -webkit-overflow-scrolling: touch;
     }
 
     .osmcat-layer {
@@ -153,12 +174,20 @@
         flex: 1 1 auto; /* Take available space */
     }
 
-    .router-form {
-        flex: 1;
-        overflow-y: auto;
-        padding: 10px;
+    /* Enhanced router section for horizontal scrolling */
+    .osmcat-menu.router-active {
+        width: 360px !important; /* Router takes more space */
+        max-width: 100vw;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        background: white;
+        scroll-behavior: smooth;
+    }
+
+    .osmcat-menu.router-active .router-form {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .mapillary-viewer {
