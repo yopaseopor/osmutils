@@ -282,7 +282,7 @@ function searchKeys(query, limit = 20) {
  * @param {string|null} key - The key to search in, or null for global search
  * @param {number} limit - Maximum number of results
  */
-function searchValues(query, key = null, limit = 25) {
+function searchValues(query, key = null, limit = 100) {
     if (!query || query.length < 1) return [];
 
     const results = [];
@@ -456,6 +456,12 @@ function searchValues(query, key = null, limit = 25) {
                             }
                         } else {
                             matchScore += 100; // Higher priority for other values that start with query
+                        }
+                    } else if (queryNormalized.length >= 3 && searchText.includes(queryNormalized)) {
+                        // For queries of 3+ characters, also match partial strings (not just word boundaries)
+                        // This helps find "churrería" when searching for "chur"
+                        if (value !== 'yes' && value !== 'no') {
+                            matchScore += 50; // Medium priority for partial matches from 3rd letter
                         }
                     } else {
                         // For description matches, be more flexible - allow partial matches in descriptions
