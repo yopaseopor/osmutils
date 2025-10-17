@@ -531,14 +531,15 @@ function initValueSearch() {
             const valueKeyHtml = result.key ? `<div class="value-key">for key: ${highlightedKey}</div>` : '';
             const valueTagHtml = result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : '';
 
-            // Show definition columns that exist and contain highlighted text
-            const defEnHtml = result.definition_en
+            // Show only definition columns that contain the search term (with diacritic normalization)
+            const queryNormalized = removeDiacritics(query.toLowerCase());
+            const defEnHtml = result.definition_en && removeDiacritics(result.definition_en.toLowerCase()).includes(queryNormalized)
                 ? `<div class="value-definition-en">EN: ${highlightedDefEn}</div>`
                 : '';
-            const defCaHtml = result.definition_ca
+            const defCaHtml = result.definition_ca && removeDiacritics(result.definition_ca.toLowerCase()).includes(queryNormalized)
                 ? `<div class="value-definition-ca">CA: ${highlightedDefCa}</div>`
                 : '';
-            const defEsHtml = result.definition_es
+            const defEsHtml = result.definition_es && removeDiacritics(result.definition_es.toLowerCase()).includes(queryNormalized)
                 ? `<div class="value-definition-es">ES: ${highlightedDefEs}</div>`
                 : '';
 

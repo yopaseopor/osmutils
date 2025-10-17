@@ -681,3 +681,5 @@ window.searchValues = searchValues;
 window.getTagDefinition = getTagDefinition;
 window.generateOverpassQuery = generateOverpassQuery;
 window.initTaginfoAPI = initTaginfoAPI;
+window.removeDiacritics = removeDiacritics;
+window.parseCSVLine = parseCSVLine;
