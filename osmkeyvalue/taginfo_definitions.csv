@@ -4137,7 +4137,7 @@ man_made,communications_tower,,,artificial	=	torre_de_comunicacions,artificial	=
 man_made,compass_rose,,,fet per l'home	=	Rosa dels vents,hecho por el hombre	=	Rosa de los vientos,,,,,,,,,,,fet per l'home,Rosa dels vents,hecho por el hombre,Rosa de los vientos,17262
 man_made,cooling,,,artificial	=	refredament,artificial	=	enfriamiento,,,,,,,,,,,artificial,refredament,artificial,enfriamiento,17162
 man_made,cooling_tower,,,artificial	=	Torre de refredament,artificial	=	Torre de enfriamiento,,,,,,,,,,,artificial,Torre de refredament,artificial,Torre de enfriamiento,17178
-man_made,courtyard,man_made=courtyard,,artificial	=	pati,artificial	=	patio,24311,,15,,24142,,154,,Yes,4,artificial,pati,artificial,patio,17134
+man_made,courtyard,man_made=courtyard,,artificial = pati | claustre,artificial = patio | claustro,24311,,15,,24142,,154,,Yes,4,artificial,pati,artificial,patio,17134
 man_made,crane,man_made=crane,,artificial	=	grua,artificial	=	grua,21394,,14617,0,6742,,35,,Yes,10,artificial,grua,artificial,grua,17139
 man_made,cricket_nets,,,fet per l'home	=	xarxes de cricket,hecho por el hombre	=	redes de cricket,,,,,,,,,,,fet per l'home,xarxes de cricket,hecho por el hombre,redes de cricket,17261
 man_made,cross,man_made=cross,,artificial	=	creu,artificial	=	cruz,31522,,31475,0,47,,,,Yes,12,artificial,creu,artificial,cruz,17138
