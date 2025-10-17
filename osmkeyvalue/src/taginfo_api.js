@@ -344,12 +344,10 @@ function searchValues(query, key = null, limit = 25) {
                             }
                         }
                         else {
-                            // For description matches, only include if it's a word boundary or exact match
-                            const regex = new RegExp(`\\b${queryNormalized}\\b`, 'i');
-                            if (regex.test(searchText) || searchText === queryNormalized) {
-                                matchScore += 10;   // Higher priority for word boundary matches
-                            } else {
-                                matchScore += 1;   // Very low priority for partial matches
+                            // For description matches, be more flexible - allow partial matches in descriptions
+                            const regex = new RegExp(`${queryNormalized}`, 'i');
+                            if (regex.test(searchText)) {
+                                matchScore += 15;   // Higher priority for description matches
                             }
                         }
                     }
@@ -407,6 +405,11 @@ function searchValues(query, key = null, limit = 25) {
             searchTexts.push(removeDiacritics(`${value}`.toLowerCase()));  // Value name gets highest weight
             searchTexts.push(removeDiacritics(`${keysWithValue.join(' ')}`.toLowerCase()));  // Key names get high weight
 
+            // Debug: Log what we're searching for
+            console.log('🔍 Searching for value:', value, 'keys:', keysWithValue);
+            console.log('🔍 Query normalized:', queryNormalized);
+            console.log('🔍 Search texts:', searchTexts);
+
             // Add definition columns with lower weight - search in ALL entries for each key
             for (const valueKey of keysWithValue) {
                 const keyData = window.taginfoData.keys.get(valueKey);
@@ -435,9 +438,11 @@ function searchValues(query, key = null, limit = 25) {
 
                 if (searchText.includes(queryNormalized)) {
                     matchFound = true;
+                    console.log('🔍 Match found! searchText:', searchText, 'query:', queryNormalized);
                     // Give much higher scores to exact matches vs partial matches
                     if (searchText === removeDiacritics(`${value}`.toLowerCase())) {
                         matchScore += 1000;  // Exact value match gets highest priority
+                        console.log('🔍 Exact value match for:', value);
                     } else if (searchText === removeDiacritics(`${keysWithValue.join(' ')}`.toLowerCase())) {
                         matchScore += 500;   // Exact key name match
                     } else if (searchText.startsWith(queryNormalized)) {
@@ -453,17 +458,13 @@ function searchValues(query, key = null, limit = 25) {
                             matchScore += 100; // Higher priority for other values that start with query
                         }
                     } else {
-                        // For description matches, only include if it's a word boundary or exact match
-                        const regex = new RegExp(`\\b${queryNormalized}\\b`, 'i');
-                        if (regex.test(searchText) || searchText === queryNormalized) {
-                            // Description or partial matches - only include for non-common values
+                        // For description matches, be more flexible - allow partial matches in descriptions
+                        // This helps find values like "churro" when searching for "churrería" (which appears in descriptions)
+                        const regex = new RegExp(`${queryNormalized}`, 'i');
+                        if (regex.test(searchText)) {
+                            // Description matches - include for relevant values
                             if (value !== 'yes' && value !== 'no') {
-                                matchScore += 10;   // Higher priority for word boundary matches
-                            }
-                        } else {
-                            // Very weak partial matches in the middle of words
-                            if (value !== 'yes' && value !== 'no') {
-                                matchScore += 1;   // Very low priority for partial matches
+                                matchScore += 15;   // Higher priority for description matches
                             }
                         }
                     }
