@@ -338,11 +338,19 @@ function searchValues(query, key = null, limit = 25) {
                                 matchScore += 100; // Higher priority for other values that start with query
                             }
                         }
-                        else matchScore += 1;  // Description match (lowest priority)
+                        else {
+                            // For description matches, only include if it's a word boundary or exact match
+                            const regex = new RegExp(`\\b${queryNormalized}\\b`, 'i');
+                            if (regex.test(searchText) || searchText === queryNormalized) {
+                                matchScore += 10;   // Higher priority for word boundary matches
+                            } else {
+                                matchScore += 1;   // Very low priority for partial matches
+                            }
+                        }
                     }
                 }
 
-                if (matchFound) {
+                if (matchFound && matchScore >= 5) {  // Lower threshold but still filter very weak matches
                     results.push({
                         key: key,
                         value: value,
@@ -435,15 +443,24 @@ function searchValues(query, key = null, limit = 25) {
                             matchScore += 100; // Higher priority for other values that start with query
                         }
                     } else {
-                        // Description or partial matches - only include for non-common values
-                        if (value !== 'yes' && value !== 'no') {
-                            matchScore += 1;   // Very low priority for description matches
+                        // For description matches, only include if it's a word boundary or exact match
+                        const regex = new RegExp(`\\b${queryNormalized}\\b`, 'i');
+                        if (regex.test(searchText) || searchText === queryNormalized) {
+                            // Description or partial matches - only include for non-common values
+                            if (value !== 'yes' && value !== 'no') {
+                                matchScore += 10;   // Higher priority for word boundary matches
+                            }
+                        } else {
+                            // Very weak partial matches in the middle of words
+                            if (value !== 'yes' && value !== 'no') {
+                                matchScore += 1;   // Very low priority for partial matches
+                            }
                         }
                     }
                 }
             }
 
-            if (matchFound && matchScore >= 10) {  // Increased threshold to filter out very weak matches
+            if (matchFound && matchScore >= 5) {  // Lower threshold but still filter very weak matches
                 // For each key that uses this value, create a result for each duplicate entry
                 for (const valueKey of keysWithValue) {
                     const keyData = window.taginfoData.keys.get(valueKey);
