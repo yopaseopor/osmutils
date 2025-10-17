@@ -531,14 +531,14 @@ function initValueSearch() {
             const valueKeyHtml = result.key ? `<div class="value-key">for key: ${highlightedKey}</div>` : '';
             const valueTagHtml = result.tag ? `<div class="value-tag">${escapeHtml(result.tag)}</div>` : '';
 
-            // Show only definition columns that contain the search term
-            const defEnHtml = result.definition_en && (result.definition_en.toLowerCase().includes(query.toLowerCase()))
+            // Show definition columns that exist and contain highlighted text
+            const defEnHtml = result.definition_en
                 ? `<div class="value-definition-en">EN: ${highlightedDefEn}</div>`
                 : '';
-            const defCaHtml = result.definition_ca && (result.definition_ca.toLowerCase().includes(query.toLowerCase()))
+            const defCaHtml = result.definition_ca
                 ? `<div class="value-definition-ca">CA: ${highlightedDefCa}</div>`
                 : '';
-            const defEsHtml = result.definition_es && (result.definition_es.toLowerCase().includes(query.toLowerCase()))
+            const defEsHtml = result.definition_es
                 ? `<div class="value-definition-es">ES: ${highlightedDefEs}</div>`
                 : '';
 
