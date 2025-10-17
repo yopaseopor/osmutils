@@ -451,7 +451,7 @@ function initValueSearch() {
         console.log('🔍 Available values count:', window.taginfoData.values.size);
         console.log('🔍 Available keys count:', window.taginfoData.keys.size);
 
-        const results = window.searchValues(query, key, 25);
+        const results = window.searchValues(query, key, 50);
         console.log('🔍 Value search results:', results);
         console.log('🔍 Results length:', results.length);
 

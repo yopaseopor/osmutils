@@ -282,7 +282,7 @@ function searchKeys(query, limit = 20) {
  * @param {string|null} key - The key to search in, or null for global search
  * @param {number} limit - Maximum number of results
  */
-function searchValues(query, key = null, limit = 25) {
+function searchValues(query, key = null, limit = 50) {
     if (!query || query.length < 1) return [];
 
     const results = [];
@@ -389,19 +389,19 @@ function searchValues(query, key = null, limit = 25) {
             searchTexts.push(removeDiacritics(`${value}`.toLowerCase()));  // Value name gets highest weight
             searchTexts.push(removeDiacritics(`${keysWithValue.join(' ')}`.toLowerCase()));  // Key names get high weight
 
-            // Add definition columns with lower weight
+            // Add definition columns with lower weight - search in ALL entries for each key
             for (const valueKey of keysWithValue) {
                 const keyData = window.taginfoData.keys.get(valueKey);
                 if (keyData && keyData.values.has(value)) {
-                    // valueData is now an array of entries
+                    // valueEntries is now an array of entries
                     const valueEntries = keyData.values.get(value);
-                    for (const valueDataForKey of valueEntries) {
+                    for (const valueEntry of valueEntries) {
                         // Definition columns get much lower weight
-                        searchTexts.push(removeDiacritics(`${valueDataForKey.definition_en || ''}`.toLowerCase()));
-                        searchTexts.push(removeDiacritics(`${valueDataForKey.definition_ca || ''}`.toLowerCase()));
-                        searchTexts.push(removeDiacritics(`${valueDataForKey.definition_es || ''}`.toLowerCase()));
-                        searchTexts.push(removeDiacritics(`${valueDataForKey.value_ca || ''}`.toLowerCase()));
-                        searchTexts.push(removeDiacritics(`${valueDataForKey.value_es || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueEntry.definition_en || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueEntry.definition_ca || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueEntry.definition_es || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueEntry.value_ca || ''}`.toLowerCase()));
+                        searchTexts.push(removeDiacritics(`${valueEntry.value_es || ''}`.toLowerCase()));
                         // Key translation columns also get lower weight
                         searchTexts.push(removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()));
                         searchTexts.push(removeDiacritics(`${keyData.key_es || ''}`.toLowerCase()));
@@ -443,7 +443,7 @@ function searchValues(query, key = null, limit = 25) {
                 }
             }
 
-            if (matchFound && matchScore >= 10) {  // Increased minimum threshold
+            if (matchFound && matchScore >= 1) {  // Lower threshold to include description matches
                 // For each key that uses this value, create a result for each duplicate entry
                 for (const valueKey of keysWithValue) {
                     const keyData = window.taginfoData.keys.get(valueKey);
