@@ -583,18 +583,18 @@ function searchValues(query, key = null, limit = 25) {
 
     // Sort by relevance score first, then by count (most popular first)
     results.sort((a, b) => {
-        const aScore = (a.matchScore || 0) * 10;  // Give higher weight to relevance
-        const bScore = (b.matchScore || 0) * 10;
+        const aScore = (a.matchScore || 0) * 5;  // Reduced relevance weight
+        const bScore = (b.matchScore || 0) * 5;
 
-        // First sort by relevance score (higher is better)
-        if (aScore !== bScore) {
-            return bScore - aScore;
-        }
+        // Calculate popularity bonus (logarithmic scale to prevent extreme differences)
+        const aPopularity = Math.log10((a.countAll || a.totalCount || 0) + 1);
+        const bPopularity = Math.log10((b.countAll || b.totalCount || 0) + 1);
 
-        // Then sort by count (most popular first)
-        const aCount = a.countAll || a.totalCount || 0;
-        const bCount = b.countAll || b.totalCount || 0;
-        return bCount - aCount;
+        const aFinal = aScore + aPopularity;
+        const bFinal = bScore + bPopularity;
+
+        // Sort by final score (higher is better)
+        return bFinal - aFinal;
     });
 
     return results.slice(0, limit);
