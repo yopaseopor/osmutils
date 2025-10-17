@@ -12,6 +12,7 @@
         height: 100vh;
         position: relative;
         overflow: hidden;
+        margin-top: -20px; /* Move entire page up */
     }
 
     .map {
@@ -28,6 +29,20 @@
         background: white;
         display: flex;
         flex-direction: column;
+        padding-top: 5px; /* Reduce top padding */
+    }
+
+    /* Reduce space between language selector and key searcher */
+    #key-search-container {
+        margin: 2px 0 !important; /* Much smaller margin */
+    }
+
+    #value-search-container {
+        margin: 2px 0 !important; /* Also reduce value searcher margin */
+    }
+
+    .element-type-filter {
+        margin: 2px 0 !important; /* Reduce element filter margin */
     }
 
     .osmcat-menu {
