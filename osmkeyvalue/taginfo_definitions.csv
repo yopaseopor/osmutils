@@ -2048,7 +2048,7 @@ cuisine,caribbean,,,cuina	=	carib,cocina	=	caribe,,,,,,,,,,,cuina,carib,cocina,c
 cuisine,catalan,,,cuina	=	català,cocina	=	catalán,,,,,,,,,,,cuina,català,cocina,catalán,15300
 cuisine,chicken,cuisine=chicken,,cuina	=	pollastre,cocina	=	pollo,43517,,28531,0,14948,,38,,Yes,8,cuina,pollastre,cocina,pollo,15233
 cuisine,chinese,cuisine=chinese,,cuina	=	xinès,cocina	=	chino,58286,,47558,0,10692,,36,,Yes,16,cuina,xinès,cocina,chino,15231
-cuisine,churro,cuisine=churro,,cuina=xurros (xurreria),cocina=churros (churrería),,,,,,,,,,,cuina,xurros,cocina,churros,15301
+cuisine,churro,cuisine=churro,,cuina=xurros ( xurreria ),cocina=churros ( churrería ),,,,,,,,,,,cuina,xurros,cocina,churros,15301
 cuisine,coffee_shop,cuisine=coffee_shop,,cuina	=	cafeteria,cocina	=	cafetería,96546,,79124,0,17310,,112,,Yes,8,cuina,cafeteria,cocina,cafetería,15229
 cuisine,couscous,,,cuina	=	cuscús,cocina	=	cuscús,,,,,,,,,,,cuina,cuscús,cocina,cuscús,15303
 cuisine,crepe,,,cuina	=	crepe,cocina	=	crepe,,,,,,,,,,,cuina,crepe,cocina,crepe,15270
