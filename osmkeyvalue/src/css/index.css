@@ -554,24 +554,21 @@ CLEAR ACTIVE OVERLAY BUTTON
         max-width: 100vw;
     }
 
-    /* Overlay active mode - overlay container gets full viewport width for horizontal scrolling */
+    /* Overlay active mode - stretched overlay with horizontal scrolling */
     .osmcat-menu.overlay-active .osmcat-overlay {
         height: 100%; /* Take full height */
         width: 100vw; /* Use full viewport width for horizontal scrolling */
+        min-width: 100vw; /* Ensure minimum width */
         overflow-x: auto; /* Allow horizontal scrolling */
-        overflow-y: auto;
+        overflow-y: auto; /* Allow vertical scrolling */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
 
-    /* Ensure overlay list items work well in mobile active mode */
-    .osmcat-menu.overlay-active .osmcat-overlay .overlay-list-item {
-        min-width: 200px; /* Minimum width for readability */
-        white-space: nowrap; /* Prevent text wrapping */
-    }
-
-    /* Allow overlay list to contain wide content in mobile active mode */
+    /* Ensure overlay list can handle wide content */
     .osmcat-menu.overlay-active .osmcat-overlay #overlay-list {
-        min-width: max-content; /* Allow content to be wider than container */
+        min-width: max-content; /* Allow content wider than container */
         width: max-content; /* Prevent shrinking */
+        flex: 1 1 auto; /* Take available space */
     }
 
     .router-form {
@@ -673,18 +670,18 @@ CLEAR ACTIVE OVERLAY BUTTON
 		height: 100%;
 	}
 
-	/* Layers and Overlays side by side - Full height for overlays */
+	/* Layers and Overlays side by side - Overlay takes 1/3, Layers take 2/3 */
 	.osmcat-layer {
 		width: 100%;
-		flex: 1 1 50%;
-		max-height: 50%;
+		flex: 1 1 66.67%; /* Take 2/3 of the space */
+		max-height: 100%; /* Allow full height */
 		overflow-y: auto;
 	}
 
 	.osmcat-overlay {
 		width: 100%;
-		flex: 1 1 50%;
-		height: 50%; /* Use full allocated height */
+		flex: 1 1 33.33%; /* Take 1/3 of the space */
+		height: 100%; /* Use full allocated height */
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
