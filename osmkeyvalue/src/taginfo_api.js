@@ -282,7 +282,7 @@ function searchKeys(query, limit = 20) {
  * @param {string|null} key - The key to search in, or null for global search
  * @param {number} limit - Maximum number of results
  */
-function searchValues(query, key = null, limit = 50) {
+function searchValues(query, key = null, limit = 25) {
     if (!query || query.length < 1) return [];
 
     const results = [];
@@ -443,7 +443,7 @@ function searchValues(query, key = null, limit = 50) {
                 }
             }
 
-            if (matchFound && matchScore >= 1) {  // Lower threshold to include description matches
+            if (matchFound && matchScore >= 10) {  // Increased threshold to filter out very weak matches
                 // For each key that uses this value, create a result for each duplicate entry
                 for (const valueKey of keysWithValue) {
                     const keyData = window.taginfoData.keys.get(valueKey);
