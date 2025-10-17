@@ -463,51 +463,85 @@ CLEAR ACTIVE OVERLAY BUTTON
         overflow: hidden;
     }
 
+    /* Section 1: Map + Language selector (2/4 = 50% height) */
+    .map-container {
+        height: 50vh; /* 2/4 of screen */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
     .map {
-        height: 50vh;
+        height: calc(100% - 40px); /* Leave space for language selector */
         border: none;
         position: relative;
     }
 
-    .menu {
-        height: 50vh;
-        width: 100%;
-        position: relative;
-        z-index: 1;
-        background: white;
-        display: flex;
-        flex-direction: column;
+    #language-selector-container {
+        height: 40px;
+        padding: 0 10px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 0;
+        background: #fff;
+        flex-shrink: 0;
     }
 
-    .osmcat-menu {
+    /* Section 2: Key search + Value search (3/4 = 75% height) */
+    .search-container {
+        height: 75vh; /* 3/4 of screen */
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        width: 300%;
-        height: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
+        flex-direction: column;
+        background: white;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .search-section {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
 
-    /* CSS-only: Layer menu width (not active) */
-    .osmcat-menu .osmcat-layer {
-        width: 260px;
-        max-width: 100vw;
-        min-width: 0;
-        flex: 0 0 260px;
+    .search-section:first-child {
+        border-bottom: 1px solid #eee;
     }
 
-    /* CSS-only: Overlay menu width (not active) - Full height */
-    .osmcat-menu .osmcat-overlay {
-        width: 220px;
-        max-width: 100vw;
-        min-width: 0;
-        flex: 0 0 220px;
-        height: 100%; /* Use full height */
-        overflow-y: auto;
+    /* Section 3: Layers|Overlays or Layers|Routing|Overlays (4/4 = 100% height) */
+    .tools-container {
+        height: 100vh; /* Full screen height for complete scrolling */
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        background: white;
+    }
+
+    /* Individual tool sections */
+    .tool-section {
+        width: 100vw;
+        min-width: 100vw;
+        height: 100%;
         display: flex;
         flex-direction: column;
+        flex-shrink: 0;
+    }
+
+    .tool-section .osmcat-layer,
+    .tool-section .osmcat-overlay {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tool-section .osmcat-content {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 5px;
+        background: white;
     }
 
     .osmcat-layer {
@@ -537,7 +571,7 @@ CLEAR ACTIVE OVERLAY BUTTON
         background: white;
     }
 
-    /* Mobile positioning for router and clear overlay buttons */
+    /* Mobile positioning for router and clear overlay buttons - UPDATE FOR NEW LAYOUT */
     .osmcat-router {
         bottom: 200px;
         right: 8px;
@@ -582,23 +616,23 @@ CLEAR ACTIVE OVERLAY BUTTON
     .mapillary-viewer {
         height: 50vh;
     }
-    
+
     .mapillary-viewer iframe {
         height: calc(100% - 30px);
     }
-    
+
     /* Adjust Mapillary's internal share button position */
     .mapillary-viewer .mapillary-share-button {
         bottom: 100px !important;
         right: 10px !important;
         z-index: 1002 !important;
     }
-    
+
     /* Ensure the map shows active sequence clearly */
     .map.viewer-active {
         height: 50vh !important;
     }
-    
+
     .map.viewer-active .ol-layers {
         z-index: 2;
     }
