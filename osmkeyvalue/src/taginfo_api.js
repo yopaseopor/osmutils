@@ -503,71 +503,9 @@ function searchValues(query, key = null, limit = 25) {
         // Convert Map to array
         results.push(...Array.from(valueResults.values()));
 
-        // If we don't have enough results, also search in key definitions
-        if (results.length < limit) {
-            for (const [keyItem, keyData] of window.taginfoData.keys) {
-                if (results.length >= limit) break;
-
-                // Search in key and all definition columns
-                const searchTexts = [
-                    removeDiacritics(`${keyItem}`.toLowerCase()),
-                    removeDiacritics(`${keyData.definition_en || ''}`.toLowerCase()),
-                    removeDiacritics(`${keyData.definition_ca || ''}`.toLowerCase()),
-                    removeDiacritics(`${keyData.definition_es || ''}`.toLowerCase()),
-                    removeDiacritics(`${keyData.key_ca || ''}`.toLowerCase()),
-                    removeDiacritics(`${keyData.key_es || ''}`.toLowerCase())
-                ];
-
-                let matchFound = false;
-                let matchScore = 0;
-
-                for (const searchText of searchTexts) {
-                    if (searchText.includes(queryNormalized)) {
-                        matchFound = true;
-                        // Give higher score to exact matches
-                        if (searchText === queryNormalized) matchScore += 100;
-                        else if (searchText.startsWith(queryNormalized)) matchScore += 50;
-                        else matchScore += 10;
-                    }
-                }
-
-                if (matchFound && matchScore >= 20) {  // Higher threshold for key search
-                    // Get the most popular value for this key
-                    let popularValue = null;
-                    let maxCount = 0;
-
-                    for (const [value, valueEntries] of keyData.values) {
-                        // Sum up all counts for this value across duplicate entries
-                        let totalCountForValue = 0;
-                        for (const entry of valueEntries) {
-                            totalCountForValue += entry.countAll || 0;
-                        }
-                        if (totalCountForValue > maxCount) {
-                            maxCount = totalCountForValue;
-                            popularValue = value;
-                        }
-                    }
-
-                    if (popularValue) {
-                        const resultKey = `${keyItem}=${popularValue}`;
-                        if (!results.some(r => `${r.key}=${r.value}` === resultKey)) {
-                            results.push({
-                                key: keyItem,
-                                value: popularValue,
-                                tag: null,
-                                definition: keyData.definition || '',
-                                definition_en: keyData.definition_en || '',
-                                definition_ca: keyData.definition_ca || '',
-                                definition_es: keyData.definition_es || '',
-                                countAll: maxCount,
-                                type: 'key',
-                                matchScore: matchScore
-                            });
-                        }
-                    }
-                }
-            }
-        }
+        // NOTE: Removed key definition search to avoid showing global values (*)
+        // Users should search for specific values, not generic keys
+        // If they want to search keys, they can use the key search functionality
     }
 
     // Sort by relevance score first, then by count (most popular first)
