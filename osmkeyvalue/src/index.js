@@ -1301,37 +1301,31 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 }
 	// Export updatePermalink function globally
 	function updatePermalink() {
-		console.log('🔗 updatePermalink called');
+		console.log('🔗 updatePermalink called - DIRECT DEBUG');
 
-		// Get current tag queries from the legend (with safety check)
-		const tagQueries = window.tagQueryLegend ? window.tagQueryLegend.getVisibleQueries() : [];
-		console.log('🔗 Current tag queries:', tagQueries);
-		console.log('🔗 Tag queries length:', tagQueries.length);
+		// Force update URL with any existing tag queries from map layers
+		console.log('🔗 Forcing URL update with map layer fallback');
 
-		// Debug: Check if tagQueryLegend exists and has the right structure
-		console.log('🔗 tagQueryLegend object:', window.tagQueryLegend);
-		console.log('🔗 tagQueryLegend type:', typeof window.tagQueryLegend);
-		console.log('🔗 tagQueryLegend has queries:', window.tagQueryLegend && window.tagQueryLegend.queries);
-		console.log('🔗 tagQueryLegend queries type:', window.tagQueryLegend && window.tagQueryLegend.queries ? typeof window.tagQueryLegend.queries : 'N/A');
-		console.log('🔗 tagQueryLegend queries size:', window.tagQueryLegend && window.tagQueryLegend.queries ? window.tagQueryLegend.queries.size : 'N/A');
+		const params = new URLSearchParams();
 
-		// Also check the same object that value_search.js uses
-		if (window.tagQueryLegend && window.tagQueryLegend.queries) {
-			console.log('🔗 Direct queries Map check:', window.tagQueryLegend.queries);
-			console.log('🔗 Direct queries Map size:', window.tagQueryLegend.queries.size);
-			console.log('🔗 Direct queries Map entries:', Array.from(window.tagQueryLegend.queries.entries()));
-		}
-
-		// Also check if there are any layers with tag queries in the map
-		if (window.map && tagQueries.length === 0) {
-			console.log('🔗 Checking map layers for tag queries as fallback');
+		// Check map layers for tag queries as primary method
+		if (window.map) {
+			console.log('🔗 Map exists, checking layers');
 			const mapLayers = window.map.getLayers().getArray();
-			const tagQueryLayers = [];
+			console.log('🔗 Total map layers:', mapLayers.length);
 
-			mapLayers.forEach(layer => {
+			const tagQueryLayers = [];
+			mapLayers.forEach((layer, index) => {
+				console.log(`🔗 Layer ${index}:`, {
+					id: layer.get ? layer.get('id') : 'no id',
+					title: layer.get ? layer.get('title') : 'no title',
+					type: layer.get ? layer.get('type') : 'no type'
+				});
+
 				if (layer.get && layer.get('id') && layer.get('id').startsWith('tag_')) {
 					const layerId = layer.get('id');
 					const title = layer.get('title') || '';
+					console.log(`🔗 Found tag layer: ${layerId} with title: ${title}`);
 					const match = title.match(/^([^=]+)=(.+)$/);
 					if (match) {
 						tagQueryLayers.push({
@@ -1339,26 +1333,21 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 							value: match[2],
 							overlayId: layerId
 						});
+						console.log(`🔗 Parsed tag query: ${match[1]}:${match[2]}`);
 					}
 				}
 			});
 
 			console.log('🔗 Found tag query layers:', tagQueryLayers);
-			if (tagQueryLayers.length > 0) {
-				// Use the fallback queries
-				tagQueries.push(...tagQueryLayers);
-				console.log('🔗 Using fallback tag queries:', tagQueries);
-			}
+
+			// Add tag queries to URL
+			tagQueryLayers.forEach((query, index) => {
+				console.log('🔗 Adding tag to URL:', query.key, query.value);
+				params.append('tag', `${query.key}:${query.value}`);
+			});
+		} else {
+			console.log('🔗 No map available');
 		}
-
-		// Build URL parameters
-		const params = new URLSearchParams();
-
-		// Add tag queries to URL in standard OSM format (tag=key:value)
-		tagQueries.forEach((query, index) => {
-			console.log('🔗 Adding tag query to URL:', query.key, query.value);
-			params.append('tag', `${query.key}:${query.value}`);
-		});
 
 		// Add current map view parameters if available
 		if (window.map && window.map.getView()) {
@@ -1383,7 +1372,7 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		console.log('🔗 New URL:', newUrl);
 		window.history.replaceState({}, '', newUrl);
 
-		console.log('🔗 URL updated successfully');
+		console.log('🔗 URL FORCE updated successfully');
 	}
 
 	window.updatePermalink = updatePermalink;
