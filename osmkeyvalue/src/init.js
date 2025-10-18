@@ -29,15 +29,20 @@ function loadSharedUrl() {
 
         // Wait for map and value search to be ready
         const waitForDependencies = () => {
+            console.log('🔗 Checking dependencies...');
+            console.log('🔗 Map exists:', !!window.map);
+            console.log('🔗 executeTagQuery exists:', !!window.executeTagQuery);
+            console.log('🔗 tagQueryLegend exists:', !!window.tagQueryLegend);
+
             if (window.map && window.executeTagQuery && window.tagQueryLegend) {
                 console.log('🔗 Dependencies ready, executing tag queries');
 
                 // Execute each tag query
-                tagQueries.forEach(query => {
+                tagQueries.forEach((query, index) => {
                     setTimeout(() => {
                         console.log('🔗 Executing tag query:', query.key, query.value);
                         window.executeTagQuery(query.key, query.value);
-                    }, 1000); // Small delay between queries
+                    }, index * 1500); // 1.5 second delay between queries to avoid overwhelming the system
                 });
 
                 // Update URL after loading queries
@@ -45,18 +50,22 @@ function loadSharedUrl() {
                     if (window.updatePermalink) {
                         window.updatePermalink();
                     }
-                }, 2000);
+                }, 3000);
             } else {
-                // If no tag queries in URL, still update permalink after a delay to ensure current state is reflected
-                setTimeout(() => {
-                    if (window.updatePermalink) {
-                        window.updatePermalink();
-                    }
-                }, 2000);
+                console.log('🔗 Dependencies not ready, waiting...');
+                setTimeout(waitForDependencies, 500);
             }
         };
 
+        // Start checking immediately
         waitForDependencies();
+    } else {
+        // If no tag queries in URL, still update permalink after a delay to ensure current state is reflected
+        setTimeout(() => {
+            if (window.updatePermalink) {
+                window.updatePermalink();
+            }
+        }, 2000);
     }
 
     // Set map view if coordinates are provided
