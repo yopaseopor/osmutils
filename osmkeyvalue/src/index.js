@@ -1315,6 +1315,42 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		console.log('🔗 tagQueryLegend queries type:', window.tagQueryLegend && window.tagQueryLegend.queries ? typeof window.tagQueryLegend.queries : 'N/A');
 		console.log('🔗 tagQueryLegend queries size:', window.tagQueryLegend && window.tagQueryLegend.queries ? window.tagQueryLegend.queries.size : 'N/A');
 
+		// Also check the same object that value_search.js uses
+		if (window.tagQueryLegend && window.tagQueryLegend.queries) {
+			console.log('🔗 Direct queries Map check:', window.tagQueryLegend.queries);
+			console.log('🔗 Direct queries Map size:', window.tagQueryLegend.queries.size);
+			console.log('🔗 Direct queries Map entries:', Array.from(window.tagQueryLegend.queries.entries()));
+		}
+
+		// Also check if there are any layers with tag queries in the map
+		if (window.map && tagQueries.length === 0) {
+			console.log('🔗 Checking map layers for tag queries as fallback');
+			const mapLayers = window.map.getLayers().getArray();
+			const tagQueryLayers = [];
+
+			mapLayers.forEach(layer => {
+				if (layer.get && layer.get('id') && layer.get('id').startsWith('tag_')) {
+					const layerId = layer.get('id');
+					const title = layer.get('title') || '';
+					const match = title.match(/^([^=]+)=(.+)$/);
+					if (match) {
+						tagQueryLayers.push({
+							key: match[1],
+							value: match[2],
+							overlayId: layerId
+						});
+					}
+				}
+			});
+
+			console.log('🔗 Found tag query layers:', tagQueryLayers);
+			if (tagQueryLayers.length > 0) {
+				// Use the fallback queries
+				tagQueries.push(...tagQueryLayers);
+				console.log('🔗 Using fallback tag queries:', tagQueries);
+			}
+		}
+
 		// Build URL parameters
 		const params = new URLSearchParams();
 
