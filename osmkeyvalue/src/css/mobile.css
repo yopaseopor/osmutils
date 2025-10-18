@@ -89,14 +89,14 @@
 
     /* Overlay active state - horizontal scrolling */
     .osmcat-menu.overlay-active {
-        width: 220px; /* Fixed width for horizontal scrolling */
+        width: 200px; /* Fixed width for horizontal scrolling */
         max-width: 100vw;
     }
 
     .osmcat-menu.overlay-active .osmcat-overlay {
-        width: 220px;
-        min-width: 220px;
-        flex: 0 0 220px;
+        width: 160px;
+        min-width: 160px;
+        flex: 0 0 160px;
     }
 
     .osmcat-layer {
@@ -196,7 +196,7 @@
 
     /* Layer active state - horizontal scrolling */
     .osmcat-menu.layer-active {
-        width: 280px !important;
+        width: 240px !important;
         max-width: 100vw;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -204,9 +204,9 @@
     }
 
     .osmcat-menu.layer-active .osmcat-layer {
-        width: 220px;
-        min-width: 220px;
-        flex: 0 0 220px;
+        width: 180px;
+        min-width: 180px;
+        flex: 0 0 180px;
         /* Maintain vertical scrolling in active state */
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
@@ -214,9 +214,9 @@
 
     /* Overlay active state - horizontal scrolling */
     .osmcat-menu.overlay-active .osmcat-overlay {
-        width: 180px;
-        min-width: 180px;
-        flex: 0 0 180px;
+        width: 160px;
+        min-width: 160px;
+        flex: 0 0 160px;
         height: 100%;
         overflow-y: auto;
     }
