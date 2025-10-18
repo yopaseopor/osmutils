@@ -128,6 +128,7 @@ var config = {
 						.catch(err => console.error('Error applying Colorful style for OSM Shortbread:', err));
 				}).catch(err => {
 					console.error('Failed to load or apply colorful.json for OSM Shortbread:', err);
+					console.log('This might be due to sprite loading issues. The map will still function without sprites.');
 				});
 			return colorfulLayer;
 		})(),
