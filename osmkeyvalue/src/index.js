@@ -1368,7 +1368,10 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		});
 	}
 
-	// Initialize tag query URL event listeners when the page loads
+	// Initialize tag query URL event listeners immediately
+	setupTagQueryEventListeners();
+
+	// Initialize tag query URL event listeners when the page loads (backup)
 	$(document).ready(function() {
 		setTimeout(setupTagQueryEventListeners, 1000);
 	});

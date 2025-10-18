@@ -47,8 +47,12 @@ function loadSharedUrl() {
                     }
                 }, 2000);
             } else {
-                console.log('🔗 Waiting for dependencies...');
-                setTimeout(waitForDependencies, 500);
+                // If no tag queries in URL, still update permalink after a delay to ensure current state is reflected
+                setTimeout(() => {
+                    if (window.updatePermalink) {
+                        window.updatePermalink();
+                    }
+                }, 2000);
             }
         };
 
