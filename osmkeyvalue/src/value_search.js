@@ -848,9 +848,9 @@ function initValueSearch() {
         console.log('🚀 Button state updated to executing');
 
         // Create overlay for results
-        console.log('🚀 About to call createTagOverlay');
+        console.log('🚀 EXECUTING QUERY - About to call createTagOverlay');
+        console.log('🚀 Query parameters:', { key, value, query: query ? query.substring(0, 100) + '...' : 'null' });
         createTagOverlay(key, value, query);
-        console.log('🚀 createTagOverlay completed');
 
         // Dispatch tagQueryAdded event immediately after creating overlay
         console.log('🚀 Dispatching tagQueryAdded event from executeTagQuery');
@@ -882,9 +882,16 @@ function initValueSearch() {
         console.log('🎯 Creating overlay:', overlayId, overlayTitle);
 
         // Add to legend before creating the overlay
-        console.log('🎯 Adding query to legend:', overlayId, key, value);
+        console.log('🎯 ADDING TO LEGEND - BEFORE');
+        console.log('🎯 tagQueryLegend exists:', !!window.tagQueryLegend);
+        console.log('🎯 tagQueryLegend type:', typeof window.tagQueryLegend);
+        console.log('🎯 tagQueryLegend queries before:', window.tagQueryLegend ? window.tagQueryLegend.queries.size : 'N/A');
+
         window.tagQueryLegend.addQuery(overlayId, key, value, uniqueColor, 0, true);
-        console.log('🎯 Legend after adding:', window.tagQueryLegend.queries.size);
+
+        console.log('🎯 ADDING TO LEGEND - AFTER');
+        console.log('🎯 tagQueryLegend queries after:', window.tagQueryLegend ? window.tagQueryLegend.queries.size : 'N/A');
+        console.log('🎯 tagQueryLegend queries content:', window.tagQueryLegend ? Array.from(window.tagQueryLegend.queries.entries()) : 'N/A');
 
         // Trigger URL update event instead of direct call
         console.log('🎯 Dispatching tagQueryAdded event');
