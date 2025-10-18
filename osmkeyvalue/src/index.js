@@ -1315,29 +1315,37 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 			console.log('🔗 Total map layers:', mapLayers.length);
 
 			const tagQueryLayers = [];
-			mapLayers.forEach((layer, index) => {
-				console.log(`🔗 Layer ${index}:`, {
-					id: layer.get ? layer.get('id') : 'no id',
-					title: layer.get ? layer.get('title') : 'no title',
-					type: layer.get ? layer.get('type') : 'no type'
-				});
 
-				if (layer.get && layer.get('id') && layer.get('id').startsWith('tag_')) {
-					const layerId = layer.get('id');
-					const title = layer.get('title') || '';
-					console.log(`🔗 Found tag layer: ${layerId} with title: ${title}`);
-					const match = title.match(/^([^=]+)=(.+)$/);
-					if (match) {
-						tagQueryLayers.push({
-							key: match[1],
-							value: match[2],
-							overlayId: layerId
-						});
-						console.log(`🔗 Parsed tag query: ${match[1]}:${match[2]}`);
+			// Recursively search through all layers (including layer groups)
+			function findTagQueryLayers(layers) {
+				layers.forEach(layer => {
+					// Check if this layer is a tag query layer
+					if (layer.get && layer.get('id') && layer.get('id').startsWith('tag_')) {
+						const layerId = layer.get('id');
+						const title = layer.get('title') || '';
+						console.log(`🔗 Found tag layer: ${layerId} with title: ${title}`);
+						const match = title.match(/^([^=]+)=(.+)$/);
+						if (match) {
+							tagQueryLayers.push({
+								key: match[1],
+								value: match[2],
+								overlayId: layerId
+							});
+							console.log(`🔗 Parsed tag query: ${match[1]}:${match[2]}`);
+						}
 					}
-				}
-			});
 
+					// If this layer is a group, recursively search its layers
+					if (layer.getLayers && typeof layer.getLayers === 'function') {
+						const subLayers = layer.getLayers().getArray();
+						if (subLayers.length > 0) {
+							findTagQueryLayers(subLayers);
+						}
+					}
+				});
+			}
+
+			findTagQueryLayers(mapLayers);
 			console.log('🔗 Found tag query layers:', tagQueryLayers);
 
 			// Add tag queries to URL
