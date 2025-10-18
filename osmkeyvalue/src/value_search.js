@@ -62,14 +62,18 @@ window.tagQueryLegend = {
      * Add or update a query in the legend
      */
     addQuery(overlayId, key, value, color, count = 0, visible = true) {
-        this.queries.set(overlayId, {
+        console.log('📝 addQuery called with:', { overlayId, key, value, color, count, visible });
+        const queryObject = {
             key,
             value,
             color,
             count,
             visible,
             timestamp: Date.now()
-        });
+        };
+        console.log('📝 Query object to add:', queryObject);
+        this.queries.set(overlayId, queryObject);
+        console.log('📝 Query added to legend, total queries:', this.queries.size);
         this.updateLegendDisplay();
     },
 
@@ -120,7 +124,14 @@ window.tagQueryLegend = {
      * Get all visible queries
      */
     getVisibleQueries() {
-        return Array.from(this.queries.values()).filter(query => query.visible);
+        console.log('🔍 getVisibleQueries called');
+        console.log('🔍 Total queries in legend:', this.queries.size);
+        const allQueries = Array.from(this.queries.values());
+        console.log('🔍 All queries:', allQueries);
+        const visibleQueries = Array.from(this.queries.values()).filter(query => query.visible);
+        console.log('🔍 Visible queries:', visibleQueries);
+        console.log('🔍 Filtered count:', visibleQueries.length);
+        return visibleQueries;
     },
 
     /**
