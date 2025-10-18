@@ -154,6 +154,37 @@
         top: auto !important; /* Override desktop positioning */
     }
 
+    /* Mobile positioning for all floating buttons */
+    .osmcat-mapillary {
+        bottom: 320px; /* Position above router button */
+        right: 8px;
+        z-index: 1000;
+    }
+
+    .osmcat-panoramax {
+        bottom: 270px; /* Position above mapillary button */
+        right: 8px;
+        z-index: 1000;
+    }
+
+    .osmcat-sharebutton {
+        bottom: 120px; /* Position above geo button */
+        right: 8px;
+        z-index: 1000;
+    }
+
+    .osmcat-geobutton {
+        bottom: 70px; /* Position above info button */
+        right: 8px;
+        z-index: 1000;
+    }
+
+    .osmcat-infobutton {
+        bottom: 20px; /* Position at bottom */
+        right: 8px;
+        z-index: 1000;
+    }
+
     /* Layer active state - horizontal scrolling */
     .osmcat-menu.layer-active {
         width: 280px !important;
