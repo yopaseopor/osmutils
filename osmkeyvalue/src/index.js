@@ -1303,15 +1303,17 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 	function updatePermalink() {
 		console.log('🔗 updatePermalink called');
 
-		// Get current tag queries from the legend
+		// Get current tag queries from the legend (with safety check)
 		const tagQueries = window.tagQueryLegend ? window.tagQueryLegend.getVisibleQueries() : [];
 		console.log('🔗 Current tag queries:', tagQueries);
+		console.log('🔗 Tag queries length:', tagQueries.length);
 
 		// Build URL parameters
 		const params = new URLSearchParams();
 
 		// Add tag queries to URL in standard OSM format (tag=key:value)
 		tagQueries.forEach((query, index) => {
+			console.log('🔗 Adding tag query to URL:', query.key, query.value);
 			params.append('tag', `${query.key}:${query.value}`);
 		});
 
@@ -1335,9 +1337,10 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 
 		// Update URL without triggering page reload
 		const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}${window.location.hash}`;
+		console.log('🔗 New URL:', newUrl);
 		window.history.replaceState({}, '', newUrl);
 
-		console.log('🔗 URL updated:', newUrl);
+		console.log('🔗 URL updated successfully');
 	}
 
 	window.updatePermalink = updatePermalink;
@@ -1349,6 +1352,8 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		// Listen for tag query events and update URL
 		window.addEventListener('tagQueryAdded', function(event) {
 			console.log('🔗 Tag query added event:', event.detail);
+			console.log('🔗 tagQueryLegend exists:', !!window.tagQueryLegend);
+			console.log('🔗 tagQueryLegend queries:', window.tagQueryLegend ? window.tagQueryLegend.queries.size : 'N/A');
 			updatePermalink();
 		});
 

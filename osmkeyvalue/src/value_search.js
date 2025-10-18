@@ -855,9 +855,12 @@ function initValueSearch() {
         console.log('🎯 Creating overlay:', overlayId, overlayTitle);
 
         // Add to legend before creating the overlay
+        console.log('🎯 Adding query to legend:', overlayId, key, value);
         window.tagQueryLegend.addQuery(overlayId, key, value, uniqueColor, 0, true);
+        console.log('🎯 Legend after adding:', window.tagQueryLegend.queries.size);
 
         // Trigger URL update event instead of direct call
+        console.log('🎯 Dispatching tagQueryAdded event');
         window.dispatchEvent(new CustomEvent('tagQueryAdded', {
             detail: { key, value, overlayId }
         }));
