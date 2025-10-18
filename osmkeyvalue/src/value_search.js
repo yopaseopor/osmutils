@@ -259,6 +259,631 @@ window.tagQueryLegend = {
     }
 };
 
+function executeTagQuery(key, value) {
+    console.log('🚀 executeTagQuery called with:', key, value);
+    console.log('🚀 Current legend queries before execution:', window.tagQueryLegend.queries.size);
+
+    // Check if this exact query is already running or exists
+    const existingQuery = Array.from(window.tagQueryLegend.queries.entries())
+        .find(([id, query]) => query.key === key && query.value === value);
+
+    if (existingQuery) {
+        console.log('🚀 Query already exists, replacing existing overlay');
+        // Remove the existing query from legend
+        window.tagQueryLegend.removeQuery(existingQuery[0]);
+    }
+    if (!window.map) {
+        console.log('🚀 Map not ready, retrying in 500ms');
+        setTimeout(() => executeTagQuery(key, value), 500);
+        return;
+    }
+
+    if (typeof window.map.getView !== 'function') {
+        console.log('🚀 Map view not ready, retrying in 500ms');
+        setTimeout(() => executeTagQuery(key, value), 500);
+        return;
+    }
+
+    console.log('🚀 Map is ready, getting bbox');
+
+    // Get current map bbox
+    const view = window.map.getView();
+    const extent = view.calculateExtent();
+    const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
+
+    console.log('🚀 Map extent:', extent);
+    console.log('🚀 Map projection:', view.getProjection());
+    console.log('🚀 Map bbox:', bbox);
+    console.log('🚀 Bbox formatted:', `${bbox[1]},${bbox[0]},${bbox[3]},${bbox[2]}`);
+
+    // Log zoom level and area info
+    const zoom = view.getZoom();
+    const area = (extent[2] - extent[0]) * (extent[3] - extent[1]);
+    console.log('🚀 Zoom level:', zoom, 'Area:', area.toFixed(2), 'square units');
+
+    // Validate bbox coordinates
+    if (bbox.some(coord => isNaN(coord) || Math.abs(coord) > 180)) {
+        console.error('🚀 Invalid bbox coordinates:', bbox);
+        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('invalidLocation') : 'Invalid Location'}`);
+        return;
+    }
+
+    // Get element types from UI (default to all)
+    const elementTypes = getSelectedElementTypes();
+    console.log('🚀 Element types:', elementTypes);
+
+    // Debug: Check current key and value
+    console.log('🚀 Current key:', currentKey, 'length:', currentKey ? currentKey.length : 'null');
+    console.log('🚀 Current value:', value, 'length:', value ? value.length : 'null');
+    console.log('🚀 Parameters - key:', key, 'value:', value);
+
+    // Generate Overpass query
+    const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
+    console.log('🚀 Generated query:', query);
+
+    // Check if query generation failed
+    if (!query) {
+        console.error('🚀 Failed to generate query - check key, value, and bbox');
+        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
+        return;
+    }
+
+    // Update button state
+    $('#execute-query-btn').prop('disabled', true).text(`${window.getTranslation ? window.getTranslation('executing') : 'Executing...'}`);
+    console.log('🚀 Button state updated to executing');
+
+    // Create overlay for results
+    console.log('🚀 EXECUTING QUERY - About to call createTagOverlay');
+    console.log('🚀 Query parameters:', { key, value, query: query ? query.substring(0, 100) + '...' : 'null' });
+    createTagOverlay(key, value, query);
+
+    // Dispatch tagQueryAdded event immediately after creating overlay
+    console.log('🚀 Dispatching tagQueryAdded event from executeTagQuery');
+    window.dispatchEvent(new CustomEvent('tagQueryAdded', {
+        detail: { key, value, overlayId: `tag_${key}_${value}` }
+    }));
+
+    // Also update permalink directly after a short delay
+    setTimeout(() => {
+        if (window.updatePermalink) {
+            console.log('🚀 Calling updatePermalink directly');
+            window.updatePermalink();
+        }
+    }, 100);
+}
+
+function createTagOverlay(key, value, query) {
+    console.log('🎯 createTagOverlay called with:', key, value);
+    console.log('🎯 Query:', query);
+
+    // Generate unique color for this key-value pair (same as map uses for base color)
+    const uniqueColor = generateQueryColor(key, value, false);
+    console.log('🎯 Generated unique color:', uniqueColor);
+
+    // Create a unique overlay for this tag query
+    const overlayId = `tag_${key}_${value}`;
+    const overlayTitle = `${key}=${value}`;
+
+    console.log('🎯 Creating overlay:', overlayId, overlayTitle);
+
+    // Add to legend before creating the overlay
+    console.log('🎯 ADDING TO LEGEND - BEFORE');
+    console.log('🎯 tagQueryLegend exists:', !!window.tagQueryLegend);
+    console.log('🎯 tagQueryLegend type:', typeof window.tagQueryLegend);
+    console.log('🎯 tagQueryLegend queries before:', window.tagQueryLegend ? window.tagQueryLegend.queries.size : 'N/A');
+
+    window.tagQueryLegend.addQuery(overlayId, key, value, uniqueColor, 0, true);
+
+    console.log('🎯 ADDING TO LEGEND - AFTER');
+    console.log('🎯 tagQueryLegend queries after:', window.tagQueryLegend ? window.tagQueryLegend.queries.size : 'N/A');
+    console.log('🎯 tagQueryLegend queries content:', window.tagQueryLegend ? Array.from(window.tagQueryLegend.queries.entries()) : 'N/A');
+
+    // Trigger URL update event instead of direct call
+    console.log('🎯 Dispatching tagQueryAdded event');
+    window.dispatchEvent(new CustomEvent('tagQueryAdded', {
+        detail: { key, value, overlayId }
+    }));
+
+    // Create vector source without loader initially to prevent automatic queries
+    const vectorSource = new ol.source.Vector({
+        format: new ol.format.OSMXML2()
+    });
+
+    // Set flag to indicate this is an explicit query request
+    vectorSource._explicitQuery = true;
+
+    // Add the loader to execute the query when explicitly requested
+    vectorSource.setLoader(function (extent, resolution, projection) {
+        console.log('🎯 Vector loader called for explicit query');
+        // Show loading indicator
+        if (window.loading) window.loading.show();
+
+        makeRequestWithRetry.call(this, query, 5, 6000); // 5 retries, 6 second delay
+
+        function makeRequestWithRetry(queryData, maxRetries, delayMs) {
+            const client = new XMLHttpRequest();
+            client.open('POST', config.overpassApi());
+            client.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+            client.timeout = 35000; // 35 second timeout for retries
+            console.log('🎯 Sending request to:', config.overpassApi());
+            console.log('🎯 Request data:', queryData);
+
+            client.ontimeout = function () {
+                console.error('🎯 Request timed out after 35 seconds');
+                if (maxRetries > 0) {
+                    console.log('🎯 Retrying request in', delayMs, 'ms...');
+                    setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
+                } else {
+                    if (window.loading) window.loading.hide();
+                    $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryTimeout') : 'Query Timeout'}`);
+                }
+            }.bind(this);
+
+            client.onloadend = function () {
+                console.log('🎯 Request ended, status:', client.status);
+                if (window.loading) window.loading.hide();
+            }.bind(this);
+
+            client.onerror = function () {
+                console.error('🎯 Error loading tag data:', client.status, client.statusText);
+                if (maxRetries > 0) {
+                    console.log('🎯 Retrying request in', delayMs, 'ms...');
+                    setTimeout(() => makeRequestWithRetry.call(this, queryData, maxRetries - 1, delayMs), delayMs);
+                } else {
+                    $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
+                }
+            }.bind(this);
+
+            client.onload = function () {
+                console.log('🎯 Request loaded, status:', client.status);
+                console.log('🎯 Response text length:', client.responseText.length);
+                if (client.status === 200) {
+                    try {
+                        const xmlDoc = $.parseXML(client.responseText);
+                        const xml = $(xmlDoc);
+                        const remark = xml.find('remark');
+
+                        console.log('🎯 Parsed XML, looking for remark elements:', remark.length);
+
+                        if (remark.length !== 0) {
+                            console.error('🎯 Overpass error:', remark.text());
+                            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryError') : 'Query Error'}`);
+                        } else {
+                            console.log('🎯 No errors found, parsing features...');
+                            const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
+                                featureProjection: window.map.getView().getProjection()
+                            });
+
+                            console.log('🎯 Features parsed successfully:', features.length);
+
+                            // Fix invalid LineString geometries to make them renderable
+                            const fixedFeatures = features.map((feature, index) => {
+                                const geometry = feature.getGeometry();
+                                const geometryType = geometry.getType();
+
+                                // For invalid LineStrings, fix them properly
+                                if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
+                                    try {
+                                        const coords = geometry.getCoordinates();
+
+                                        // Check if LineString has invalid geometry
+                                        if (!coords || coords.length < 2) {
+                                            // If no coordinates or only 1 point, create a minimal valid line
+                                            if (!coords || coords.length === 0) {
+                                                const tinyLine = new ol.geom.LineString([[0, 0], [0.001, 0.001]]);
+                                                feature.setGeometry(tinyLine);
+                                                feature.set('fixedGeometry', true);
+                                            } else if (coords.length === 1) {
+                                                const point = coords[0];
+                                                const fixedCoords = [point, [point[0] + 0.001, point[1] + 0.001]];
+                                                const fixedLine = new ol.geom.LineString(fixedCoords);
+                                                feature.setGeometry(fixedLine);
+                                                feature.set('fixedGeometry', true);
+                                            }
+                                        } else {
+                                            // Validate that all coordinates are valid numbers
+                                            const hasInvalidCoords = coords.some(point =>
+                                                !Array.isArray(point) ||
+                                                point.length < 2 ||
+                                                typeof point[0] !== 'number' ||
+                                                typeof point[1] !== 'number' ||
+                                                isNaN(point[0]) ||
+                                                isNaN(point[1])
+                                            );
+
+                                            if (hasInvalidCoords) {
+                                                const validCoords = coords.filter(point =>
+                                                    Array.isArray(point) &&
+                                                    point.length >= 2 &&
+                                                    typeof point[0] === 'number' &&
+                                                    typeof point[1] === 'number' &&
+                                                    !isNaN(point[0]) &&
+                                                    !isNaN(point[1])
+                                                );
+
+                                                if (validCoords.length >= 2) {
+                                                    const fixedLine = new ol.geom.LineString(validCoords);
+                                                    feature.setGeometry(fixedLine);
+                                                    feature.set('fixedGeometry', true);
+                                                } else if (validCoords.length === 1) {
+                                                    const point = validCoords[0];
+                                                    const fixedCoords = [point, [point[0] + 0.001, point[1] + 0.001]];
+                                                    const fixedLine = new ol.geom.LineString(fixedCoords);
+                                                    feature.setGeometry(fixedLine);
+                                                    feature.set('fixedGeometry', true);
+                                                } else {
+                                                    const tinyLine = new ol.geom.LineString([[0, 0], [0.001, 0.001]]);
+                                                    feature.setGeometry(tinyLine);
+                                                    feature.set('fixedGeometry', true);
+                                                }
+                                            }
+                                        }
+                                    } catch (error) {
+                                        const tinyLine = new ol.geom.LineString([[0, 0], [0.001, 0.001]]);
+                                        feature.setGeometry(tinyLine);
+                                        feature.set('fixedGeometry', true);
+                                    }
+                                }
+
+                                return feature;
+                            });
+
+                            // Filter valid features
+                            const validFeatures = fixedFeatures.filter((feature, index) => {
+                                const geometry = feature.getGeometry();
+                                if (!geometry || !geometry.getType()) {
+                                    return false;
+                                }
+                                return true;
+                            });
+
+                            // Filter to count only top-level complete elements
+                            const taggedFeatures = validFeatures.filter((feature, index) => {
+                                const geometryType = feature.getGeometry().getType();
+                                const properties = feature.getProperties();
+
+                                // Check if this element is a component of a larger geometry
+                                const isComponent = properties.members || properties.memberOf ||
+                                                   properties.member || properties.membership;
+
+                                // For complete geometries (ways and relations), count them if they're not components
+                                if ((geometryType === 'LineString' || geometryType === 'MultiLineString' ||
+                                     geometryType === 'Polygon' || geometryType === 'MultiPolygon') && !isComponent) {
+                                    return true;
+                                }
+
+                                // For nodes, count standalone nodes with tags OR nodes that are members but have their own tags
+                                if (geometryType === 'Point') {
+                                    const hasTags = Object.keys(properties).some(prop =>
+                                        prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
+                                        prop !== 'originalType' && prop !== 'fixedGeometry' &&
+                                        prop !== 'members' && prop !== 'memberOf' &&
+                                        prop !== 'member' && prop !== 'membership'
+                                    );
+
+                                    if (hasTags) {
+                                        return true;
+                                    }
+                                }
+
+                                return false;
+                            });
+
+                            console.log(`🎯 Tagged features: ${taggedFeatures.length}/${validFeatures.length}`);
+
+                            // Log detailed summary of tagged features by type
+                            const detailedSummary = taggedFeatures.reduce((acc, feature) => {
+                                const type = feature.getGeometry().getType();
+                                acc[type] = (acc[type] || 0) + 1;
+                                return acc;
+                            }, {});
+
+                            console.log('🎯 Detailed tagged features summary:', detailedSummary);
+
+                            // Show detailed summary in a prominent way
+                            const summaryText = formatDetailedCount(detailedSummary);
+                            console.log(`🎯 📊 SUMMARY: Found ${summaryText} with tags "${key}=${value}"`);
+
+                            // Update the legend title with detailed information
+                            if (taggedFeatures.length > 0) {
+                                const detailedTitle = `${key}=${value} (${summaryText})`;
+                                vectorLayer.set('title', detailedTitle);
+                                // Try to update the legend title if the method exists
+                                if (window.tagQueryLegend && typeof window.tagQueryLegend.updateTitle === 'function') {
+                                    window.tagQueryLegend.updateTitle(overlayId, detailedTitle);
+                                }
+                            }
+
+                            // Update query statistics display
+                            updateQueryStatistics({
+                                dataSize: formatBytes(client.responseText.length),
+                                nodes: detailedSummary.Point || 0,
+                                ways: detailedSummary.LineString || 0,
+                                relations: detailedSummary.Polygon || 0,
+                                polygons: detailedSummary.Polygon || 0,
+                                color: generateQueryColor(overlayId, false)
+                            });
+
+                            this.addFeatures(validFeatures);
+                            console.log('🎯 Features added to source');
+
+                            // Update legend with tagged count
+                            window.tagQueryLegend.updateCount(overlayId, taggedFeatures.length);
+
+                            // Trigger URL update event after count update
+                            window.dispatchEvent(new CustomEvent('tagQueryCountUpdated', {
+                                detail: { key, value, overlayId, count: taggedFeatures.length }
+                            }));
+
+                            // Update overlay summary if function exists
+                            if (window.updateOverlaySummary) {
+                                window.updateOverlaySummary();
+                            }
+
+                            // Trigger event for overlay management
+                            window.dispatchEvent(new CustomEvent('tagOverlayLoaded', {
+                                detail: { key, value, overlayId, featureCount: taggedFeatures.length }
+                            }));
+
+                            // Trigger the overlay features loaded event
+                            window.dispatchEvent(new CustomEvent('overlayFeaturesLoaded'));
+
+                            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryExecuted') : 'Query Executed'} - ${window.getTranslation ? window.getTranslation('clickToRepeat') : 'Click to Repeat'}`);
+                            $('#clear-search-btn').show();
+
+                            // Force a map render update to ensure visibility
+                            if (window.map) {
+                                console.log('🔍 Forcing map render update');
+                                window.map.render();
+                            }
+                        }
+                    } catch (parseError) {
+                        console.error('🎯 Error parsing XML response:', parseError);
+                        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('parseError') : 'Parse Error'}`);
+                    }
+                } else {
+                    console.error('🎯 Request failed with status:', client.status);
+                    console.error('🎯 Response text:', client.responseText);
+
+                    // Handle different error types
+                    if (client.status === 504) {
+                        console.error('🎯 Overpass API timeout - server is too busy');
+                        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryTimeout') : 'Query Timeout'}`);
+                        if (window.loading) window.loading.hide();
+                    } else if (client.status === 400) {
+                        console.error('🎯 Bad request - possibly invalid query');
+                        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('invalidLocation') : 'Invalid Location'}`);
+                        if (window.loading) window.loading.hide();
+                    } else {
+                        console.error('🎯 Request failed with status:', client.status);
+                        $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('requestFailed') : 'Request Failed'}`);
+                        if (window.loading) window.loading.hide();
+                    }
+                }
+            }.bind(this);
+            client.send(queryData);
+        }
+    });
+
+    // Create vector layer
+    const vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        title: overlayTitle,
+        id: overlayId,
+        iconSrc: 'src/img/icones_web/tag_icon.png',
+        iconStyle: 'filter: hue-rotate(120deg);',
+        visible: true,
+        style: function(feature) {
+            const geometry = feature.getGeometry();
+            const geometryType = geometry.getType();
+
+            console.log('🎨 Styling feature:', {
+                type: geometryType,
+                id: feature.getId()
+            });
+
+            // Style for nodes (Point geometries) - ORIGINAL ELEGANT STYLE
+            if (geometryType === 'Point') {
+                const originalType = feature.get('originalType');
+
+                // Check if this point was originally a LineString
+                if (originalType === 'LineString') {
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 5,
+                            fill: new ol.style.Fill({
+                                color: generateQueryColor(vectorLayer.get('id'), true) // Use same color as fixed lines
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: generateQueryColor(vectorLayer.get('id'), true),
+                                width: 2
+                            })
+                        })
+                    });
+                }
+
+                // Check if this point was originally a Polygon
+                if (originalType === 'Polygon') {
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 6,
+                            fill: new ol.style.Fill({
+                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.4] // Reduced transparency for consistency
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: generateQueryColor(vectorLayer.get('id'), false),
+                                width: 2
+                            })
+                        })
+                    });
+                }
+
+                // Regular point styling (nodes)
+                return new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 4,
+                        fill: new ol.style.Fill({
+                            color: [...generateQueryColor(vectorLayer.get('id'), false), 0.6] // Reduced transparency for consistency
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: generateQueryColor(vectorLayer.get('id'), false),
+                            width: 1
+                        })
+                    })
+                });
+            }
+
+            // Style for LineString geometries (ways) - show as lines
+            if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
+                const isFixed = feature.get('fixedGeometry');
+
+                // Generate consistent random color based on overlay ID
+                const overlayId = vectorLayer.get('id');
+                const color = generateQueryColor(overlayId, isFixed);
+
+                return new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: color,
+                        width: isFixed ? 3 : 4 // Thicker lines for better visibility
+                    })
+                });
+            }
+
+            // Style for Polygon geometries (areas) - show as filled areas
+            if (geometryType === 'Polygon' || geometryType === 'MultiPolygon') {
+                try {
+                    const area = geometry.getArea();
+                    if (isNaN(area) || area <= 0) {
+                        // Invalid polygon - show as point at centroid
+                        console.warn('Invalid polygon, showing as point:', feature.getId());
+                        const centroid = ol.extent.getCenter(geometry.getExtent());
+                        return new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 6,
+                                fill: new ol.style.Fill({
+                                    color: [...generateQueryColor(vectorLayer.get('id'), false), 0.8] // Use query color for invalid polygons
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: generateQueryColor(vectorLayer.get('id'), false),
+                                    width: 2
+                                })
+                            }),
+                            geometry: new ol.geom.Point(centroid)
+                        });
+                    }
+
+                    // Valid polygon - show as filled area
+                    return new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: generateQueryColor(vectorLayer.get('id'), false), // Use same color as lines
+                            width: 2
+                        }),
+                        fill: new ol.style.Fill({
+                            color: [...generateQueryColor(vectorLayer.get('id'), false), 0.05] // Ultra transparent for maximum visibility
+                        })
+                    });
+                } catch (error) {
+                    console.warn('Error styling polygon, showing as point:', error);
+                    // Show as point at centroid as fallback
+                    const centroid = ol.extent.getCenter(geometry.getExtent());
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 6,
+                            fill: new ol.style.Fill({
+                                color: [...generateQueryColor(vectorLayer.get('id'), false), 0.4]
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: generateQueryColor(vectorLayer.get('id'), false),
+                                width: 2
+                            })
+                        }),
+                        geometry: new ol.geom.Point(centroid)
+                    });
+                }
+            }
+
+            // Fallback for any other geometry type - show as point
+            console.warn('Unknown geometry type, showing as point:', geometryType);
+            try {
+                const centroid = ol.extent.getCenter(geometry.getExtent());
+                return new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 6,
+                        fill: new ol.style.Fill({
+                            color: [...generateQueryColor(vectorLayer.get('id'), false), 0.4]
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: generateQueryColor(vectorLayer.get('id'), false),
+                            width: 2
+                        })
+                    }),
+                    geometry: new ol.geom.Point(centroid)
+                });
+            } catch (error) {
+                console.error('Error creating fallback point:', error);
+                return new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 4,
+                        fill: new ol.style.Fill({
+                            color: [...generateQueryColor(vectorLayer.get('id'), false), 0.6]
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: generateQueryColor(vectorLayer.get('id'), false),
+                            width: 1
+                        })
+                    })
+                });
+            }
+        }
+    });
+
+    // Set additional properties for overlay system integration
+    vectorLayer.set('group', 'Tag Queries');
+    vectorLayer.set('type', 'overlay');
+    vectorLayer.set('title', overlayTitle);
+    vectorLayer.set('id', overlayId);
+    vectorLayer.set('iconSrc', 'src/img/icones_web/tag_icon.png');
+    vectorLayer.set('iconStyle', 'filter: hue-rotate(120deg);');
+
+    // Find or create the Tag Queries group and add the layer to it
+    const tagQueriesGroup = findOrCreateTagOverlaysGroup();
+    if (tagQueriesGroup) {
+        console.log('🔍 Adding vector layer to Tag Queries group');
+
+        // Check if this specific overlay already exists in the group
+        const existingLayers = tagQueriesGroup.getLayers().getArray();
+        const existingOverlay = existingLayers.find(layer => layer.get('id') === overlayId);
+
+        if (existingOverlay) {
+            console.log('🔍 Overlay already exists in group, removing and recreating for fresh query');
+            // Remove the existing overlay to allow fresh query
+            tagQueriesGroup.getLayers().remove(existingOverlay);
+
+            // Also remove from legend
+            if (window.tagQueryLegend) {
+                window.tagQueryLegend.removeQuery(overlayId);
+            }
+        }
+
+        // Add the vector layer to the Tag Queries group
+        tagQueriesGroup.getLayers().push(vectorLayer);
+        console.log('🔍 Vector layer added to Tag Queries group, total layers:', tagQueriesGroup.getLayers().getLength());
+
+        // If the map already exists, ensure the group is in it
+        if (window.map) {
+            const mapLayers = window.map.getLayers().getArray();
+            const groupInMap = mapLayers.some(layer => layer === tagQueriesGroup);
+
+            if (!groupInMap) {
+                console.log('🔍 Adding Tag Queries group to existing map');
+                window.map.addLayer(tagQueriesGroup);
+            }
+        }
+    }
+
+    console.log('🔍 Overlay layer added successfully');
+}
+
 function initValueSearch() {
     console.log('🔍 initValueSearch called');
 
