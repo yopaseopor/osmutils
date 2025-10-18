@@ -141,14 +141,14 @@
 
     /* Mobile positioning for router and clear overlay buttons */
     .osmcat-router {
-        bottom: 220px; /* Adjusted for better mobile visibility */
+        bottom: 200px; /* Reduced gap - was 220px */
         right: 8px;
         z-index: 1000;
         top: auto !important; /* Override desktop positioning */
     }
 
     .osmcat-clearoverlaybutton {
-        bottom: 170px; /* Adjusted for better mobile visibility */
+        bottom: 160px; /* Reduced gap - was 170px */
         right: 8px;
         z-index: 1000;
         top: auto !important; /* Override desktop positioning */
@@ -156,25 +156,25 @@
 
     /* Mobile positioning for all floating buttons */
     .osmcat-mapillary {
-        bottom: 320px; /* Position above router button */
+        bottom: 280px; /* Reduced gap - was 320px */
         right: 8px;
         z-index: 1000;
     }
 
     .osmcat-panoramax {
-        bottom: 270px; /* Position above mapillary button */
+        bottom: 240px; /* Reduced gap - was 270px */
         right: 8px;
         z-index: 1000;
     }
 
     .osmcat-sharebutton {
-        bottom: 120px; /* Position above geo button */
+        bottom: 110px; /* Reduced gap - was 120px */
         right: 8px;
         z-index: 1000;
     }
 
     .osmcat-geobutton {
-        bottom: 70px; /* Position above info button */
+        bottom: 60px; /* Reduced gap - was 70px */
         right: 8px;
         z-index: 1000;
     }
