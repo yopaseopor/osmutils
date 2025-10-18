@@ -110,6 +110,9 @@
         overflow: hidden;
         background: white;
         position: relative;
+        /* Enable vertical scrolling for layer content */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .osmcat-overlay {
@@ -123,6 +126,9 @@
         overflow: hidden;
         background: white;
         position: relative;
+        /* Enable vertical scrolling for overlay content */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Router section for horizontal scrolling */
@@ -137,6 +143,9 @@
         overflow: hidden;
         background: white;
         position: relative;
+        /* Enable vertical scrolling for router content */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Mobile positioning for router and clear overlay buttons */
@@ -198,6 +207,9 @@
         width: 220px;
         min-width: 220px;
         flex: 0 0 220px;
+        /* Maintain vertical scrolling in active state */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Overlay active state - horizontal scrolling */
