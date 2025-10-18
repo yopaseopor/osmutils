@@ -1299,9 +1299,40 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		rgb = [Math.round(colorTo[0] * w1 + colorFrom[0] * w2), Math.round(colorTo[1] * w1 + colorFrom[1] * w2), Math.round(colorTo[2] * w1 + colorFrom[2] * w2)];
 	return rgb;
 }
-window.addEventListener('overlayFeaturesLoaded', updateOverlaySummary);
-
 	// Export updatePermalink function globally
+	function updatePermalink() {
+		console.log('🔗 updatePermalink called');
+
+		// Get current tag queries from the legend
+		const tagQueries = window.tagQueryLegend ? window.tagQueryLegend.getVisibleQueries() : [];
+		console.log('🔗 Current tag queries:', tagQueries);
+
+		// Build URL parameters
+		const params = new URLSearchParams();
+
+		// Add tag queries to URL
+		tagQueries.forEach((query, index) => {
+			params.append(`tag_${index}`, `${query.key}=${query.value}`);
+		});
+
+		// Add current map view parameters if available
+		if (window.map && window.map.getView()) {
+			const view = window.map.getView();
+			const center = ol.proj.toLonLat(view.getCenter());
+			const zoom = view.getZoom();
+
+			params.append('lat', center[1].toFixed(6));
+			params.append('lon', center[0].toFixed(6));
+			params.append('zoom', Math.round(zoom));
+		}
+
+		// Update URL without triggering page reload
+		const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+		window.history.replaceState({}, '', newUrl);
+
+		console.log('🔗 URL updated:', newUrl);
+	}
+
 	window.updatePermalink = updatePermalink;
 
 	// Set up event listeners for tag query URL updates
