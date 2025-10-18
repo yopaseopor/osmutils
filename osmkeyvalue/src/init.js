@@ -39,6 +39,13 @@ function loadSharedUrl() {
                         window.executeTagQuery(query.key, query.value);
                     }, 1000); // Small delay between queries
                 });
+
+                // Update URL after loading queries
+                setTimeout(() => {
+                    if (window.updatePermalink) {
+                        window.updatePermalink();
+                    }
+                }, 2000);
             } else {
                 console.log('🔗 Waiting for dependencies...');
                 setTimeout(waitForDependencies, 500);

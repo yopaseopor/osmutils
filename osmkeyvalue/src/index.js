@@ -1367,3 +1367,8 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 			updatePermalink();
 		});
 	}
+
+	// Initialize tag query URL event listeners when the page loads
+	$(document).ready(function() {
+		setTimeout(setupTagQueryEventListeners, 1000);
+	});
