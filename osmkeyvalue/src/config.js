@@ -107,6 +107,12 @@ var config = {
 			fetch(styleUrl)
 				.then(response => response.json())
 				.then(style => {
+					// Fix sprite URL if needed
+					if (style.sprite && typeof style.sprite === 'string') {
+						// Ensure sprite URL doesn't have trailing colon or incorrect format
+						style.sprite = style.sprite.replace(/[:\s]*$/, '');
+						console.log('Fixed sprite URL:', style.sprite);
+					}
 					return olms.applyStyle(colorfulLayer, style, 'versatiles-shortbread')
 						.then(() => console.log('Colorful style applied successfully for OSM Shortbread.'))
 						.catch(err => console.error('Error applying Colorful style for OSM Shortbread:', err));
