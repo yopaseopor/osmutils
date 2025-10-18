@@ -1288,144 +1288,156 @@ window.addEventListener('overlaysReady', function() {
 window.addEventListener('overlaysFullyLoaded', function() {
     setTimeout(updateOverlaySummary, 1500);
 });
-$(function() { 
+$(function() {
     setTimeout(updateOverlaySummary, 1000);
 });
-function linearColorInterpolation(colorFrom, colorTo, weight) {
-	var p = weight < 0 ? 0 : (weight > 1 ? 1 : weight),
-		w = p * 2 - 1,
-		w1 = (w/1+1) / 2,
-		w2 = 1 - w1,
-		rgb = [Math.round(colorTo[0] * w1 + colorFrom[0] * w2), Math.round(colorTo[1] * w1 + colorFrom[1] * w2), Math.round(colorTo[2] * w1 + colorFrom[2] * w2)];
-	return rgb;
+
+function updatePermalink() {
+    console.log('🔗 updatePermalink called - START');
+
+    // Get current tag queries from the legend (with safety check)
+    const tagQueries = window.tagQueryLegend ? window.tagQueryLegend.getVisibleQueries() : [];
+    console.log('🔗 Legend queries:', tagQueries);
+
+    // Check map layers for tag queries as primary method
+    if (window.map) {
+        console.log('🔗 Scanning map layers for tag queries');
+        const allTagQueryLayers = [];
+
+        // Recursively search through all layers (including layer groups)
+        function findTagQueryLayers(layers) {
+            layers.forEach(layer => {
+                console.log('🔗 Checking layer:', layer.get ? layer.get('id') : 'no id', layer.get ? layer.get('title') : 'no title');
+
+                // Check if this layer is a tag query layer
+                if (layer.get && layer.get('id') && layer.get('id').startsWith('tag_')) {
+                    const layerId = layer.get('id');
+                    const title = layer.get('title') || '';
+                    console.log(`🔗 FOUND TAG LAYER: ${layerId} with title: ${title}`);
+                    const match = title.match(/^([^=]+)=(.+)$/);
+                    if (match) {
+                        allTagQueryLayers.push({
+                            key: match[1],
+                            value: match[2],
+                            overlayId: layerId
+                        });
+                        console.log(`🔗 PARSED: ${match[1]}:${match[2]}`);
+                    }
+                }
+
+                // If this layer is a group, recursively search its layers
+                if (layer.getLayers && typeof layer.getLayers === 'function') {
+                    const subLayers = layer.getLayers().getArray();
+                    console.log(`🔗 Layer group found with ${subLayers.length} sublayers`);
+                    if (subLayers.length > 0) {
+                        findTagQueryLayers(subLayers);
+                    }
+                }
+            });
+        }
+
+        const mapLayers = window.map.getLayers().getArray();
+        console.log(`🔗 Starting recursive search with ${mapLayers.length} top-level layers`);
+        findTagQueryLayers(mapLayers);
+
+        console.log('🔗 Total tag query layers found:', allTagQueryLayers);
+
+        // Use found layers as tag queries
+        if (allTagQueryLayers.length > 0) {
+            tagQueries.push(...allTagQueryLayers);
+            console.log('🔗 Using map layer queries:', tagQueries);
+        }
+    }
+
+    console.log('🔗 Final tag queries to add to URL:', tagQueries);
+
+    // Build URL parameters
+    const params = new URLSearchParams();
+
+    // Add tag queries to URL
+    tagQueries.forEach((query, index) => {
+        console.log('🔗 Adding tag to URL:', query.key, query.value);
+        params.append('tag', `${query.key}:${query.value}`);
+    });
+
+    // Add current map view parameters if available
+    if (window.map && window.map.getView()) {
+        const view = window.map.getView();
+        const center = ol.proj.toLonLat(view.getCenter());
+        const zoom = view.getZoom();
+
+        params.append('lat', center[1].toFixed(6));
+        params.append('lon', center[0].toFixed(6));
+        params.append('zoom', Math.round(zoom));
+    }
+
+    // Preserve language parameter if present
+    const currentUrl = new URL(window.location.href);
+    const currentLang = currentUrl.searchParams.get('lang');
+    if (currentLang) {
+        params.append('lang', currentLang);
+    }
+
+    // Update URL without triggering page reload
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}${window.location.hash}`;
+    console.log('🔗 New URL:', newUrl);
+    window.history.replaceState({}, '', newUrl);
+
+    console.log('🔗 URL updated successfully');
 }
-	// Export updatePermalink function globally
-	function updatePermalink() {
-		console.log('🔗 updatePermalink called - DIRECT DEBUG');
 
-		// Force update URL with any existing tag queries from map layers
-		console.log('🔗 Forcing URL update with map layer fallback');
+window.updatePermalink = updatePermalink;
 
-		const params = new URLSearchParams();
+// Set up event listeners for tag query URL updates
+function setupTagQueryEventListeners() {
+    console.log('🔗 Setting up tag query event listeners');
 
-		// Check map layers for tag queries as primary method
-		if (window.map) {
-			console.log('🔗 Map exists, checking layers');
-			const mapLayers = window.map.getLayers().getArray();
-			console.log('🔗 Total map layers:', mapLayers.length);
+    // Test event dispatching
+    console.log('🔗 Testing event listener setup');
+    window.dispatchEvent(new CustomEvent('tagQueryTest', { detail: { test: true } }));
 
-			const tagQueryLayers = [];
+    // Listen for tag query events and update URL
+    window.addEventListener('tagQueryAdded', function(event) {
+        console.log('🔗 Tag query added event:', event.detail);
+        console.log('🔗 tagQueryLegend exists:', !!window.tagQueryLegend);
+        console.log('🔗 tagQueryLegend queries:', window.tagQueryLegend ? window.tagQueryLegend.queries.size : 'N/A');
+        updatePermalink();
+    });
 
-			// Recursively search through all layers (including layer groups)
-			function findTagQueryLayers(layers) {
-				layers.forEach(layer => {
-					// Check if this layer is a tag query layer
-					if (layer.get && layer.get('id') && layer.get('id').startsWith('tag_')) {
-						const layerId = layer.get('id');
-						const title = layer.get('title') || '';
-						console.log(`🔗 Found tag layer: ${layerId} with title: ${title}`);
-						const match = title.match(/^([^=]+)=(.+)$/);
-						if (match) {
-							tagQueryLayers.push({
-								key: match[1],
-								value: match[2],
-								overlayId: layerId
-							});
-							console.log(`🔗 Parsed tag query: ${match[1]}:${match[2]}`);
-						}
-					}
+    window.addEventListener('tagQueryRemoved', function(event) {
+        console.log('🔗 Tag query removed event:', event.detail);
+        updatePermalink();
+    });
 
-					// If this layer is a group, recursively search its layers
-					if (layer.getLayers && typeof layer.getLayers === 'function') {
-						const subLayers = layer.getLayers().getArray();
-						if (subLayers.length > 0) {
-							findTagQueryLayers(subLayers);
-						}
-					}
-				});
-			}
+    window.addEventListener('tagQueryVisibilityChanged', function(event) {
+        console.log('🔗 Tag query visibility changed event:', event.detail);
+        updatePermalink();
+    });
 
-			findTagQueryLayers(mapLayers);
-			console.log('🔗 Found tag query layers:', tagQueryLayers);
+    window.addEventListener('tagQueryCountUpdated', function(event) {
+        console.log('🔗 Tag query count updated event:', event.detail);
+        updatePermalink();
+    });
 
-			// Add tag queries to URL
-			tagQueryLayers.forEach((query, index) => {
-				console.log('🔗 Adding tag to URL:', query.key, query.value);
-				params.append('tag', `${query.key}:${query.value}`);
-			});
-		} else {
-			console.log('🔗 No map available');
-		}
+    // Test listener
+    window.addEventListener('tagQueryTest', function(event) {
+        console.log('🔗 Test event received:', event.detail);
+    });
+}
 
-		// Add current map view parameters if available
-		if (window.map && window.map.getView()) {
-			const view = window.map.getView();
-			const center = ol.proj.toLonLat(view.getCenter());
-			const zoom = view.getZoom();
+// Initialize tag query URL event listeners immediately
+setupTagQueryEventListeners();
 
-			params.append('lat', center[1].toFixed(6));
-			params.append('lon', center[0].toFixed(6));
-			params.append('zoom', Math.round(zoom));
-		}
+// Initialize tag query URL event listeners when the page loads (backup)
+$(document).ready(function() {
+    setTimeout(setupTagQueryEventListeners, 1000);
+});
 
-		// Preserve language parameter if present
-		const currentUrl = new URL(window.location.href);
-		const currentLang = currentUrl.searchParams.get('lang');
-		if (currentLang) {
-			params.append('lang', currentLang);
-		}
-
-		// Update URL without triggering page reload
-		const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}${window.location.hash}`;
-		console.log('🔗 New URL:', newUrl);
-		window.history.replaceState({}, '', newUrl);
-
-		console.log('🔗 URL FORCE updated successfully');
-	}
-
-	window.updatePermalink = updatePermalink;
-
-	// Set up event listeners for tag query URL updates
-	function setupTagQueryEventListeners() {
-		console.log('🔗 Setting up tag query event listeners');
-
-		// Test event dispatching
-		console.log('🔗 Testing event listener setup');
-		window.dispatchEvent(new CustomEvent('tagQueryTest', { detail: { test: true } }));
-
-		// Listen for tag query events and update URL
-		window.addEventListener('tagQueryAdded', function(event) {
-			console.log('🔗 Tag query added event:', event.detail);
-			console.log('🔗 tagQueryLegend exists:', !!window.tagQueryLegend);
-			console.log('🔗 tagQueryLegend queries:', window.tagQueryLegend ? window.tagQueryLegend.queries.size : 'N/A');
-			updatePermalink();
-		});
-
-		window.addEventListener('tagQueryRemoved', function(event) {
-			console.log('🔗 Tag query removed event:', event.detail);
-			updatePermalink();
-		});
-
-		window.addEventListener('tagQueryVisibilityChanged', function(event) {
-			console.log('🔗 Tag query visibility changed event:', event.detail);
-			updatePermalink();
-		});
-
-		window.addEventListener('tagQueryCountUpdated', function(event) {
-			console.log('🔗 Tag query count updated event:', event.detail);
-			updatePermalink();
-		});
-
-		// Test listener
-		window.addEventListener('tagQueryTest', function(event) {
-			console.log('🔗 Test event received:', event.detail);
-		});
-	}
-
-	// Initialize tag query URL event listeners immediately
-	setupTagQueryEventListeners();
-
-	// Initialize tag query URL event listeners when the page loads (backup)
-	$(document).ready(function() {
-		setTimeout(setupTagQueryEventListeners, 1000);
-	});
+function linearColorInterpolation(colorFrom, colorTo, weight) {
+    var p = weight < 0 ? 0 : (weight > 1 ? 1 : weight),
+        w = p * 2 - 1,
+        w1 = (w/1+1) / 2,
+        w2 = 1 - w1,
+        rgb = [Math.round(colorTo[0] * w1 + colorFrom[0] * w2), Math.round(colorTo[1] * w1 + colorFrom[1] * w2), Math.round(colorTo[2] * w1 + colorFrom[2] * w2)];
+    return rgb;
+}
