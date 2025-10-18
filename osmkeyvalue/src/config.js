@@ -113,6 +113,16 @@ var config = {
 						style.sprite = style.sprite.replace(/[:\s]*$/, '');
 						console.log('Fixed sprite URL:', style.sprite);
 					}
+
+					// Also handle array format for sprites (like in versatilescolorful.json)
+					if (style.sprite && Array.isArray(style.sprite)) {
+						style.sprite.forEach(sprite => {
+							if (sprite.url) {
+								sprite.url = sprite.url.replace(/[:\s]*$/, '');
+								console.log('Fixed sprite array URL:', sprite.url);
+							}
+						});
+					}
 					return olms.applyStyle(colorfulLayer, style, 'versatiles-shortbread')
 						.then(() => console.log('Colorful style applied successfully for OSM Shortbread.'))
 						.catch(err => console.error('Error applying Colorful style for OSM Shortbread:', err));
@@ -149,6 +159,22 @@ var config = {
 			fetch(styleUrl)
 				.then(response => response.json())
 				.then(style => {
+					// Fix sprite URL if needed
+					if (style.sprite && typeof style.sprite === 'string') {
+						// Ensure sprite URL doesn't have trailing colon or incorrect format
+						style.sprite = style.sprite.replace(/[:\s]*$/, '');
+						console.log('Fixed sprite URL for customyopaseopor:', style.sprite);
+					}
+
+					// Also handle array format for sprites
+					if (style.sprite && Array.isArray(style.sprite)) {
+						style.sprite.forEach(sprite => {
+							if (sprite.url) {
+								sprite.url = sprite.url.replace(/[:\s]*$/, '');
+								console.log('Fixed sprite array URL for customyopaseopor:', sprite.url);
+							}
+						});
+					}
 					return olms.applyStyle(customLayer, style, 'customyopaseopor')
 						.then(() => console.log('Customyopaseopor style applied successfully for OSM Shortbread.'))
 						.catch(err => console.error('Error applying Customyopaseopor style for OSM Shortbread:', err));
