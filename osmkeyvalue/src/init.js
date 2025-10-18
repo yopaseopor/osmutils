@@ -9,6 +9,62 @@ window.config = config;
 // Initialize overlays
 window.config.overlays = overlayConfig.overlays;
 
+// Function to parse and load shared URLs
+function loadSharedUrl() {
+    console.log('🔗 Loading shared URL parameters');
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Parse tag queries from URL (format: tag=key:value)
+    const tagQueries = [];
+    urlParams.forEach((value, key) => {
+        if (key === 'tag' && value.includes(':')) {
+            const [tagKey, tagValue] = value.split(':');
+            tagQueries.push({ key: tagKey, value: tagValue });
+        }
+    });
+
+    if (tagQueries.length > 0) {
+        console.log('🔗 Found tag queries in URL:', tagQueries);
+
+        // Wait for map and value search to be ready
+        const waitForDependencies = () => {
+            if (window.map && window.executeTagQuery && window.tagQueryLegend) {
+                console.log('🔗 Dependencies ready, executing tag queries');
+
+                // Execute each tag query
+                tagQueries.forEach(query => {
+                    setTimeout(() => {
+                        console.log('🔗 Executing tag query:', query.key, query.value);
+                        window.executeTagQuery(query.key, query.value);
+                    }, 1000); // Small delay between queries
+                });
+            } else {
+                console.log('🔗 Waiting for dependencies...');
+                setTimeout(waitForDependencies, 500);
+            }
+        };
+
+        waitForDependencies();
+    }
+
+    // Set map view if coordinates are provided
+    const lat = urlParams.get('lat');
+    const lon = urlParams.get('lon');
+    const zoom = urlParams.get('zoom');
+
+    if (lat && lon && zoom && window.map) {
+        console.log('🔗 Setting map view from URL:', lat, lon, zoom);
+        const view = window.map.getView();
+        const center = ol.proj.fromLonLat([parseFloat(lon), parseFloat(lat)]);
+        view.setCenter(center);
+        view.setZoom(parseInt(zoom));
+    }
+}
+
+// Load shared URL after config is initialized
+setTimeout(loadSharedUrl, 100);
+
 // Dispatch config loaded event after everything is initialized
 window.dispatchEvent(new CustomEvent('configLoaded', {
     detail: window.config

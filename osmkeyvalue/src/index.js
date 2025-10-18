@@ -1310,9 +1310,9 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		// Build URL parameters
 		const params = new URLSearchParams();
 
-		// Add tag queries to URL
+		// Add tag queries to URL in standard OSM format (tag=key:value)
 		tagQueries.forEach((query, index) => {
-			params.append(`tag_${index}`, `${query.key}=${query.value}`);
+			params.append('tag', `${query.key}:${query.value}`);
 		});
 
 		// Add current map view parameters if available
@@ -1326,8 +1326,15 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 			params.append('zoom', Math.round(zoom));
 		}
 
+		// Preserve language parameter if present
+		const currentUrl = new URL(window.location.href);
+		const currentLang = currentUrl.searchParams.get('lang');
+		if (currentLang) {
+			params.append('lang', currentLang);
+		}
+
 		// Update URL without triggering page reload
-		const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+		const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}${window.location.hash}`;
 		window.history.replaceState({}, '', newUrl);
 
 		console.log('🔗 URL updated:', newUrl);
