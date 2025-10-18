@@ -848,7 +848,23 @@ function initValueSearch() {
         console.log('🚀 Button state updated to executing');
 
         // Create overlay for results
+        console.log('🚀 About to call createTagOverlay');
         createTagOverlay(key, value, query);
+        console.log('🚀 createTagOverlay completed');
+
+        // Dispatch tagQueryAdded event immediately after creating overlay
+        console.log('🚀 Dispatching tagQueryAdded event from executeTagQuery');
+        window.dispatchEvent(new CustomEvent('tagQueryAdded', {
+            detail: { key, value, overlayId: `tag_${key}_${value}` }
+        }));
+
+        // Also update permalink directly after a short delay
+        setTimeout(() => {
+            if (window.updatePermalink) {
+                console.log('🚀 Calling updatePermalink directly');
+                window.updatePermalink();
+            }
+        }, 100);
     }
 
     function createTagOverlay(key, value, query) {

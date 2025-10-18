@@ -1308,6 +1308,13 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		console.log('🔗 Current tag queries:', tagQueries);
 		console.log('🔗 Tag queries length:', tagQueries.length);
 
+		// Debug: Check if tagQueryLegend exists and has the right structure
+		console.log('🔗 tagQueryLegend object:', window.tagQueryLegend);
+		console.log('🔗 tagQueryLegend type:', typeof window.tagQueryLegend);
+		console.log('🔗 tagQueryLegend has queries:', window.tagQueryLegend && window.tagQueryLegend.queries);
+		console.log('🔗 tagQueryLegend queries type:', window.tagQueryLegend && window.tagQueryLegend.queries ? typeof window.tagQueryLegend.queries : 'N/A');
+		console.log('🔗 tagQueryLegend queries size:', window.tagQueryLegend && window.tagQueryLegend.queries ? window.tagQueryLegend.queries.size : 'N/A');
+
 		// Build URL parameters
 		const params = new URLSearchParams();
 
@@ -1349,6 +1356,10 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 	function setupTagQueryEventListeners() {
 		console.log('🔗 Setting up tag query event listeners');
 
+		// Test event dispatching
+		console.log('🔗 Testing event listener setup');
+		window.dispatchEvent(new CustomEvent('tagQueryTest', { detail: { test: true } }));
+
 		// Listen for tag query events and update URL
 		window.addEventListener('tagQueryAdded', function(event) {
 			console.log('🔗 Tag query added event:', event.detail);
@@ -1370,6 +1381,11 @@ function linearColorInterpolation(colorFrom, colorTo, weight) {
 		window.addEventListener('tagQueryCountUpdated', function(event) {
 			console.log('🔗 Tag query count updated event:', event.detail);
 			updatePermalink();
+		});
+
+		// Test listener
+		window.addEventListener('tagQueryTest', function(event) {
+			console.log('🔗 Test event received:', event.detail);
 		});
 	}
 
