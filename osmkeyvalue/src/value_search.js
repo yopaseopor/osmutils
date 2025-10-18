@@ -2297,19 +2297,28 @@ function initValueSearch() {
         }
     }
 }
-// Initialize when DOM is ready
-$(document).ready(function() {
-    // Wait for map to be ready
-    const waitForMap = () => {
-        if (window.map && typeof window.map.getView === 'function') {
-            initValueSearch();
-        } else {
-            setTimeout(waitForMap, 100);
-        }
-    };
+    // Clear all tag query layers from the map
+    function clearMapLayers() {
+        if (window.map && window.config && window.config.layers) {
+            // Hide all overlay layers that were created by tag queries
+            window.config.layers.forEach(function(layer) {
+                if (layer.get && layer.get('type') === 'overlay') {
+                    layer.getLayers().forEach(function(overlayLayer) {
+                        // Check if this overlay was created by a tag query
+                        if (overlayLayer.get('tagQuery')) {
+                            overlayLayer.setVisible(false);
+                        }
+                    });
+                }
+            });
 
-    waitForMap();
-});
+            // Clear any tag query results from the UI
+            $('#query-results').empty();
+            $('#query-statistics').hide();
+
+            console.log('Cleared map layers from tag queries');
+        }
+    }
 
 // Export for use in other modules
 window.initValueSearch = initValueSearch;
