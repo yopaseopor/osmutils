@@ -1313,15 +1313,21 @@ function updatePermalink() {
                 if (layer.get && layer.get('id') && layer.get('id').startsWith('tag_')) {
                     const layerId = layer.get('id');
                     const title = layer.get('title') || '';
-                    console.log(`🔗 FOUND TAG LAYER: ${layerId} with title: ${title}`);
-                    const match = title.match(/^([^=]+)=(.+)$/);
+                    console.log(`🔗 Found tag layer: ${layerId} with title: ${title}`);
+
+                    // Parse key=value from title, ignoring count information
+                    const match = title.match(/^([^=]+)=([^(\s]+)\s*(\([^)]*\))?$/);
                     if (match) {
+                        const key = match[1];
+                        const value = match[2];
                         allTagQueryLayers.push({
-                            key: match[1],
-                            value: match[2],
+                            key: key,
+                            value: value,
                             overlayId: layerId
                         });
-                        console.log(`🔗 PARSED: ${match[1]}:${match[2]}`);
+                        console.log(`🔗 Parsed tag query: ${key}:${value}`);
+                    } else {
+                        console.log(`🔗 Could not parse title: ${title}`);
                     }
                 }
 
