@@ -321,8 +321,8 @@ function searchValues(query, key = null, limit = 100) {
                 let matchScore = 0;
 
                 for (const searchText of searchTexts) {
-                    // For 'yes' values, only process if query contains at least one letter from 'yes'
-                    if (value === 'yes' && !/[yes]/i.test(queryNormalized)) {
+                    // For 'yes' and 'no' values, only show when explicitly searching for them
+                    if ((value === 'yes' || value === 'no') && queryNormalized !== 'yes' && queryNormalized !== 'no') {
                         continue;
                     }
 
@@ -431,8 +431,8 @@ function searchValues(query, key = null, limit = 100) {
             }
 
             for (const searchText of searchTexts) {
-                // For 'yes' values, only process if query contains at least one letter from 'yes'
-                if (value === 'yes' && !/[yes]/i.test(queryNormalized)) {
+                // For 'yes' and 'no' values, only show when explicitly searching for them
+                if ((value === 'yes' || value === 'no') && queryNormalized !== 'yes' && queryNormalized !== 'no') {
                     continue;
                 }
 
