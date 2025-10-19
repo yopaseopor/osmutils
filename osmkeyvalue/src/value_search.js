@@ -1730,6 +1730,32 @@ function initValueSearch() {
 
                                 console.log(`🎯 Tagged features: ${taggedFeatures.length}/${validFeatures.length}`);
 
+                                // Count different types of nodes separately
+                                const nodeStats = taggedFeatures.reduce((acc, feature) => {
+                                    const geometryType = feature.getGeometry().getType();
+                                    const properties = feature.getProperties();
+
+                                    if (geometryType === 'Point') {
+                                        const originalType = properties.originalType;
+
+                                        if (originalType === 'Polygon') {
+                                            // Nodes that are part of polygons
+                                            acc.polygonNodes = (acc.polygonNodes || 0) + 1;
+                                        } else {
+                                            // Standalone nodes or nodes from other geometries
+                                            acc.standaloneNodes = (acc.standaloneNodes || 0) + 1;
+                                        }
+                                    } else if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
+                                        acc.ways = (acc.ways || 0) + 1;
+                                    } else if (geometryType === 'Polygon' || geometryType === 'MultiPolygon') {
+                                        acc.polygons = (acc.polygons || 0) + 1;
+                                    }
+
+                                    return acc;
+                                }, {});
+
+                                console.log('🎯 Node statistics:', nodeStats);
+
                                 // Log detailed summary of tagged features by type
                                 const detailedSummary = taggedFeatures.reduce((acc, feature) => {
                                     const type = feature.getGeometry().getType();
@@ -1740,7 +1766,7 @@ function initValueSearch() {
                                 console.log('🎯 Detailed tagged features summary:', detailedSummary);
 
                                 // Show detailed summary in a prominent way
-                                const summaryText = formatDetailedCount(detailedSummary);
+                                const summaryText = formatDetailedCountWithNodeSeparation(nodeStats, detailedSummary);
                                 console.log(`🎯 📊 SUMMARY: Found ${summaryText} with tags "${key}=${value}"`);
 
                                 // Update the legend title with detailed information
@@ -1753,13 +1779,14 @@ function initValueSearch() {
                                     }
                                 }
 
-                                // Update query statistics display
+                                // Update query statistics display with separated node counts
                                 updateQueryStatistics({
                                     dataSize: formatBytes(client.responseText.length),
-                                    nodes: detailedSummary.Point || 0,
-                                    ways: detailedSummary.LineString || 0,
-                                    relations: detailedSummary.Polygon || 0,
-                                    polygons: detailedSummary.Polygon || 0,
+                                    nodes: nodeStats.standaloneNodes || 0,
+                                    polygonNodes: nodeStats.polygonNodes || 0,
+                                    ways: nodeStats.ways || 0,
+                                    relations: nodeStats.polygons || 0,
+                                    polygons: nodeStats.polygons || 0,
                                     color: generateQueryColor(overlayId, false)
                                 });
 
@@ -2150,11 +2177,15 @@ function initValueSearch() {
         return hslToRgb(hue, saturation, lightness);
     }
 
-    function formatDetailedCount(summary) {
+    function formatDetailedCountWithNodeSeparation(nodeStats, detailedSummary) {
         const parts = [];
-        if (summary.Point) parts.push(`${summary.Point} ${window.getTranslation ? window.getTranslation('nodes') : 'nodes'}`);
-        if (summary.LineString) parts.push(`${summary.LineString} ${window.getTranslation ? window.getTranslation('ways') : 'ways'}`);
-        if (summary.Polygon) parts.push(`${summary.Polygon} ${window.getTranslation ? window.getTranslation('relations') : 'relations'}`);
+
+        // Show standalone nodes and polygon nodes separately
+        if (nodeStats.standaloneNodes) parts.push(`${nodeStats.standaloneNodes} ${window.getTranslation ? window.getTranslation('standaloneNodes') : 'standalone nodes'}`);
+        if (nodeStats.polygonNodes) parts.push(`${nodeStats.polygonNodes} ${window.getTranslation ? window.getTranslation('polygonNodes') : 'polygon nodes'}`);
+
+        if (nodeStats.ways) parts.push(`${nodeStats.ways} ${window.getTranslation ? window.getTranslation('ways') : 'ways'}`);
+        if (nodeStats.polygons) parts.push(`${nodeStats.polygons} ${window.getTranslation ? window.getTranslation('relations') : 'relations'}`);
 
         if (parts.length === 0) return `0 ${window.getTranslation ? window.getTranslation('features') : 'features'}`;
         return parts.join(', ');
@@ -2273,13 +2304,14 @@ function initValueSearch() {
 
             // Update element counts
             $('#nodes-count').text(formatNumber(stats.nodes));
+            $('#polygon-nodes-count').text(formatNumber(stats.polygonNodes));
             $('#ways-count').text(formatNumber(stats.ways));
             $('#relations-count').text(formatNumber(stats.relations));
             $('#polygons-count').text(formatNumber(stats.polygons));
 
             // Update color indicators
             $('.stat-value').removeClass('color-indicator');
-            $('#data-size, #nodes-count, #ways-count, #relations-count, #polygons-count')
+            $('#data-size, #nodes-count, #polygon-nodes-count, #ways-count, #relations-count, #polygons-count')
                 .addClass('color-indicator')
                 .css('background-color', `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`)
                 .css('border-left', `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`);
@@ -2341,6 +2373,7 @@ window.createTagOverlay = createTagOverlay; // Export for use in other modules
 window.updateQueryStatistics = updateQueryStatistics; // Export for use in other modules
 window.getSelectedElementTypes = getSelectedElementTypes; // Export for use in other modules
 window.formatDetailedCount = formatDetailedCount; // Export for use in other modules
+window.formatDetailedCountWithNodeSeparation = formatDetailedCountWithNodeSeparation; // Export for use in other modules
 window.formatValueCount = formatValueCount; // Export for use in other modules
 window.formatBytes = formatBytes; // Export for use in other modules
 window.escapeHtml = escapeHtml; // Export for use in other modules
