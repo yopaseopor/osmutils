@@ -2326,7 +2326,6 @@ window.executeTagQuery = executeTagQuery;
 window.clearMapLayers = clearMapLayers;
 window.tagQueryLegend = tagQueryLegend;
 window.generateUniqueColor = generateUniqueColor; // Export for use in other modules
-window.generateQueryColor = generateQueryColor; // Export for use in other modules
 window.findOrCreateTagOverlaysGroup = findOrCreateTagOverlaysGroup; // Export for use in other modules
 window.createTagOverlay = createTagOverlay; // Export for use in other modules
 window.updateQueryStatistics = updateQueryStatistics; // Export for use in other modules
