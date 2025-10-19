@@ -1813,12 +1813,36 @@ function initValueSearch() {
             return;
         }
 
-        console.log('🚀 Executing', queryPromises.length, 'separate queries');
+        // Execute queries with rate limiting to avoid 429 errors
+        const executeQueriesWithLimit = async (queryPromises) => {
+            const results = [];
+            const delay = 1000; // 1 second delay between queries
 
-        // Execute all queries in parallel
-        Promise.all(queryPromises.map(({ type, query }) =>
-            executeSingleQuery(query, type)
-        )).then(results => {
+            for (let i = 0; i < queryPromises.length; i++) {
+                const { type, query } = queryPromises[i];
+
+                try {
+                    console.log(`🚀 Executing query ${i + 1}/${queryPromises.length} (${type})`);
+                    const features = await executeSingleQuery(query, type);
+                    results.push(features);
+
+                    // Add delay between queries (except for the last one)
+                    if (i < queryPromises.length - 1) {
+                        console.log(`🚀 Waiting ${delay}ms before next query...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                } catch (error) {
+                    console.error(`🚀 Error executing ${type} query:`, error);
+                    // Continue with other queries even if one fails
+                    results.push([]);
+                }
+            }
+
+            return results;
+        };
+
+        // Execute all queries with rate limiting
+        executeQueriesWithLimit(queryPromises).then(results => {
             // Combine all results
             const allFeatures = results.flat();
 
