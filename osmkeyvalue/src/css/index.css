@@ -61,6 +61,7 @@ a:hover {
     flex-direction: column;
     overflow: hidden;
     position: relative;
+    gap: 0; /* Remove gap to prevent extra spacing */
 }
 
 #language-selector-container {
@@ -77,8 +78,8 @@ a:hover {
     padding: 8px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     min-height: 40px;
-    flex: 1 1 0%; /* Take all remaining space */
-    height: 100%; /* Fill container height */
+    flex: 1 1 auto; /* Take remaining space but allow shrinking */
+    max-height: calc(100vh - 300px); /* Limit height to leave space for statistics */
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -1165,6 +1166,10 @@ mark {
     border: 1px solid #dee2e6;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin: 10px 8px 0 8px;
+    padding: 10px;
+    min-height: 140px; /* Ensure minimum height for statistics */
+    flex-shrink: 0; /* Don't shrink below minimum height */
 }
 
 .query-statistics h4 {
