@@ -1736,13 +1736,19 @@ function initValueSearch() {
                                     const properties = feature.getProperties();
 
                                     if (geometryType === 'Point') {
-                                        const originalType = properties.originalType;
+                                        // Check if node has tags (is a standalone node) or no tags (is part of polygon)
+                                        const hasTags = Object.keys(properties).some(prop =>
+                                            prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
+                                            prop !== 'originalType' && prop !== 'fixedGeometry' &&
+                                            prop !== 'members' && prop !== 'memberOf' &&
+                                            prop !== 'member' && prop !== 'membership'
+                                        );
 
-                                        if (originalType === 'Polygon') {
-                                            // Nodes that were originally part of polygons - now shown as standalone nodes
+                                        if (hasTags) {
+                                            // Nodes with tags are standalone nodes
                                             acc.standaloneNodes = (acc.standaloneNodes || 0) + 1;
                                         } else {
-                                            // Standalone nodes that were never part of polygons
+                                            // Nodes without tags are polygon nodes
                                             acc.polygonNodes = (acc.polygonNodes || 0) + 1;
                                         }
                                     } else if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
