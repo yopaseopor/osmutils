@@ -1711,24 +1711,15 @@ function initValueSearch() {
                                         return true;
                                     }
 
-                                    // For nodes, count standalone nodes with tags OR nodes that are members but have their own tags
+                                    // For nodes, include ALL nodes (both with and without tags)
                                     if (geometryType === 'Point') {
-                                        const hasTags = Object.keys(properties).some(prop =>
-                                            prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
-                                            prop !== 'originalType' && prop !== 'fixedGeometry' &&
-                                            prop !== 'members' && prop !== 'memberOf' &&
-                                            prop !== 'member' && prop !== 'membership'
-                                        );
-
-                                        if (hasTags) {
-                                            return true;
-                                        }
+                                        return true;
                                     }
 
                                     return false;
                                 });
 
-                                console.log(`🎯 Tagged features: ${taggedFeatures.length}/${validFeatures.length}`);
+                                console.log(`🎯 All features: ${taggedFeatures.length}/${validFeatures.length}`);
 
                                 // Count different types of nodes separately
                                 const nodeStats = taggedFeatures.reduce((acc, feature) => {
@@ -1762,21 +1753,32 @@ function initValueSearch() {
 
                                 console.log('🎯 Node statistics:', nodeStats);
 
-                                // Log detailed summary of tagged features by type
-                                const detailedSummary = taggedFeatures.reduce((acc, feature) => {
+                                // Log detailed summary of tagged features by type (only elements with tags for legend display)
+                                const featuresWithTags = taggedFeatures.filter(feature => {
+                                    const properties = feature.getProperties();
+                                    const hasTags = Object.keys(properties).some(prop =>
+                                        prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
+                                        prop !== 'originalType' && prop !== 'fixedGeometry' &&
+                                        prop !== 'members' && prop !== 'memberOf' &&
+                                        prop !== 'member' && prop !== 'membership'
+                                    );
+                                    return hasTags;
+                                });
+
+                                const detailedSummary = featuresWithTags.reduce((acc, feature) => {
                                     const type = feature.getGeometry().getType();
                                     acc[type] = (acc[type] || 0) + 1;
                                     return acc;
                                 }, {});
 
-                                console.log('🎯 Detailed tagged features summary:', detailedSummary);
+                                console.log('🎯 Detailed features with tags summary:', detailedSummary);
 
                                 // Show detailed summary in a prominent way
                                 const summaryText = formatDetailedCountWithNodeSeparation(nodeStats, detailedSummary);
                                 console.log(`🎯 📊 SUMMARY: Found ${summaryText} with tags "${key}=${value}"`);
 
                                 // Update the legend title with detailed information
-                                if (taggedFeatures.length > 0) {
+                                if (featuresWithTags.length > 0) {
                                     const detailedTitle = `${key}=${value} (${summaryText})`;
                                     vectorLayer.set('title', detailedTitle);
                                     // Try to update the legend title if the method exists
@@ -1796,11 +1798,12 @@ function initValueSearch() {
                                     color: generateQueryColor(overlayId, false)
                                 });
 
-                                this.addFeatures(validFeatures);
-                                console.log('🎯 Features added to source');
+                                // Only add features with tags to the map (for display)
+                                this.addFeatures(featuresWithTags);
+                                console.log('🎯 Features with tags added to source');
 
-                                // Update legend with tagged count
-                                window.tagQueryLegend.updateCount(overlayId, taggedFeatures.length);
+                                // Update legend with tagged count (only elements with tags)
+                                window.tagQueryLegend.updateCount(overlayId, featuresWithTags.length);
 
                                 // Trigger URL update event after count update
                                 window.dispatchEvent(new CustomEvent('tagQueryCountUpdated', {
