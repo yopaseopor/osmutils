@@ -101,8 +101,9 @@ a:hover {
     vertical-align: middle;
 }
 
-.overlay-list-item:hover {
-    background-color: #f0f0f0;
+.overlay-close-btn:hover {
+    opacity: 1;
+    color: #666;
 }
 
 
@@ -1080,11 +1081,8 @@ CLEAR ACTIVE OVERLAY BUTTON
     position: relative;
 }
 
-.key-search-result:hover,
-.value-search-result:hover,
-.key-search-result.highlighted,
-.value-search-result.highlighted {
-    background-color: #f0f0f0;
+.overlay-list-item:hover .overlay-close-btn {
+    opacity: 1;
 }
 
 .key-name,
@@ -1143,6 +1141,10 @@ mark {
 
 .custom-value-option:hover {
     background-color: #d0e9f7 !important;
+}
+
+.overlay-list-item:hover {
+    background-color: #f0f0f0;
 }
 
 /* Element Type Filter */

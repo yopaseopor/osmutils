@@ -364,8 +364,48 @@ $(function () {
                     'display': 'flex',
                     'align-items': 'center',
                     'padding': '5px',
-                    'cursor': 'pointer'
+                    'cursor': 'pointer',
+                    'position': 'relative'
                 });
+
+                // Add close button (X)
+                var $closeBtn = $('<button>')
+                    .addClass('overlay-close-btn')
+                    .html('<i class="fa fa-times"></i>')
+                    .css({
+                        'background': 'none',
+                        'border': 'none',
+                        'color': '#999',
+                        'cursor': 'pointer',
+                        'font-size': '12px',
+                        'padding': '2px 4px',
+                        'margin-left': 'auto',
+                        'opacity': '0.7'
+                    })
+                    .on('click', function(e) {
+                        e.stopPropagation(); // Prevent triggering the overlay click
+                        // Remove the overlay from the map
+                        $.each(config.layers, function(indexLayer, layerGroup) {
+                            if (layerGroup.get && layerGroup.get('type') === 'overlay') {
+                                $.each(layerGroup.getLayers().getArray(), function(idx, olayer) {
+                                    if ((overlay.id && olayer.get('id') === overlay.id) ||
+                                        (olayer.get('title') === overlay.title && olayer.get('group') === overlay.group)) {
+                                        olayer.setVisible(false);
+                                        // Also remove from legend if it's a tag query
+                                        if (overlay.id && overlay.id.startsWith('tag_') && window.tagQueryLegend) {
+                                            window.tagQueryLegend.removeQuery(overlay.id);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        // Update the overlay list
+                        if (window.renderOverlayList) {
+                            window.renderOverlayList(window.overlays, '');
+                        }
+                    });
+
+                $item.append($closeBtn);
                 
                 // Add icon if available
                 if (overlay.iconSrc) {
