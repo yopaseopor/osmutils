@@ -1739,11 +1739,11 @@ function initValueSearch() {
                                         const originalType = properties.originalType;
 
                                         if (originalType === 'Polygon') {
-                                            // Nodes that are part of polygons
-                                            acc.polygonNodes = (acc.polygonNodes || 0) + 1;
-                                        } else {
-                                            // Standalone nodes or nodes from other geometries
+                                            // Nodes that were originally part of polygons - now shown as standalone nodes
                                             acc.standaloneNodes = (acc.standaloneNodes || 0) + 1;
+                                        } else {
+                                            // Standalone nodes that were never part of polygons
+                                            acc.polygonNodes = (acc.polygonNodes || 0) + 1;
                                         }
                                     } else if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
                                         acc.ways = (acc.ways || 0) + 1;
