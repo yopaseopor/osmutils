@@ -976,6 +976,8 @@ function initValueSearch() {
             // Set current value and show execute button
             currentValue = customValue;
             if (currentKey) {
+                // Store the selected key for custom values
+                $('#value-search').data('selectedKey', currentKey);
                 showExecuteButton(currentKey, currentValue);
             }
             resultsContainer.empty().hide();
