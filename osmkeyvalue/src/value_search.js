@@ -1683,16 +1683,14 @@ function initValueSearch() {
             const properties = feature.getProperties();
 
             if (geometryType === 'Point') {
-                const hasTags = Object.keys(properties).some(prop =>
-                    prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
-                    prop !== 'originalType' && prop !== 'fixedGeometry' &&
-                    prop !== 'members' && prop !== 'memberOf' &&
-                    prop !== 'member' && prop !== 'membership'
-                );
+                // Check if node has the specific tag we're searching for
+                const hasSpecificTag = properties[key] === value;
 
-                if (hasTags) {
+                if (hasSpecificTag) {
+                    // Nodes with the specific tag are standalone nodes
                     acc.standaloneNodes = (acc.standaloneNodes || 0) + 1;
                 } else {
+                    // Nodes without the specific tag are polygon nodes (part of geometries)
                     acc.polygonNodes = (acc.polygonNodes || 0) + 1;
                 }
             } else if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
