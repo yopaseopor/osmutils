@@ -1813,43 +1813,53 @@ function initValueSearch() {
             return;
         }
 
-        // Execute queries with rate limiting to avoid 429 errors
-        const executeQueriesWithLimit = async (queryPromises) => {
+        // Execute queries with flexible rate limiting to avoid 429 errors
+        const executeQueriesWithFlexibleLimit = async (queryPromises) => {
             const results = [];
-            const delay = 1000; // 1 second delay between queries
+            const baseDelay = 2000; // 2 seconds base delay between queries
+            const startTime = Date.now();
 
             for (let i = 0; i < queryPromises.length; i++) {
                 const { type, query } = queryPromises[i];
+                const queryStartTime = Date.now();
 
                 try {
                     console.log(`🚀 Executing query ${i + 1}/${queryPromises.length} (${type})`);
+                    console.log(`🚀 Total elapsed time: ${((Date.now() - startTime) / 1000).toFixed(3)}s`);
+
                     const features = await executeSingleQuery(query, type);
                     results.push(features);
 
+                    const queryDuration = Date.now() - queryStartTime;
+                    console.log(`✅ Query ${i + 1} (${type}) completed in ${queryDuration}ms`);
+
                     // Add delay between queries (except for the last one)
                     if (i < queryPromises.length - 1) {
+                        const delay = Math.max(baseDelay, 1000 + Math.random() * 1000); // 2-3 seconds random delay
                         console.log(`🚀 Waiting ${delay}ms before next query...`);
                         await new Promise(resolve => setTimeout(resolve, delay));
                     }
                 } catch (error) {
-                    console.error(`🚀 Error executing ${type} query:`, error);
-                    // Continue with other queries even if one fails
-                    results.push([]);
+                    console.error(`❌ Query ${i + 1} (${type}) failed:`, error);
+                    console.error(`❌ Stopping execution after failure`);
+                    throw error; // Stop execution if any query fails
                 }
             }
 
+            const totalTime = Date.now() - startTime;
+            console.log(`🎯 All queries completed successfully in ${totalTime}ms`);
             return results;
         };
 
-        // Execute all queries with rate limiting
-        executeQueriesWithLimit(queryPromises).then(results => {
+        // Execute all queries with flexible rate limiting
+        executeQueriesWithFlexibleLimit(queryPromises).then(results => {
             // Combine all results
             const allFeatures = results.flat();
 
             // Process combined results
             processQueryResults(allFeatures, key, value);
         }).catch(error => {
-            console.error('🚀 Error executing queries:', error);
+            console.error('🚀 Query execution stopped due to failure:', error);
             $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
         });
 
