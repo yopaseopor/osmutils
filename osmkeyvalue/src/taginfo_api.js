@@ -661,40 +661,50 @@ function generateOverpassQuery(key, value = null, bbox, elementTypes = ['node', 
     if (value) {
         // Specific key=value query - include all selected element types
         let queryParts = [];
-        elementTypes.forEach(elementType => {
-            if (elementType === 'way') {
-                // For ways, also get their nodes to reconstruct geometry
-                queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
-                queryParts.push(`  node(w)`); // Get nodes of the ways
-            } else if (elementType === 'relation') {
-                // For relations, get the relations and their members
-                queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
-                queryParts.push(`  way(r)`); // Get ways that are members of these relations
-                queryParts.push(`  node(w)`); // Get nodes of those ways
-            } else {
-                queryParts.push(`  ${elementType}["${key}"="${value}"](${bboxStr})`);
-            }
-        });
+
+        // Add nodes first (standalone nodes with tags)
+        if (elementTypes.includes('node')) {
+            queryParts.push(`  node["${key}"="${value}"](${bboxStr})`);
+        }
+
+        // Add ways and their nodes
+        if (elementTypes.includes('way')) {
+            queryParts.push(`  way["${key}"="${value}"](${bboxStr})`);
+            queryParts.push(`  node(w)`); // Get nodes of the ways - these will be marked as polygon nodes
+        }
+
+        // Add relations and their member nodes
+        if (elementTypes.includes('relation')) {
+            queryParts.push(`  relation["${key}"="${value}"](${bboxStr})`);
+            queryParts.push(`  way(r)`); // Get ways that are members of these relations
+            queryParts.push(`  node(w)`); // Get nodes of those ways - these will be marked as polygon nodes
+        }
+
         const query = `[out:xml][timeout:35];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
         console.log('🔧 Generated multi-element query:', query);
         return query;
     } else {
         // Generic key query (all values for this key) - include all selected element types
         let queryParts = [];
-        elementTypes.forEach(elementType => {
-            if (elementType === 'way') {
-                // For ways, also get their nodes to reconstruct geometry
-                queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
-                queryParts.push(`  node(w)`); // Get nodes of the ways
-            } else if (elementType === 'relation') {
-                // For relations, get the relations and their members
-                queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
-                queryParts.push(`  way(r)`); // Get ways that are members of these relations
-                queryParts.push(`  node(w)`); // Get nodes of those ways
-            } else {
-                queryParts.push(`  ${elementType}["${key}"](${bboxStr})`);
-            }
-        });
+
+        // Add nodes first (standalone nodes with tags)
+        if (elementTypes.includes('node')) {
+            queryParts.push(`  node["${key}"](${bboxStr})`);
+        }
+
+        // Add ways and their nodes
+        if (elementTypes.includes('way')) {
+            queryParts.push(`  way["${key}"](${bboxStr})`);
+            queryParts.push(`  node(w)`); // Get nodes of the ways - these will be marked as polygon nodes
+        }
+
+        // Add relations and their member nodes
+        if (elementTypes.includes('relation')) {
+            queryParts.push(`  relation["${key}"](${bboxStr})`);
+            queryParts.push(`  way(r)`); // Get ways that are members of these relations
+            queryParts.push(`  node(w)`); // Get nodes of those ways - these will be marked as polygon nodes
+        }
+
         const query = `[out:xml][timeout:60];\n(\n${queryParts.join(';\n')};\n);\nout meta;`;
         console.log('🔧 Generated multi-element generic query:', query);
         return query;
