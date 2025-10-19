@@ -303,10 +303,44 @@ $(function () {
     window.renderOverlayList = function(filtered, query) {
         var $list = $('#overlay-list');
         $list.empty();
-        // (Removed: clear overlay button is now a map control, not injected here)
 
-        var $list = $('#overlay-list');
-        $list.empty();
+        // Add header with close button for the entire overlay list
+        var $header = $('<div>')
+            .addClass('overlay-list-header')
+            .css({
+                'background': '#f8f9fa',
+                'padding': '8px 12px',
+                'border-radius': '6px 6px 0 0',
+                'border': '1px solid #dee2e6',
+                'border-bottom': 'none',
+                'font-weight': '600',
+                'color': '#495057',
+                'margin-bottom': '8px'
+            })
+            .html('<span>Consultas Activas</span><button class="overlay-list-close-all-btn" style="float: right; background: #dc3545; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 16px; font-weight: bold; cursor: pointer;">×</button>')
+            .on('click', '.overlay-list-close-all-btn', function(e) {
+                e.stopPropagation();
+                // Hide all overlays and clear the list
+                $.each(config.layers, function(indexLayer, layerGroup) {
+                    if (layerGroup.get && layerGroup.get('type') === 'overlay') {
+                        $.each(layerGroup.getLayers().getArray(), function(idx, olayer) {
+                            if (olayer.setVisible) olayer.setVisible(false);
+                        });
+                    }
+                });
+
+                // Also clear Tag Queries layers if the function exists
+                if (window.clearMapLayers) {
+                    window.clearMapLayers();
+                }
+
+                // Hide the overlay list
+                $list.hide();
+                $('#overlay-search').val('');
+                if (window.updateOverlaySummary) window.updateOverlaySummary();
+            });
+
+        $list.append($header);
         if (!query || !filtered || !filtered.length) {
             if (query && (!filtered || !filtered.length)) {
                 $list.append('<div style="padding:8px;color:#888;">No overlays found.</div>');
