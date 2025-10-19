@@ -924,12 +924,29 @@ function initValueSearch() {
         const selectedKey = $(this).data('selectedKey');
         console.log('🔍 Selected key:', selectedKey);
 
+        // Check if query is in key=value format and no key is selected
+        let parsedKey = selectedKey;
+        let parsedValue = query;
+
+        if (!selectedKey && query.includes('=')) {
+            // Try to parse key=value format
+            const parts = query.split('=', 2);
+            if (parts.length === 2 && parts[0].trim() && parts[1].trim()) {
+                parsedKey = parts[0].trim();
+                parsedValue = parts[1].trim();
+                console.log('🔍 Parsed key=value format:', { key: parsedKey, value: parsedValue });
+                // Store the parsed key for later use
+                $(this).data('selectedKey', parsedKey);
+                $(this).val(parsedValue); // Update input to show only the value
+            }
+        }
+
         // Update current value and key for potential execution
-        currentValue = query;
+        currentValue = parsedValue;
 
         // Show execute button if we have both key and value
-        if (selectedKey && query) {
-            showExecuteButton(selectedKey, query);
+        if (parsedKey && parsedValue) {
+            showExecuteButton(parsedKey, parsedValue);
         } else {
             $('#execute-query-btn').hide();
             $('#clear-search-btn').hide();
@@ -941,15 +958,15 @@ function initValueSearch() {
         }
 
         // Clear results if query is empty
-        if (!query) {
+        if (!parsedValue) {
             resultsContainer.empty().hide();
             return;
         }
 
         // Debounce search - use selected key if available
         searchTimeout = setTimeout(() => {
-            console.log('🔍 Performing value search for:', query, 'with key:', selectedKey);
-            performValueSearch(query, selectedKey);
+            console.log('🔍 Performing value search for:', parsedValue, 'with key:', parsedKey);
+            performValueSearch(parsedValue, parsedKey);
         }, 300);
     });
 
