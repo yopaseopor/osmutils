@@ -2314,7 +2314,6 @@ $(document).ready(function() {
 // Export for use in other modules
 window.initValueSearch = initValueSearch;
 window.executeTagQuery = executeTagQuery;
-window.clearMapLayers = clearMapLayers;
 window.tagQueryLegend = tagQueryLegend;
 window.generateUniqueColor = generateUniqueColor; // Export for use in other modules
 window.generateQueryColor = generateQueryColor; // Export for use in other modules
