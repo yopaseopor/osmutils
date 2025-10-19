@@ -1,40 +1,13 @@
 /**
- * Generate a unique color for a key-value pair using a simple hash function
+ * Generate a unique color for a query using overlay ID and fixed status
  */
-function generateUniqueColor(key, value) {
-    // Create a simple hash from the key-value combination
-    const combined = `${key}:${value}`;
+function generateQueryColor(identifier, isFixed = false) {
+    // Create a hash from the identifier
     let hash = 0;
+    const str = String(identifier);
 
-    for (let i = 0; i < combined.length; i++) {
-        const char = combined.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32-bit integer
-    }
-
-    // Convert hash to RGB values
-    const r = Math.abs(hash) % 255;
-    const g = Math.abs(hash >> 8) % 255;
-    const b = Math.abs(hash >> 16) % 255;
-
-    // Ensure good contrast and visibility by adjusting values
-    const adjustedR = Math.max(50, Math.min(200, r));
-    const adjustedG = Math.max(50, Math.min(200, g));
-    const adjustedB = Math.max(50, Math.min(200, b));
-
-    return [adjustedR, adjustedG, adjustedB];
-}
-
-/**
- * Generate a unique color for a key-value pair using a simple hash function
- */
-function generateUniqueColor(key, value) {
-    // Create a simple hash from the key-value combination
-    const combined = `${key}:${value}`;
-    let hash = 0;
-
-    for (let i = 0; i < combined.length; i++) {
-        const char = combined.charCodeAt(i);
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
         hash = ((hash << 5) - hash) + char;
         hash = hash & hash; // Convert to 32-bit integer
     }
