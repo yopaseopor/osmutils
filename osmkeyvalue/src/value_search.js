@@ -1591,14 +1591,14 @@ function initValueSearch() {
             const properties = feature.getProperties();
 
             if (geometryType === 'Point') {
-                const hasTags = Object.keys(properties).some(prop =>
-                    prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
-                    prop !== 'originalType' && prop !== 'fixedGeometry' &&
-                    prop !== 'members' && prop !== 'memberOf' &&
-                    prop !== 'member' && prop !== 'membership'
-                );
+                // Check if this node has OSM tags (not just internal properties)
+                const hasOSMTags = Object.keys(properties).some(prop => {
+                    // OSM tags are any property that is not an internal OpenLayers/OSMXML2 property
+                    return !['geometry', 'id', 'type', 'originalType', 'fixedGeometry',
+                           'members', 'memberOf', 'member', 'membership'].includes(prop);
+                });
 
-                if (hasTags) {
+                if (hasOSMTags) {
                     acc.standaloneNodes = (acc.standaloneNodes || 0) + 1;
                 } else {
                     acc.polygonNodes = (acc.polygonNodes || 0) + 1;
