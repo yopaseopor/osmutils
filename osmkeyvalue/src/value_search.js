@@ -163,14 +163,15 @@ function executeTagQuery(key, value) {
     console.log('🚀 executeTagQuery called with:', key, value);
     console.log('🚀 Current legend queries before execution:', window.tagQueryLegend.queries.size);
 
-    // Check if this exact query is already running or exists
-    const existingQuery = Array.from(window.tagQueryLegend.queries.entries())
-        .find(([id, query]) => query.key === key && query.value === value);
+    /**
+     * Check if this exact query is already running or exists - OPTIMIZED
+     */
+    const existingQuery = window.tagQueryLegend.queries.get(`tag_${key}_${value}`);
 
     if (existingQuery) {
         console.log('🚀 Query already exists, replacing existing overlay');
         // Remove the existing query from legend
-        window.tagQueryLegend.removeQuery(existingQuery[0]);
+        window.tagQueryLegend.removeQuery(`tag_${key}_${value}`);
     }
     if (!window.map) {
         console.log('🚀 Map not ready, retrying in 500ms');
@@ -750,7 +751,7 @@ function createTagOverlay(key, value, query) {
     if (tagQueriesGroup) {
         console.log('🔍 Adding vector layer to Tag Queries group');
 
-        // Check if this specific overlay already exists in the group
+        // Check if this specific overlay already exists in the group - OPTIMIZED
         const existingLayers = tagQueriesGroup.getLayers().getArray();
         const existingOverlay = existingLayers.find(layer => layer.get('id') === overlayId);
 
@@ -1763,61 +1764,73 @@ function initValueSearch() {
         }, 100);
     }
 
-    function findOrCreateTagOverlaysGroup() {
-        console.log('🔍 Looking for Tag Queries group');
+function findOrCreateTagOverlaysGroup() {
+    console.log('🔍 Looking for Tag Queries group');
 
-        // First, try to find existing Tag Queries group
-        console.log('🔍 Checking config.layers for Tag Queries group');
-        console.log('🔍 Total layers in config:', config.layers.length);
-
-        for (let i = 0; i < config.layers.length; i++) {
-            const layer = config.layers[i];
-            console.log('🔍 Checking layer', i, ':', layer.get ? layer.get('title') : 'no title', layer.get ? layer.get('type') : 'no type');
-
+    // OPTIMIZED: Check if group already exists in map first (faster lookup)
+    if (window.map) {
+        const existingLayers = window.map.getLayers().getArray();
+        for (let i = 0; i < existingLayers.length; i++) {
+            const layer = existingLayers[i];
             if (layer.get && layer.get('type') === 'tag-query' && layer.get('title') === 'Tag Queries') {
-                console.log('🔍 Found existing Tag Queries group at index', i);
-                console.log('🔍 Group layers count:', layer.getLayers().getLength());
-
-                // If the map already exists, make sure the layer group is in it
-                if (window.map) {
-                    console.log('🔍 Checking if layer group is in map');
-                    const existingLayers = window.map.getLayers().getArray();
-                    const groupExists = existingLayers.some(existingLayer => existingLayer === layer);
-                    console.log('🔍 Group exists in map:', groupExists);
-
-                    if (!groupExists) {
-                        console.log('🔍 Layer group not in map, adding it');
-                        window.map.addLayer(layer);
-                    }
-                }
-
+                console.log('🔍 Found existing Tag Queries group in map');
                 return layer;
             }
         }
-
-        // Create new Tag Queries group if none exists
-        console.log('🔍 Creating new Tag Queries group');
-        const overlaysGroup = new ol.layer.Group({
-            title: 'Tag Queries',
-            type: 'tag-query',
-            layers: []
-        });
-
-        // Set additional properties to match the expected overlay structure
-        overlaysGroup.set('originalTitle', 'Tag Queries');
-        overlaysGroup.set('id', 'tag-queries-group');
-
-        config.layers.push(overlaysGroup);
-
-        // If the map already exists, add the new layer group to it
-        if (window.map) {
-            console.log('🔍 Adding new layer group to existing map');
-            window.map.addLayer(overlaysGroup);
-        }
-
-        console.log('🔍 Added Tag Queries group to config.layers');
-        return overlaysGroup;
     }
+
+    // Fallback: Search in config.layers (slower if many layers)
+    console.log('🔍 Checking config.layers for Tag Queries group');
+    console.log('🔍 Total layers in config:', config.layers.length);
+
+    for (let i = 0; i < config.layers.length; i++) {
+        const layer = config.layers[i];
+        console.log('🔍 Checking layer', i, ':', layer.get ? layer.get('title') : 'no title', layer.get ? layer.get('type') : 'no type');
+
+        if (layer.get && layer.get('type') === 'tag-query' && layer.get('title') === 'Tag Queries') {
+            console.log('🔍 Found existing Tag Queries group at index', i);
+            console.log('🔍 Group layers count:', layer.getLayers().getLength());
+
+            // If the map already exists, make sure the layer group is in it
+            if (window.map) {
+                console.log('🔍 Checking if layer group is in map');
+                const existingLayers = window.map.getLayers().getArray();
+                const groupExists = existingLayers.some(existingLayer => existingLayer === layer);
+                console.log('🔍 Group exists in map:', groupExists);
+
+                if (!groupExists) {
+                    console.log('🔍 Layer group not in map, adding it');
+                    window.map.addLayer(layer);
+                }
+            }
+
+            return layer;
+        }
+    }
+
+    // Create new Tag Queries group if none exists
+    console.log('🔍 Creating new Tag Queries group');
+    const overlaysGroup = new ol.layer.Group({
+        title: 'Tag Queries',
+        type: 'tag-query',
+        layers: []
+    });
+
+    // Set additional properties to match the expected overlay structure
+    overlaysGroup.set('originalTitle', 'Tag Queries');
+    overlaysGroup.set('id', 'tag-queries-group');
+
+    config.layers.push(overlaysGroup);
+
+    // If the map already exists, add the new layer group to it
+    if (window.map) {
+        console.log('🔍 Adding new layer group to existing map');
+        window.map.addLayer(overlaysGroup);
+    }
+
+    console.log('🔍 Added Tag Queries group to config.layers');
+    return overlaysGroup;
+}
 
     function generateQueryColor(overlayId, isFixed = false) {
         // Generate a consistent color based on overlay ID hash
