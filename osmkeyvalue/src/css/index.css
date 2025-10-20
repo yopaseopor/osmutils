@@ -61,7 +61,6 @@ a:hover {
     flex-direction: column;
     overflow: hidden;
     position: relative;
-    gap: 0; /* Remove gap to prevent extra spacing */
 }
 
 #language-selector-container {
@@ -74,27 +73,15 @@ a:hover {
 #overlay-list {
     background: #fff;
     border-radius: 6px;
-    margin: 0 8px 0 8px;
+    margin: 0 8px 0 8px; /* Removed bottom margin */
     padding: 8px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     min-height: 40px;
-    flex: 1 1 auto;
-    max-height: calc(100vh - 300px);
+    flex: 1 1 0%; /* Take all remaining space */
+    height: 100%; /* Fill container height */
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    position: relative;
-    display: none !important; /* Hidden permanently */
-}
-
-/* Header with close button for the entire overlay list */
-#overlay-list::before {
-    display: none !important;
-}
-
-/* Close button for the entire overlay list */
-#overlay-list::after {
-    display: none !important;
 }
 
 .overlay-list-item {
@@ -113,17 +100,10 @@ a:hover {
     vertical-align: middle;
 }
 
-.overlay-close-btn {
-    display: none !important;
+.overlay-list-item:hover {
+    background-color: #f0f0f0;
 }
 
-.overlay-close-btn:hover {
-    display: none !important;
-}
-
-.overlay-list-item:hover .overlay-close-btn {
-    display: none !important;
-}
 
 #overlay-search-container {
     margin: 8px 8px 4px 8px;
@@ -1099,8 +1079,11 @@ CLEAR ACTIVE OVERLAY BUTTON
     position: relative;
 }
 
-.overlay-list-item:hover .overlay-close-btn {
-    opacity: 1;
+.key-search-result:hover,
+.value-search-result:hover,
+.key-search-result.highlighted,
+.value-search-result.highlighted {
+    background-color: #f0f0f0;
 }
 
 .key-name,
@@ -1161,10 +1144,6 @@ mark {
     background-color: #d0e9f7 !important;
 }
 
-.overlay-list-item:hover {
-    background-color: #f0f0f0;
-}
-
 /* Element Type Filter */
 .element-type-filter {
     margin: 10px 0;
@@ -1186,10 +1165,6 @@ mark {
     border: 1px solid #dee2e6;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin: 10px 8px 0 8px;
-    padding: 10px;
-    min-height: 140px; /* Ensure minimum height for statistics */
-    flex-shrink: 0; /* Don't shrink below minimum height */
 }
 
 .query-statistics h4 {
