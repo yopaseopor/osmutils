@@ -1579,13 +1579,13 @@ function initValueSearch() {
             return hasTags;
         });
 
-        // Add features with tags to the map
+        // Add features with tags to the map (for display)
         vectorLayer.getSource().addFeatures(featuresWithTags);
 
-        // Update legend with correct count
+        // Update legend with correct count (only elements with tags)
         window.tagQueryLegend.updateCount(overlayId, featuresWithTags.length);
 
-        // Update query statistics
+        // Update query statistics - COUNT ALL NODES, not just tagged ones
         const nodeStats = validFeatures.reduce((acc, feature) => {
             const geometryType = feature.getGeometry().getType();
             const properties = feature.getProperties();
