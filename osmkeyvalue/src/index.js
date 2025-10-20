@@ -299,132 +299,24 @@ $(function () {
     // Initial update
     updateWindowOverlays();
 
-    // 2. Define window.renderOverlayList
+    // 2. Define window.renderOverlayList - DISABLED
     window.renderOverlayList = function(filtered, query) {
-        var $list = $('#overlay-list');
-        $list.empty();
-        // (Removed: clear overlay button is now a map control, not injected here)
-
-        var $list = $('#overlay-list');
-        $list.empty();
-        if (!query || !filtered || !filtered.length) {
-            if (query && (!filtered || !filtered.length)) {
-                $list.append('<div style="padding:8px;color:#888;">No overlays found.</div>');
-            }
-            return;
-        }
-        var activeOverlay = null;
-        
-        // Group overlays by normalized group name to avoid duplicates
-        var groupMap = {};
-        
-        // Process all overlays and organize them by group
-        filtered.forEach(function(overlay) {
-            if (!overlay.group) return;
-            
-            // Normalize group name (lowercase for comparison)
-            var normalizedGroup = overlay.group.toLowerCase();
-            
-            // Initialize group if not exists
-            if (!groupMap[normalizedGroup]) {
-                groupMap[normalizedGroup] = {
-                    displayName: overlay.group, // Keep original case for display
-                    overlays: []
-                };
-            }
-            
-            // Add overlay to group if not already present
-            if (!groupMap[normalizedGroup].overlays.some(o => o.title === overlay.title)) {
-                groupMap[normalizedGroup].overlays.push(overlay);
-            }
-        });
-        
-        // Group overlays by first letter only, show max 10 per letter
-        var letterMap = {};
-        
-        // Convert grouped overlays to flat list for display, prioritizing translated groups
-        Object.values(groupMap).forEach(function(group) {
-            group.overlays.forEach(function(overlay) {
-                var titleOrGroup = (overlay.title || group.displayName || '').trim();
-                var firstLetter = titleOrGroup.charAt(0) ? titleOrGroup.charAt(0).toUpperCase() : '_';
-                if (!letterMap[firstLetter]) letterMap[firstLetter] = [];
-                if (letterMap[firstLetter].length < 10) {
-                    // Use the normalized group display name for consistency
-                    var displayOverlay = {...overlay, group: group.displayName};
-                    letterMap[firstLetter].push(displayOverlay);
-                }
-            });
-        });
-        
-        // Render overlays (max 10 per letter)
-        Object.keys(letterMap).sort().forEach(function(letter) {
-            letterMap[letter].forEach(function(overlay) {
-                var isActive = activeOverlay && ((overlay.id && activeOverlay.get('id') === overlay.id) || (activeOverlay.get('title') === overlay.title && activeOverlay.get('group') === overlay.group));
-                var $item = $('<div>').addClass('overlay-list-item').css({
-                    'display': 'flex',
-                    'align-items': 'center',
-                    'padding': '5px',
-                    'cursor': 'pointer'
-                });
-                
-                // Add icon if available
-                if (overlay.iconSrc) {
-                    $item.append($('<img>')
-                        .attr('src', overlay.iconSrc)
-                        .attr('alt', '')
-                        .css({
-                            'max-width': '30px',
-                            'max-height': '30px',
-                            'width': 'auto',
-                            'height': 'auto',
-                            'margin-right': '10px',
-                            'vertical-align': 'middle'
-                        })
-                    );
-                }
-                
-                // Add text - only show the title in the selected language
-                $item.append($('<span>').text(overlay.title));
-                
-                if (isActive) $item.addClass('active').attr('tabindex', 0);
-                $item.on('click', function() {
-                    window.activateOverlay(overlay);
-                });
-                $list.append($item);
-                if (isActive) {
-                    setTimeout(function(){
-                        $item[0].scrollIntoView({block:'nearest'});
-                        $item.focus();
-                    }, 10);
-                }
-            });
-        });
+        // Overlay list is disabled - do nothing
+        console.log('📋 Overlay list rendering disabled');
     };
 
 
 
-    // Toggle the chosen overlay independently
+    // Toggle the chosen overlay independently - DISABLED
     window.activateOverlay = function(overlay) {
-        // Toggle visibility of the selected overlay (by id or by group/title)
-        $.each(config.layers, function(indexLayer, layerGroup) {
-            if (layerGroup.get && layerGroup.get('type') === 'overlay') {
-                $.each(layerGroup.getLayers().getArray(), function(idx, olayer) {
-                    if ((overlay.id && olayer.get('id') === overlay.id) ||
-                        (olayer.get('title') === overlay.title && olayer.get('group') === overlay.group)) {
-                        olayer.setVisible(!olayer.getVisible());
-                    }
-                });
-            }
-        });
-        // Update the overlay list UI with all overlays
-        if (window.renderOverlayList) {
-            window.renderOverlayList(window.overlays, '');
-        }
+        // Overlay activation is disabled - do nothing
+        console.log('🎯 Overlay activation disabled');
     };
 
-    // Render all overlays initially
+    // Render all overlays initially - DISABLED
     $(document).ready(function() {
-        window.renderOverlayList(window.overlays);
+        // Overlay list rendering is disabled
+        console.log('📋 Initial overlay list rendering disabled');
     });
     // --- End Overlay Searcher Integration ---
 
@@ -831,8 +723,7 @@ $(function () {
     $('.element-type-filter').after(layersControlBuild());
     // Optionally, re-render layers after layersControl if needed
     if (window.renderLayerList && window.layers) window.renderLayerList(window.layers);
-    // Optionally, re-render overlays after overlaysControl if needed
-    if (window.renderOverlayList && window.overlays) window.renderOverlayList(window.overlays);
+    // Overlay list rendering is disabled - no need to re-render overlays
 
 	map.addControl(new ol.control.MousePosition({
 		coordinateFormat: function (coordinate) {
@@ -907,7 +798,7 @@ $(function () {
 					window.clearMapLayers();
 				}
 
-				if (window.renderOverlayList) window.renderOverlayList([], '');
+				// Overlay list is disabled - no need to update it
 				$('#overlay-search').val('');
                     if (window.updateOverlaySummary) window.updateOverlaySummary();
 			})
