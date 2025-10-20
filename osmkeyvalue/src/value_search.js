@@ -1570,13 +1570,15 @@ function initValueSearch() {
         // Filter features with tags for display and statistics
         const featuresWithTags = validFeatures.filter(feature => {
             const properties = feature.getProperties();
-            const hasTags = Object.keys(properties).some(prop =>
-                prop !== 'geometry' && prop !== 'id' && prop !== 'type' &&
-                prop !== 'originalType' && prop !== 'fixedGeometry' &&
-                prop !== 'members' && prop !== 'memberOf' &&
-                prop !== 'member' && prop !== 'membership'
+
+            // Check if this feature has OSM tags (not metadata or internal properties)
+            const internalProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry',
+                                 'members', 'memberOf', 'member', 'membership'];
+            const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
+
+            return Object.keys(properties).some(prop =>
+                !internalProps.includes(prop) && !metadataProps.includes(prop)
             );
-            return hasTags;
         });
 
         // Add features with tags to the map (for display)
@@ -1591,11 +1593,16 @@ function initValueSearch() {
             const properties = feature.getProperties();
 
             if (geometryType === 'Point') {
-                // Check if this node has OSM tags (not just internal properties)
+                // Check if this node has OSM tags (not metadata or internal properties)
                 const hasOSMTags = Object.keys(properties).some(prop => {
-                    // OSM tags are any property that is not an internal OpenLayers/OSMXML2 property
-                    return !['geometry', 'id', 'type', 'originalType', 'fixedGeometry',
-                           'members', 'memberOf', 'member', 'membership'].includes(prop);
+                    // OSM tags are properties that are NOT:
+                    // 1. Internal OpenLayers/OSMXML2 properties
+                    // 2. OSM metadata properties (version, timestamp, changeset, user, uid, etc.)
+                    const internalProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry',
+                                         'members', 'memberOf', 'member', 'membership'];
+                    const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
+
+                    return !internalProps.includes(prop) && !metadataProps.includes(prop);
                 });
 
                 if (hasOSMTags) {
