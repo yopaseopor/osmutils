@@ -1813,59 +1813,8 @@ function initValueSearch() {
             return;
         }
 
-        // Execute queries with flexible rate limiting to avoid 429 errors
-        const executeQueriesWithFlexibleLimit = async (queryPromises) => {
-            const results = [];
-            const baseDelay = 2000; // 2 seconds base delay between queries
-            const startTime = Date.now();
-
-            for (let i = 0; i < queryPromises.length; i++) {
-                const { type, query } = queryPromises[i];
-                const queryStartTime = Date.now();
-
-                try {
-                    console.log(`🚀 Executing query ${i + 1}/${queryPromises.length} (${type})`);
-                    console.log(`🚀 Total elapsed time: ${((Date.now() - startTime) / 1000).toFixed(3)}s`);
-
-                    const features = await executeSingleQuery(query, type);
-                    results.push(features);
-
-                    const queryDuration = Date.now() - queryStartTime;
-                    console.log(`✅ Query ${i + 1} (${type}) completed in ${queryDuration}ms`);
-
-                    // Add delay between queries (except for the last one)
-                    if (i < queryPromises.length - 1) {
-                        const delay = Math.max(baseDelay, 1000 + Math.random() * 1000); // 2-3 seconds random delay
-                        console.log(`🚀 Waiting ${delay}ms before next query...`);
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    }
-                } catch (error) {
-                    console.error(`❌ Query ${i + 1} (${type}) failed:`, error);
-                    console.error(`❌ Stopping execution after failure`);
-                    throw error; // Stop execution if any query fails
-                }
-            }
-
-            const totalTime = Date.now() - startTime;
-            console.log(`🎯 All queries completed successfully in ${totalTime}ms`);
-            return results;
-        };
-
-        // Execute all queries with flexible rate limiting
-        executeQueriesWithFlexibleLimit(queryPromises).then(results => {
-            // Combine all results
-            const allFeatures = results.flat();
-
-            // Process combined results
-            processQueryResults(allFeatures, key, value);
-        }).catch(error => {
-            console.error('🚀 Query execution stopped due to failure:', error);
-            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
-        });
-
-        // Update button state
-        $('#execute-query-btn').prop('disabled', true).text(`${window.getTranslation ? window.getTranslation('executing') : 'Executing...'}`);
-        console.log('🚀 Button state updated to executing');
+        // Show execute button and wait for user action
+        showExecuteButton(key, value, elementTypes);
 
         // Dispatch tagQueryAdded event immediately after creating overlay
         console.log('🚀 Dispatching tagQueryAdded event from executeTagQuery');
@@ -2153,11 +2102,156 @@ function initValueSearch() {
     }
 
     // Hide statistics when clearing searches
-    function hideQueryStatistics() {
-        const statsContainer = $('#query-statistics');
-        if (statsContainer.length > 0) {
-            statsContainer.hide();
+    function showExecuteButton(key, value, elementTypes) {
+        console.log('🔘 Showing execute button for:', key, '=', value);
+
+        // Hide statistics container initially
+        hideQueryStatistics();
+
+        // Create or update execute button
+        let $executeBtn = $('#execute-query-btn');
+        if ($executeBtn.length === 0) {
+            // Create execute button if it doesn't exist
+            $executeBtn = $('<button>')
+                .attr('id', 'execute-query-btn')
+                .addClass('execute-query-btn')
+                .css({
+                    'background': '#007cba',
+                    'color': 'white',
+                    'border': 'none',
+                    'border-radius': '4px',
+                    'padding': '8px 16px',
+                    'font-size': '14px',
+                    'font-weight': 'bold',
+                    'cursor': 'pointer',
+                    'margin': '8px 0',
+                    'display': 'block',
+                    'width': '100%'
+                })
+                .text(`${window.getTranslation ? window.getTranslation('executeQuery') : 'Execute Query'}: ${key}=${value}`)
+                .on('click', function() {
+                    executeQueriesManually(key, value, elementTypes);
+                });
+
+            // Insert after value search container
+            $('#value-search-container').after($executeBtn);
+        } else {
+            // Update existing button
+            $executeBtn.text(`${window.getTranslation ? window.getTranslation('executeQuery') : 'Execute Query'}: ${key}=${value}`);
         }
+
+        // Show the button
+        $executeBtn.show();
+
+        // Update button state
+        $executeBtn.prop('disabled', false);
+        console.log('🔘 Execute button ready for user action');
+    }
+
+    function executeQueriesManually(key, value, elementTypes) {
+        console.log('🚀 Manual execution requested for:', key, '=', value);
+
+        // Hide execute button
+        $('#execute-query-btn').hide();
+
+        // Get current map bbox
+        const view = window.map.getView();
+        const extent = view.calculateExtent();
+        const bbox = ol.proj.transformExtent(extent, view.getProjection(), 'EPSG:4326');
+
+        // Validate bbox coordinates
+        if (bbox.some(coord => isNaN(coord) || Math.abs(coord) > 180)) {
+            console.error('🚀 Invalid bbox coordinates:', bbox);
+            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('invalidLocation') : 'Invalid Location'}`);
+            return;
+        }
+
+        // Execute separate queries for each element type to properly distinguish node types
+        const queryPromises = [];
+
+        // Query 1: Standalone nodes (nodes with tags)
+        if (elementTypes.includes('node')) {
+            const nodeQuery = window.generateOverpassQuery(key, value, bbox, ['node']);
+            if (nodeQuery) {
+                queryPromises.push({ type: 'node', query: nodeQuery });
+            }
+        }
+
+        // Query 2: Ways and their nodes
+        if (elementTypes.includes('way')) {
+            const wayQuery = window.generateOverpassQuery(key, value, bbox, ['way']);
+            if (wayQuery) {
+                queryPromises.push({ type: 'way', query: wayQuery });
+            }
+        }
+
+        // Query 3: Relations and their member nodes
+        if (elementTypes.includes('relation')) {
+            const relationQuery = window.generateOverpassQuery(key, value, bbox, ['relation']);
+            if (relationQuery) {
+                queryPromises.push({ type: 'relation', query: relationQuery });
+            }
+        }
+
+        if (queryPromises.length === 0) {
+            console.error('🚀 No valid queries to execute');
+            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
+            return;
+        }
+
+        // Execute queries with flexible rate limiting to avoid 429 errors
+        const executeQueriesWithFlexibleLimit = async (queryPromises) => {
+            const results = [];
+            const baseDelay = 2000; // 2 seconds base delay between queries
+            const startTime = Date.now();
+
+            for (let i = 0; i < queryPromises.length; i++) {
+                const { type, query } = queryPromises[i];
+                const queryStartTime = Date.now();
+
+                try {
+                    console.log(`🚀 Executing query ${i + 1}/${queryPromises.length} (${type})`);
+                    console.log(`🚀 Total elapsed time: ${((Date.now() - startTime) / 1000).toFixed(3)}s`);
+
+                    const features = await executeSingleQuery(query, type);
+                    results.push(features);
+
+                    const queryDuration = Date.now() - queryStartTime;
+                    console.log(`✅ Query ${i + 1} (${type}) completed in ${queryDuration}ms`);
+
+                    // Add delay between queries (except for the last one)
+                    if (i < queryPromises.length - 1) {
+                        const delay = Math.max(baseDelay, 1000 + Math.random() * 1000); // 2-3 seconds random delay
+                        console.log(`🚀 Waiting ${delay}ms before next query...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                } catch (error) {
+                    console.error(`❌ Query ${i + 1} (${type}) failed:`, error);
+                    console.error(`❌ Stopping execution after failure`);
+                    throw error; // Stop execution if any query fails
+                }
+            }
+
+            const totalTime = Date.now() - startTime;
+            console.log(`🎯 All queries completed successfully in ${totalTime}ms`);
+            return results;
+        };
+
+        // Execute all queries with flexible rate limiting
+        executeQueriesWithFlexibleLimit(queryPromises).then(results => {
+            // Combine all results
+            const allFeatures = results.flat();
+
+            // Process combined results
+            processQueryResults(allFeatures, key, value);
+        }).catch(error => {
+            console.error('🚀 Query execution stopped due to failure:', error);
+            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
+        });
+
+        // Update button state
+        $('#execute-query-btn').prop('disabled', true).text(`${window.getTranslation ? window.getTranslation('executing') : 'Executing...'}`);
+        console.log('🚀 Button state updated to executing');
     }
 }
 // Initialize when DOM is ready
