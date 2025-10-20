@@ -1471,6 +1471,10 @@ function initValueSearch() {
     function processQueryResults(allFeatures, key, value) {
         console.log('🚀 Processing', allFeatures.length, 'features from all queries');
 
+        // Calculate execution time
+        const endTime = performance.now();
+        const executionTime = ((endTime - window.queryStartTime) / 1000).toFixed(3) + 's';
+
         // Fix invalid geometries
         const fixedFeatures = allFeatures.map((feature, index) => {
             const geometry = feature.getGeometry();
@@ -1705,7 +1709,8 @@ function initValueSearch() {
         }, {});
 
         updateQueryStatistics({
-            dataSize: 'Calculating...',
+            dataSize: formatBytes(allFeatures.length * 100), // Approximate data size
+            executionTime: executionTime,
             nodes: nodeStats.standaloneNodes || 0,
             polygonNodes: nodeStats.polygonNodes || 0,
             ways: nodeStats.ways || 0,
@@ -1816,6 +1821,9 @@ function initValueSearch() {
         }
 
         console.log('🚀 Executing', queryPromises.length, 'separate queries');
+
+        // Start timing the query execution
+        window.queryStartTime = performance.now();
 
         // Execute all queries in parallel
         Promise.all(queryPromises.map(({ type, query }) =>
@@ -2079,6 +2087,9 @@ function initValueSearch() {
         if (statsContainer.length > 0) {
             statsContainer.show();
 
+            // Update execution time
+            $('#execution-time').text(stats.executionTime || '0.000s');
+
             // Update data size
             $('#data-size').text(stats.dataSize);
 
@@ -2091,7 +2102,7 @@ function initValueSearch() {
 
             // Update color indicators
             $('.stat-value').removeClass('color-indicator');
-            $('#data-size, #nodes-count, #polygon-nodes-count, #ways-count, #relations-count, #polygons-count')
+            $('#execution-time, #data-size, #nodes-count, #polygon-nodes-count, #ways-count, #relations-count, #polygons-count')
                 .addClass('color-indicator')
                 .css('background-color', `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`)
                 .css('border-left', `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`);

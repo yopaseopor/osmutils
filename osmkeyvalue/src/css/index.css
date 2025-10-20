@@ -77,8 +77,8 @@ a:hover {
     padding: 8px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     min-height: 40px;
-    flex: 1 1 0%; /* Take all remaining space */
-    height: 100%; /* Fill container height */
+    flex: 0 1 auto; /* Don't take all remaining space */
+    max-height: 50vh; /* Limit height to 50% of viewport */
     overflow-y: auto;
     display: flex;
     flex-direction: column;

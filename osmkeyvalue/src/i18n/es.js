@@ -478,6 +478,7 @@ export const es = {
     executing: 'Ejecutando...',
     // Statistics labels
     currentQuery: 'Consulta Actual',
+    executionTime: 'Tiempo de ejecución:',
     dataReceived: 'Datos recibidos:',
     nodesLabel: 'Nodos:',
     polygonNodesLabel: 'Nodos de polígonos:',

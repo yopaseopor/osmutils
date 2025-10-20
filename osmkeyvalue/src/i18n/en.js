@@ -330,6 +330,7 @@ export const en = {
     executing: 'Executing...',
     // Statistics labels
     currentQuery: 'Current Query',
+    executionTime: 'Execution time:',
     dataReceived: 'Data received:',
     nodesLabel: 'Nodes:',
     polygonNodesLabel: 'Polygon nodes:',

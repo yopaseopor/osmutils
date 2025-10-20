@@ -479,6 +479,7 @@ export const ca = {
     executing: 'Executant...',
     // Statistics labels
     currentQuery: 'Consulta Actual',
+    executionTime: 'Temps d\'execució:',
     dataReceived: 'Dades rebudes:',
     nodesLabel: 'Nodes:',
     polygonNodesLabel: 'Nodes de polígons:',
