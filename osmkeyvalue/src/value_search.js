@@ -1700,7 +1700,8 @@ function initValueSearch() {
 
         // Generate single Overpass query with all selected element types
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
-        console.log('🚀 Generated unified query:', query);
+        console.log('🚀 Generated unified query:');
+        console.log(query);
         console.log('🚀 Query parts:');
         console.log('  key:', key);
         console.log('  value:', value);
@@ -1716,6 +1717,8 @@ function initValueSearch() {
 
         // Start timing the query execution
         window.queryStartTime = performance.now();
+
+        console.log('🚀 About to execute query...');
 
         // Execute single unified query
         executeSingleQuery(query, 'unified')
