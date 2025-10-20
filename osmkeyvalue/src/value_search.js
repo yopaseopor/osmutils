@@ -1701,6 +1701,11 @@ function initValueSearch() {
         // Generate single Overpass query with all selected element types
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
         console.log('🚀 Generated unified query:', query);
+        console.log('🚀 Query parts:');
+        console.log('  key:', key);
+        console.log('  value:', value);
+        console.log('  bbox:', bbox);
+        console.log('  elementTypes:', elementTypes);
 
         // Check if query generation failed
         if (!query) {
@@ -1722,7 +1727,11 @@ function initValueSearch() {
                 features.forEach((feature, index) => {
                     const geometryType = feature.getGeometry().getType();
                     const properties = feature.getProperties();
-                    console.log(`  Feature ${index}: ${geometryType}`, properties);
+                    console.log(`  Feature ${index}: ${geometryType}`, Object.keys(properties).join(', '));
+                    // Log some key properties for debugging
+                    console.log(`    id: ${properties.id}, type: ${properties.type}`);
+                    console.log(`    has amenity: ${properties.amenity ? 'YES' : 'NO'}`);
+                    console.log(`    has version: ${properties.version ? 'YES' : 'NO'}`);
                 });
 
                 processQueryResults(features, key, value);
