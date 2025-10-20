@@ -135,128 +135,28 @@ window.tagQueryLegend = {
     },
 
     /**
-     * Generate and display the legend
+     * Generate and display the legend - DISABLED
      */
     updateLegendDisplay() {
-        const legendContainer = $('#tag-query-legend');
-        if (!legendContainer.length) {
-            this.createLegendContainer();
-        }
-
-        const visibleQueries = this.getVisibleQueries();
-        if (visibleQueries.length === 0) {
-            legendContainer.hide();
-            return;
-        }
-
-        legendContainer.show();
-        legendContainer.empty();
-
-        // Add title
-        legendContainer.append(`<div class="legend-title">📊 ${window.getTranslation ? window.getTranslation('activeQueries') : 'Active Queries'}</div>`);
-
-        // Add each query
-        visibleQueries.forEach(query => {
-            const colorStyle = `background-color: rgb(${query.color.join(',')})`;
-            const countText = query.count > 0 ? `${query.count} ${window.getTranslation ? window.getTranslation('results') : 'results'}` : `${window.getTranslation ? window.getTranslation('loading') : 'Loading...'}`;
-
-            const queryItem = `
-                <div class="legend-item">
-                    <div class="legend-color" style="${colorStyle}"></div>
-                    <div class="legend-info">
-                        <div class="legend-tag">${query.key}=${query.value}</div>
-                        <div class="legend-count">${countText}</div>
-                    </div>
-                </div>
-            `;
-            legendContainer.append(queryItem);
-        });
+        // Legend display is disabled - do nothing
+        console.log('📋 Legend display disabled');
     },
 
     /**
-     * Create the legend container if it doesn't exist
+     * Create the legend container if it doesn't exist - DISABLED
      */
     createLegendContainer() {
-        if ($('#tag-query-legend').length) return;
-
-        const legendHtml = `
-            <div id="tag-query-legend" class="tag-query-legend" style="display: none;">
-                <div class="legend-title">📊 ${window.getTranslation ? window.getTranslation('activeQueries') : 'Active Queries'}</div>
-            </div>
-        `;
-
-        // Add to the map menu area
-        $('#menu').append(legendHtml);
-
-        // Add CSS styles
-        this.addLegendStyles();
+        // Legend container creation is disabled - do nothing
+        console.log('📋 Legend container creation disabled');
     },
 
     /**
-     * Add CSS styles for the legend
+     * Add CSS styles for the legend - DISABLED
      */
     addLegendStyles() {
-        if ($('#tag-query-legend-styles').length) return;
-
-        const styles = `
-            <style id="tag-query-legend-styles">
-                .tag-query-legend {
-                    position: fixed;
-                    bottom: 10px;
-                    right: 10px;
-                    background: white;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    padding: 10px;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                    z-index: 1000;
-                    max-width: 250px;
-                    font-family: Arial, sans-serif;
-                    font-size: 12px;
-                }
-
-                .legend-title {
-                    font-weight: bold;
-                    margin-bottom: 8px;
-                    text-align: center;
-                    color: #333;
-                }
-
-                .legend-item {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 5px;
-                    padding: 3px;
-                    border-radius: 3px;
-                }
-
-                .legend-color {
-                    width: 16px;
-                    height: 16px;
-                    border-radius: 2px;
-                    margin-right: 8px;
-                    border: 1px solid #999;
-                }
-
-                .legend-info {
-                    flex: 1;
-                }
-
-                .legend-tag {
-                    font-weight: bold;
-                    color: #333;
-                    margin-bottom: 2px;
-                }
-
-                .legend-count {
-                    color: #666;
-                    font-size: 11px;
-                }
-            </style>
-        `;
-
-        $('head').append(styles);
-    }
+        // Legend styles are disabled - do nothing
+        console.log('📋 Legend styles disabled');
+    },
 };
 
 function executeTagQuery(key, value) {

@@ -174,12 +174,6 @@ function integrateOverlays() {
     
     // Also dispatch a custom event when all overlays are loaded
     window.dispatchEvent(new CustomEvent('overlaysFullyLoaded'));
-    
-    // Trigger overlay list update
-    if (window.renderOverlayList) {
-        console.log('Updating overlay list...');
-        window.renderOverlayList(window.overlays);
-    }
 }
 
 // Function to integrate external layers
