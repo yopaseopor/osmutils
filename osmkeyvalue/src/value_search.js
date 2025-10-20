@@ -1596,20 +1596,29 @@ function initValueSearch() {
             if (geometryType === 'Point') {
                 // Check if this node has OSM tags (not metadata or internal properties)
                 const hasOSMTags = Object.keys(properties).some(prop => {
-                    // OSM tags are properties that are NOT:
-                    // 1. Internal OpenLayers/OSMXML2 properties
-                    // 2. OSM metadata properties (version, timestamp, changeset, user, uid, etc.)
-                    const internalProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry',
-                                         'members', 'memberOf', 'member', 'membership'];
+                    // OSM tags are properties that are NOT internal system properties or metadata
+                    const systemProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry'];
                     const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
 
-                    return !internalProps.includes(prop) && !metadataProps.includes(prop);
+                    return !systemProps.includes(prop) && !metadataProps.includes(prop);
                 });
 
                 if (hasOSMTags) {
                     acc.standaloneNodes = (acc.standaloneNodes || 0) + 1;
                 } else {
                     acc.polygonNodes = (acc.polygonNodes || 0) + 1;
+                }
+
+                // Debug: Log properties of nodes to understand classification
+                if (acc.standaloneNodes + acc.polygonNodes <= 3) { // Only log first few
+                    const nonSystemProps = Object.keys(properties).filter(prop =>
+                        !systemProps.includes(prop) && !metadataProps.includes(prop)
+                    );
+                    console.log(`🔍 Node ${acc.standaloneNodes + acc.polygonNodes}:`, {
+                        hasOSMTags,
+                        nonSystemProps,
+                        totalProps: Object.keys(properties).length
+                    });
                 }
             } else if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
                 acc.ways = (acc.ways || 0) + 1;
@@ -1619,6 +1628,8 @@ function initValueSearch() {
 
             return acc;
         }, {});
+
+        console.log('📊 Node statistics:', nodeStats);
 
         updateQueryStatistics({
             dataSize: formatBytes(allFeatures.length * 100), // Approximate data size
@@ -1701,18 +1712,12 @@ function initValueSearch() {
 
         // Generate single Overpass query with all selected element types
         const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
-        console.log('🚀 Generated unified query:');
-        console.log(query);
-        console.log('🚀 Query parts:');
-        console.log('  key:', key);
-        console.log('  value:', value);
-        console.log('  bbox:', bbox);
-        console.log('  elementTypes:', elementTypes);
+        console.log('🔧 Query generated:', query.substring(0, 200) + '...');
 
         // Check if query generation failed
         if (!query) {
-            console.error('🚀 Failed to generate query - check key, value, and bbox');
-            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
+            console.error('❌ Failed to generate query');
+            $('#execute-query-btn').prop('disabled', false).text('Query Failed');
             return;
         }
 
@@ -1724,25 +1729,12 @@ function initValueSearch() {
         // Execute single unified query
         executeSingleQuery(query, 'unified')
             .then(features => {
-                console.log(`✅ Unified query succeeded with ${features.length} features`);
-
-                // Debug: Log all features and their properties
-                console.log('🔍 All features returned by query:');
-                features.forEach((feature, index) => {
-                    const geometryType = feature.getGeometry().getType();
-                    const properties = feature.getProperties();
-                    console.log(`  Feature ${index}: ${geometryType}`, Object.keys(properties).join(', '));
-                    // Log some key properties for debugging
-                    console.log(`    id: ${properties.id}, type: ${properties.type}`);
-                    console.log(`    has amenity: ${properties.amenity ? 'YES' : 'NO'}`);
-                    console.log(`    has version: ${properties.version ? 'YES' : 'NO'}`);
-                });
-
+                console.log(`✅ Query succeeded with ${features.length} features`);
                 processQueryResults(features, key, value);
             })
             .catch(error => {
-                console.error('🚀 Unified query failed:', error.message);
-                $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
+                console.error('❌ Query failed:', error.message);
+                $('#execute-query-btn').prop('disabled', false).text('Query Failed');
             });
 
         // Update button state
