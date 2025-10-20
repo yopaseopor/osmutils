@@ -1325,7 +1325,7 @@ function initValueSearch() {
             const client = new XMLHttpRequest();
             client.open('POST', config.overpassApi());
             client.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
-            client.timeout = 35000;
+            client.timeout = 60000; // Increased timeout to 60 seconds
 
             client.onload = function() {
                 if (client.status === 200) {
@@ -1336,7 +1336,7 @@ function initValueSearch() {
 
                         if (remark.length !== 0) {
                             console.error('🚀 Overpass error:', remark.text());
-                            reject(new Error(remark.text()));
+                            reject(new Error(`Overpass error: ${remark.text()}`));
                         } else {
                             const features = new ol.format.OSMXML2().readFeatures(xmlDoc, {
                                 featureProjection: window.map.getView().getProjection()
@@ -1350,18 +1350,22 @@ function initValueSearch() {
                     }
                 } else {
                     console.error('🚀 Request failed with status:', client.status);
-                    reject(new Error(`HTTP ${client.status}`));
+                    if (client.status === 504) {
+                        reject(new Error(`Timeout: Server overloaded (${queryType} query)`));
+                    } else {
+                        reject(new Error(`HTTP ${client.status} (${queryType} query)`));
+                    }
                 }
             };
 
             client.onerror = function() {
                 console.error('🚀 Network error');
-                reject(new Error('Network error'));
+                reject(new Error(`Network error (${queryType} query)`));
             };
 
             client.ontimeout = function() {
                 console.error('🚀 Request timed out');
-                reject(new Error('Timeout'));
+                reject(new Error(`Timeout: Server overloaded (${queryType} query)`));
             };
 
             client.send(query);
@@ -1687,57 +1691,30 @@ function initValueSearch() {
         const elementTypes = getSelectedElementTypes();
         console.log('🚀 Element types:', elementTypes);
 
-        // Execute separate queries for each element type to properly distinguish node types
-        const queryPromises = [];
+        // Generate single Overpass query with all selected element types
+        const query = window.generateOverpassQuery(key, value, bbox, elementTypes);
+        console.log('🚀 Generated unified query:', query);
 
-        // Query 1: Standalone nodes (nodes with tags)
-        if (elementTypes.includes('node')) {
-            const nodeQuery = window.generateOverpassQuery(key, value, bbox, ['node']);
-            if (nodeQuery) {
-                queryPromises.push({ type: 'node', query: nodeQuery });
-            }
-        }
-
-        // Query 2: Ways and their nodes
-        if (elementTypes.includes('way')) {
-            const wayQuery = window.generateOverpassQuery(key, value, bbox, ['way']);
-            if (wayQuery) {
-                queryPromises.push({ type: 'way', query: wayQuery });
-            }
-        }
-
-        // Query 3: Relations and their member nodes
-        if (elementTypes.includes('relation')) {
-            const relationQuery = window.generateOverpassQuery(key, value, bbox, ['relation']);
-            if (relationQuery) {
-                queryPromises.push({ type: 'relation', query: relationQuery });
-            }
-        }
-
-        if (queryPromises.length === 0) {
-            console.error('🚀 No valid queries to execute');
+        // Check if query generation failed
+        if (!query) {
+            console.error('🚀 Failed to generate query - check key, value, and bbox');
             $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
             return;
         }
 
-        console.log('🚀 Executing', queryPromises.length, 'separate queries');
-
         // Start timing the query execution
         window.queryStartTime = performance.now();
 
-        // Execute all queries in parallel
-        Promise.all(queryPromises.map(({ type, query }) =>
-            executeSingleQuery(query, type)
-        )).then(results => {
-            // Combine all results
-            const allFeatures = results.flat();
-
-            // Process combined results
-            processQueryResults(allFeatures, key, value);
-        }).catch(error => {
-            console.error('🚀 Error executing queries:', error);
-            $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
-        });
+        // Execute single unified query
+        executeSingleQuery(query, 'unified')
+            .then(features => {
+                console.log(`✅ Unified query succeeded with ${features.length} features`);
+                processQueryResults(features, key, value);
+            })
+            .catch(error => {
+                console.error('🚀 Unified query failed:', error.message);
+                $('#execute-query-btn').prop('disabled', false).text(`${window.getTranslation ? window.getTranslation('queryFailed') : 'Query Failed'}`);
+            });
 
         // Update button state
         $('#execute-query-btn').prop('disabled', true).text(`${window.getTranslation ? window.getTranslation('executing') : 'Executing...'}`);
