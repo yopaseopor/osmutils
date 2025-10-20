@@ -1716,6 +1716,15 @@ function initValueSearch() {
         executeSingleQuery(query, 'unified')
             .then(features => {
                 console.log(`✅ Unified query succeeded with ${features.length} features`);
+
+                // Debug: Log all features and their properties
+                console.log('🔍 All features returned by query:');
+                features.forEach((feature, index) => {
+                    const geometryType = feature.getGeometry().getType();
+                    const properties = feature.getProperties();
+                    console.log(`  Feature ${index}: ${geometryType}`, properties);
+                });
+
                 processQueryResults(features, key, value);
             })
             .catch(error => {
