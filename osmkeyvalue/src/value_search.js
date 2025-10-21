@@ -1596,11 +1596,15 @@ function initValueSearch() {
             if (geometryType === 'Point') {
                 // Check if this node has OSM tags (not metadata or internal properties)
                 const hasOSMTags = Object.keys(properties).some(prop => {
-                    // OSM tags are properties that are NOT internal system properties or metadata
+                    // OSM tags are properties that are NOT:
+                    // 1. Internal system properties (geometry, id, type, etc.)
+                    // 2. OSM metadata (version, timestamp, changeset, user, uid, visible)
+                    // 3. Structural/relationship properties (members, memberOf, member, membership)
                     const systemProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry'];
                     const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
+                    const structuralProps = ['members', 'memberOf', 'member', 'membership'];
 
-                    return !systemProps.includes(prop) && !metadataProps.includes(prop);
+                    return !systemProps.includes(prop) && !metadataProps.includes(prop) && !structuralProps.includes(prop);
                 });
 
                 if (hasOSMTags) {
@@ -1611,9 +1615,12 @@ function initValueSearch() {
 
                 // Debug: Log properties of nodes to understand classification
                 if (acc.standaloneNodes + acc.polygonNodes <= 3) { // Only log first few
-                    const nonSystemProps = Object.keys(properties).filter(prop =>
-                        !systemProps.includes(prop) && !metadataProps.includes(prop)
-                    );
+                    const nonSystemProps = Object.keys(properties).filter(prop => {
+                        const systemProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry'];
+                        const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
+                        const structuralProps = ['members', 'memberOf', 'member', 'membership'];
+                        return !systemProps.includes(prop) && !metadataProps.includes(prop) && !structuralProps.includes(prop);
+                    });
                     console.log(`🔍 Node ${acc.standaloneNodes + acc.polygonNodes}:`, {
                         hasOSMTags,
                         nonSystemProps,
