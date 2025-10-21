@@ -1719,42 +1719,75 @@ function findOrCreateTagOverlaysGroup() {
     function updateQueryStatistics(stats) {
         console.log('📊 Updating query statistics:', stats);
 
-        // Show the statistics container
-        const statsContainer = $('#query-statistics');
-        if (statsContainer.length > 0) {
-            statsContainer.show();
+        // Detect if we're in mobile mode
+        const isMobile = window.innerWidth <= 599;
 
-            // Update execution time
-            $('#execution-time').text(stats.executionTime || '0.000s');
+        if (isMobile) {
+            // Mobile mode - update mobile statistics section
+            const mobileStatsContainer = $('.osmcat-query-stats');
+            if (mobileStatsContainer.length > 0) {
+                mobileStatsContainer.show();
 
-            // Update data size
-            $('#data-size').text(stats.dataSize);
+                // Update mobile execution time
+                $('#mobile-execution-time').text(stats.executionTime || '0.000s');
 
-            // Update element counts
-            $('#nodes-count').text(formatNumber(stats.nodes));
-            $('#polygon-nodes-count').text(formatNumber(stats.polygonNodes));
-            $('#ways-count').text(formatNumber(stats.ways));
-            $('#relations-count').text(formatNumber(stats.relations));
-            $('#polygons-count').text(formatNumber(stats.polygons));
+                // Update mobile data size
+                $('#mobile-data-size').text(stats.dataSize);
 
-            // Update color indicators
-            $('.stat-value').removeClass('color-indicator');
-            $('#execution-time, #data-size, #nodes-count, #polygon-nodes-count, #ways-count, #relations-count, #polygons-count')
-                .addClass('color-indicator')
-                .css('background-color', `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`)
-                .css('border-left', `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`);
+                // Update mobile element counts
+                $('#mobile-nodes-count').text(formatNumber(stats.nodes));
+                $('#mobile-polygon-nodes-count').text(formatNumber(stats.polygonNodes));
+                $('#mobile-ways-count').text(formatNumber(stats.ways));
+                $('#mobile-relations-count').text(formatNumber(stats.relations));
+                $('#mobile-polygons-count').text(formatNumber(stats.polygons));
 
-            // Apply the color as background for the color indicators
-            $('.stat-value.color-indicator').each(function() {
-                const $this = $(this);
-                $this.css({
-                    'background-color': `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`,
-                    'border-left': `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`,
-                    'padding-left': '16px'
+                // Update mobile color indicators
+                $('.stat-value').removeClass('color-indicator');
+                $('#mobile-execution-time, #mobile-nodes-count, #mobile-polygon-nodes-count, #mobile-ways-count, #mobile-relations-count, #mobile-polygons-count')
+                    .addClass('color-indicator')
+                    .css('background-color', `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`)
+                    .css('border-left', `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`);
+
+                console.log('📊 Mobile query statistics updated successfully');
+            }
+        } else {
+            // Desktop mode - update desktop statistics container
+            const statsContainer = $('#query-statistics');
+            if (statsContainer.length > 0) {
+                statsContainer.show();
+
+                // Update execution time
+                $('#execution-time').text(stats.executionTime || '0.000s');
+
+                // Update data size
+                $('#data-size').text(stats.dataSize);
+
+                // Update element counts
+                $('#nodes-count').text(formatNumber(stats.nodes));
+                $('#polygon-nodes-count').text(formatNumber(stats.polygonNodes));
+                $('#ways-count').text(formatNumber(stats.ways));
+                $('#relations-count').text(formatNumber(stats.relations));
+                $('#polygons-count').text(formatNumber(stats.polygons));
+
+                // Update color indicators
+                $('.stat-value').removeClass('color-indicator');
+                $('#execution-time, #data-size, #nodes-count, #polygon-nodes-count, #ways-count, #relations-count, #polygons-count')
+                    .addClass('color-indicator')
+                    .css('background-color', `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`)
+                    .css('border-left', `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`);
+
+                // Apply the color as background for the color indicators
+                $('.stat-value.color-indicator').each(function() {
+                    const $this = $(this);
+                    $this.css({
+                        'background-color': `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`,
+                        'border-left': `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`,
+                        'padding-left': '16px'
+                    });
                 });
-            });
 
-            console.log('📊 Query statistics updated successfully');
+                console.log('📊 Desktop query statistics updated successfully');
+            }
         }
     }
 
@@ -1770,9 +1803,16 @@ function findOrCreateTagOverlaysGroup() {
 
     // Hide statistics when clearing searches
     function hideQueryStatistics() {
-        const statsContainer = $('#query-statistics');
-        if (statsContainer.length > 0) {
-            statsContainer.hide();
+        // Hide desktop statistics
+        const desktopStatsContainer = $('#query-statistics');
+        if (desktopStatsContainer.length > 0) {
+            desktopStatsContainer.hide();
+        }
+
+        // Hide mobile statistics
+        const mobileStatsContainer = $('.osmcat-query-stats');
+        if (mobileStatsContainer.length > 0) {
+            mobileStatsContainer.hide();
         }
     }
 }
