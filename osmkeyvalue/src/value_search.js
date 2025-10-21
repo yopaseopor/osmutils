@@ -1306,7 +1306,7 @@ function initValueSearch() {
 
             // Check if this feature has OSM tags (not metadata or internal properties)
             const internalProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry',
-                                 'members', 'memberOf', 'member', 'membership'];
+                                 'members', 'memberOf', 'member', 'membership', 'role'];
             const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
 
             return Object.keys(properties).some(prop =>
@@ -1334,7 +1334,7 @@ function initValueSearch() {
 
                     const systemProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry'];
                     const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
-                    const structuralProps = ['members', 'memberOf', 'member', 'membership'];
+                    const structuralProps = ['members', 'memberOf', 'member', 'membership', 'role'];
 
                     // A property is an OSM tag if it's NOT in any of these categories
                     return !systemProps.includes(prop) && !metadataProps.includes(prop) && !structuralProps.includes(prop);
@@ -1351,7 +1351,7 @@ function initValueSearch() {
                     const nonSystemProps = Object.keys(properties).filter(prop => {
                         const systemProps = ['geometry', 'id', 'type', 'originalType', 'fixedGeometry'];
                         const metadataProps = ['version', 'timestamp', 'changeset', 'user', 'uid', 'visible'];
-                        const structuralProps = ['members', 'memberOf', 'member', 'membership'];
+                        const structuralProps = ['members', 'memberOf', 'member', 'membership', 'role'];
                         return !systemProps.includes(prop) && !metadataProps.includes(prop) && !structuralProps.includes(prop);
                     });
                     console.log(`🔍 Node ${acc.standaloneNodes + acc.polygonNodes}:`, {
