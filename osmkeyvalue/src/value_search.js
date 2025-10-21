@@ -1155,7 +1155,12 @@ function initValueSearch() {
         // Create vector layer
         const vectorLayer = new ol.layer.Vector({
             source: new ol.source.Vector({
-                format: new ol.format.OSMXML2()
+                format: new ol.format.OSMXML2(),
+                // Disable all automatic loading behaviors
+                loader: function() {
+                    // Explicitly do nothing - no automatic loading
+                    return null;
+                }
             }),
             title: overlayTitle,
             id: overlayId,
