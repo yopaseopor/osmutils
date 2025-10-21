@@ -7,10 +7,6 @@
 
 /* Mobile/Responsive Mode (screens < 600px) */
 @media only screen and (max-width: 599px) {
-    .desktop-only {
-        display: none !important;
-    }
-
     .flex-row {
         flex-direction: column;
         height: 100vh;
@@ -74,7 +70,7 @@
     .osmcat-menu .osmcat-layer,
     .osmcat-menu .osmcat-overlay,
     .osmcat-menu .osmcat-router-section,
-    .osmcat-menu .osmcat-query-stats {
+    .osmcat-menu .osmcat-statistics {
         width: 100%;
         min-width: 100vw;
         flex: 1 1 100%;
@@ -136,39 +132,21 @@
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Router section for horizontal scrolling */
-    .osmcat-router-section {
-        flex: 0 0 100%;
-        width: 100%;
-        min-width: 100vw;
-        border: none;
-        border-top: 1px solid #BBB;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        /* Enable vertical scrolling for router content */
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Query statistics section for horizontal scrolling */
-    .osmcat-query-stats {
-        flex: 0 0 100%;
-        width: 100%;
-        min-width: 100vw;
-        height: 100%;
-        border: none;
-        border-top: 1px solid #BBB;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        overflow-y: auto;
-        background: white;
-        position: relative;
-        -webkit-overflow-scrolling: touch;
-    }
+.osmcat-statistics {
+			flex: 0 0 100%;
+			width: 100%;
+			min-width: 100vw;
+			border: none;
+			border-top: 1px solid #BBB;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+			background: white;
+			position: relative;
+			/* Enable vertical scrolling for statistics content */
+			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
+		}
 
     /* Mobile positioning for router and clear overlay buttons */
     .osmcat-router {
