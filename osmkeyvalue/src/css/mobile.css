@@ -7,12 +7,13 @@
 
 /* Mobile/Responsive Mode (screens < 600px) */
 @media only screen and (max-width: 599px) {
+    /* Mobile layout: Allow full page scrolling */
     .flex-row {
         flex-direction: column;
         height: 100vh;
         position: relative;
-        overflow: hidden;
-        /* Remove the negative margin that cuts off buttons */
+        overflow: auto; /* Allow vertical scrolling of entire page */
+        -webkit-overflow-scrolling: touch;
     }
 
     .map {
@@ -23,7 +24,8 @@
 
     /* Mobile layout: 3-column layout - Query Stats | Layers | Overlays */
     .menu {
-        height: 50vh;
+        height: auto; /* Allow natural height */
+        min-height: 50vh; /* Minimum height */
         width: 100%;
         position: relative;
         z-index: 1;
@@ -31,15 +33,15 @@
         display: flex;
         flex-direction: column;
         padding-top: 5px;
-        overflow: hidden;
+        overflow: visible; /* Allow content to flow naturally */
     }
 
-    /* Query Statistics Column - Left */
+    /* Query Statistics - Full width and scrollable */
     .query-statistics {
         width: 100%;
         min-width: 0;
         flex: 0 0 auto;
-        max-height: 50vh;
+        max-height: none; /* Remove height limit */
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
@@ -59,8 +61,9 @@
         flex-direction: row;
         flex-wrap: nowrap;
         width: 100%;
-        height: calc(50vh - 100px); /* Adjust height to account for query stats and other elements */
-        overflow: hidden;
+        height: auto; /* Allow natural height */
+        min-height: 40vh; /* Minimum height for content */
+        overflow: visible; /* Allow natural flow */
         position: relative;
         z-index: 1;
         gap: 1px; /* Small gap between columns */
@@ -80,6 +83,7 @@
         position: relative;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        max-height: 60vh; /* Limit individual column height */
     }
 
     /* Overlay section - Right column */
@@ -96,6 +100,7 @@
         position: relative;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        max-height: 60vh; /* Limit individual column height */
     }
 
     /* Hide the old horizontal scrolling behavior */
