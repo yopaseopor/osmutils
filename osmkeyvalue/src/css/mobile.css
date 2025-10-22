@@ -21,6 +21,7 @@
         position: relative;
     }
 
+    /* Mobile layout: 3-column layout - Query Stats | Layers | Overlays */
     .menu {
         height: 50vh;
         width: 100%;
@@ -29,229 +30,16 @@
         background: white;
         display: flex;
         flex-direction: column;
-        padding-top: 5px; /* Reduce top padding */
-    }
-
-    /* Reduce space between language selector and key searcher */
-    #key-search-container {
-        margin: 0px 0 !important; /* Minimal margin */
-    }
-
-    #value-search-container {
-        margin: 2px 0 !important; /* Also reduce value searcher margin */
-    }
-
-    .element-type-filter {
-        margin: 2px 0 !important; /* Reduce element filter margin */
-    }
-
-    .osmcat-menu {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        width: 100%; /* Start with normal width */
-        height: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth; /* Smooth scrolling animation */
-        scrollbar-width: none; /* Hide scrollbar in Firefox */
-        -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
-        position: relative;
-        z-index: 1;
-    }
-
-    /* Hide scrollbar in WebKit browsers */
-    .osmcat-menu::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Default state - single column layout */
-    .osmcat-menu .osmcat-layer,
-    .osmcat-menu .osmcat-overlay,
-    .osmcat-menu .osmcat-router-section {
-        width: 100%;
-        min-width: 100vw;
-        flex: 1 1 100%;
-    }
-
-    /* Layer active state - horizontal scrolling */
-    .osmcat-menu.layer-active {
-        width: 320px; /* Fixed width for horizontal scrolling */
-        max-width: 100vw;
-    }
-
-    .osmcat-menu.layer-active .osmcat-layer {
-        width: 260px;
-        min-width: 260px;
-        flex: 0 0 260px;
-    }
-
-    /* Overlay active state - horizontal scrolling */
-    .osmcat-menu.overlay-active {
-        width: 120px; /* Fixed width for horizontal scrolling */
-        max-width: 100vw;
-    }
-
-    .osmcat-menu.overlay-active .osmcat-overlay {
-        width: 80px;
-        min-width: 80px;
-        flex: 0 0 80px;
-    }
-
-    .osmcat-layer {
-        flex: 0 0 100%;
-        width: 100%;
-        min-width: 100vw;
-        border: none;
-        border-top: 1px solid #BBB;
-        display: flex;
-        flex-direction: column;
+        padding-top: 5px;
         overflow: hidden;
-        background: white;
-        position: relative;
-        /* Enable vertical scrolling for layer content */
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
     }
 
-    .osmcat-overlay {
-        flex: 0 0 100%;
-        width: 100%;
-        min-width: 100vw;
-        border: none;
-        border-top: 1px solid #BBB;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        /* Enable vertical scrolling for overlay content */
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Router section for horizontal scrolling */
-    .osmcat-router-section {
-        flex: 0 0 100%;
-        width: 100%;
-        min-width: 100vw;
-        border: none;
-        border-top: 1px solid #BBB;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        /* Enable vertical scrolling for router content */
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Mobile positioning for router and clear overlay buttons */
-    .osmcat-router {
-        bottom: 200px; /* Reduced gap - was 220px */
-        right: 8px;
-        z-index: 1000;
-        top: auto !important; /* Override desktop positioning */
-    }
-
-    .osmcat-clearoverlaybutton {
-        bottom: 160px; /* Reduced gap - was 170px */
-        right: 8px;
-        z-index: 1000;
-        top: auto !important; /* Override desktop positioning */
-    }
-
-    /* Mobile positioning for all floating buttons */
-    .osmcat-mapillary {
-        bottom: 280px; /* Reduced gap - was 320px */
-        right: 8px;
-        z-index: 1000;
-    }
-
-    .osmcat-panoramax {
-        bottom: 240px; /* Reduced gap - was 270px */
-        right: 8px;
-        z-index: 1000;
-    }
-
-    .osmcat-sharebutton {
-        bottom: 110px; /* Reduced gap - was 120px */
-        right: 8px;
-        z-index: 1000;
-    }
-
-    .osmcat-geobutton {
-        bottom: 60px; /* Reduced gap - was 70px */
-        right: 8px;
-        z-index: 1000;
-    }
-
-    .osmcat-infobutton {
-        bottom: 20px; /* Position at bottom */
-        right: 8px;
-        z-index: 1000;
-    }
-
-    .router-form {
-        flex: 1;
-        overflow-y: auto;
-        padding: 10px;
-        -webkit-overflow-scrolling: touch;
-        background: white;
-    }
-
-    /* Layer active state - horizontal scrolling */
-    .osmcat-menu.layer-active {
-        width: 160px !important;
-        max-width: 100vw;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-    }
-
-    .osmcat-menu.layer-active .osmcat-layer {
-        width: 100px;
-        min-width: 100px;
-        flex: 0 0 100px;
-        /* Maintain vertical scrolling in active state */
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Overlay active state - horizontal scrolling */
-    .osmcat-menu.overlay-active .osmcat-overlay {
-        width: 80px;
-        min-width: 80px;
-        flex: 0 0 80px;
-        height: 100%;
-        overflow-y: auto;
-    }
-
-    .mapillary-viewer {
-        height: 50vh;
-    }
-
-    .mapillary-viewer iframe {
-        height: calc(100% - 30px);
-    }
-
-    /* Adjust Mapillary's internal share button position */
-    .mapillary-viewer .mapillary-share-button {
-        bottom: 100px !important;
-        right: 10px !important;
-        z-index: 1002 !important;
-    }
-
-    /* Ensure the map shows active sequence clearly */
-    .map.viewer-active {
-        height: 50vh !important;
-    }
-
-    /* Query Statistics - Make scrollable on mobile */
+    /* Query Statistics Column - Left */
     .query-statistics {
-        max-height: 40vh; /* Limit height to prevent overflow */
+        width: 100%;
+        min-width: 0;
+        flex: 0 0 auto;
+        max-height: 50vh;
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
@@ -259,24 +47,107 @@
         scrollbar-color: #888 #f1f1f1;
         margin: 8px 0;
         padding: 8px;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    /* Custom scrollbar for query statistics on mobile */
-    .query-statistics::-webkit-scrollbar {
-        width: 6px;
+    /* Main menu container - 2 columns for Layers and Overlays */
+    .osmcat-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        height: calc(50vh - 100px); /* Adjust height to account for query stats and other elements */
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        gap: 1px; /* Small gap between columns */
     }
 
-    .query-statistics::-webkit-scrollbar-track {
+    /* Layer section - Middle column */
+    .osmcat-layer:first-of-type {
+        flex: 1 1 50%;
+        width: 50%;
+        min-width: 0;
+        border: none;
+        border-right: 1px solid #BBB;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Overlay section - Right column */
+    .osmcat-layer:nth-of-type(2),
+    .osmcat-overlay {
+        flex: 1 1 50%;
+        width: 50%;
+        min-width: 0;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Hide the old horizontal scrolling behavior */
+    .osmcat-menu.layer-active,
+    .osmcat-menu.overlay-active {
+        width: 100% !important;
+        max-width: 100vw;
+        overflow: hidden !important;
+    }
+
+    /* Adjust the default state rules */
+    .osmcat-menu .osmcat-layer,
+    .osmcat-menu .osmcat-overlay,
+    .osmcat-menu .osmcat-router-section {
+        width: auto;
+        min-width: 0;
+        flex: 1 1 auto;
+        max-width: 100%;
+    }
+
+    /* Layer and overlay content styling */
+    .osmcat-layer .osmcat-content,
+    .osmcat-overlay .osmcat-content {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+    }
+
+    /* Custom scrollbar for mobile columns */
+    .osmcat-layer::-webkit-scrollbar,
+    .osmcat-overlay::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .osmcat-layer::-webkit-scrollbar-track,
+    .osmcat-overlay::-webkit-scrollbar-track {
         background: #f1f1f1;
-        border-radius: 3px;
+        border-radius: 2px;
     }
 
-    .query-statistics::-webkit-scrollbar-thumb {
+    .osmcat-layer::-webkit-scrollbar-thumb,
+    .osmcat-overlay::-webkit-scrollbar-thumb {
         background: #888;
-        border-radius: 3px;
+        border-radius: 2px;
     }
 
-    .query-statistics::-webkit-scrollbar-thumb:hover {
+    .osmcat-layer::-webkit-scrollbar-thumb:hover,
+    .osmcat-overlay::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+
+
+}
 
