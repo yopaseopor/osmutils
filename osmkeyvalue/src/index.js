@@ -716,25 +716,6 @@ $(function () {
 		container.append(layerDiv, overlayDiv);
 		overlaySelect.trigger('change');
 
-		// Create statistics section
-		var statisticsDiv = $('<div>').addClass('osmcat-statistics').append(
-			$('<div>').addClass('osmcat-select').text('📊 ' + (config.i18n.queryStatistics || 'Query Statistics')),
-			$('<div>').addClass('osmcat-content').append(
-				// Move existing query statistics content here
-				$('#query-statistics').length ? $('#query-statistics').detach() : $(
-					'<div class="query-statistics" style="display: none; margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 5px;">' +
-					'<h4 style="margin: 0 0 10px 0; font-size: 14px; color: #333;" data-i18n="currentQuery">📊 Consulta Actual</h4>' +
-					'<div class="stat-item"><div class="stat-label" data-i18n="executionTime">Temps d\'execució:</div><div class="stat-value" id="execution-time">0.000s</div></div>' +
-					'<div class="stat-item"><div class="stat-label" data-i18n="nodesLabel">Nodes:</div><div class="stat-value" id="nodes-count">0</div></div>' +
-					'<div class="stat-item"><div class="stat-label" data-i18n="polygonNodesLabel">Nodes de polígons:</div><div class="stat-value" id="polygon-nodes-count">0</div></div>' +
-					'<div class="stat-item"><div class="stat-label" data-i18n="waysLabel">Vies:</div><div class="stat-value" id="ways-count">0</div></div>' +
-					'<div class="stat-item"><div class="stat-label" data-i18n="relationsLabel">Relacions:</div><div class="stat-value" id="relations-count">0</div></div>' +
-					'<div class="stat-item"><div class="stat-label" data-i18n="polygonsLabel">Polígons:</div><div class="stat-value" id="polygons-count">0</div></div>' +
-					'</div>'
-				)
-			)
-		);
-		container.append(statisticsDiv);
 		return container;
 	};
 

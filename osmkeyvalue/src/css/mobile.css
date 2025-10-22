@@ -69,8 +69,7 @@
     /* Default state - single column layout */
     .osmcat-menu .osmcat-layer,
     .osmcat-menu .osmcat-overlay,
-    .osmcat-menu .osmcat-router-section,
-    .osmcat-menu .osmcat-statistics {
+    .osmcat-menu .osmcat-router-section {
         width: 100%;
         min-width: 100vw;
         flex: 1 1 100%;
@@ -132,21 +131,22 @@
         -webkit-overflow-scrolling: touch;
     }
 
-.osmcat-statistics {
-			flex: 0 0 100%;
-			width: 100%;
-			min-width: 100vw;
-			border: none;
-			border-top: 1px solid #BBB;
-			display: flex;
-			flex-direction: column;
-			overflow: hidden;
-			background: white;
-			position: relative;
-			/* Enable vertical scrolling for statistics content */
-			overflow-y: auto;
-			-webkit-overflow-scrolling: touch;
-		}
+    /* Router section for horizontal scrolling */
+    .osmcat-router-section {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100vw;
+        border: none;
+        border-top: 1px solid #BBB;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        /* Enable vertical scrolling for router content */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 
     /* Mobile positioning for router and clear overlay buttons */
     .osmcat-router {

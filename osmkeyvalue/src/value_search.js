@@ -1719,32 +1719,33 @@ function findOrCreateTagOverlaysGroup() {
     function updateQueryStatistics(stats) {
         console.log('📊 Updating query statistics:', stats);
 
-        // Find the statistics container within the menu system
-        const statsContainer = $('.osmcat-menu .query-statistics');
+        // Show the statistics container
+        const statsContainer = $('#query-statistics');
         if (statsContainer.length > 0) {
             statsContainer.show();
 
             // Update execution time
-            statsContainer.find('#execution-time').text(stats.executionTime || '0.000s');
+            $('#execution-time').text(stats.executionTime || '0.000s');
 
             // Update data size
-            statsContainer.find('#data-size').text(stats.dataSize || '0 B');
+            $('#data-size').text(stats.dataSize);
 
             // Update element counts
-            statsContainer.find('#nodes-count').text(formatNumber(stats.nodes || 0));
-            statsContainer.find('#polygon-nodes-count').text(formatNumber(stats.polygonNodes || 0));
-            statsContainer.find('#ways-count').text(formatNumber(stats.ways || 0));
-            statsContainer.find('#relations-count').text(formatNumber(stats.relations || 0));
-            statsContainer.find('#polygons-count').text(formatNumber(stats.polygons || 0));
+            $('#nodes-count').text(formatNumber(stats.nodes));
+            $('#polygon-nodes-count').text(formatNumber(stats.polygonNodes));
+            $('#ways-count').text(formatNumber(stats.ways));
+            $('#relations-count').text(formatNumber(stats.relations));
+            $('#polygons-count').text(formatNumber(stats.polygons));
 
             // Update color indicators
             $('.stat-value').removeClass('color-indicator');
-            statsContainer.find('.stat-value').addClass('color-indicator')
+            $('#execution-time, #data-size, #nodes-count, #polygon-nodes-count, #ways-count, #relations-count, #polygons-count')
+                .addClass('color-indicator')
                 .css('background-color', `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`)
                 .css('border-left', `3px solid rgb(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]})`);
 
             // Apply the color as background for the color indicators
-            statsContainer.find('.stat-value.color-indicator').each(function() {
+            $('.stat-value.color-indicator').each(function() {
                 const $this = $(this);
                 $this.css({
                     'background-color': `rgba(${stats.color[0]}, ${stats.color[1]}, ${stats.color[2]}, 0.1)`,
@@ -1779,7 +1780,7 @@ function findOrCreateTagOverlaysGroup() {
 $(document).ready(function() {
     // Wait for map to be ready
     const waitForMap = () => {
-{{ ... }}
+        if (window.map && typeof window.map.getView === 'function') {
             initValueSearch();
         } else {
             setTimeout(waitForMap, 100);
