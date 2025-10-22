@@ -249,25 +249,34 @@
         height: 50vh !important;
     }
 
-    .map.viewer-active .ol-layers {
-        z-index: 2;
+    /* Query Statistics - Make scrollable on mobile */
+    .query-statistics {
+        max-height: 40vh; /* Limit height to prevent overflow */
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+        margin: 8px 0;
+        padding: 8px;
     }
-}
 
-/* Clear active overlay button mobile styles */
-@media only screen and (max-width: 599px) {
-    .clear-active-overlay-btn {
-        width: 40px;
-        height: 40px;
-        margin: 0 4px;
+    /* Custom scrollbar for query statistics on mobile */
+    .query-statistics::-webkit-scrollbar {
+        width: 6px;
     }
-}
 
-/* Overlay summary control mobile styles */
-@media only screen and (max-width: 599px) {
-    .overlay-summary-control {
-        left: 90px;
-        font-size: 12px;
-        min-width: 60px;
+    .query-statistics::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
     }
-}
+
+    .query-statistics::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+
+    .query-statistics::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
