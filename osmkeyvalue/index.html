@@ -77,7 +77,7 @@
 			$(document).ready(function() {
 				// Mobile menu toggle functionality
 				$('#menu-toggle').on('click', function() {
-					var $menu = $('.menu');
+					var $menu = $('.osmcat-menu'); // Changed from .menu to .osmcat-menu
 					var $toggle = $(this);
 					var $flexRow = $('.flex-row');
 
@@ -97,12 +97,12 @@
 				// Close menu when clicking outside on mobile
 				$(document).on('click', function(e) {
 					if ($(window).width() <= 599) {
-						var $menu = $('.menu');
+						var $menu = $('.osmcat-menu'); // Changed from .menu to .osmcat-menu
 						var $toggle = $('#menu-toggle');
 						var $flexRow = $('.flex-row');
 
 						if ($menu.hasClass('menu-visible') &&
-							!$(e.target).closest('.menu').length &&
+							!$(e.target).closest('.osmcat-menu').length && // Changed from .menu to .osmcat-menu
 							!$(e.target).closest('#menu-toggle').length) {
 							$menu.removeClass('menu-visible');
 							$flexRow.removeClass('menu-visible');

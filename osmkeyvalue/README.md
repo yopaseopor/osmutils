@@ -164,9 +164,11 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 - **Proper space allocation:** Map shrinks to `calc(100vw - 320px)` when menu is visible
 - **No more partial movement** - entire interface responds correctly
 
-**✅ Menu Toggle Functionality - WORKING:**
+**✅ Menu Toggle Functionality - FIXED:**
 - **Before:** Toggle button did nothing or had broken behavior
 - **After:** **Fully functional toggle system:**
+  - **Correct selector:** Fixed JavaScript to use `.osmcat-menu` (actual menu class)
+  - **Proper event handling:** Menu shows/hides with smooth animations
   - **Click to show:** Menu slides in from right, map shrinks
   - **Click to hide:** Menu slides out, map expands back
   - **Click outside:** Automatic menu closing

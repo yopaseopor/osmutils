@@ -32,7 +32,7 @@
     }
 
     /* Menu container with horizontal scrolling */
-    .menu {
+    .osmcat-menu {
         height: 100vh;
         width: auto; /* Allow natural width */
         min-width: 50vw; /* Minimum half screen width */
@@ -51,7 +51,7 @@
     }
 
     /* Menu visible state - slide in from right */
-    .menu.menu-visible {
+    .osmcat-menu.menu-visible {
         right: 0;
     }
 
