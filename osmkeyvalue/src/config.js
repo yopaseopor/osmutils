@@ -9,6 +9,10 @@ var imgSrc = 'src/img/';
 
 //@@Coordenadas LONgitud LATitud Rotación Zoom, Zoom de la geolocalización, unidades
 var config = {
+	//@@ API Keys for external services (add your own keys here)
+	apiKeys: {
+		mapillary: 'MLY|25184084394537227|a1d2ba8a7ad819e741b1949b288cb142', // Add your Mapillary API key here: 'your_mapillary_client_token'
+	},
 	initialConfig: {
 		lon: 1.59647,
 		lat: 41.69689,

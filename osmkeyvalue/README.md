@@ -28,25 +28,46 @@ Based on [https://github.com/yopaseopor/osmpoismap](https://github.com/yopaseopo
 
 -Vibe coding to mix all of it by [yopaseopor](https://github.com/yopaseopor)
 
-## Features
+## Mapillary Integration
 
-OSM Utils enables you to taste the power of Openstreetmap environment. It puts on your hand:
+The application includes Mapillary street-level imagery integration. Due to changes in Mapillary's API v4, authentication is now required for full functionality.
 
--A searcher
+### Setting up Mapillary API Access
 
--A router for car, bicycle and walk
+1. **Get a Mapillary API Key:**
+   - Visit [Mapillary Developer Portal](https://www.mapillary.com/developer)
+   - Create a developer account
+   - Register a new application
+   - Get your Client Access Token
 
--A layer searcher and selector with more than 800 TMS and WMS layers you can activate and control its opacity between them, including vector tiles and layers from other commercial sources.
+2. **Configure the API Key:**
+   - Open `src/config.js`
+   - Find the `apiKeys` section
+   - Replace `null` with your API key:
+   ```javascript
+   apiKeys: {
+       mapillary: 'your_client_access_token_here'
+   }
+   ```
 
--An overlay searcher with more than 15000 brands from all around the world.
+3. **Features with API Key:**
+   - Street-level imagery coverage display
+   - Click on coverage dots to view specific images
+   - Full resolution image access
 
--A custom vector style called customyopaseopor
+### Without API Key
 
--38 languages for main parts of the website
+If no API key is configured, the application will:
+- Show a warning in the console
+- Disable the coverage layer
+- Still allow direct access to Mapillary via external links
+- Suggest using Panoramax as an alternative
 
--Street imagery from Panoramax and Mapillary
+### Troubleshooting
 
--Main links to manage the data you have found.
+- **Coverage layer not showing:** Check console for authentication errors
+- **Images not loading:** Verify API key is valid and has correct permissions
+- **CORS issues:** The app uses proxy services to handle CORS limitations
 
 ## Vibe coding
 

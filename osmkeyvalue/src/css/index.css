@@ -773,7 +773,7 @@ CLEAR ACTIVE OVERLAY BUTTON
 }
 
 .mapillary-viewer.error::after {
-    content: "Error carregant Mapillary. L'API de Mapillary no està disponible temporalment. Pots provar Panoramax com a alternativa fent clic al botó de càmera groga.";
+    content: "Error loading Mapillary. The Mapillary API may be temporarily unavailable. You can try Panoramax as an alternative by clicking the yellow street view camera button.";
     position: absolute;
     top: 50%;
     left: 50%;

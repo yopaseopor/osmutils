@@ -10,7 +10,19 @@ function initMapillaryViewer(map) {
             var bbox = epsg4326Extent.join(',');
 
             // Fetch Mapillary coverage data using CORS proxy to avoid CORS issues
-            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.mapillary.com/v4/images?bbox=' + bbox + '&limit=100&fields=id,geometry')}`)
+            // Note: Mapillary API v4 requires authentication for full access
+            // For public access, we can only get limited data or use public endpoints
+            var apiUrl = 'https://graph.mapillary.com/images?bbox=' + bbox + '&limit=100&fields=id,geometry';
+
+            // Add API key if available in config
+            if (typeof config !== 'undefined' && config.apiKeys && config.apiKeys.mapillary) {
+                apiUrl += '&access_token=' + config.apiKeys.mapillary;
+                console.log('Using Mapillary API key for authenticated access');
+            } else {
+                console.warn('No Mapillary API key configured. Using public access (limited functionality)');
+            }
+
+            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.contents) {
@@ -31,6 +43,12 @@ function initMapillaryViewer(map) {
                 })
                 .catch(error => {
                     console.error('Error fetching Mapillary data:', error);
+                    // Show user-friendly error message
+                    console.warn('Mapillary API requires authentication. Coverage layer may not work without API key.');
+
+                    // Try public Mapillary tiles as alternative (if available)
+                    // For now, disable the layer if API fails
+                    mapillaryLayer.setVisible(false);
                 });
         },
         strategy: ol.loadingstrategy.bbox
@@ -124,12 +142,8 @@ function initMapillaryViewer(map) {
 
     // Function to show the viewer with a specific image
     function showMapillaryViewer(lat, lon, zoom, imageId) {
-        // Build URL with the new Mapillary embed format - simplified version
-        var url = `https://www.mapillary.com/embed?` +
-            `lat=${lat}&` +
-            `lng=${lon}&` +
-            `z=${Math.max(1, Math.min(20, zoom))}&` +
-            `style=photo`;
+        // Build URL with the current Mapillary embed format
+        var url = `https://www.mapillary.com/app/?lat=${lat}&lng=${lon}&z=${Math.max(1, Math.min(20, zoom))}&style=photo`;
 
         if (imageId) {
             url += `&imageKey=${imageId}`;
