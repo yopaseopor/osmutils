@@ -1,5 +1,8 @@
 /**
- * Mapillary Viewer Implementation
+ * Mapillary Viewer Implementation - Works like router button
+ *
+ * This implementation creates a toggle button that shows/hides Mapillary content
+ * in the side menu, exactly like the routing functionality.
  */
 function initMapillaryViewer(map) {
     // Create Mapillary vector layer for coverage visualization
@@ -8,26 +11,40 @@ function initMapillaryViewer(map) {
         loader: function(extent, resolution, projection) {
             var epsg4326Extent = ol.proj.transformExtent(extent, projection, 'EPSG:4326');
             var bbox = epsg4326Extent.join(',');
-            
-            // Fetch Mapillary coverage data
-            fetch(`https://graph.mapillary.com/images?access_token=MLY|9116824181759144|d7242bf6a8614c2c6d13c5b0787ab629&bbox=${bbox}&fields=geometry,id`)
+
+            // Fetch Mapillary coverage data using CORS proxy to avoid CORS issues
+            var apiUrl = 'https://graph.mapillary.com/images?bbox=' + bbox + '&limit=100&fields=id,geometry';
+
+            // Add API key if available in config
+            if (typeof config !== 'undefined' && config.apiKeys && config.apiKeys.mapillary) {
+                apiUrl += '&access_token=' + config.apiKeys.mapillary;
+                console.log('Using Mapillary API key for authenticated access');
+            } else {
+                console.warn('No Mapillary API key configured. Using public access (limited functionality)');
+            }
+
+            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data && data.data) {
-                        var features = data.data.map(function(image) {
-                            return new ol.Feature({
-                                geometry: new ol.geom.Point(ol.proj.fromLonLat([
-                                    image.geometry.coordinates[0],
-                                    image.geometry.coordinates[1]
-                                ])),
-                                id: image.id
+                    if (data && data.contents) {
+                        var mapillaryData = JSON.parse(data.contents);
+                        if (mapillaryData && mapillaryData.data) {
+                            var features = mapillaryData.data.map(function(image) {
+                                return new ol.Feature({
+                                    geometry: new ol.geom.Point(ol.proj.fromLonLat([
+                                        image.geometry.coordinates[0],
+                                        image.geometry.coordinates[1]
+                                    ])),
+                                    id: image.id
+                                });
                             });
-                        });
-                        mapillarySource.addFeatures(features);
+                            mapillarySource.addFeatures(features);
+                        }
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching Mapillary data:', error);
+                    console.warn('Mapillary API requires authentication. Coverage layer may not work without API key.');
                 });
         },
         strategy: ol.loadingstrategy.bbox
@@ -50,153 +67,141 @@ function initMapillaryViewer(map) {
     });
 
     map.addLayer(mapillaryLayer);
+    mapillaryLayer.setVisible(false); // Initially hidden
 
-    // Create viewer container
-    var viewerContainer = $('<div>').addClass('mapillary-viewer')
-        .append($('<button>').addClass('close-button').html('<i class="fa fa-times"></i>'))
-        .append($('<div>').addClass('resize-handle'))
-        .append($('<div>').addClass('credits')
-            .append($('<div>').addClass('credit').html('© <a href="https://www.mapillary.com" target="_blank">Mapillary</a>'))
-            .append($('<div>').addClass('credit').html('© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors')))
-        .append($('<iframe>').attr({
-            'id': 'mapillary-iframe',
-            'allowfullscreen': 'true'
-        }));
-    
-    $('body').append(viewerContainer);
+    // Handle map click events for Mapillary
+    var mapillaryClickHandler = null;
 
-    // Create viewer button control
-    var viewerControlBuild = function() {
-        var container = $('<div>').addClass('ol-control ol-unselectable osmcat-mapillary');
-        
-        // Map view button
-        var mapViewButton = $('<button type="button">')
-            .html('<i class="fa fa-camera"></i>')
-            .on('click', function() {
-                if ($('.mapillary-viewer').hasClass('active')) {
-                    hideMapillaryViewer();
-                    mapillaryLayer.setVisible(false);
-                } else {
-                    // Hide Panoramax viewer if it's active
-                    if ($('.panoramax-viewer').hasClass('active')) {
-                        hidePanoraMaxViewer();
-                        $('.osmcat-panoramax button').removeClass('active');
-                    }
-                    mapillaryLayer.setVisible(true);
-                    var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326');
-                    var zoom = map.getView().getZoom();
-                    showMapillaryViewer(center[1], center[0], zoom);
+    // Add Mapillary button that works like router button
+    const mapillaryButton = $('<button>')
+        .addClass('osmcat-button osmcat-mapillary')
+        .attr('title', 'Street View')
+        .html('<i class="fa fa-camera" aria-hidden="true"></i>')
+        .on('click', function() {
+            // Check if Mapillary section already exists in menu
+            const existingMapillary = $('.menu .mapillary-section');
+
+            if (existingMapillary.length > 0) {
+                // Mapillary section exists, close it
+                if (mapillaryClickHandler) {
+                    map.un('singleclick', mapillaryClickHandler);
+                    mapillaryClickHandler = null;
                 }
-                $(this).toggleClass('active');
+                existingMapillary.remove();
+                mapillaryButton.removeClass('active');
+                mapillaryLayer.setVisible(false); // Hide layer when closing
+                return;
+            }
+
+            // Mapillary section doesn't exist, create it
+            mapillaryButton.addClass('active');
+            mapillaryLayer.setVisible(true); // Show layer when opening
+
+            // Create Mapillary content dynamically (like router does)
+            const mapillaryContent = $(`
+                <div class="mapillary-section" style="margin: 10px 0; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px;">
+                    <div class="mapillary-header" style="font-weight: bold; margin-bottom: 10px; cursor: pointer; color: #567CAC;">
+                        📷 Street View <small>(click to close)</small>
+                    </div>
+                    <div class="mapillary-content">
+                        <div class="mapillary-notice">
+                            <i class="fa fa-street-view"></i><br>
+                            <strong>Mapillary Street View</strong><br>
+                            <small>Click below to open street-level imagery in a new window</small>
+                        </div>
+                        <div class="mapillary-preview">
+                            <div class="preview-info">
+                                <div class="preview-title">Location Preview</div>
+                                <div class="preview-coords">Click on the map to set a location</div>
+                            </div>
+                            <div class="preview-map">
+                                <small>Interactive map will open in new window</small>
+                            </div>
+                        </div>
+                        <button class="open-mapillary-btn">
+                            <i class="fa fa-external-link"></i> Open Mapillary
+                        </button>
+                    </div>
+                </div>
+            `);
+
+            // Handle clicks on map for Mapillary
+            mapillaryClickHandler = function(evt) {
+                var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                    return feature;
+                });
+
+                if (feature && feature.get('id')) {
+                    var coords = ol.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
+                    var zoom = map.getView().getZoom();
+                    showMapillaryInMenu(coords[1], coords[0], zoom, feature.get('id'));
+                }
+            };
+
+            map.on('singleclick', mapillaryClickHandler);
+
+            // Update coordinates when clicking on coverage
+            function showMapillaryInMenu(lat, lon, zoom, imageId) {
+                var url = `https://www.mapillary.com/app/?lat=${lat}&lng=${lon}&z=${Math.max(1, Math.min(20, zoom))}&style=photo`;
+
+                if (imageId) {
+                    url += `&imageKey=${imageId}`;
+                }
+
+                console.log('Mapillary URL:', url);
+
+                // Update the menu content with coordinates
+                mapillaryContent.find('.preview-coords').html(`<strong>${lat.toFixed(6)}, ${lon.toFixed(6)}</strong><br><small>Zoom: ${zoom}</small>`);
+
+                // Update the button click handler
+                mapillaryContent.find('.open-mapillary-btn').off('click').on('click', function() {
+                    window.open(url, 'mapillary', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+                });
+            }
+
+            // Handle clicks on the Mapillary section header to close it
+            mapillaryContent.find('.mapillary-header').on('click', function() {
+                if (mapillaryClickHandler) {
+                    map.un('singleclick', mapillaryClickHandler);
+                    mapillaryClickHandler = null;
+                }
+                mapillaryContent.remove();
+                mapillaryButton.removeClass('active');
+                mapillaryLayer.setVisible(false);
             });
-        
-        container.append(mapViewButton);
-        return container[0];
-    };
 
-    // Add the viewer control to the map
-    map.addControl(new ol.control.Control({
-        element: viewerControlBuild()
-    }));
-
-    // Handle viewer close button
-    $('.mapillary-viewer .close-button').on('click', function() {
-        hideMapillaryViewer();
-        mapillaryLayer.setVisible(false);
-        $('.osmcat-mapillary button').removeClass('active');
-    });
-
-    // Make viewer resizable
-    $('.mapillary-viewer').resizable({
-        handles: 'e, s, se',
-        minWidth: 300,
-        minHeight: 200,
-        resize: function(event, ui) {
-            $('.mapillary-viewer iframe').css({
-                width: ui.size.width,
-                height: ui.size.height - 30 // Account for credits height
+            // Set up initial button click handler (for current map center)
+            mapillaryContent.find('.open-mapillary-btn').on('click', function(e) {
+                e.preventDefault();
+                var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326');
+                var zoom = map.getView().getZoom();
+                var url = `https://www.mapillary.com/app/?lat=${center[1]}&lng=${center[0]}&z=${zoom}&style=photo`;
+                window.open(url, 'mapillary', 'width=1200,height=800,scrollbars=yes,resizable=yes');
             });
-        }
-    });
 
-    // Function to show the viewer with a specific image
-    function showMapillaryViewer(lat, lon, zoom, imageId) {
-        // Build URL with embed parameters
-        var url = `https://www.mapillary.com/embed?` +
-            `client_id=9116824181759144&` +
-            `style=photo&` +
-            `map_style=OpenStreetMap&` +
-            `lat=${lat}&` +
-            `lng=${lon}&` +
-            `z=${zoom}&` +
-            `width=100%25&` +
-            `height=100%25`;
-            
-        if (imageId) {
-            url += `&image_key=${imageId}`;
-        }
-        
-        var iframe = $('#mapillary-iframe');
-        
-        // Configure iframe
-        iframe.attr({
-            'src': 'about:blank',
-            'frameborder': '0',
-            'width': '100%',
-            'height': '100%',
-            'allowfullscreen': 'true'
+            // Insert Mapillary content in the menu
+            var $menu = $('.menu');
+            if ($menu.length === 0) {
+                console.error('Menu not found for Mapillary insertion');
+                return;
+            }
+
+            // Insert before overlay-list or at the end of menu
+            if ($menu.find('#overlay-list').length > 0) {
+                mapillaryContent.insertBefore($menu.find('#overlay-list'));
+            } else {
+                $menu.append(mapillaryContent);
+            }
+
+            // Remove any existing Mapillary content (cleanup)
+            $('.menu .mapillary-section').not(mapillaryContent).remove();
         });
 
-        // Force reload the iframe with new coordinates
-        setTimeout(function() {
-            iframe.attr('src', url);
-        }, 100);
-        
-        $('.mapillary-viewer').addClass('active');
-        $('#map').addClass('viewer-active');
-
-        // On mobile, adjust map view center after showing viewer
-        if (window.innerWidth < 600) {
-            setTimeout(function() {
-                map.updateSize(); // Force OL to update its size calculations
-                if (imageId) {
-                    map.getView().setCenter(ol.proj.fromLonLat([lon, lat]));
-                }
-            }, 300);
-        }
-    }
-
-    // Function to hide the viewer
-    function hideMapillaryViewer() {
-        $('.mapillary-viewer').removeClass('active');
-        $('#map').removeClass('viewer-active');
-        setTimeout(function() {
-            $('#mapillary-iframe').attr('src', '');
-            map.updateSize(); // Force OL to update its size calculations
-        }, 300);
-    }
-
-    // Handle map click events
-    map.on('click', function(evt) {
-        if ($('.mapillary-viewer').hasClass('active')) {
-            var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
-                return feature;
-            });
-            
-            if (feature) {
-                var coords = ol.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
-                showMapillaryViewer(coords[1], coords[0], map.getView().getZoom(), feature.get('id'));
-            }
-        }
+    // Create a control element for the Mapillary button
+    const mapillaryControl = new ol.control.Control({
+        element: mapillaryButton[0]
     });
 
-    // Handle window resize
-    $(window).on('resize', function() {
-        if ($('.mapillary-viewer').hasClass('active')) {
-            map.updateSize(); // Force OL to update its size calculations
-        }
-    });
-
-    // Initially hide the Mapillary layer
-    mapillaryLayer.setVisible(false);
+    // Add the Mapillary control to the map
+    map.addControl(mapillaryControl);
 } 
