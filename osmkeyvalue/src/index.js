@@ -911,6 +911,24 @@ $(function () {
 		element: rotaterightControlBuild()
 	}));
 
+	// Add mobile menu toggle button (only on mobile)
+	if (window.innerWidth <= 599) {
+		var menuToggleButton = $('<button>')
+			.addClass('menu-toggle')
+			.html('<i class="fa fa-bars"></i>')
+			.on('click', function() {
+				var $menu = $('.menu');
+				if ($menu.hasClass('menu-visible')) {
+					$menu.removeClass('menu-visible');
+				} else {
+					$menu.addClass('menu-visible');
+				}
+			});
+
+		// Add the menu toggle button to the page
+		$('body').append(menuToggleButton);
+	}
+
 	$('#map').css('cursor', 'grab');
 	map.on('movestart', function (evt) {
 		$('#map').css('cursor', 'grabbing');

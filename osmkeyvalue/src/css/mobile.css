@@ -370,45 +370,43 @@
     }
 
     .osmcat-infobutton {
-        bottom: 30px;
+        bottom: 80px; /* Move up to avoid menu toggle button */
+        right: 8px;
     }
 
-    /* Remove enhanced hover effects that might cause issues */
-    .osmcat-geobutton:hover,
-    .osmcat-infobutton:hover,
-    .osmcat-sharebutton:hover,
-    .osmcat-clearoverlaybutton:hover,
-    .osmcat-panoramax:hover,
-    .osmcat-mapillary:hover,
-    .osmcat-router:hover {
-        background-color: #34587C;
-        color: #fff;
-        outline: none;
-    }
-
-    /* Ensure menu toggle button doesn't conflict */
+    /* Menu toggle button */
     .menu-toggle {
+        position: fixed;
         bottom: 10px;
         right: 10px;
-        z-index: 1002; /* Above other buttons */
+        z-index: 1002;
+        width: 50px;
+        height: 50px;
+        background: #567CAC;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    /* Adjust for menu when visible */
-    .flex-row.viewer-active .map {
-        height: 70vh !important;
+    .menu-toggle:hover {
+        background: #34587C;
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.4);
     }
 
-    .flex-row.viewer-active .menu {
-        height: 30vh !important;
-        min-height: 200px !important;
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        z-index: 1000 !important;
-        background: white !important;
-        border-top: 3px solid #05CB63 !important;
-        transform: translateY(100%) !important;
-        transition: transform 0.3s ease-in-out !important;
+    .menu-toggle.active {
+        background: #05CB63;
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
     }
+
+    /* Remove the incorrect viewer-active rules */
+    /* These rules are not needed for the current layout */
 }
