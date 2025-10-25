@@ -79,9 +79,50 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 - **Provides clear instructions** to users about how to access the content
 - **Maintains full functionality** while respecting browser security policies
 
-This ensures the application works across all major browsers while maintaining security standards.
+## Recent Improvements (2025)
 
-## Vibe coding
+### Firefox Compatibility & User Experience
+
+**✅ Fixed Firefox blocking issues:**
+- Replaced iframe embedding with popup window approach
+- Added elegant semi-transparent overlay with backdrop blur
+- Modern gradient button design with hover effects
+- Cross-browser compatibility maintained
+
+**✅ Enhanced Mobile Experience:**
+- Improved touch targets (minimum 48px height for buttons)
+- Better mobile layout that keeps map accessible
+- Enhanced visual feedback for button interactions
+- Responsive design that works on all screen sizes
+
+**✅ Integrated Preview Experience:**
+- Added location preview with coordinates display
+- Elegant design with Mapillary branding colors
+- Real-time coordinate updates when clicking on coverage points
+- Better user guidance with clear instructions
+
+**✅ Visual Design Improvements:**
+- Modern gradient buttons with shadow effects
+- Semi-transparent backgrounds with blur effects
+- Professional color scheme using Mapillary green (#05CB63)
+- Responsive typography and spacing
+
+### Technical Improvements
+
+**✅ Better Error Handling:**
+- Graceful fallback when API is unavailable
+- Clear error messages with helpful suggestions
+- Console logging for debugging
+
+**✅ Improved Code Structure:**
+- Separated mobile styles into mobile.css as intended
+- Clean separation of concerns
+- Better maintainability
+
+**✅ Enhanced Accessibility:**
+- Larger touch targets on mobile (48px minimum)
+- Better visual feedback for interactions
+- Clear instructions and guidance for users
 
 We have used some programs about coding and also AIs LMs to do major part of the work.
 

@@ -762,10 +762,11 @@ CLEAR ACTIVE OVERLAY BUTTON
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: rgba(0, 0, 0, 0.7);
     z-index: 9999;
     display: none;
     flex-direction: column;
+    backdrop-filter: blur(5px);
 }
 
 .mapillary-viewer.active {
@@ -838,7 +839,7 @@ CLEAR ACTIVE OVERLAY BUTTON
 }
 
 .mapillary-viewer .mapillary-content {
-    padding: 20px;
+    padding: 40px 20px;
     text-align: center;
     height: calc(100% - 60px);
     display: flex;
@@ -846,35 +847,102 @@ CLEAR ACTIVE OVERLAY BUTTON
     justify-content: center;
     align-items: center;
     background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    margin: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .mapillary-viewer .mapillary-notice {
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
-    margin-bottom: 20px;
-    line-height: 1.4;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.mapillary-viewer .mapillary-notice i {
+    font-size: 32px;
+    color: #05CB63;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.mapillary-viewer .mapillary-notice strong {
+    color: #05CB63;
+    font-weight: 700;
+}
+
+.mapillary-viewer .mapillary-preview {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(5, 203, 99, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.mapillary-viewer .preview-info {
+    margin-bottom: 15px;
+}
+
+.mapillary-viewer .preview-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #05CB63;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mapillary-viewer .preview-coords {
+    font-family: monospace;
+    font-size: 13px;
+    color: #333;
+    background: rgba(5, 203, 99, 0.1);
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid rgba(5, 203, 99, 0.2);
+}
+
+.mapillary-viewer .preview-map {
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
 }
 
 .mapillary-viewer .open-mapillary-btn {
-    background: #05CB63;
+    background: linear-gradient(135deg, #05CB63, #04a650);
     color: white;
     border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(5, 203, 99, 0.3);
+    min-width: 200px;
+    justify-content: center;
 }
 
 .mapillary-viewer .open-mapillary-btn:hover {
-    background: #04a650;
+    background: linear-gradient(135deg, #04a650, #038c44);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(5, 203, 99, 0.4);
+}
+
+.mapillary-viewer .open-mapillary-btn:active {
+    transform: translateY(0);
 }
 
 .mapillary-viewer .open-mapillary-btn i {
-    font-size: 14px;
+    font-size: 16px;
 }
 @media only screen and (min-width: 600px) {
     .mapillary-viewer {
@@ -885,10 +953,19 @@ CLEAR ACTIVE OVERLAY BUTTON
         height: 100%;
         transform: translate(100%, -50%);
         transition: transform 0.3s ease-in-out;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
     }
 
     .mapillary-viewer.active {
         transform: translate(0, -50%);
+    }
+
+    .mapillary-viewer .mapillary-content {
+        margin: 20px;
+        padding: 40px 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     .map.viewer-active {

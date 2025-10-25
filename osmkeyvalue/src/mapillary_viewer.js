@@ -81,11 +81,17 @@ function initMapillaryViewer(map) {
         .append($('<button>').addClass('close-button').html('<i class="fa fa-times"></i>'))
         .append($('<div>').addClass('resize-handle'))
         .append($('<div>').addClass('credits')
-            .append($('<div>').addClass('credit').html('© <a href="https://www.mapillary.com" target="_blank">Mapillary</a>'))
-            .append($('<div>').addClass('credit').html('© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'))
+            .append($('<div>').addClass('credit').html('&#169; <a href="https://www.mapillary.com" target="_blank">Mapillary</a>'))
+            .append($('<div>').addClass('credit').html('&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'))
+        )
         .append($('<div>').addClass('mapillary-content')
-            .append($('<div>').addClass('mapillary-notice').html('Opening Mapillary in new window for security...'))
-            .append($('<button>').addClass('open-mapillary-btn').html('<i class="fa fa-external-link"></i> Open Mapillary'))));
+            .append($('<div>').addClass('mapillary-notice')
+                .html('<i class="fa fa-street-view"></i><br><strong>Mapillary Street View</strong><br><small>Click below to open street-level imagery in a new window</small>'))
+            .append($('<div>').addClass('mapillary-preview')
+                .append($('<div>').addClass('preview-info')
+                    .html('<div class="preview-title">Location Preview</div><div class="preview-coords">Loading coordinates...</div>'))
+                .append($('<div>').addClass('preview-map').html('<small>Interactive map will open in new window</small>')))
+            .append($('<button>').addClass('open-mapillary-btn').html('<i class="fa fa-external-link"></i> Open Mapillary')));
 
     $('body').append(viewerContainer);
 
@@ -148,8 +154,10 @@ function initMapillaryViewer(map) {
 
         console.log('Mapillary URL:', url); // Debug line
 
+        // Update the preview information
+        $('.preview-coords').html(`<strong>${lat.toFixed(6)}, ${lon.toFixed(6)}</strong><br><small>Zoom: ${zoom}</small>`);
+
         // Update the notice and button
-        $('.mapillary-notice').html('Click the button below to open Mapillary in a new window:');
         $('.open-mapillary-btn').off('click').on('click', function() {
             window.open(url, 'mapillary', 'width=1200,height=800,scrollbars=yes,resizable=yes');
         });
@@ -173,8 +181,9 @@ function initMapillaryViewer(map) {
         $('.mapillary-viewer').removeClass('active');
         $('#map').removeClass('viewer-active');
         setTimeout(function() {
-            // Reset the notice text
-            $('.mapillary-notice').html('Opening Mapillary in new window for security...');
+            // Reset the notice and preview text
+            $('.mapillary-notice').html('<i class="fa fa-street-view"></i><br><strong>Mapillary Street View</strong><br><small>Click below to open street-level imagery in a new window</small>');
+            $('.preview-coords').html('Loading coordinates...');
             $('.open-mapillary-btn').off('click');
             map.updateSize(); // Force OL to update its size calculations
         }, 300);
