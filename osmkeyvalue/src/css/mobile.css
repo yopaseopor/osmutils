@@ -7,29 +7,35 @@
 
 /* Mobile/Responsive Mode (screens < 600px) */
 @media only screen and (max-width: 599px) {
-    /* Mobile layout: Map takes most of screen but leaves space for controls and menu access */
+    /* Mobile layout: Full-width map with side menus that can be scrolled horizontally */
     .flex-row {
         flex-direction: row; /* Keep horizontal layout */
         height: 100vh;
         position: relative;
-        overflow: hidden;
+        overflow: hidden; /* Prevent vertical scrolling */
         -webkit-overflow-scrolling: touch;
+    }
+
+    /* When menu is visible, make entire map smaller */
+    .flex-row.menu-visible .map {
+        width: calc(100vw - 320px); /* Leave space for first menu section */
+        transition: width 0.3s ease-in-out; /* Smooth width transition */
     }
 
     .map {
         height: 100vh; /* Full height */
-        width: calc(100vw - 60px); /* Leave 60px for menu toggle button */
+        width: 100vw; /* Full width initially */
         border: none;
         position: relative;
-        flex: 1 1 auto;
-        min-width: calc(100vw - 60px);
+        flex: 1 1 auto; /* Take available space */
+        min-width: 50vw; /* Minimum half screen width */
     }
 
     /* Menu container with horizontal scrolling */
     .menu {
         height: 100vh;
-        width: auto;
-        min-width: 50vw;
+        width: auto; /* Allow natural width */
+        min-width: 50vw; /* Minimum half screen width */
         position: fixed; /* Fixed position */
         top: 0;
         right: -100vw; /* Hidden by default */
@@ -44,13 +50,14 @@
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Menu visible state */
+    /* Menu visible state - slide in from right */
     .menu.menu-visible {
-        right: 0; /* Slide in from right */
+        right: 0;
     }
 
-    /* Menu toggle button */
+    /* Menu toggle button - only visible on mobile */
     .menu-toggle {
+        display: none; /* Hidden by default on all screens */
         position: fixed;
         top: 50%;
         right: 10px;
@@ -66,21 +73,15 @@
         cursor: pointer;
         box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
-        display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    .menu-toggle:hover {
-        background: #34587C;
-        transform: translateY(-50%) scale(1.1);
-        box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-    }
-
-    .menu-toggle.active {
-        background: #05CB63;
-        transform: translateY(-50%) scale(1.1);
-        box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
+    /* Show toggle button only on mobile */
+    @media only screen and (max-width: 599px) {
+        .menu-toggle {
+            display: flex !important; /* Show only on mobile */
+        }
     }
 
     /* Query Statistics integrated into menu flow */
@@ -440,18 +441,19 @@
         padding: 6px;
     }
 
-    /* Ensure OpenLayers native controls are visible above custom buttons */
-    .ol-control {
-        z-index: 1003 !important; /* Higher than custom buttons */
+    /* Make rotation buttons same size as other controls */
+    .osmcat-rotateleft,
+    .osmcat-rotateright {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 18px;
     }
 
-    .ol-zoom,
-    .ol-rotate,
-    .ol-attribution,
-    .ol-scale-line,
-    .ol-mouse-position,
-    .ol-control {
-        z-index: 1003 !important;
+    .osmcat-rotateleft button,
+    .osmcat-rotateright button {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 18px;
     }
 
     /* Mobile control buttons positioning - avoid overlapping with OpenLayers controls */
@@ -495,7 +497,31 @@
     }
 
     .osmcat-infobutton {
-        bottom: 10px; /* Keep at bottom */
+        bottom: 10px; /* Keep at bottom but ensure attribution is visible */
+    }
+
+    /* Ensure rotation controls are properly positioned and visible */
+    .osmcat-rotateleft {
+        top: 10px;
+        right: 70px; /* Position next to zoom controls */
+    }
+
+    .osmcat-rotateright {
+        top: 65px;
+        right: 70px; /* Position below rotate left */
+    }
+
+    /* Ensure attribution and scale line are visible */
+    .ol-attribution {
+        bottom: 5px !important;
+        right: 5px !important;
+        font-size: 10px !important;
+        max-width: calc(100vw - 60px) !important; /* Account for toggle button */
+    }
+
+    .ol-scale-line {
+        bottom: 5px !important;
+        left: 5px !important;
     }
 
     /* Enhanced visual feedback for mobile buttons */

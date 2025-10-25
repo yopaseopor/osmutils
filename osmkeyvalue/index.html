@@ -68,7 +68,7 @@
 			<!-- Overlays section -->
 			<div id="overlay-list" style="display: none;"></div>
 		</div>
-		<!-- Mobile menu toggle button -->
+		<!-- Mobile menu toggle button (only visible on mobile) -->
 		<button class="menu-toggle" id="menu-toggle" title="Show/Hide Menu">
 			<i class="fa fa-bars"></i>
 		</button>
@@ -79,14 +79,17 @@
 				$('#menu-toggle').on('click', function() {
 					var $menu = $('.menu');
 					var $toggle = $(this);
+					var $flexRow = $('.flex-row');
 
 					if ($menu.hasClass('menu-visible')) {
 						// Hide menu
 						$menu.removeClass('menu-visible');
+						$flexRow.removeClass('menu-visible');
 						$toggle.removeClass('active');
 					} else {
 						// Show menu
 						$menu.addClass('menu-visible');
+						$flexRow.addClass('menu-visible');
 						$toggle.addClass('active');
 					}
 				});
@@ -96,11 +99,13 @@
 					if ($(window).width() <= 599) {
 						var $menu = $('.menu');
 						var $toggle = $('#menu-toggle');
+						var $flexRow = $('.flex-row');
 
 						if ($menu.hasClass('menu-visible') &&
 							!$(e.target).closest('.menu').length &&
 							!$(e.target).closest('#menu-toggle').length) {
 							$menu.removeClass('menu-visible');
+							$flexRow.removeClass('menu-visible');
 							$toggle.removeClass('active');
 						}
 					}
