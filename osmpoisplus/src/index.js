@@ -610,6 +610,13 @@ $(function () {
     $('.osmcat-menu').addClass('router-active');
     $('.osmcat-router').addClass('active');
 
+    // Initialize Mapillary viewer
+    if (typeof window.initMapillaryViewer === 'function') {
+        window.initMapillaryViewer(map);
+    } else {
+        console.warn('Mapillary viewer module is not loaded.');
+    }
+
 
 	var layersControlBuild = function () {
 		var visibleLayer,
