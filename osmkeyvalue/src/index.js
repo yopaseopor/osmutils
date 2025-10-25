@@ -918,10 +918,13 @@ $(function () {
 			.html('<i class="fa fa-bars"></i>')
 			.on('click', function() {
 				var $menu = $('.menu');
+				var $flexRow = $('.flex-row');
 				if ($menu.hasClass('menu-visible')) {
 					$menu.removeClass('menu-visible');
+					$flexRow.removeClass('menu-active');
 				} else {
 					$menu.addClass('menu-visible');
+					$flexRow.addClass('menu-active');
 				}
 			});
 

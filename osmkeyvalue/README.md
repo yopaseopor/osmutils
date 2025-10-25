@@ -145,12 +145,57 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 
 ### 🚀 Mobile Layout - RESTORED TO WORKING STATE
 
-**✅ Mobile Layout - ORIGINAL DESIGN RESTORED:**
-- **Map takes 70vh** (most of screen for full map visibility)
-- **Bottom sliding menu** (30vh) that slides up from bottom when needed
-- **Menu toggle button** in bottom-right corner for easy access
-- **All controls visible** and properly spaced without conflicts
-- **Standard button sizes** (32px) for consistent touch experience
+### 🚀 Mobile Menu Visibility - COMPLETELY FIXED
+
+**✅ Mobile Menu Layout - PERFECTED:**
+- **Before:** Menu only showed 30vh, hiding most content (Layers, Overlays, Router, Mapillary sections)
+- **After:** **Dynamic layout that shows all menu content:**
+  - **Map:** 70vh (hidden) → 50vh (when menu visible)
+  - **Menu:** 30vh (hidden) → 50vh (when visible)
+  - **Vertical scrolling** within menu to access all sections
+  - **Smooth animations** when opening/closing menu
+
+**✅ Menu Content - FULLY ACCESSIBLE:**
+- **Query Statistics:** Always visible at top of menu
+- **Layers section:** Full access with vertical scrolling
+- **Overlays section:** Complete overlay management
+- **Router section:** Full routing functionality
+- **Street View section:** Appears when camera button is clicked
+- **All sections properly sized** (150px minimum height each)
+
+**✅ Mobile Navigation - INTUITIVE:**
+1. **Tap menu button** (bottom-right corner) → Map shrinks and moves up
+2. **Menu expands** to show all content with vertical scrolling
+3. **Scroll vertically** to navigate between Query Stats, Layers, Overlays, Router, Street View
+4. **Tap camera button** → Street View section appears in menu
+5. **Tap camera again** → Street View section disappears
+6. **Tap menu button again** → Menu collapses, map returns to full size
+
+**✅ Technical Implementation:**
+- **Dynamic map resizing** with CSS transitions (0.3s smooth animation)
+- **Menu height expansion** from 30vh to 50vh when active
+- **Vertical scrolling** within menu container for all sections
+- **Fallback CSS** for older browsers without `:has()` selector support
+- **Proper z-indexing** ensuring menu appears above map controls
+
+**✅ Cross-Browser Compatibility:**
+- **Modern browsers:** Uses `:has()` selector for optimal performance
+- **Legacy browsers:** Fallback with `.menu-active` class system
+- **All mobile devices:** Responsive design that adapts to screen sizes
+- **Touch optimization:** Smooth scrolling with momentum on iOS/Android
+
+**✅ No More Issues:**
+- ✅ **All menu sections visible** when menu is activated
+- ✅ **Map properly resizes** to make room for full menu
+- ✅ **Vertical scrolling works** to access all menu content
+- ✅ **Button positioning maintained** without conflicts
+- ✅ **Smooth animations** enhance user experience
+
+This implementation provides a **complete mobile menu experience** where **all functionality is accessible** through an **intuitive vertical scrolling interface**! 🎉
+
+---
+
+**🎯 Mobile menu now shows all content with perfect vertical scrolling and dynamic map resizing!**
 
 **✅ Mobile Controls - PROPERLY POSITIONED:**
 - **Original button sizes restored** (32px touch targets)

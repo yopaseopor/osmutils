@@ -25,6 +25,22 @@
         min-width: 100vw;
     }
 
+    /* When menu is visible, reduce map height and move it up */
+    .menu.menu-visible ~ .map,
+    .menu.menu-visible + .map,
+    .flex-row:has(.menu.menu-visible) .map {
+        height: 50vh; /* Reduce map height when menu is open */
+        transform: translateY(-5vh); /* Move map up slightly */
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Fallback for browsers without :has() support */
+    .flex-row.menu-active .map {
+        height: 50vh; /* Reduce map height when menu is open */
+        transform: translateY(-5vh); /* Move map up slightly */
+        transition: all 0.3s ease-in-out;
+    }
+
     /* Menu slides up from bottom */
     .menu {
         height: 30vh; /* Bottom portion for menu */
@@ -45,50 +61,62 @@
         overflow: hidden;
     }
 
-    /* Menu visible state */
+    /* Menu visible state - increased height to show all content */
     .menu.menu-visible {
+        height: 50vh; /* Increased height when visible */
+        min-height: 300px; /* Larger minimum height */
         transform: translateY(0); /* Slide in from bottom */
     }
 
-    /* Menu toggle button */
-    .menu-toggle {
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        z-index: 1002;
-        width: 50px;
-        height: 50px;
-        background: #567CAC;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        font-size: 20px;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        transition: all 0.3s ease;
+    /* Menu content container */
+    .osmcat-menu {
         display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .menu-toggle:hover {
-        background: #34587C;
-        transform: scale(1.1);
-        box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-    }
-
-    .menu-toggle.active {
-        background: #05CB63;
-        transform: scale(1.1);
-        box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
-    }
-
-    /* Query Statistics integrated into menu flow */
-    .query-statistics {
+        flex-direction: column; /* Stack sections vertically */
         width: 100%;
-        min-width: 0;
-        flex: 0 0 auto;
-        max-height: none;
+        height: calc(100% - 60px); /* Account for query stats and padding */
+        overflow-y: auto; /* Enable vertical scrolling */
+        overflow-x: hidden;
+        position: relative;
+        z-index: 1;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+        gap: 0;
+    }
+
+    /* Menu sections styling */
+    .osmcat-layer,
+    .osmcat-overlay,
+    .osmcat-router-section {
+        flex: 0 0 auto; /* Don't flex, use natural height */
+        width: 100%; /* Full width */
+        min-height: 150px; /* Minimum height for each section */
+        border: 1px solid #BBB;
+        border-bottom: none; /* Remove bottom border since sections are stacked */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Remove bottom border from last section */
+    .osmcat-layer:last-child,
+    .osmcat-overlay:last-child,
+    .osmcat-router-section:last-child {
+        border-bottom: 1px solid #BBB;
+    }
+
+    /* Query Statistics styling */
+    .query-statistics {
+        flex: 0 0 auto; /* Don't flex, use natural height */
+        width: 100%; /* Full width */
+        min-height: 80px; /* Minimum height */
+        border: 1px solid #BBB;
+        border-bottom: none;
+        max-height: 120px; /* Maximum height */
         overflow-y: auto;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
@@ -97,55 +125,19 @@
         margin: 0;
         padding: 8px;
         background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 0;
     }
 
-    /* Main menu container - 2 columns for Layers and Overlays */
-    .osmcat-menu {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        width: 100%;
-        height: calc(100% - 60px); /* Account for query stats and padding */
-        overflow: visible;
-        position: relative;
-        z-index: 1;
-        gap: 1px;
-    }
-
-    /* Layer section - Left column */
+    /* Default 2-column layout for hidden menu (fallback) */
     .osmcat-layer:first-of-type {
-        flex: 1 1 50%;
-        width: 50%;
-        min-width: 0;
         border: none;
         border-right: 1px solid #BBB;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        max-height: 100%;
+        border-bottom: 1px solid #BBB;
     }
 
-    /* Overlay section - Right column */
     .osmcat-layer:nth-of-type(2),
     .osmcat-overlay {
-        flex: 1 1 50%;
-        width: 50%;
-        min-width: 0;
         border: none;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        max-height: 100%;
+        border-bottom: 1px solid #BBB;
     }
 
     /* Hide the old horizontal scrolling behavior */
