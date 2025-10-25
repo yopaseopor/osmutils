@@ -240,8 +240,53 @@
         transition: transform 0.3s ease-in-out !important;
     }
 
-    .flex-row.viewer-active .menu.show-mobile-menu {
-        transform: translateY(0) !important;
+    /* Mapillary menu mobile styles */
+    .mapillary-menu-content {
+        padding: 12px;
+        margin: 8px 0;
+    }
+
+    .mapillary-menu-content .mapillary-notice {
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+
+    .mapillary-menu-content .mapillary-notice i {
+        font-size: 20px;
+        margin-bottom: 6px;
+    }
+
+    .mapillary-menu-content .mapillary-notice strong {
+        font-size: 13px;
+    }
+
+    .mapillary-menu-content .mapillary-notice small {
+        font-size: 11px;
+    }
+
+    .mapillary-menu-content .mapillary-preview {
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .mapillary-menu-content .preview-title {
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .mapillary-menu-content .preview-coords {
+        font-size: 10px;
+        padding: 5px 7px;
+    }
+
+    .mapillary-menu-content .preview-map {
+        font-size: 9px;
+        padding: 6px;
+    }
+
+    .mapillary-menu-content .open-mapillary-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        border-radius: 4px;
     }
 }
-
