@@ -837,11 +837,45 @@ CLEAR ACTIVE OVERLAY BUTTON
     margin-left: 5px;
 }
 
-.mapillary-viewer .credits a:hover {
-    color: rgba(0,60,136,1);
+.mapillary-viewer .mapillary-content {
+    padding: 20px;
+    text-align: center;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
 }
 
-/* Responsive styles */
+.mapillary-viewer .mapillary-notice {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.mapillary-viewer .open-mapillary-btn {
+    background: #05CB63;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mapillary-viewer .open-mapillary-btn:hover {
+    background: #04a650;
+}
+
+.mapillary-viewer .open-mapillary-btn i {
+    font-size: 14px;
+}
 @media only screen and (min-width: 600px) {
     .mapillary-viewer {
         top: 50%;
@@ -857,14 +891,10 @@ CLEAR ACTIVE OVERLAY BUTTON
         transform: translate(0, -50%);
     }
 
-    .mapillary-viewer iframe {
-        height: calc(100% - 30px);
-    }
-
     .map.viewer-active {
         width: 60% !important;
     }
-    
+
     /* Ensure sequence visibility on desktop */
     .map.viewer-active .ol-layers {
         z-index: 2;

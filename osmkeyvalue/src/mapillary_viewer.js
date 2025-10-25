@@ -1,5 +1,9 @@
 /**
  * Mapillary Viewer Implementation
+ *
+ * Firefox Compatibility Note:
+ * Firefox blocks embedded iframes from mapillary.com due to security policies (X-Frame-Options).
+ * This implementation opens Mapillary in a new window instead of using an iframe for better browser compatibility.
  */
 function initMapillaryViewer(map) {
     // Create Mapillary vector layer for coverage visualization
@@ -78,11 +82,10 @@ function initMapillaryViewer(map) {
         .append($('<div>').addClass('resize-handle'))
         .append($('<div>').addClass('credits')
             .append($('<div>').addClass('credit').html('© <a href="https://www.mapillary.com" target="_blank">Mapillary</a>'))
-            .append($('<div>').addClass('credit').html('© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors')))
-        .append($('<iframe>').attr({
-            'id': 'mapillary-iframe',
-            'allowfullscreen': 'true'
-        }));
+            .append($('<div>').addClass('credit').html('© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'))
+        .append($('<div>').addClass('mapillary-content')
+            .append($('<div>').addClass('mapillary-notice').html('Opening Mapillary in new window for security...'))
+            .append($('<button>').addClass('open-mapillary-btn').html('<i class="fa fa-external-link"></i> Open Mapillary'))));
 
     $('body').append(viewerContainer);
 
@@ -127,17 +130,11 @@ function initMapillaryViewer(map) {
         $('.osmcat-mapillary button').removeClass('active');
     });
 
-    // Make viewer resizable
+    // Make viewer resizable (content area only)
     $('.mapillary-viewer').resizable({
         handles: 'e, s, se',
         minWidth: 300,
-        minHeight: 200,
-        resize: function(event, ui) {
-            $('.mapillary-viewer iframe').css({
-                width: ui.size.width,
-                height: ui.size.height - 30 // Account for credits height
-            });
-        }
+        minHeight: 200
     });
 
     // Function to show the viewer with a specific image
@@ -151,42 +148,11 @@ function initMapillaryViewer(map) {
 
         console.log('Mapillary URL:', url); // Debug line
 
-        var iframe = $('#mapillary-iframe');
-
-        // Configure iframe with error handling
-        iframe.attr({
-            'src': 'about:blank',
-            'frameborder': '0',
-            'width': '100%',
-            'height': '100%',
-            'allowfullscreen': 'true'
-        }).on('error', function() {
-            console.error('Error loading Mapillary iframe');
-            $('.mapillary-viewer').removeClass('loading').addClass('error');
-            // Disable the button after multiple failures
-            $('.osmcat-mapillary button').addClass('disabled').prop('disabled', true);
+        // Update the notice and button
+        $('.mapillary-notice').html('Click the button below to open Mapillary in a new window:');
+        $('.open-mapillary-btn').off('click').on('click', function() {
+            window.open(url, 'mapillary', 'width=1200,height=800,scrollbars=yes,resizable=yes');
         });
-
-        // Show loading state
-        $('.mapillary-viewer').addClass('loading').removeClass('error');
-
-        // Force reload the iframe with new coordinates
-        setTimeout(function() {
-            iframe.attr('src', url);
-            console.log('Iframe src set to:', url); // Debug line
-
-            // Remove loading state after a delay
-            setTimeout(function() {
-                $('.mapillary-viewer').removeClass('loading');
-                // If still loading after 5 seconds, show error
-                setTimeout(function() {
-                    if ($('.mapillary-viewer').hasClass('loading')) {
-                        $('.mapillary-viewer').removeClass('loading').addClass('error');
-                        $('.osmcat-mapillary button').addClass('disabled').prop('disabled', true);
-                    }
-                }, 5000);
-            }, 2000);
-        }, 100);
 
         $('.mapillary-viewer').addClass('active');
         $('#map').addClass('viewer-active');
@@ -207,7 +173,9 @@ function initMapillaryViewer(map) {
         $('.mapillary-viewer').removeClass('active');
         $('#map').removeClass('viewer-active');
         setTimeout(function() {
-            $('#mapillary-iframe').attr('src', '');
+            // Reset the notice text
+            $('.mapillary-notice').html('Opening Mapillary in new window for security...');
+            $('.open-mapillary-btn').off('click');
             map.updateSize(); // Force OL to update its size calculations
         }, 300);
     }

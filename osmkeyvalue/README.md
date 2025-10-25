@@ -68,6 +68,18 @@ If no API key is configured, the application will:
 - **Coverage layer not showing:** Check console for authentication errors
 - **Images not loading:** Verify API key is valid and has correct permissions
 - **CORS issues:** The app uses proxy services to handle CORS limitations
+- **Firefox blocking:** Firefox may block embedded Mapillary content for security reasons. The app now opens Mapillary in a new window instead of an iframe for better compatibility.
+
+## Firefox Compatibility
+
+Due to Firefox's security policies, embedded iframes from mapillary.com are blocked. The application now:
+
+- **Detects browser compatibility issues**
+- **Opens Mapillary in a new window** instead of embedding
+- **Provides clear instructions** to users about how to access the content
+- **Maintains full functionality** while respecting browser security policies
+
+This ensures the application works across all major browsers while maintaining security standards.
 
 ## Vibe coding
 
