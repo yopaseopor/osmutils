@@ -143,87 +143,56 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 - **Dynamic menu creation** for better performance and consistency
 - **No interference** with existing menus or map functionality
 
-### 🚀 Latest Fixes (Mobile Layout & Controls) - COMPLETED
+### 🚀 Mobile Layout - RESTORED TO WORKING STATE
 
-**✅ Mobile Layout - PERFECTED:**
-- **Before:** Map covered entire screen, hiding OpenLayers controls and preventing menu access
-- **After:** **Optimized layout with proper space allocation:**
-  - **Map width:** calc(100vw - 120px) for OpenLayers controls
-  - **Horizontal scrolling:** Full layout scrolls horizontally to access menus
-  - **All controls visible:** OpenLayers controls repositioned to left side
-  - **Menu access:** Swipe right to navigate between menu sections
+**✅ Mobile Layout - ORIGINAL DESIGN RESTORED:**
+- **Map takes 70vh** (most of screen for full map visibility)
+- **Bottom sliding menu** (30vh) that slides up from bottom when needed
+- **Menu toggle button** in bottom-right corner for easy access
+- **All controls visible** and properly spaced without conflicts
+- **Standard button sizes** (32px) for consistent touch experience
 
-**✅ OpenLayers Controls - OPTIMIZED:**
-- **Before:** Attribution, scale, coordinates hidden or overlapped
-- **After:** **Repositioned all controls for mobile compatibility:**
-  - **Mouse position:** Top-left corner (10px from edges)
-  - **Scale line:** Bottom-left, above attribution (60px from bottom)
-  - **Attribution:** Bottom-left with proper width limits
-  - **Zoom slider:** Right side, center vertically
-  - **Rotate control:** Top-right, avoiding zoom slider
-  - **Custom rotate buttons:** Stacked below rotate control
+**✅ Mobile Controls - PROPERLY POSITIONED:**
+- **Original button sizes restored** (32px touch targets)
+- **Standard spacing** between all control buttons
+- **No overlaps** between menu toggle and other controls
+- **Clean positioning** with proper z-indexing
+- **All OpenLayers controls** remain fully functional
 
-**✅ Custom Control Buttons - ENHANCED:**
-- **Before:** Poor positioning, conflicts with OpenLayers controls
-- **After:** **Strategically positioned to avoid conflicts:**
-  - **44px touch targets** for comfortable interaction
-  - **Right-side positioning** (10px from edge)
-  - **Proper vertical spacing** to prevent overlap
-  - **Enhanced visual feedback** with scale and shadow effects
-  - **Active state styling** with Mapillary green highlighting
+**✅ Mobile Menu System:**
+- **Bottom sliding menu** activated by toggle button
+- **Two-column layout** (Layers | Overlays) within sliding menu
+- **Query Statistics** integrated at top of menu
+- **Street View section** appears when camera button is clicked
+- **Smooth animations** for menu show/hide
 
-**✅ Horizontal Scrolling - IMPLEMENTED:**
-- **Before:** Menus not accessible due to overflow: hidden
-- **After:** **Full horizontal scrolling system:**
-  - **flex-row** with overflow-x: auto for entire layout
-  - **Touch-optimized** scrolling with -webkit-overflow-scrolling: touch
-  - **Menu sections** maintain 280px width without compression
-  - **Smooth navigation** between Query Stats → Layers → Overlays → Street View
-  - **Visual scroll indicators** with custom scrollbars
+**✅ Mobile Navigation:**
+1. **View full map** (70vh) with all standard controls
+2. **Tap menu toggle** (bottom-right) → Menu slides up from bottom
+3. **Navigate menu sections** (Query Stats, Layers, Overlays, Street View)
+4. **Click camera button** → Street View appears in menu
+5. **Click camera again** → Street View disappears cleanly
+6. **Tap outside or toggle** → Menu slides back down
 
-**✅ Space Management - BALANCED:**
-- **Before:** 100vw map covered everything, no space for controls
-- **After:** **Intelligent space allocation:**
-  - **Map:** calc(100vw - 120px) for OpenLayers controls
-  - **Controls:** 120px total space (left for OpenLayers, right for custom buttons)
-  - **Menus:** Unlimited horizontal space with 280px sections
-  - **No conflicts:** All elements properly positioned and accessible
-
-### 🎯 Mobile Experience - NOW PERFECT
-
-**✅ Complete Control Visibility:**
-- **All OpenLayers controls** visible and functional (coordinates, scale, attribution, zoom, rotate)
-- **All custom buttons** accessible with proper touch targets
-- **No overlapping** between OpenLayers and custom controls
-- **Professional layout** matching desktop functionality
-
-**✅ Intuitive Navigation:**
-1. **View full map** with all controls visible and accessible
-2. **Swipe horizontally** to access Query Statistics, Layers, Overlays
-3. **Click camera button** → Street View section appears in menu
-4. **Click map coverage** → Coordinates update in real-time
-5. **Click "Open Mapillary"** → Opens in new window with exact location
-6. **Click camera button again** → Street View section disappears cleanly
-
-**✅ Technical Excellence:**
-- **Responsive design** that works across all mobile screen sizes
-- **Touch optimization** with proper overflow handling and momentum scrolling
-- **Z-index management** ensuring proper layering of controls and menus
-- **Performance optimized** with efficient CSS and smooth interactions
-- **Cross-browser compatibility** with -webkit-overflow-scrolling support
+**✅ Technical Implementation:**
+- **Restored original mobile CSS** with working bottom menu
+- **Maintained Mapillary toggle functionality** (works like router button)
+- **Proper button positioning** without conflicts or overlaps
+- **Responsive design** that adapts to all mobile screen sizes
+- **Touch optimization** with appropriate button sizes and spacing
 
 **✅ No More Issues:**
-- ✅ **OpenLayers controls visible** and properly positioned
-- ✅ **Custom buttons accessible** without conflicts
-- ✅ **Horizontal scrolling works** for menu navigation
-- ✅ **Map fully functional** with all standard features
-- ✅ **Professional mobile experience** that rivals desktop functionality
+- ✅ **Bottom menu works** as originally designed
+- ✅ **Button sizes correct** (32px standard size)
+- ✅ **No button overlaps** or positioning conflicts
+- ✅ **Mapillary functionality preserved** (toggle behavior like PC)
+- ✅ **All controls accessible** and properly spaced
 
-This implementation provides a **superior mobile experience** where **all functionality is preserved** while **maintaining professional aesthetics** and **intuitive navigation patterns**! 🎉
+This implementation **maintains the improved Mapillary functionality** while **restoring the working mobile layout** that users expect! 🎉
 
 ---
 
-**🎯 Mobile layout issues completely resolved with optimal control positioning and horizontal scrolling!**
+**🎯 Mobile experience restored to original working state with enhanced Mapillary integration!**
 
 **✅ Mobile Button System - OPTIMIZED:**
 - **Before:** Buttons hidden behind controls (bottom: 260px) and poor touch targets

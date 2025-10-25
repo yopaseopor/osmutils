@@ -7,147 +7,120 @@
 
 /* Mobile/Responsive Mode (screens < 600px) */
 @media only screen and (max-width: 599px) {
-    /* Mobile layout: Map with proper space for OpenLayers controls */
+    /* Mobile layout: Map takes most of screen but leaves space for controls and menu access */
     .flex-row {
-        flex-direction: row; /* Keep horizontal layout */
+        flex-direction: row; /* Keep horizontal layout for map + menu */
         height: 100vh;
         position: relative;
-        overflow-x: auto; /* Enable horizontal scrolling for entire layout */
-        overflow-y: hidden;
+        overflow: hidden; /* Prevent scrolling issues */
         -webkit-overflow-scrolling: touch;
     }
 
     .map {
-        height: 100vh; /* Full height */
-        width: calc(100vw - 120px); /* Leave space for controls (120px total) */
-        max-width: calc(100vw - 120px);
+        height: 70vh; /* Most of screen for map */
+        width: 100vw; /* Full width */
         border: none;
         position: relative;
-        flex: 0 0 auto; /* Don't flex, use fixed width */
-        min-width: calc(100vw - 120px);
+        flex: 1 1 auto;
+        min-width: 100vw;
     }
 
-    /* Menu container with horizontal scrolling */
+    /* Menu slides up from bottom */
     .menu {
-        height: 100vh;
-        width: auto; /* Allow natural width for multiple sections */
-        min-width: 280px; /* Minimum width for one section */
-        position: relative;
-        z-index: 1;
+        height: 30vh; /* Bottom portion for menu */
+        min-height: 200px; /* Minimum height */
+        width: 100vw;
+        position: fixed; /* Fixed position */
+        bottom: 0; /* Slide up from bottom */
+        left: 0;
+        right: 0;
+        z-index: 1000; /* Above everything */
         background: white;
+        border-top: 3px solid #567CAC;
+        transform: translateY(100%); /* Hidden by default */
+        transition: transform 0.3s ease-in-out; /* Smooth slide animation */
+        -webkit-overflow-scrolling: touch;
         display: flex;
         flex-direction: column;
-        padding-top: 5px;
-        overflow: visible;
-        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
-        flex: 0 0 auto; /* Don't flex */
+        overflow: hidden;
     }
 
-    /* OpenLayers controls adjustments for mobile */
-    .ol-control {
-        z-index: 1003; /* Ensure above menu */
+    /* Menu visible state */
+    .menu.menu-visible {
+        transform: translateY(0); /* Slide in from bottom */
     }
 
-    /* Adjust OpenLayers control positions for mobile layout */
-    .ol-mouse-position {
-        top: 10px; /* Move up from 36px */
-        left: 10px; /* Move to left side */
-        right: auto; /* Remove right positioning */
-        background: rgba(255,255,255,0.8);
-        padding: 2px 6px;
-        font-size: 11px;
-    }
-
-    .ol-scale-line {
-        bottom: 60px; /* Move up to avoid conflict with buttons */
-        left: 10px; /* Move to left side */
-        right: auto;
-        background: rgba(255,255,255,0.8);
-    }
-
-    .ol-scale-line-inner {
-        font-size: 11px;
-    }
-
-    .ol-attribution {
-        bottom: 5px;
-        left: 10px; /* Move to left side */
-        right: auto;
-        font-size: 10px;
-        max-width: calc(100vw - 140px); /* Prevent overflow */
-    }
-
-    .ol-attribution a {
-        color: #0078A8;
-        font-size: 10px;
-    }
-
-    /* Zoom slider positioning */
-    .ol-zoom {
-        top: 50%;
+    /* Menu toggle button */
+    .menu-toggle {
+        position: fixed;
+        bottom: 10px;
         right: 10px;
-        transform: translateY(-50%);
-    }
-
-    .ol-zoom-in,
-    .ol-zoom-out {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 16px !important;
-    }
-
-    /* Rotate control positioning */
-    .ol-rotate {
-        top: 10px;
-        right: 50px; /* Move left from 5.5em to avoid zoom slider */
-        width: 30px !important;
-        height: 30px !important;
-    }
-
-    .ol-rotate-reset {
-        font-size: 14px !important;
-    }
-
-    /* Custom rotate buttons positioning */
-    .osmcat-rotateleft,
-    .osmcat-rotateright {
-        top: 50px; /* Move below rotate control */
-        right: 10px;
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 14px !important;
-    }
-
-    .osmcat-rotateright {
-        top: 90px; /* Stack below rotateleft */
-    }
-
-    /* Main menu container - horizontal layout with scrolling */
-    .osmcat-menu {
+        z-index: 1002;
+        width: 50px;
+        height: 50px;
+        background: #567CAC;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
         display: flex;
-        flex-direction: row; /* Side by side layout */
-        flex-wrap: nowrap;
-        width: auto; /* Allow natural width for scrolling */
-        height: auto;
-        min-height: calc(100vh - 100px); /* Account for query stats and padding */
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden;
-        position: relative;
-        z-index: 1;
-        gap: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menu-toggle:hover {
+        background: #34587C;
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+
+    .menu-toggle.active {
+        background: #05CB63;
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
+    }
+
+    /* Query Statistics integrated into menu flow */
+    .query-statistics {
+        width: 100%;
+        min-width: 0;
+        flex: 0 0 auto;
+        max-height: none;
+        overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
         scrollbar-color: #888 #f1f1f1;
+        margin: 0;
+        padding: 8px;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0;
     }
 
-    /* All menu sections side by side */
-    .osmcat-layer,
-    .osmcat-overlay {
-        flex: 0 0 auto; /* Don't flex, use natural width */
-        width: 280px; /* Fixed width for each section */
-        min-width: 250px;
-        border: 1px solid #BBB;
-        border-right: none; /* Remove right border since sections are side by side */
+    /* Main menu container - 2 columns for Layers and Overlays */
+    .osmcat-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        height: calc(100% - 60px); /* Account for query stats and padding */
+        overflow: visible;
+        position: relative;
+        z-index: 1;
+        gap: 1px;
+    }
+
+    /* Layer section - Left column */
+    .osmcat-layer:first-of-type {
+        flex: 1 1 50%;
+        width: 50%;
+        min-width: 0;
+        border: none;
+        border-right: 1px solid #BBB;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -155,50 +128,42 @@
         position: relative;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        max-height: calc(100vh - 120px); /* Account for query stats and padding */
+        max-height: 100%;
     }
 
-    /* Add right border to last section */
-    .osmcat-layer:last-child,
-    .osmcat-overlay:last-child {
-        border-right: 1px solid #BBB;
+    /* Overlay section - Right column */
+    .osmcat-layer:nth-of-type(2),
+    .osmcat-overlay {
+        flex: 1 1 50%;
+        width: 50%;
+        min-width: 0;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 100%;
     }
 
     /* Hide the old horizontal scrolling behavior */
     .osmcat-menu.layer-active,
     .osmcat-menu.overlay-active {
-        width: auto !important;
-        max-width: none;
-        overflow: visible !important;
+        width: 100% !important;
+        max-width: 100vw;
+        overflow: hidden !important;
     }
 
     /* Adjust the default state rules */
     .osmcat-menu .osmcat-layer,
     .osmcat-menu .osmcat-overlay,
     .osmcat-menu .osmcat-router-section {
-        width: 280px;
-        min-width: 250px;
-        flex: 0 0 auto;
-        max-width: 300px;
-    }
-
-    /* Custom scrollbar for horizontal scrolling */
-    .osmcat-menu::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .osmcat-menu::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-
-    .osmcat-menu::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
-    }
-
-    .osmcat-menu::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        width: auto;
+        min-width: 0;
+        flex: 1 1 auto;
+        max-width: 100%;
     }
 
     /* Layer and overlay content styling */
@@ -364,7 +329,7 @@
         padding: 6px;
     }
 
-    /* Mobile control buttons positioning - optimized for new layout */
+    /* Mobile control buttons positioning */
     .osmcat-geobutton,
     .osmcat-infobutton,
     .osmcat-sharebutton,
@@ -373,129 +338,77 @@
     .osmcat-mapillary,
     .osmcat-router {
         right: 8px;
-        width: 44px !important; /* Larger for better touch targets */
-        height: 44px !important;
-        font-size: 18px; /* Larger icons */
-        z-index: 1002; /* Above menu */
+        width: 32px !important; /* Original size */
+        height: 32px !important;
+        font-size: 14px; /* Original font size */
+        z-index: 1001;
     }
 
-    /* Adjust button positions for mobile - better spacing and avoid conflicts */
+    /* Adjust button positions for mobile - standard spacing */
     .osmcat-router {
-        top: 10px;
-        right: 10px; /* Move closer to edge since map is narrower */
+        top: 80px;
     }
 
     .osmcat-clearoverlaybutton {
-        top: 60px; /* More spacing from router */
-        right: 10px;
+        top: 120px;
     }
 
     .osmcat-mapillary {
-        bottom: 200px; /* Adjust for narrower map */
-        right: 10px;
+        bottom: 260px; /* Original position */
     }
 
     .osmcat-panoramax {
-        bottom: 145px; /* Adjust spacing */
-        right: 10px;
+        bottom: 210px;
     }
 
     .osmcat-sharebutton {
-        bottom: 90px;
-        right: 10px;
+        bottom: 160px;
     }
 
     .osmcat-geobutton {
-        bottom: 35px; /* Above attribution */
-        right: 10px;
+        bottom: 110px;
     }
 
     .osmcat-infobutton {
-        bottom: 10px; /* Keep at bottom */
-        right: 10px;
+        bottom: 30px;
     }
 
-    /* Enhanced visual feedback for mobile buttons */
+    /* Remove enhanced hover effects that might cause issues */
     .osmcat-geobutton:hover,
     .osmcat-infobutton:hover,
     .osmcat-sharebutton:hover,
     .osmcat-clearoverlaybutton:hover,
     .osmcat-panoramax:hover,
     .osmcat-mapillary:hover,
-    .osmcat-router:hover,
-    .osmcat-geobutton:focus,
-    .osmcat-infobutton:focus,
-    .osmcat-sharebutton:focus,
-    .osmcat-clearoverlaybutton:focus,
-    .osmcat-panoramax:focus,
-    .osmcat-mapillary:focus,
-    .osmcat-router:focus {
+    .osmcat-router:hover {
         background-color: #34587C;
         color: #fff;
         outline: none;
-        transform: scale(1.05); /* Slight scale effect */
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .osmcat-mapillary.active,
-    .osmcat-router.active {
-        background-color: #05CB63 !important; /* Mapillary green when active */
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(5, 203, 99, 0.4);
+    /* Ensure menu toggle button doesn't conflict */
+    .menu-toggle {
+        bottom: 10px;
+        right: 10px;
+        z-index: 1002; /* Above other buttons */
     }
 
-    /* Query Statistics mobile styles - match menu section width */
-    .query-statistics {
-        margin: 0;
-        padding: 12px;
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 0;
-        border-bottom: none;
-        width: 280px; /* Match menu section width */
-        min-width: 250px;
-        flex: 0 0 auto;
-        max-height: calc(100vh - 120px);
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: #888 #f1f1f1;
+    /* Adjust for menu when visible */
+    .flex-row.viewer-active .map {
+        height: 70vh !important;
     }
 
-    .query-statistics h4 {
-        font-size: 13px;
-        margin: 0 0 10px 0;
-        padding: 0;
-        font-weight: 600;
-        color: #495057;
-    }
-
-    .query-statistics .stat-item {
-        padding: 4px 0;
-        font-size: 11px;
-        border-bottom: 1px solid #e9ecef;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .query-statistics .stat-item:last-child {
-        border-bottom: none;
-    }
-
-    .query-statistics .stat-label {
-        font-size: 10px;
-        color: #6c757d;
-        font-weight: 500;
-    }
-
-    .query-statistics .stat-value {
-        font-size: 10px;
-        color: #495057;
-        font-weight: 600;
-        font-family: monospace;
-        min-width: 60px;
-        text-align: right;
+    .flex-row.viewer-active .menu {
+        height: 30vh !important;
+        min-height: 200px !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 1000 !important;
+        background: white !important;
+        border-top: 3px solid #05CB63 !important;
+        transform: translateY(100%) !important;
+        transition: transform 0.3s ease-in-out !important;
     }
 }
