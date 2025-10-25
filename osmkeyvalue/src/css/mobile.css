@@ -9,14 +9,14 @@
 @media only screen and (max-width: 599px) {
     /* Mobile layout: Full screen map with bottom sliding menu */
     .flex-row {
-        flex-direction: row;
+        flex-direction: column; /* Stack map and menu vertically */
         height: 100vh;
         position: relative;
         overflow: hidden;
     }
 
     .map {
-        height: 100vh; /* Full height for map */
+        height: 100vh; /* Full height for map when menu hidden */
         width: 100vw;
         border: none;
         position: relative;
@@ -32,26 +32,22 @@
 
     /* Menu slides up from bottom */
     .menu {
-        height: 30vh;
-        min-height: 200px;
+        height: 0; /* Hidden by default */
+        min-height: 0;
         width: 100vw;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
         background: white;
         border-top: 3px solid #567CAC;
-        transform: translateY(100%); /* Hidden by default */
-        transition: transform 0.3s ease-in-out;
+        transform: translateY(0); /* Start in normal position */
+        transition: height 0.3s ease-in-out, min-height 0.3s ease-in-out;
         display: flex;
         flex-direction: column;
         overflow: hidden;
     }
 
-    /* Menu visible state - show horizontal layout */
+    /* Menu visible state - expand to show content */
     .menu.menu-visible {
-        transform: translateY(0); /* Slide in from bottom */
+        height: 30vh; /* Show bottom portion */
+        min-height: 200px; /* Minimum usable height */
     }
 
     /* Menu content - horizontal scrolling when visible */
@@ -158,6 +154,7 @@
         height: 32px !important;
         font-size: 14px;
         z-index: 1001;
+        position: fixed; /* Keep buttons fixed since they need to stay on map */
     }
 
     /* Button positions */
