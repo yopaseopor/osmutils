@@ -7,52 +7,82 @@
 
 /* Mobile/Responsive Mode (screens < 600px) */
 @media only screen and (max-width: 599px) {
-    /* Mobile layout: Full-width map with side menus that can be scrolled horizontally */
+    /* Mobile layout: Full-width page with horizontal scrolling */
     .flex-row {
         flex-direction: row; /* Keep horizontal layout */
         height: 100vh;
+        width: 200vw; /* Double width to accommodate menu */
         position: relative;
-        overflow: hidden; /* Prevent vertical scrolling */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+        transition: transform 0.3s ease-in-out; /* Smooth page sliding */
     }
 
-    /* When menu is visible, make entire map smaller */
-    .flex-row.menu-visible .map {
-        width: calc(100vw - 320px); /* Leave space for first menu section */
-        transition: width 0.3s ease-in-out; /* Smooth width transition */
+    /* When menu is visible, slide entire page to the right */
+    .flex-row.menu-visible {
+        transform: translateX(-50vw); /* Slide page to show menu */
     }
 
     .map {
         height: 100vh; /* Full height */
-        width: 100vw; /* Full width initially */
+        width: 100vw; /* Full screen width */
         border: none;
         position: relative;
-        flex: 1 1 auto; /* Take available space */
-        min-width: 50vw; /* Minimum half screen width */
+        flex: 1 1 auto;
     }
 
-    /* Menu container with horizontal scrolling */
+    /* Menu positioned to the left of the map (off-screen initially) */
     .osmcat-menu {
         height: 100vh;
-        width: auto; /* Allow natural width */
-        min-width: 50vw; /* Minimum half screen width */
-        position: fixed; /* Fixed position */
-        top: 0;
-        right: -100vw; /* Hidden by default */
-        z-index: 1001; /* Above everything */
+        width: 100vw; /* Full screen width for easy touch interaction */
+        position: relative; /* Static position within flex container */
         background: white;
         display: flex;
         flex-direction: column;
         padding-top: 5px;
         overflow: visible;
-        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
-        transition: right 0.3s ease-in-out; /* Smooth slide animation */
+        box-shadow: 2px 0 8px rgba(0,0,0,0.1);
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Menu visible state - slide in from right */
-    .osmcat-menu.menu-visible {
-        right: 0;
+    /* Menu sections side by side */
+    .osmcat-menu {
+        display: flex;
+        flex-direction: row; /* Side by side layout */
+        flex-wrap: nowrap;
+        width: 100vw; /* Full screen width */
+        height: 100vh;
+        overflow-x: auto; /* Enable horizontal scrolling within menu */
+        overflow-y: hidden;
+        gap: 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+    }
+
+    /* All menu sections side by side */
+    .osmcat-layer,
+    .osmcat-overlay {
+        flex: 0 0 auto; /* Don't flex, use natural width */
+        width: 280px; /* Fixed width for each section */
+        min-width: 250px;
+        border: 1px solid #BBB;
+        border-right: none; /* Remove right border since sections are side by side */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: calc(100vh - 120px); /* Account for query stats and padding */
+    }
+
+    /* Add right border to last section */
+    .osmcat-layer:last-child,
+    .osmcat-overlay:last-child {
+        border-right: 1px solid #BBB;
     }
 
     /* Menu toggle button - only visible on mobile */
@@ -94,103 +124,6 @@
             transform: translateY(-50%) scale(1.1);
             box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
         }
-    }
-
-    /* Query Statistics integrated into menu flow */
-    .query-statistics {
-        width: 100%;
-        min-width: 0;
-        flex: 0 0 auto;
-        max-height: none;
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: #888 #f1f1f1;
-        margin: 0;
-        padding: 8px;
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 0;
-    }
-
-    /* Main menu container - horizontal layout with scrolling */
-    .osmcat-menu {
-        display: flex;
-        flex-direction: row; /* Side by side layout */
-        flex-wrap: nowrap;
-        width: auto; /* Allow natural width for scrolling */
-        height: auto;
-        min-height: calc(100vh - 100px); /* Account for query stats and padding */
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden;
-        position: relative;
-        z-index: 1;
-        gap: 0;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: #888 #f1f1f1;
-    }
-
-    /* All menu sections side by side */
-    .osmcat-layer,
-    .osmcat-overlay {
-        flex: 0 0 auto; /* Don't flex, use natural width */
-        width: 280px; /* Fixed width for each section */
-        min-width: 250px;
-        border: 1px solid #BBB;
-        border-right: none; /* Remove right border since sections are side by side */
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        max-height: calc(100vh - 120px); /* Account for query stats and padding */
-    }
-
-    /* Add right border to last section */
-    .osmcat-layer:last-child,
-    .osmcat-overlay:last-child {
-        border-right: 1px solid #BBB;
-    }
-
-    /* Hide the old horizontal scrolling behavior */
-    .osmcat-menu.layer-active,
-    .osmcat-menu.overlay-active {
-        width: auto !important;
-        max-width: none;
-        overflow: visible !important;
-    }
-
-    /* Adjust the default state rules */
-    .osmcat-menu .osmcat-layer,
-    .osmcat-menu .osmcat-overlay,
-    .osmcat-menu .osmcat-router-section {
-        width: 280px;
-        min-width: 250px;
-        flex: 0 0 auto;
-        max-width: 300px;
-    }
-
-    /* Custom scrollbar for horizontal scrolling */
-    .osmcat-menu::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .osmcat-menu::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-
-    .osmcat-menu::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
-    }
-
-    .osmcat-menu::-webkit-scrollbar-thumb:hover {
-        background: #555;
     }
 
     /* Query Statistics integrated into menu flow */
