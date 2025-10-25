@@ -180,35 +180,105 @@ function initMapillaryViewer(map) {
             });
 
             // Insert Mapillary content in the menu (like router does)
-            var $menu = $('.osmcat-menu');
-            var $layers = $menu.find('.osmcat-layer .osmcat-select').filter(function(){
-                return !$(this).find('option').filter(function(){
-                    return $(this).val().toLowerCase().indexOf('overlay') !== -1;
-                }).length;
-            }).closest('.osmcat-layer').first();
+            var $menu = $('.menu'); // Use .menu instead of .osmcat-menu
+            var $menuContainer = $menu.find('#overlay-list').length > 0 ? $menu.find('#overlay-list').parent() : $menu;
 
-            var $overlays = $menu.find('.osmcat-layer .osmcat-select').filter(function(){
-                return $(this).find('option').filter(function(){
-                    return $(this).val().toLowerCase().indexOf('overlay') !== -1;
-                }).length;
-            }).closest('.osmcat-layer').first();
+            if ($menu.length === 0) {
+                console.error('Menu not found for Mapillary insertion');
+                return;
+            }
 
-            if ($layers.length && $overlays.length) {
-                mapillaryContent.insertAfter($layers);
-            } else if ($layers.length) {
-                mapillaryContent.insertAfter($layers);
-            } else if ($overlays.length) {
-                mapillaryContent.insertBefore($overlays);
+            // Create a simple container for Mapillary content
+            const mapillaryContainer = $(`
+                <div class="mapillary-section" style="margin: 10px 0; padding: 10px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px;">
+                    <div class="mapillary-header" style="font-weight: bold; margin-bottom: 10px; cursor: pointer; color: #567CAC;">
+                        📷 Street View <small>(click to close)</small>
+                    </div>
+                    <div class="mapillary-content">
+                        <div class="mapillary-notice">
+                            <i class="fa fa-street-view"></i><br>
+                            <strong>Mapillary Street View</strong><br>
+                            <small>Click below to open street-level imagery in a new window</small>
+                        </div>
+                        <div class="mapillary-preview">
+                            <div class="preview-info">
+                                <div class="preview-title">Location Preview</div>
+                                <div class="preview-coords">Click on the map to set a location</div>
+                            </div>
+                            <div class="preview-map">
+                                <small>Interactive map will open in new window</small>
+                            </div>
+                        </div>
+                        <button class="open-mapillary-btn">
+                            <i class="fa fa-external-link"></i> Open Mapillary
+                        </button>
+                    </div>
+                </div>
+            `);
+
+            // Handle clicks on the Mapillary section header to close it
+            mapillaryContainer.find('.mapillary-header').on('click', function() {
+                if (mapillaryClickHandler) {
+                    map.un('singleclick', mapillaryClickHandler);
+                    mapillaryClickHandler = null;
+                }
+                mapillaryContainer.remove();
+                mapillaryButton.removeClass('active');
+                mapillaryLayer.setVisible(false);
+            });
+
+            // Handle clicks on map for Mapillary
+            mapillaryClickHandler = function(evt) {
+                var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                    return feature;
+                });
+
+                if (feature && feature.get('id')) {
+                    var coords = ol.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
+                    var zoom = map.getView().getZoom();
+                    showMapillaryInMenu(coords[1], coords[0], zoom, feature.get('id'));
+                }
+            };
+
+            map.on('singleclick', mapillaryClickHandler);
+
+            // Update coordinates when clicking on coverage
+            function showMapillaryInMenu(lat, lon, zoom, imageId) {
+                var url = `https://www.mapillary.com/app/?lat=${lat}&lng=${lon}&z=${Math.max(1, Math.min(20, zoom))}&style=photo`;
+
+                if (imageId) {
+                    url += `&imageKey=${imageId}`;
+                }
+
+                console.log('Mapillary URL:', url);
+
+                // Update the menu content with coordinates
+                mapillaryContainer.find('.preview-coords').html(`<strong>${lat.toFixed(6)}, ${lon.toFixed(6)}</strong><br><small>Zoom: ${zoom}</small>`);
+
+                // Update the button click handler
+                mapillaryContainer.find('.open-mapillary-btn').off('click').on('click', function() {
+                    window.open(url, 'mapillary', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+                });
+            }
+
+            // Set up initial button click handler (for current map center)
+            mapillaryContainer.find('.open-mapillary-btn').on('click', function(e) {
+                e.preventDefault();
+                var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326');
+                var zoom = map.getView().getZoom();
+                var url = `https://www.mapillary.com/app/?lat=${center[1]}&lng=${center[0]}&z=${zoom}&style=photo`;
+                window.open(url, 'mapillary', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+            });
+
+            // Insert Mapillary content in the menu
+            if ($menu.find('#overlay-list').length > 0) {
+                mapillaryContainer.insertBefore($menu.find('#overlay-list'));
             } else {
-                $menu.prepend(mapillaryContent);
+                $menu.append(mapillaryContainer);
             }
 
             // Remove any existing Mapillary content (cleanup)
-            $('.osmcat-menu .osmcat-layer').not(mapillaryContent).each(function() {
-                if ($(this).find('.osmcat-select').text() === 'Street View') {
-                    $(this).remove();
-                }
-            });
+            $('.menu .mapillary-section').not(mapillaryContainer).remove();
         });
 
     // Create a control element for the Mapillary button

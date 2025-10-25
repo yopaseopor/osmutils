@@ -911,26 +911,28 @@ $(function () {
 		element: rotaterightControlBuild()
 	}));
 
-	// Add mobile menu toggle button (only on mobile)
-	if (window.innerWidth <= 599) {
-		var menuToggleButton = $('<button>')
-			.addClass('menu-toggle')
-			.html('<i class="fa fa-bars"></i>')
-			.on('click', function() {
-				var $menu = $('.menu');
-				var $flexRow = $('.flex-row');
-				if ($menu.hasClass('menu-visible')) {
-					$menu.removeClass('menu-visible');
-					$flexRow.removeClass('menu-active');
-				} else {
-					$menu.addClass('menu-visible');
-					$flexRow.addClass('menu-active');
-				}
-			});
+	// Add mobile menu toggle button (only on mobile) - moved to after map is ready
+	$(document).ready(function() {
+		if (window.innerWidth <= 599 && window.map) {
+			var menuToggleButton = $('<button>')
+				.addClass('menu-toggle')
+				.html('<i class="fa fa-bars"></i>')
+				.on('click', function() {
+					var $menu = $('.menu');
+					var $flexRow = $('.flex-row');
+					if ($menu.hasClass('menu-visible')) {
+						$menu.removeClass('menu-visible');
+						$flexRow.removeClass('menu-active');
+					} else {
+						$menu.addClass('menu-visible');
+						$flexRow.addClass('menu-active');
+					}
+				});
 
-		// Add the menu toggle button to the page
-		$('body').append(menuToggleButton);
-	}
+			// Add the menu toggle button to the page
+			$('body').append(menuToggleButton);
+		}
+	});
 
 	$('#map').css('cursor', 'grab');
 	map.on('movestart', function (evt) {

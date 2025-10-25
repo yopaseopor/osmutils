@@ -7,318 +7,142 @@
 
 /* Mobile/Responsive Mode (screens < 600px) */
 @media only screen and (max-width: 599px) {
-    /* Mobile layout: Map takes most of screen but leaves space for controls and menu access */
+    /* Mobile layout: Full screen map with bottom sliding menu */
     .flex-row {
-        flex-direction: row; /* Keep horizontal layout for map + menu */
+        flex-direction: row;
         height: 100vh;
         position: relative;
-        overflow: hidden; /* Prevent scrolling issues */
-        -webkit-overflow-scrolling: touch;
+        overflow: hidden;
     }
 
     .map {
-        height: 70vh; /* Most of screen for map */
-        width: 100vw; /* Full width */
+        height: 100vh; /* Full height for map */
+        width: 100vw;
         border: none;
         position: relative;
         flex: 1 1 auto;
         min-width: 100vw;
     }
 
-    /* When menu is visible, reduce map height and move it up */
-    .menu.menu-visible ~ .map,
-    .menu.menu-visible + .map,
-    .flex-row:has(.menu.menu-visible) .map {
-        height: 50vh; /* Reduce map height when menu is open */
-        transform: translateY(-5vh); /* Move map up slightly */
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* Fallback for browsers without :has() support */
+    /* When menu is visible, reduce map height */
     .flex-row.menu-active .map {
-        height: 50vh; /* Reduce map height when menu is open */
-        transform: translateY(-5vh); /* Move map up slightly */
-        transition: all 0.3s ease-in-out;
+        height: 70vh; /* Reduce map height when menu is open */
+        transition: height 0.3s ease-in-out;
     }
 
     /* Menu slides up from bottom */
     .menu {
-        height: 30vh; /* Bottom portion for menu */
-        min-height: 200px; /* Minimum height */
+        height: 30vh;
+        min-height: 200px;
         width: 100vw;
-        position: fixed; /* Fixed position */
-        bottom: 0; /* Slide up from bottom */
+        position: fixed;
+        bottom: 0;
         left: 0;
         right: 0;
-        z-index: 1000; /* Above everything */
+        z-index: 1000;
         background: white;
         border-top: 3px solid #567CAC;
         transform: translateY(100%); /* Hidden by default */
-        transition: transform 0.3s ease-in-out; /* Smooth slide animation */
-        -webkit-overflow-scrolling: touch;
+        transition: transform 0.3s ease-in-out;
         display: flex;
         flex-direction: column;
         overflow: hidden;
     }
 
-    /* Menu visible state - increased height to show all content */
+    /* Menu visible state - show horizontal layout */
     .menu.menu-visible {
-        height: 50vh; /* Increased height when visible */
-        min-height: 300px; /* Larger minimum height */
         transform: translateY(0); /* Slide in from bottom */
     }
 
-    /* Menu content container */
-    .osmcat-menu {
+    /* Menu content - horizontal scrolling when visible */
+    .menu.menu-visible .osmcat-menu {
         display: flex;
-        flex-direction: column; /* Stack sections vertically */
+        flex-direction: row;
+        flex-wrap: nowrap;
         width: 100%;
-        height: calc(100% - 60px); /* Account for query stats and padding */
-        overflow-y: auto; /* Enable vertical scrolling */
-        overflow-x: hidden;
-        position: relative;
-        z-index: 1;
+        height: calc(100% - 60px);
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 1px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
         scrollbar-color: #888 #f1f1f1;
-        gap: 0;
     }
 
-    /* Menu sections styling */
-    .osmcat-layer,
-    .osmcat-overlay,
-    .osmcat-router-section {
-        flex: 0 0 auto; /* Don't flex, use natural height */
-        width: 100%; /* Full width */
-        min-height: 150px; /* Minimum height for each section */
+    /* Individual menu sections in horizontal layout */
+    .menu.menu-visible .osmcat-layer,
+    .menu.menu-visible .osmcat-overlay,
+    .menu.menu-visible .osmcat-router-section,
+    .menu.menu-visible .query-statistics {
+        flex: 0 0 auto;
+        width: 280px;
+        min-width: 250px;
         border: 1px solid #BBB;
-        border-bottom: none; /* Remove bottom border since sections are stacked */
         display: flex;
         flex-direction: column;
         overflow: hidden;
         background: white;
-        position: relative;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        max-height: calc(30vh - 80px);
     }
 
-    /* Remove bottom border from last section */
-    .osmcat-layer:last-child,
-    .osmcat-overlay:last-child,
-    .osmcat-router-section:last-child {
-        border-bottom: 1px solid #BBB;
-    }
-
-    /* Query Statistics styling */
-    .query-statistics {
-        flex: 0 0 auto; /* Don't flex, use natural height */
-        width: 100%; /* Full width */
-        min-height: 80px; /* Minimum height */
-        border: 1px solid #BBB;
-        border-bottom: none;
-        max-height: 120px; /* Maximum height */
-        overflow-y: auto;
-        overflow-x: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        scrollbar-color: #888 #f1f1f1;
-        margin: 0;
-        padding: 8px;
+    /* Query Statistics in horizontal layout */
+    .menu.menu-visible .query-statistics {
         background: #f8f9fa;
+        padding: 8px;
+        max-height: calc(30vh - 80px);
     }
 
-    /* Default 2-column layout for hidden menu (fallback) */
+    /* Default menu layout when hidden (2 columns) */
+    .osmcat-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        height: calc(100% - 60px);
+        overflow: visible;
+        gap: 1px;
+    }
+
+    /* Default 2-column layout for hidden menu */
     .osmcat-layer:first-of-type {
-        border: none;
+        flex: 1 1 50%;
+        width: 50%;
         border-right: 1px solid #BBB;
-        border-bottom: 1px solid #BBB;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 100%;
     }
 
     .osmcat-layer:nth-of-type(2),
     .osmcat-overlay {
-        border: none;
-        border-bottom: 1px solid #BBB;
+        flex: 1 1 50%;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: 100%;
     }
 
-    /* Hide the old horizontal scrolling behavior */
-    .osmcat-menu.layer-active,
-    .osmcat-menu.overlay-active {
-        width: 100% !important;
-        max-width: 100vw;
-        overflow: hidden !important;
-    }
-
-    /* Adjust the default state rules */
-    .osmcat-menu .osmcat-layer,
-    .osmcat-menu .osmcat-overlay,
-    .osmcat-menu .osmcat-router-section {
-        width: auto;
-        min-width: 0;
-        flex: 1 1 auto;
-        max-width: 100%;
-    }
-
-    /* Layer and overlay content styling */
-    .osmcat-layer .osmcat-content,
-    .osmcat-overlay .osmcat-content {
+    /* Query Statistics styling */
+    .query-statistics {
+        width: 100%;
+        padding: 8px;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: thin;
         scrollbar-color: #888 #f1f1f1;
-    }
-
-    /* Custom scrollbar for mobile columns */
-    .osmcat-layer::-webkit-scrollbar,
-    .osmcat-overlay::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    .osmcat-layer::-webkit-scrollbar-track,
-    .osmcat-overlay::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 2px;
-    }
-
-    .osmcat-layer::-webkit-scrollbar-thumb,
-    .osmcat-overlay::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 2px;
-    }
-
-    /* Mapillary viewer mobile styles */
-    .mapillary-viewer {
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(3px);
-    }
-
-    .mapillary-viewer .mapillary-content {
-        padding: 30px 15px;
-        margin: 10px;
-        border-radius: 12px;
-        height: calc(100% - 40px);
-    }
-
-    .mapillary-viewer .mapillary-notice {
-        font-size: 15px;
-        margin-bottom: 20px;
-        text-align: center;
-        padding: 0 15px;
-        line-height: 1.5;
-    }
-
-    .mapillary-viewer .mapillary-notice i {
-        font-size: 24px;
-        color: #05CB63;
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    .mapillary-viewer .open-mapillary-btn {
-        padding: 16px 32px;
-        font-size: 16px;
-        min-width: 200px;
-        min-height: 48px; /* Better touch target */
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(5, 203, 99, 0.3);
-    }
-
-    .mapillary-viewer .mapillary-preview {
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid rgba(5, 203, 99, 0.3);
-        border-radius: 8px;
-        padding: 12px;
-        margin: 15px 0;
-        text-align: center;
-    }
-
-    .mapillary-viewer .preview-title {
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
-
-    .mapillary-viewer .preview-coords {
-        font-size: 11px;
-        padding: 6px 10px;
-    }
-
-    .mapillary-viewer .preview-map {
-        font-size: 10px;
-        padding: 8px;
-    }
-
-    .mapillary-viewer .close-button {
-        width: 35px !important;
-        height: 35px !important;
-        top: 15px;
-        right: 15px;
-        background-color: rgba(255,255,255,0.6);
-    }
-
-    .mapillary-viewer .close-button:hover {
-        background-color: rgba(255,255,255,0.8);
-    }
-
-    /* Ensure map stays visible on mobile but reduce menu size */
-    .flex-row.viewer-active .map {
-        height: 70vh !important;
-    }
-
-    .flex-row.viewer-active .menu {
-        height: 30vh !important;
-        min-height: 200px !important;
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        z-index: 1000 !important;
-        background: white !important;
-        border-top: 3px solid #05CB63 !important;
-        transform: translateY(100%) !important;
-        transition: transform 0.3s ease-in-out !important;
-    }
-
-    /* Mapillary menu mobile styles */
-    .mapillary-menu-content {
-        padding: 12px;
-        margin: 8px 0;
-    }
-
-    .mapillary-menu-content .mapillary-notice {
-        padding: 8px;
-        margin-bottom: 12px;
-    }
-
-    .mapillary-menu-content .mapillary-notice i {
-        font-size: 20px;
-        margin-bottom: 6px;
-    }
-
-    .mapillary-menu-content .mapillary-notice strong {
-        font-size: 13px;
-    }
-
-    .mapillary-menu-content .mapillary-notice small {
-        font-size: 11px;
-    }
-
-    .mapillary-menu-content .mapillary-preview {
-        padding: 10px;
-        margin: 10px 0;
-    }
-
-    .mapillary-menu-content .preview-title {
-        font-size: 10px;
-        margin-bottom: 5px;
-    }
-
-    .mapillary-menu-content .preview-coords {
-        font-size: 10px;
-        padding: 5px 7px;
-    }
-
-    .mapillary-menu-content .preview-map {
-        font-size: 9px;
-        padding: 6px;
     }
 
     /* Mobile control buttons positioning */
@@ -330,41 +154,20 @@
     .osmcat-mapillary,
     .osmcat-router {
         right: 8px;
-        width: 32px !important; /* Original size */
+        width: 32px !important;
         height: 32px !important;
-        font-size: 14px; /* Original font size */
+        font-size: 14px;
         z-index: 1001;
     }
 
-    /* Adjust button positions for mobile - standard spacing */
-    .osmcat-router {
-        top: 80px;
-    }
-
-    .osmcat-clearoverlaybutton {
-        top: 120px;
-    }
-
-    .osmcat-mapillary {
-        bottom: 260px; /* Original position */
-    }
-
-    .osmcat-panoramax {
-        bottom: 210px;
-    }
-
-    .osmcat-sharebutton {
-        bottom: 160px;
-    }
-
-    .osmcat-geobutton {
-        bottom: 110px;
-    }
-
-    .osmcat-infobutton {
-        bottom: 80px; /* Move up to avoid menu toggle button */
-        right: 8px;
-    }
+    /* Button positions */
+    .osmcat-router { top: 80px; }
+    .osmcat-clearoverlaybutton { top: 120px; }
+    .osmcat-mapillary { bottom: 260px; }
+    .osmcat-panoramax { bottom: 210px; }
+    .osmcat-sharebutton { bottom: 160px; }
+    .osmcat-geobutton { bottom: 110px; }
+    .osmcat-infobutton { bottom: 80px; }
 
     /* Menu toggle button */
     .menu-toggle {
@@ -399,6 +202,8 @@
         box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
     }
 
-    /* Remove the incorrect viewer-active rules */
-    /* These rules are not needed for the current layout */
+    /* Enhanced Mapillary button when active */
+    .osmcat-mapillary.active {
+        background-color: #05CB63 !important;
+    }
 }
