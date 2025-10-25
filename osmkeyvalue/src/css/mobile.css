@@ -58,29 +58,41 @@
     /* Menu toggle button - only visible on mobile */
     .menu-toggle {
         display: none; /* Hidden by default on all screens */
-        position: fixed;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        z-index: 1002;
-        width: 50px;
-        height: 50px;
-        background: #567CAC;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        font-size: 20px;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        transition: all 0.3s ease;
-        align-items: center;
-        justify-content: center;
     }
 
     /* Show toggle button only on mobile */
     @media only screen and (max-width: 599px) {
         .menu-toggle {
             display: flex !important; /* Show only on mobile */
+            position: fixed;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            z-index: 1002;
+            width: 50px;
+            height: 50px;
+            background: #567CAC;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-toggle:hover {
+            background: #34587C;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        .menu-toggle.active {
+            background: #05CB63;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
         }
     }
 

@@ -75,41 +75,52 @@
 		<!-- Mobile Menu Toggle Script -->
 		<script>
 			$(document).ready(function() {
-				// Mobile menu toggle functionality
-				$('#menu-toggle').on('click', function() {
-					var $menu = $('.osmcat-menu'); // Changed from .menu to .osmcat-menu
-					var $toggle = $(this);
+				// Wait for menu to be created before adding toggle functionality
+				function initMenuToggle() {
+					var $menu = $('.osmcat-menu');
+					var $toggle = $('#menu-toggle');
 					var $flexRow = $('.flex-row');
 
-					if ($menu.hasClass('menu-visible')) {
-						// Hide menu
-						$menu.removeClass('menu-visible');
-						$flexRow.removeClass('menu-visible');
-						$toggle.removeClass('active');
-					} else {
-						// Show menu
-						$menu.addClass('menu-visible');
-						$flexRow.addClass('menu-visible');
-						$toggle.addClass('active');
+					if ($menu.length === 0) {
+						// Menu doesn't exist yet, wait and try again
+						setTimeout(initMenuToggle, 100);
+						return;
 					}
-				});
 
-				// Close menu when clicking outside on mobile
-				$(document).on('click', function(e) {
-					if ($(window).width() <= 599) {
-						var $menu = $('.osmcat-menu'); // Changed from .menu to .osmcat-menu
-						var $toggle = $('#menu-toggle');
-						var $flexRow = $('.flex-row');
-
-						if ($menu.hasClass('menu-visible') &&
-							!$(e.target).closest('.osmcat-menu').length && // Changed from .menu to .osmcat-menu
-							!$(e.target).closest('#menu-toggle').length) {
+					// Mobile menu toggle functionality
+					$toggle.on('click', function() {
+						if ($menu.hasClass('menu-visible')) {
+							// Hide menu
 							$menu.removeClass('menu-visible');
 							$flexRow.removeClass('menu-visible');
 							$toggle.removeClass('active');
+						} else {
+							// Show menu
+							$menu.addClass('menu-visible');
+							$flexRow.addClass('menu-visible');
+							$toggle.addClass('active');
 						}
-					}
-				});
+					});
+
+					// Close menu when clicking outside on mobile
+					$(document).on('click', function(e) {
+						if ($(window).width() <= 599) {
+							if ($menu.hasClass('menu-visible') &&
+								!$menu.is(e.target) &&
+								$menu.has(e.target).length === 0 &&
+								!$toggle.is(e.target)) {
+								$menu.removeClass('menu-visible');
+								$flexRow.removeClass('menu-visible');
+								$toggle.removeClass('active');
+							}
+						}
+					});
+
+					console.log('Menu toggle initialized successfully');
+				}
+
+				// Start checking for menu creation
+				setTimeout(initMenuToggle, 500);
 			});
 		</script>
 	</div>

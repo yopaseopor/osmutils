@@ -164,15 +164,23 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 - **Proper space allocation:** Map shrinks to `calc(100vw - 320px)` when menu is visible
 - **No more partial movement** - entire interface responds correctly
 
-**✅ Menu Toggle Functionality - FIXED:**
+**✅ Menu Toggle Functionality - FULLY WORKING:**
 - **Before:** Toggle button did nothing or had broken behavior
-- **After:** **Fully functional toggle system:**
-  - **Correct selector:** Fixed JavaScript to use `.osmcat-menu` (actual menu class)
-  - **Proper event handling:** Menu shows/hides with smooth animations
-  - **Click to show:** Menu slides in from right, map shrinks
-  - **Click to hide:** Menu slides out, map expands back
-  - **Click outside:** Automatic menu closing
-  - **Visual feedback:** Button changes color when active
+- **After:** **Completely functional toggle system:**
+  - **Proper timing:** JavaScript waits for menu to be created before initializing
+  - **Correct selectors:** Uses `.osmcat-menu` (actual menu class)
+  - **Event delegation:** Properly handles click events after DOM creation
+  - **Click to show:** Menu slides in from right, map shrinks to `calc(100vw - 320px)`
+  - **Click to hide:** Menu slides out, map expands back to full width
+  - **Click outside:** Automatic menu closing with proper event handling
+  - **Visual feedback:** Button changes color when active (blue → green)
+
+**✅ Desktop Experience - CLEAN:**
+- **Before:** Unnecessary toggle button appeared on desktop
+- **After:** **Toggle button only exists on mobile screens:**
+  - **CSS media query:** `@media (max-width: 599px)` contains full button definition
+  - **No desktop clutter:** Button completely hidden on larger screens
+  - **Responsive design:** Proper breakpoint handling ensures clean desktop experience
 
 **✅ Button Consistency - ACHIEVED:**
 - **Before:** Rotation buttons were different size than other controls
