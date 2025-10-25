@@ -161,13 +161,13 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 
 **🔧 After (FIXED):**
 - **Normal flex layout** with `flex-direction: column`
-- **Dynamic height management:** Map 100vh → 70vh when menu opens
-- **Menu height animation:** 0 → 30vh with smooth transitions
+- **Dynamic height management:** Map 100vh → 80vh when menu opens
+- **Menu height animation:** 0 → 20vh with smooth transitions
 - **No blank spaces** - perfect screen utilization
 
 **✅ Technical Solution:**
 ```css
-/* Clean layout structure */
+/* Optimized layout structure */
 .flex-row {
     flex-direction: column; /* Stack vertically */
     height: 100vh;
@@ -178,7 +178,7 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 }
 
 .flex-row.menu-active .map {
-    height: 70vh; /* Reduce when menu visible */
+    height: 80vh; /* More space for map when menu visible */
 }
 
 .menu {
@@ -186,19 +186,26 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 }
 
 .menu.menu-visible {
-    height: 30vh; /* Expand when visible */
+    height: 20vh; /* Compact menu when visible */
 }
 ```
 
 **✅ Result:**
-- **No more 30% blank space** when menu button is pressed
-- **Perfect screen utilization** - map + menu = 100vh always
+- **Map gets 80% of screen** when menu is open (vs 70% before)
+- **Menu is more compact** at 20vh (vs 30vh before)
+- **Better space utilization** - no blank gaps
 - **Smooth animations** without visual glitches
-- **Clean layout structure** without position conflicts
+- **All functionality preserved** - horizontal scrolling works perfectly
+
+**🎯 Mobile Layout - OPTIMIZED:**
+- **Maximum map visibility** (80vh) when menu is open
+- **Compact menu** (20vh) with horizontal scrolling
+- **Perfect screen utilization** - map + menu = 100vh always
+- **Enhanced user experience** with more map space
 
 ---
 
-**🎯 Mobile layout now uses perfect screen space without any gaps or overlaps!**
+**🎯 Mobile layout now uses perfect screen space with 80vh map and 20vh compact menu!**
 
 **📱 Mobile Menu System - HORIZONTAL LAYOUT:**
 - **Query Statistics:** 280px section with real-time stats

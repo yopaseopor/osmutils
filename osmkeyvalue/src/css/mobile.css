@@ -26,7 +26,7 @@
 
     /* When menu is visible, reduce map height */
     .flex-row.menu-active .map {
-        height: 70vh; /* Reduce map height when menu is open */
+        height: 80vh; /* Reduce map height when menu is open */
         transition: height 0.3s ease-in-out;
     }
 
@@ -46,8 +46,8 @@
 
     /* Menu visible state - expand to show content */
     .menu.menu-visible {
-        height: 30vh; /* Show bottom portion */
-        min-height: 200px; /* Minimum usable height */
+        height: 20vh; /* Show bottom portion */
+        min-height: 150px; /* Minimum usable height */
     }
 
     /* Menu content - horizontal scrolling when visible */
@@ -80,14 +80,14 @@
         background: white;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        max-height: calc(30vh - 80px);
+        max-height: calc(20vh - 80px);
     }
 
     /* Query Statistics in horizontal layout */
     .menu.menu-visible .query-statistics {
         background: #f8f9fa;
         padding: 8px;
-        max-height: calc(30vh - 80px);
+        max-height: calc(20vh - 80px);
     }
 
     /* Default menu layout when hidden (2 columns) */
