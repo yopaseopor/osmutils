@@ -714,35 +714,6 @@ $(function () {
 		});
 		layerDiv.append(label, content);
 		container.append(layerDiv, overlayDiv);
-
-		// Add Mapillary section after overlays
-		var mapillaryDiv = $('<div>').addClass('osmcat-layer'),
-			mapillaryLabel = $('<div>').html('<b>&equiv; Street View</b>').on('click', function () {
-				mapillaryContent.toggle();
-			}),
-			mapillaryContent = $('<div>').addClass('osmcat-content mapillary-menu-content').html(`
-				<div class="mapillary-notice">
-					<i class="fa fa-street-view"></i><br>
-					<strong>Mapillary Street View</strong><br>
-					<small>Click below to open street-level imagery in a new window</small>
-				</div>
-				<div class="mapillary-preview">
-					<div class="preview-info">
-						<div class="preview-title">Location Preview</div>
-						<div class="preview-coords">Click on the map to set a location</div>
-					</div>
-					<div class="preview-map">
-						<small>Interactive map will open in new window</small>
-					</div>
-				</div>
-				<button class="open-mapillary-btn">
-					<i class="fa fa-external-link"></i> Open Mapillary
-				</button>
-			`);
-
-		mapillaryDiv.append(mapillaryLabel, mapillaryContent);
-		container.append(mapillaryDiv);
-
 		overlaySelect.trigger('change');
 
 		return container;

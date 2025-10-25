@@ -129,23 +129,92 @@ function initMapillaryViewer(map) {
         var mapViewButton = $('<button type="button">')
             .html('<i class="fa fa-camera"></i>')
             .on('click', function() {
-                // Find the Mapillary menu section
-                var $mapillarySection = $('.mapillary-menu-content');
+                // Check if Mapillary section already exists in menu
+                var $existingMapillary = $('.osmcat-menu .osmcat-layer').filter(function() {
+                    return $(this).find('.osmcat-select, b:contains("Street View")').length > 0 ||
+                           $(this).text().includes('Street View');
+                });
 
-                if ($mapillarySection.is(':visible')) {
-                    // Hide Mapillary section
-                    $mapillarySection.hide();
-                    hideMapillaryFromMenu();
-                    $(this).removeClass('active');
-                } else {
-                    // Hide other active sections first (like router)
-                    $('.osmcat-menu .osmcat-content').not($mapillarySection).hide();
-                    $('.osmcat-router').removeClass('active');
+                if ($existingMapillary.length > 0) {
+                    // Mapillary section exists, toggle its content
+                    var $mapillaryContent = $existingMapillary.find('.mapillary-menu-content');
+                    if ($mapillaryContent.is(':visible')) {
+                        // Hide Mapillary section
+                        $mapillaryContent.hide();
+                        hideMapillaryFromMenu();
+                        $(this).removeClass('active');
+                    } else {
+                        // Hide other active sections first (like router)
+                        $('.osmcat-menu .osmcat-content').not($mapillaryContent).hide();
+                        $('.osmcat-router').removeClass('active');
 
-                    // Show Mapillary section
-                    $mapillarySection.show();
-                    $(this).addClass('active');
+                        // Show Mapillary section
+                        $mapillaryContent.show();
+                        $(this).addClass('active');
+                    }
+                    return;
                 }
+
+                // Mapillary section doesn't exist, create it dynamically like routing does
+                $(this).addClass('active');
+
+                // Create Mapillary content dynamically
+                var mapillaryContent = $(`
+                    <div class="osmcat-layer">
+                        <div class="osmcat-select">Street View</div>
+                        <div class="osmcat-content mapillary-menu-content">
+                            <div class="mapillary-notice">
+                                <i class="fa fa-street-view"></i><br>
+                                <strong>Mapillary Street View</strong><br>
+                                <small>Click below to open street-level imagery in a new window</small>
+                            </div>
+                            <div class="mapillary-preview">
+                                <div class="preview-info">
+                                    <div class="preview-title">Location Preview</div>
+                                    <div class="preview-coords">Click on the map to set a location</div>
+                                </div>
+                                <div class="preview-map">
+                                    <small>Interactive map will open in new window</small>
+                                </div>
+                            </div>
+                            <button class="open-mapillary-btn">
+                                <i class="fa fa-external-link"></i> Open Mapillary
+                            </button>
+                        </div>
+                    </div>
+                `);
+
+                // Handle clicks on the Mapillary section header to close it
+                mapillaryContent.find('.osmcat-select').on('click', function() {
+                    hideMapillaryFromMenu();
+                    mapillaryContent.remove();
+                    $('.osmcat-mapillary button').removeClass('active');
+                });
+
+                // Insert after overlays section
+                var $menu = $('.osmcat-menu');
+                var $overlays = $menu.find('.osmcat-layer .osmcat-select').filter(function(){
+                    return $(this).find('option').filter(function(){
+                        return $(this).val().toLowerCase().indexOf('overlay') !== -1;
+                    }).length;
+                }).closest('.osmcat-layer').first();
+
+                if ($overlays.length) {
+                    mapillaryContent.insertAfter($overlays);
+                } else {
+                    // Fallback: insert after layers section
+                    var $layers = $menu.find('.osmcat-layer').first();
+                    mapillaryContent.insertAfter($layers);
+                }
+
+                // Set up button click handler
+                mapillaryContent.find('.open-mapillary-btn').on('click', function(e) {
+                    e.preventDefault();
+                    var center = ol.proj.transform(map.getView().getCenter(), 'EPSG:3857', 'EPSG:4326');
+                    var zoom = map.getView().getZoom();
+                    var url = `https://www.mapillary.com/app/?lat=${center[1]}&lng=${center[0]}&z=${zoom}&style=photo`;
+                    window.open(url, 'mapillary', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+                });
             });
 
         container.append(mapViewButton);

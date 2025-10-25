@@ -55,44 +55,28 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    /* Main menu container - 2 columns for Layers and Overlays */
+    /* Main menu container - Vertical layout below map */
     .osmcat-menu {
         display: flex;
-        flex-direction: row;
+        flex-direction: column; /* Changed from row to column */
         flex-wrap: nowrap;
         width: 100%;
-        height: auto; /* Allow natural height */
-        min-height: 40vh; /* Minimum height for content */
-        overflow: visible; /* Allow natural flow */
+        height: auto;
+        min-height: 40vh;
+        overflow: visible;
         position: relative;
         z-index: 1;
-        gap: 1px; /* Small gap between columns */
+        gap: 0; /* No gap between sections */
     }
 
-    /* Layer section - Middle column */
-    .osmcat-layer:first-of-type {
-        flex: 1 1 50%;
-        width: 50%;
-        min-width: 0;
-        border: none;
-        border-right: 1px solid #BBB;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background: white;
-        position: relative;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        max-height: 60vh; /* Limit individual column height */
-    }
-
-    /* Overlay section - Right column */
-    .osmcat-layer:nth-of-type(2),
+    /* All menu sections stack vertically */
+    .osmcat-layer,
     .osmcat-overlay {
-        flex: 1 1 50%;
-        width: 50%;
+        flex: none; /* Don't flex, use natural height */
+        width: 100%;
         min-width: 0;
-        border: none;
+        border: 1px solid #BBB;
+        border-bottom: none; /* Remove bottom border since sections stack */
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -100,7 +84,13 @@
         position: relative;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        max-height: 60vh; /* Limit individual column height */
+        max-height: none; /* Allow natural height */
+    }
+
+    /* Remove bottom border from last section */
+    .osmcat-layer:last-child,
+    .osmcat-overlay:last-child {
+        border-bottom: 1px solid #BBB;
     }
 
     /* Hide the old horizontal scrolling behavior */
@@ -115,9 +105,9 @@
     .osmcat-menu .osmcat-layer,
     .osmcat-menu .osmcat-overlay,
     .osmcat-menu .osmcat-router-section {
-        width: auto;
+        width: 100%;
         min-width: 0;
-        flex: 1 1 auto;
+        flex: none;
         max-width: 100%;
     }
 
@@ -284,9 +274,73 @@
         padding: 6px;
     }
 
-    .mapillary-menu-content .open-mapillary-btn {
-        padding: 8px 12px;
+    /* Mobile control buttons positioning */
+    .osmcat-geobutton,
+    .osmcat-infobutton,
+    .osmcat-sharebutton,
+    .osmcat-clearoverlaybutton,
+    .osmcat-panoramax,
+    .osmcat-mapillary,
+    .osmcat-router {
+        right: 8px;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 16px;
+    }
+
+    /* Adjust button positions for mobile - space them out more */
+    .osmcat-router {
+        top: 10px;
+    }
+
+    .osmcat-clearoverlaybutton {
+        top: 60px;
+    }
+
+    .osmcat-mapillary {
+        bottom: 200px; /* Move up from 260px to avoid menu overlap */
+    }
+
+    .osmcat-panoramax {
+        bottom: 150px; /* Move up from 210px */
+    }
+
+    .osmcat-sharebutton {
+        bottom: 100px; /* Move up from 160px */
+    }
+
+    .osmcat-geobutton {
+        bottom: 50px; /* Move up from 110px */
+    }
+
+    /* Query Statistics mobile styles - integrate with menu layout */
+    .query-statistics {
+        margin: 0;
+        padding: 8px;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0;
+        border-bottom: none;
+    }
+
+    .query-statistics h4 {
         font-size: 12px;
-        border-radius: 4px;
+        margin: 0 0 8px 0;
+        padding: 0;
+        font-weight: 600;
+    }
+
+    .query-statistics .stat-item {
+        padding: 3px 0;
+        font-size: 11px;
+    }
+
+    .query-statistics .stat-label {
+        font-size: 10px;
+    }
+
+    .query-statistics .stat-value {
+        font-size: 10px;
+        min-width: 50px;
     }
 }

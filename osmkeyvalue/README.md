@@ -107,6 +107,33 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 - **Preview information** with location details
 - **Seamless integration** with existing menu sections
 
+### 🚀 Latest Fixes (Mobile & Menu Issues)
+
+**✅ PC Issues Fixed:**
+- **Mapillary menu now only shows when camera button is clicked** - no longer appears by default
+- **Clean button behavior** that matches routing functionality
+- **Dynamic menu creation** for better performance and consistency
+
+**✅ Mobile Layout Completely Redesigned:**
+- **Before:** Menus appeared side-by-side (3 columns) to the right of map
+- **After:** **Vertical stack layout** - all menus appear below the map
+- **Better space utilization** on small screens
+- **Improved accessibility** and touch interaction
+
+**✅ Mobile Button Positioning Fixed:**
+- **Before:** Mapillary button was hidden behind other controls (bottom: 260px)
+- **After:** **Repositioned all control buttons** for mobile:
+  - Larger touch targets (40px instead of 25px)
+  - Better spacing between buttons
+  - **Mapillary button moved to bottom: 200px** (was 260px)
+  - No more overlapping or hidden buttons
+
+**✅ Query Statistics Repositioned:**
+- **Before:** Appeared below all other menu sections
+- **After:** **Moved next to Layers section** for better organization
+- **Compact design** optimized for mobile viewing
+- **Integrated seamlessly** into the menu flow
+
 ### 🎨 Design System
 
 **✅ Consistent Styling:**
@@ -116,7 +143,7 @@ Due to Firefox's security policies, embedded iframes from mapillary.com are bloc
 - Responsive design for all screen sizes
 
 **✅ Enhanced User Flow:**
-- Click camera button → Shows Mapillary section in side menu
+- Click camera button → Shows Mapillary section in menu
 - Click on map coverage → Updates coordinates in real-time
 - Click "Open Mapillary" → Opens in new window with exact location
 - Smooth, intuitive experience
