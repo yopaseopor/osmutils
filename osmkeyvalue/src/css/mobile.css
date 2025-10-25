@@ -7,37 +7,177 @@
 
 /* Mobile/Responsive Mode (screens < 600px) */
 @media only screen and (max-width: 599px) {
-    /* Mobile layout: Full-width map with side menus that can be scrolled horizontally */
+    /* Mobile layout: Map takes most of screen but leaves space for controls and menu access */
     .flex-row {
         flex-direction: row; /* Keep horizontal layout */
         height: 100vh;
         position: relative;
-        overflow: hidden; /* Prevent vertical scrolling */
+        overflow: hidden;
         -webkit-overflow-scrolling: touch;
     }
 
     .map {
         height: 100vh; /* Full height */
-        width: 100vw; /* Full width initially */
+        width: calc(100vw - 60px); /* Leave 60px for menu toggle button */
         border: none;
         position: relative;
-        flex: 1 1 auto; /* Take available space */
-        min-width: 50vw; /* Minimum half screen width */
+        flex: 1 1 auto;
+        min-width: calc(100vw - 60px);
     }
 
     /* Menu container with horizontal scrolling */
     .menu {
         height: 100vh;
-        width: auto; /* Allow natural width */
-        min-width: 50vw; /* Minimum half screen width */
-        position: relative;
-        z-index: 1;
+        width: auto;
+        min-width: 50vw;
+        position: fixed; /* Fixed position */
+        top: 0;
+        right: -100vw; /* Hidden by default */
+        z-index: 1001; /* Above everything */
         background: white;
         display: flex;
         flex-direction: column;
         padding-top: 5px;
         overflow: visible;
         box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        transition: right 0.3s ease-in-out; /* Smooth slide animation */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Menu visible state */
+    .menu.menu-visible {
+        right: 0; /* Slide in from right */
+    }
+
+    /* Menu toggle button */
+    .menu-toggle {
+        position: fixed;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        z-index: 1002;
+        width: 50px;
+        height: 50px;
+        background: #567CAC;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menu-toggle:hover {
+        background: #34587C;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    }
+
+    .menu-toggle.active {
+        background: #05CB63;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 6px 16px rgba(5, 203, 99, 0.4);
+    }
+
+    /* Query Statistics integrated into menu flow */
+    .query-statistics {
+        width: 100%;
+        min-width: 0;
+        flex: 0 0 auto;
+        max-height: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+        margin: 0;
+        padding: 8px;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0;
+    }
+
+    /* Main menu container - horizontal layout with scrolling */
+    .osmcat-menu {
+        display: flex;
+        flex-direction: row; /* Side by side layout */
+        flex-wrap: nowrap;
+        width: auto; /* Allow natural width for scrolling */
+        height: auto;
+        min-height: calc(100vh - 100px); /* Account for query stats and padding */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden;
+        position: relative;
+        z-index: 1;
+        gap: 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: #888 #f1f1f1;
+    }
+
+    /* All menu sections side by side */
+    .osmcat-layer,
+    .osmcat-overlay {
+        flex: 0 0 auto; /* Don't flex, use natural width */
+        width: 280px; /* Fixed width for each section */
+        min-width: 250px;
+        border: 1px solid #BBB;
+        border-right: none; /* Remove right border since sections are side by side */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: white;
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: calc(100vh - 120px); /* Account for query stats and padding */
+    }
+
+    /* Add right border to last section */
+    .osmcat-layer:last-child,
+    .osmcat-overlay:last-child {
+        border-right: 1px solid #BBB;
+    }
+
+    /* Hide the old horizontal scrolling behavior */
+    .osmcat-menu.layer-active,
+    .osmcat-menu.overlay-active {
+        width: auto !important;
+        max-width: none;
+        overflow: visible !important;
+    }
+
+    /* Adjust the default state rules */
+    .osmcat-menu .osmcat-layer,
+    .osmcat-menu .osmcat-overlay,
+    .osmcat-menu .osmcat-router-section {
+        width: 280px;
+        min-width: 250px;
+        flex: 0 0 auto;
+        max-width: 300px;
+    }
+
+    /* Custom scrollbar for horizontal scrolling */
+    .osmcat-menu::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .osmcat-menu::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .osmcat-menu::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+
+    .osmcat-menu::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 
     /* Query Statistics integrated into menu flow */
@@ -300,7 +440,21 @@
         padding: 6px;
     }
 
-    /* Mobile control buttons positioning - optimized for new layout */
+    /* Ensure OpenLayers native controls are visible above custom buttons */
+    .ol-control {
+        z-index: 1003 !important; /* Higher than custom buttons */
+    }
+
+    .ol-zoom,
+    .ol-rotate,
+    .ol-attribution,
+    .ol-scale-line,
+    .ol-mouse-position,
+    .ol-control {
+        z-index: 1003 !important;
+    }
+
+    /* Mobile control buttons positioning - avoid overlapping with OpenLayers controls */
     .osmcat-geobutton,
     .osmcat-infobutton,
     .osmcat-sharebutton,
@@ -309,13 +463,13 @@
     .osmcat-mapillary,
     .osmcat-router {
         right: 8px;
-        width: 44px !important; /* Larger for better touch targets */
+        width: 44px !important;
         height: 44px !important;
-        font-size: 18px; /* Larger icons */
-        z-index: 1002; /* Above menu */
+        font-size: 18px;
+        z-index: 1002; /* Below OpenLayers controls but above menu */
     }
 
-    /* Adjust button positions for mobile - better spacing */
+    /* Adjust button positions for mobile - avoid OpenLayers controls */
     .osmcat-router {
         top: 10px;
     }
@@ -325,11 +479,11 @@
     }
 
     .osmcat-mapillary {
-        bottom: 220px; /* Moved up from 200px for new layout */
+        bottom: 220px; /* Moved up to avoid attribution control */
     }
 
     .osmcat-panoramax {
-        bottom: 165px; /* Adjusted for new spacing */
+        bottom: 165px;
     }
 
     .osmcat-sharebutton {
@@ -362,15 +516,17 @@
         background-color: #34587C;
         color: #fff;
         outline: none;
-        transform: scale(1.05); /* Slight scale effect */
+        transform: scale(1.05);
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 1004; /* Even higher when interacting */
     }
 
     .osmcat-mapillary.active,
     .osmcat-router.active {
-        background-color: #05CB63 !important; /* Mapillary green when active */
+        background-color: #05CB63 !important;
         transform: scale(1.05);
         box-shadow: 0 4px 12px rgba(5, 203, 99, 0.4);
+        z-index: 1004; /* Higher when active */
     }
 
     /* Query Statistics mobile styles - match menu section width */

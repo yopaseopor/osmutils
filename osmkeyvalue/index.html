@@ -68,6 +68,45 @@
 			<!-- Overlays section -->
 			<div id="overlay-list" style="display: none;"></div>
 		</div>
+		<!-- Mobile menu toggle button -->
+		<button class="menu-toggle" id="menu-toggle" title="Show/Hide Menu">
+			<i class="fa fa-bars"></i>
+		</button>
+		<!-- Mobile Menu Toggle Script -->
+		<script>
+			$(document).ready(function() {
+				// Mobile menu toggle functionality
+				$('#menu-toggle').on('click', function() {
+					var $menu = $('.menu');
+					var $toggle = $(this);
+
+					if ($menu.hasClass('menu-visible')) {
+						// Hide menu
+						$menu.removeClass('menu-visible');
+						$toggle.removeClass('active');
+					} else {
+						// Show menu
+						$menu.addClass('menu-visible');
+						$toggle.addClass('active');
+					}
+				});
+
+				// Close menu when clicking outside on mobile
+				$(document).on('click', function(e) {
+					if ($(window).width() <= 599) {
+						var $menu = $('.menu');
+						var $toggle = $('#menu-toggle');
+
+						if ($menu.hasClass('menu-visible') &&
+							!$(e.target).closest('.menu').length &&
+							!$(e.target).closest('#menu-toggle').length) {
+							$menu.removeClass('menu-visible');
+							$toggle.removeClass('active');
+						}
+					}
+				});
+			});
+		</script>
 	</div>
 	<!-- Core Libraries -->
 	<script src="src/api/jquery/3.4.1/jquery.min.js"></script>
