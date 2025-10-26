@@ -1150,7 +1150,7 @@ function initValueSearch() {
         // Generate overlay info
         const overlayId = `tag_${key}_${value}`;
         const overlayTitle = `${key}=${value}`;
-        const uniqueColor = generateQueryColor(key, value, false);
+        const uniqueColor = generateQueryColor(overlayId, false); // Use overlayId for consistent colors
 
         // Create vector layer
         const vectorLayer = new ol.layer.Vector({
@@ -1217,7 +1217,8 @@ function initValueSearch() {
 
                 if (geometryType === 'LineString' || geometryType === 'MultiLineString') {
                     const isFixed = feature.get('fixedGeometry');
-                    const color = generateQueryColor(overlayId, isFixed);
+                    const color = generateQueryColor(overlayId, false); // Use consistent color base
+
                     return new ol.style.Style({
                         stroke: new ol.style.Stroke({
                             color: color,
@@ -1619,9 +1620,15 @@ function findOrCreateTagOverlaysGroup() {
     function getSelectedElementTypes() {
         // Get selected element types from checkboxes or default to all
         const elementTypesCheckboxes = $('.element-type-checkbox:checked');
+        console.log('🔍 getSelectedElementTypes: Found', elementTypesCheckboxes.length, 'checked checkboxes');
+
         if (elementTypesCheckboxes.length > 0) {
-            return elementTypesCheckboxes.map((i, el) => $(el).val()).get();
+            const values = elementTypesCheckboxes.map((i, el) => $(el).val()).get();
+            console.log('🔍 getSelectedElementTypes: Selected values:', values);
+            return values;
         }
+
+        console.log('🔍 getSelectedElementTypes: No checkboxes found, returning defaults');
         return ['node', 'way', 'relation'];
     }
 

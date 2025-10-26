@@ -626,6 +626,9 @@ function generateOverpassQuery(key, value = null, bbox, elementTypes = ['node', 
     console.log('🔧 key length:', key ? key.length : 'null', 'value length:', value ? value.length : 'null');
     console.log('🔧 bbox:', bbox);
     console.log('🔧 elementTypes:', elementTypes);
+    console.log('🔧 elementTypes.includes("node"):', elementTypes.includes('node'));
+    console.log('🔧 elementTypes.includes("way"):', elementTypes.includes('way'));
+    console.log('🔧 elementTypes.includes("relation"):', elementTypes.includes('relation'));
 
     // Validate inputs
     if (!key) {

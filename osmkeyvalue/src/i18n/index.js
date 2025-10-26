@@ -117,6 +117,16 @@ export function updateTranslations() {
             element.placeholder = translation;
         } else if (element.tagName === 'OPTION') {
             element.textContent = translation;
+        } else if (element.tagName === 'LABEL') {
+            // Special handling for labels to preserve input elements
+            const input = element.querySelector('input[type="checkbox"]');
+            if (input) {
+                // Preserve the input and only replace text content
+                const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === 3);
+                textNodes.forEach(textNode => textNode.textContent = translation);
+            } else {
+                element.textContent = translation;
+            }
         } else {
             element.textContent = translation;
         }
@@ -187,4 +197,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dispatch event when translations are initialized
     window.dispatchEvent(new CustomEvent('translationsInitialized'));
     console.log('🔧 Translations initialized and event dispatched');
-}); 
+
+    // Force update translations for static elements after initialization
+    setTimeout(() => {
+        console.log('🔄 Forcing translation update for static elements');
+        const startTime = performance.now();
+        updateTranslations();
+        console.log(`🔄 updateTranslations took ${performance.now() - startTime}ms`);
+
+        // Also translate element type filter checkboxes specifically
+        // translateElementTypeCheckboxes(); // Not needed since data-i18n system handles it automatically
+    }, 100);
+});
+
+function translateElementTypeCheckboxes() {
+    console.log('🔄 Translating element type checkboxes');
+    const startTime = performance.now();
+    // Translate the label text for element type checkboxes
+    $('.element-type-filter label').each(function() {
+        const $label = $(this);
+        const $input = $label.find('input[type="checkbox"]');
+
+        if ($input.length > 0) {
+            const value = $input.val();
+
+            // Map values to translation keys
+            let translationKey;
+            switch(value) {
+                case 'node':
+                    translationKey = 'nodesCheckbox';
+                    break;
+                case 'way':
+                    translationKey = 'waysCheckbox';
+                    break;
+                case 'relation':
+                    translationKey = 'relationsCheckbox';
+                    break;
+                default:
+                    return;
+            }
+
+            const translation = getTranslation(translationKey);
+            console.log(`🔄 Translating checkbox ${value} -> ${translation}`);
+
+            // Simply replace the text content of the label
+            const originalText = $label.text();
+            console.log(`🔄 Label text before: "${originalText}"`);
+            $label.text(translation);
+            console.log(`🔄 Label text after: "${$label.text()}"`);
+        }
+    });
+} 
