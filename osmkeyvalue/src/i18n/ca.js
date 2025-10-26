@@ -494,5 +494,19 @@ export const ca = {
     relationsCheckbox: 'Relacions',
     // Button labels
     clearButton: 'Netejar',
-    clickToRepeat: 'Fer clic per repetir'
+    clickToRepeat: 'Fer clic per repetir',
+    // Router interface
+    startLabel: 'Inici:',
+    endLabel: 'Destí:',
+    viaOptional: 'Via (opcional):',
+    searchStartLocation: 'Cercar ubicació d\'inici...',
+    searchEndLocation: 'Cercar ubicació de destí...',
+    searchViaLocation: 'Cercar ubicació via...',
+    profileLabel: 'Perfil:',
+    profileCar: 'Cotxe',
+    profileBicycle: 'Bicicleta',
+    profileWalking: 'Caminant',
+    clickMapHint: 'Fer clic al mapa per definir ubicacions',
+    calculateRoute: 'Calcular Ruta',
+    selectedOnMap: 'Seleccionat al mapa'
 }; 

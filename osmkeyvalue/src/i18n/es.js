@@ -493,5 +493,19 @@ export const es = {
     relationsCheckbox: 'Relaciones',
     // Button labels
     clearButton: 'Limpiar',
-    clickToRepeat: 'Hacer clic para repetir'
+    clickToRepeat: 'Hacer clic para repetir',
+    // Router interface
+    startLabel: 'Inicio:',
+    endLabel: 'Destino:',
+    viaOptional: 'Via (opcional):',
+    searchStartLocation: 'Buscar ubicación de inicio...',
+    searchEndLocation: 'Buscar ubicación de destino...',
+    searchViaLocation: 'Buscar ubicación via...',
+    profileLabel: 'Perfil:',
+    profileCar: 'Coche',
+    profileBicycle: 'Bicicleta',
+    profileWalking: 'Caminando',
+    clickMapHint: 'Haz clic en el mapa para establecer ubicaciones',
+    calculateRoute: 'Calcular Ruta',
+    selectedOnMap: 'Seleccionado en el mapa'
 };

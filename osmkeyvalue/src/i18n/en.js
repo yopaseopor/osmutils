@@ -345,5 +345,19 @@ export const en = {
     relationsCheckbox: 'Relations',
     // Button labels
     clearButton: 'Clear',
-    clickToRepeat: 'Click to Repeat'
+    clickToRepeat: 'Click to Repeat',
+    // Router interface
+    startLabel: 'Start:',
+    endLabel: 'End:',
+    viaOptional: 'Via (optional):',
+    searchStartLocation: 'Search start location...',
+    searchEndLocation: 'Search end location...',
+    searchViaLocation: 'Search via location...',
+    profileLabel: 'Profile:',
+    profileCar: 'Car',
+    profileBicycle: 'Bicycle',
+    profileWalking: 'Walking',
+    clickMapHint: 'Click on the map to set locations',
+    calculateRoute: 'Calculate Route',
+    selectedOnMap: 'Selected on map'
 };

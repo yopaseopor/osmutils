@@ -115,6 +115,8 @@ export function updateTranslations() {
 
         if (element.tagName === 'INPUT' && element.type === 'text') {
             element.placeholder = translation;
+        } else if (element.tagName === 'OPTION') {
+            element.textContent = translation;
         } else {
             element.textContent = translation;
         }

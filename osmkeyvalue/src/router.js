@@ -475,45 +475,103 @@ function initRouter(map) {
                     <div class="osmcat-content">
                         <div class="router-form">
                             <div class="router-input">
-                                <label>Start:</label>
+                                <label data-i18n="startLabel">Start:</label>
                                 <div class="location-input">
-                                    <input type="text" class="start-place" placeholder="Search start location...">
+                                    <input type="text" class="start-place" placeholder="Search start location..." data-i18n="searchStartLocation">
                                     <button class="search-button"><i class="fa fa-search"></i></button>
                                 </div>
                                 <div class="search-results start-results"></div>
                             </div>
                             <div class="router-input">
-                                <label>End:</label>
+                                <label data-i18n="endLabel">End:</label>
                                 <div class="location-input">
-                                    <input type="text" class="end-place" placeholder="Search end location...">
+                                    <input type="text" class="end-place" placeholder="Search end location..." data-i18n="searchEndLocation">
                                     <button class="search-button"><i class="fa fa-search"></i></button>
                                 </div>
                                 <div class="search-results end-results"></div>
                             </div>
                             <div class="router-input">
-                                <label>Via (optional):</label>
+                                <label data-i18n="viaOptional">Via (optional):</label>
                                 <div class="location-input">
-                                    <input type="text" class="via-place" placeholder="Search via location...">
+                                    <input type="text" class="via-place" placeholder="Search via location..." data-i18n="searchViaLocation">
                                     <button class="search-button"><i class="fa fa-search"></i></button>
                                 </div>
                                 <div class="search-results via-results"></div>
                             </div>
                             <div class="router-input">
-                                <label>Profile:</label>
+                                <label data-i18n="profileLabel">Profile:</label>
                                 <select class="profile-select">
-                                    <option value="car">Car</option>
-                                    <option value="bike">Bicycle</option>
-                                    <option value="foot">Walking</option>
+                                    <option value="car" data-i18n="profileCar">Car</option>
+                                    <option value="bike" data-i18n="profileBicycle">Bicycle</option>
+                                    <option value="foot" data-i18n="profileWalking">Walking</option>
                                 </select>
                             </div>
                             <div class="click-hint">
-                                <i class="fa fa-info-circle"></i> Click on the map to set locations
+                                <i class="fa fa-info-circle"></i> <span data-i18n="clickMapHint">Click on the map to set locations</span>
                             </div>
-                            <button class="calculate-route">Calculate Route</button>
+                            <button class="calculate-route" data-i18n="calculateRoute">Calculate Route</button>
                         </div>
                     </div>
                 </div>
             `);
+
+            // Update translations for the newly created router content
+            const updateRouterTranslationsNow = function() {
+                if (window.updateTranslations) {
+                    window.updateTranslations();
+                    console.log('🔄 Router translations updated');
+
+                    // Debug: Log all elements with data-i18n in the router
+                    const routerElements = routerContent.find('[data-i18n]');
+                    console.log('🔍 Router elements with data-i18n:', routerElements.length);
+                    routerElements.each(function() {
+                        const key = $(this).attr('data-i18n');
+                        const translation = window.getTranslation(key);
+                        console.log(`🔍 ${key} -> ${translation}`);
+                    });
+                } else {
+                    console.warn('⚠️ updateTranslations not available, retrying in 100ms...');
+                    setTimeout(updateRouterTranslationsNow, 100);
+                }
+            };
+
+            // Try to update translations immediately, with retry if needed
+            updateRouterTranslationsNow();
+
+            // Also try after a short delay to ensure everything is loaded
+            setTimeout(updateRouterTranslationsNow, 50);
+
+            // Listen for translationsInitialized event
+            const handleTranslationsInitialized = function() {
+                console.log('🔄 Translations initialized, updating router...');
+                updateRouterTranslationsNow();
+            };
+
+            window.addEventListener('translationsInitialized', handleTranslationsInitialized);
+
+            // Listen for language changes to update router translations
+            const updateRouterTranslations = function() {
+                if (window.updateTranslations) {
+                    window.updateTranslations();
+                    console.log('🔄 Router translations updated after language change');
+                }
+            };
+
+            window.addEventListener('languageChanged', updateRouterTranslations);
+
+            // Clean up event listeners when router is closed
+            routerContent.find('.osmcat-select').on('click', function() {
+                window.removeEventListener('translationsInitialized', handleTranslationsInitialized);
+                window.removeEventListener('languageChanged', updateRouterTranslations);
+                if (clickHandler) {
+                    map.un('singleclick', clickHandler);
+                    clickHandler = null;
+                }
+                routerContent.remove();
+                // Deactivate the router button if present
+                $('.router-btn').removeClass('active');
+                $('.osmcat-menu').removeClass('router-active');
+            });
 
             // Handle map clicks
             clickHandler = function(evt) {
@@ -524,17 +582,17 @@ function initRouter(map) {
                     if (startMarker) map.removeOverlay(startMarker);
                     startPlace = { lon: lonlat[0], lat: lonlat[1] };
                     startMarker = createMarker(coordinate, 'start');
-                    routerContent.find('.start-place').val('Selected on map');
+                    routerContent.find('.start-place').val(window.getTranslation('selectedOnMap'));
                 } else if (!endPlace) {
                     if (endMarker) map.removeOverlay(endMarker);
                     endPlace = { lon: lonlat[0], lat: lonlat[1] };
                     endMarker = createMarker(coordinate, 'end');
-                    routerContent.find('.end-place').val('Selected on map');
+                    routerContent.find('.end-place').val(window.getTranslation('selectedOnMap'));
                 } else if (!viaPlace) {
                     if (viaMarker) map.removeOverlay(viaMarker);
                     viaPlace = { lon: lonlat[0], lat: lonlat[1] };
                     viaMarker = createMarker(coordinate, 'via');
-                    routerContent.find('.via-place').val('Selected on map');
+                    routerContent.find('.via-place').val(window.getTranslation('selectedOnMap'));
                 }
 
                 // Calculate route automatically if we have start and end points
