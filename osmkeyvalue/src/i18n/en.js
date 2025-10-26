@@ -359,5 +359,13 @@ export const en = {
     profileWalking: 'Walking',
     clickMapHint: 'Click on the map to set locations',
     calculateRoute: 'Calculate Route',
-    selectedOnMap: 'Selected on map'
+    selectedOnMap: 'Selected on map',
+    // Mapillary Street View translations
+    streetViewTitle: '📷 Street View <small>(click to close)</small>',
+    mapillaryStreetView: 'Mapillary Street View',
+    clickBelowOpenImagery: 'Click below to open street-level imagery in a new window',
+    locationPreview: 'Location Preview',
+    clickMapSetLocation: 'Click on the map to set a location',
+    interactiveMapOpenNewWindow: 'Interactive map will open in new window',
+    openMapillary: 'Open Mapillary'
 };

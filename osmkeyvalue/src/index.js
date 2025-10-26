@@ -1206,6 +1206,23 @@ $(function() {
     setTimeout(updateOverlaySummary, 1000);
 });
 
+// Overlay summary management
+function setOverlaySummary(summary) {
+    console.log('📊 Overlay summary:', summary);
+
+    // Update any UI element that displays overlay summary
+    const summaryElement = document.getElementById('overlay-summary') ||
+                          document.querySelector('.overlay-summary') ||
+                          document.querySelector('#overlay-count');
+
+    if (summaryElement) {
+        summaryElement.textContent = summary;
+    }
+}
+
+// Make it available globally
+window.setOverlaySummary = setOverlaySummary;
+
 function updatePermalink() {
     console.log('🔗 updatePermalink called - START');
 

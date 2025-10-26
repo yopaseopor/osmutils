@@ -507,5 +507,13 @@ export const es = {
     profileWalking: 'Caminando',
     clickMapHint: 'Haz clic en el mapa para establecer ubicaciones',
     calculateRoute: 'Calcular Ruta',
-    selectedOnMap: 'Seleccionado en el mapa'
+    selectedOnMap: 'Seleccionado en el mapa',
+    // Mapillary Street View translations
+    streetViewTitle: '📷 Street View <small>(hacer clic para cerrar)</small>',
+    mapillaryStreetView: 'Mapillary Street View',
+    clickBelowOpenImagery: 'Hacer clic abajo para abrir imágenes de nivel de calle en una nueva ventana',
+    locationPreview: 'Vista previa de ubicación',
+    clickMapSetLocation: 'Hacer clic en el mapa para establecer una ubicación',
+    interactiveMapOpenNewWindow: 'El mapa interactivo se abrirá en una nueva ventana',
+    openMapillary: 'Abrir Mapillary'
 };

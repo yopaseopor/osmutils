@@ -508,5 +508,13 @@ export const ca = {
     profileWalking: 'Caminant',
     clickMapHint: 'Fer clic al mapa per definir ubicacions',
     calculateRoute: 'Calcular Ruta',
-    selectedOnMap: 'Seleccionat al mapa'
+    selectedOnMap: 'Seleccionat al mapa',
+    // Mapillary Street View translations
+    streetViewTitle: '📷 Street View <small>(fer clic per tancar)</small>',
+    mapillaryStreetView: 'Mapillary Street View',
+    clickBelowOpenImagery: 'Fer clic a sota per obrir imatges de carrer en una nova finestra',
+    locationPreview: 'Previsualització d\'ubicació',
+    clickMapSetLocation: 'Fer clic al mapa per definir una ubicació',
+    interactiveMapOpenNewWindow: 'El mapa interactiu s\'obrirà en una nova finestra',
+    openMapillary: 'Obrir Mapillary'
 }; 

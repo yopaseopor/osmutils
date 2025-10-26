@@ -127,6 +127,9 @@ export function updateTranslations() {
             } else {
                 element.textContent = translation;
             }
+        } else if (translation.includes('<')) {
+            // Handle HTML content in translations for any element
+            element.innerHTML = translation;
         } else {
             element.textContent = translation;
         }
