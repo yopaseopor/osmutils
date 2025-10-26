@@ -18,6 +18,8 @@ export const en = {
     moveLayerDown: 'Move layer down',
     searchLayers: 'Search layers...',
     searchOverlays: 'Search overlays...',
+    searchOsmKeys: 'Search OSM keys...',
+    searchOsmValues: 'Search OSM values...',
     // From animal.js
     animal_boarding: 'Animal boarding',
     animal_shelter: 'Animal shelter',

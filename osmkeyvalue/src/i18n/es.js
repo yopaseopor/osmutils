@@ -19,6 +19,8 @@ export const es = {
     moveLayerDown: 'Mover capa abajo',
     searchLayers: 'Buscar capas...',
     searchOverlays: 'Buscar superposiciones...',
+    searchOsmKeys: 'Buscar claves OSM...',
+    searchOsmValues: 'Buscar valores OSM...',
     
     // From animal.js
     animal_boarding: 'Alojamiento de animales',

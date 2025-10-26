@@ -19,6 +19,8 @@ export const ca = {
     moveLayerDown: 'Moure capa avall',
     searchLayers: 'Cercar capes...',
     searchOverlays: 'Cercar superposicions...',
+    searchOsmKeys: 'Cercar claus OSM...',
+    searchOsmValues: 'Cercar valors OSM...',
     
     // From animal.js
     animal_boarding: 'Pensió per a animals',
